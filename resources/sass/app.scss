@@ -27,18 +27,20 @@ html{
     background-color: white !important;
 }
 
+.debug{
+    border: 1px solid red;
+}
 
 
 
-
-//@import '~animate.css/animate';
+@import '~animate.css/animate';
 //npm install animate.css --save
 
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 //
 ////Set your colors
-$primary: hsl(136, 55%, 28%);
+$primary: hsl(223, 76%, 40%);
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);

@@ -1,51 +1,50 @@
 <template>
     <div>
 
-        <section class="hero is-fullheight">
-            <!-- Hero head: will stick at the top -->
-            <div class="hero-head">
-                <b-navbar>
-                    <template #brand>
-                        <img class ="logo"
-                             src="/img/logogadtc.png">
-                    </template>
+        <b-navbar class="animate__animated animate__fadeIn">
+            <template #brand>
+                <b-navbar-item>
+                    <img class ="logo"
+                         src="/img/logo.png">
+                </b-navbar-item>
+            </template>
 
-                    <template #start>
-                        <b-navbar-item href="/">
-                            Home
-                        </b-navbar-item>
-                        <b-navbar-item href="#">
-                            About
-                        </b-navbar-item>
-                        <b-navbar-item href="#">
-                            Contact
-                        </b-navbar-item>
+            <template #start>
+                <b-navbar-item href="/">
+                    Home
+                </b-navbar-item>
+                <b-navbar-item href="#">
+                    About
+                </b-navbar-item>
+                <b-navbar-item href="#">
+                    Contact
+                </b-navbar-item>
+            </template>
 
-                    </template>
+            <template #end>
+                <b-navbar-item tag="div">
 
-                    <template #end>
-                        <b-navbar-item tag="div">
-                            <div class="buttons">
-                                <a class="button is-primary" href="/sign-up">
-                                    <strong>Sign up</strong>
-                                </a>
-                                <a class="button is-light" @click="isModalActive = true">
-                                    Log in
-                                </a>
-                            </div>
-                        </b-navbar-item>
-                    </template>
-                </b-navbar>
-            </div>
+                    <b-navbar-item href="/sign-up">
+                        <strong>Sign up</strong>
+                    </b-navbar-item>
+                    <b-navbar-item @click="isModalActive = true">
+                        <strong>Log in</strong>
+                    </b-navbar-item>
 
+                </b-navbar-item>
+            </template>
+        </b-navbar>
+
+
+        <section class="hero is-primary is-fullheight-with-navbar">
             <!-- Hero content: will be in the middle -->
             <div class="hero-body">
-                <div class="container has-text-centered">
+                <div class="">
                     <p class="title animate__animated animate__backInLeft">
-                        GOV. ALFONSO D. TAN COLLEGE
+                        B-WAZE
                     </p>
-                    <p class="subtitle animate__animated animate__backInRight ">
-                        SCHOOL PASS
+                    <p class="subtitle animate__animated animate__backInRight">
+                        Boarding House Locator and Reservation
                     </p>
                 </div>
             </div>
@@ -67,32 +66,8 @@
             </div>
         </section>
 
-        <section>
-            <div class="columns">
-                <div class="column is-6 is-offset-3">
-                    <div class="time-container">
-                        <div class="reserve-control p-2">
-                            <h1 class="title is-4 mb-4">APPOINT NOW</h1>
-                            <b-field label="SELECT DATE" grouped  expanded class="is-centered" label-position="on-border">
-                                <b-datetimepicker rounded expanded
-                                      placeholder="Type or select a date..."
-                                      icon="calendar-today"
-                                      :locale="locale"
-                                      editable>
-                                </b-datetimepicker>
-                            </b-field>
-                            <b-field label="APPOINTMENT" expanded label-position="on-border">
-                                <b-select v-model="appointment_type" expanded rounded>
-                                    <option v-for="(item, index) in appointmentTypes" :key="index" :value="item.appointment_type_id">{{ item.appointment_type }}</option>
-                                </b-select>
-                            </b-field>
-                            <div class="buttons is-right">
-                                <b-button class="button is-primary is-rounded">APPOINT NOW</b-button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section class="section">
+            <boarding-house-list></boarding-house-list>
         </section>
 
 
@@ -329,7 +304,6 @@ export default {
 
     methods: {
         submit: function(){
-
             axios.post('/login', this.fields).then(res=>{
                 window.location = '/dashboard'
             }).catch(err => {
@@ -348,13 +322,16 @@ export default {
     },
 
     mounted() {
-        this.loadAppointmentType();
+
     }
 }
 </script>
 
 <style scoped>
 
+.logo{
+    height: 80px;
+}
 
     /*.hero{*/
     /*    background-image: url("/img/bg-hero.jpg");*/
