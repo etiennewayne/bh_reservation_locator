@@ -25,10 +25,10 @@
                 <b-navbar-item tag="div">
 
                     <b-navbar-item href="/sign-up">
-                        <strong>Sign up</strong>
+                        <strong>Register</strong>
                     </b-navbar-item>
                     <b-navbar-item @click="isModalActive = true">
-                        <strong>Log in</strong>
+                        <strong>Sign in</strong>
                     </b-navbar-item>
 
                 </b-navbar-item>
@@ -41,10 +41,10 @@
             <div class="hero-body">
                 <div class="">
                     <p class="title animate__animated animate__backInLeft">
-                        B-WAZE
+                        BHLMS
                     </p>
                     <p class="subtitle animate__animated animate__backInRight">
-                        Boarding House Locator and Reservation
+                        Boarding House Locator and Manangement System
                     </p>
                 </div>
             </div>
@@ -331,6 +331,10 @@ export default {
 
 .logo{
     height: 80px;
+}
+
+.modal > modal-background{
+    background-color: red;
 }
 
     /*.hero{*/

@@ -28,6 +28,9 @@ class UserSeeder extends Seeder
                 'street' => 'P-6',
                 'email' => 'angel@dev.com',
                 'contact_no' => '09167789581',
+                'guardian_name' => 'JUAN DELA CRUZ',
+                'guardian_contact_no' => '09167789581',
+                'guardian_address' => 'POB. BONIFACIO',
                 'role' => 'BOARDER',
                 'password' => Hash::make('a')
             ],
@@ -43,6 +46,9 @@ class UserSeeder extends Seeder
                 'street' => 'P-SAMPLE',
                 'email' => 'riche@dev.com',
                 'contact_no' => '09167789582',
+                'guardian_name' => 'JUAN DELA CRUZ',
+                'guardian_contact_no' => '09167789581',
+                'guardian_address' => 'POB. BONIFACIO',
                 'role' => 'owner',
                 'password' => Hash::make('a')
             ],
@@ -58,6 +64,9 @@ class UserSeeder extends Seeder
                 'street' => 'P-SAMPLE',
                 'email' => 'jerecho@dev.com',
                 'contact_no' => '09167789583',
+                'guardian_name' => 'JUAN DELA CRUZ',
+                'guardian_contact_no' => '09167789581',
+                'guardian_address' => 'POB. BONIFACIO',
                 'role' => 'BOARDER',
                 'password' => Hash::make('a')
             ],
@@ -73,6 +82,9 @@ class UserSeeder extends Seeder
                 'street' => 'P-SAMPLE',
                 'email' => 'admin@dev.com',
                 'contact_no' => '09167789584',
+                'guardian_name' => 'JUAN DELA CRUZ',
+                'guardian_contact_no' => '09167789581',
+                'guardian_address' => 'POB. BONIFACIO',
                 'role' => 'ADMINISTRATOR',
                 'password' => Hash::make('a')
             ],
@@ -88,6 +100,9 @@ class UserSeeder extends Seeder
                 'street' => 'P-SAMPLE',
                 'email' => 'kimchie@dev.com',
                 'contact_no' => '09267789584',
+                'guardian_name' => 'JUAN DELA CRUZ',
+                'guardian_contact_no' => '09167789581',
+                'guardian_address' => 'POB. BONIFACIO',
                 'role' => 'BOARDER',
                 'password' => Hash::make('a')
             ]

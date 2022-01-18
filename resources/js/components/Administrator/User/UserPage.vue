@@ -532,7 +532,7 @@ export default{
 </script>
 
 
-<style>
+<style scoped>
     .panel{
         padding: 25px;
     }

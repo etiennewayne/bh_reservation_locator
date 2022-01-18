@@ -18,12 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
+
+
+
 Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/sign-up', [App\Http\Controllers\SignUpController::class, 'index']);
+Route::get('/register', [App\Http\Controllers\RegisterPageController::class, 'index']);
 
 
 
