@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
         //
         $data = [
             [
-                'qr_ref' => 'AA1234',
                 'username' => 'angel',
                 'lname' => 'LOPEZ',
                 'fname' => 'ANGEL',
@@ -28,13 +27,12 @@ class UserSeeder extends Seeder
                 'barangay' => 'CANIANGAN',
                 'street' => 'P-6',
                 'email' => 'angel@dev.com',
-                'contact_no' => '09167789585',
-                'role' => 'ADMINISTRATOR',
+                'contact_no' => '09167789581',
+                'role' => 'BOARDER',
                 'password' => Hash::make('a')
             ],
             [
-                'qr_ref' => 'BB1234',
-                'username' => 'riche',
+                'username' => 'owner',
                 'lname' => 'MAGLANGIT',
                 'fname' => 'RICHE',
                 'mname' => '',
@@ -44,17 +42,31 @@ class UserSeeder extends Seeder
                 'barangay' => 'SINUSZA',
                 'street' => 'P-SAMPLE',
                 'email' => 'riche@dev.com',
-                'contact_no' => '09167789584',
-                'role' => 'USER',
+                'contact_no' => '09167789582',
+                'role' => 'owner',
                 'password' => Hash::make('a')
             ],
             [
-                'qr_ref' => 'AAA111',
-                'username' => 'admin',
-                'lname' => 'AMPARADO',
-                'fname' => 'ETIENNE WAYNE',
+                'username' => 'jerecho',
+                'lname' => 'MELLEJOR',
+                'fname' => 'JERECHO',
                 'mname' => '',
                 'sex' => 'MALE',
+                'province' => 'MISMAIS OCCIDENTAL',
+                'city' => 'OZAMIS CITY',
+                'barangay' => 'SINUSZA',
+                'street' => 'P-SAMPLE',
+                'email' => 'jerecho@dev.com',
+                'contact_no' => '09167789583',
+                'role' => 'BOARDER',
+                'password' => Hash::make('a')
+            ],
+            [
+                'username' => 'admin',
+                'lname' => 'ALGADIPE',
+                'fname' => 'HESSEL',
+                'mname' => '',
+                'sex' => 'FEMALE',
                 'province' => 'MISMAIS OCCIDENTAL',
                 'city' => 'OZAMIS CITY',
                 'barangay' => 'SINUSZA',
@@ -62,6 +74,21 @@ class UserSeeder extends Seeder
                 'email' => 'admin@dev.com',
                 'contact_no' => '09167789584',
                 'role' => 'ADMINISTRATOR',
+                'password' => Hash::make('a')
+            ],
+            [
+                'username' => 'kimchie',
+                'lname' => 'HIBAYA',
+                'fname' => 'NIMCHIE',
+                'mname' => '',
+                'sex' => 'FEMALE',
+                'province' => 'MISMAIS OCCIDENTAL',
+                'city' => 'OZAMIS CITY',
+                'barangay' => 'SINUSZA',
+                'street' => 'P-SAMPLE',
+                'email' => 'kimchie@dev.com',
+                'contact_no' => '09267789584',
+                'role' => 'BOARDER',
                 'password' => Hash::make('a')
             ]
         ];
