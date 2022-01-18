@@ -354,144 +354,28 @@ export default {
 </script>
 
 <style scoped>
-    .logo{
-        height: 150px;
-    }
-
-    .hero{
-        background-image: url("/img/bg-hero.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .hero-body > .container > .title{
-        color: white;
-        font-size: 3em;
-    }
-    .hero-body > .container > .subtitle{
-        color: white;
-        font-size: 2em;
-    }
-
-    .time-container{
-        position: relative;
-        top: -100px;
-        z-index: 1;
-        padding: 15px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
-
-    .reserve-control{
-        margin: auto;
-    }
 
 
-    .mission-title{
-        font-size: 1.5em;
-    }
-    .mission-wrapper{
-        max-width: 640px;
-        font-size: 1.5em;
-        margin: auto;
-    }
-    .mission-section{
-        display: flex;
-        justify-content: center;
-    }
-    .mission-img{
-        margin: auto;
-    }
-    .mission-section > div{
-        margin: 15px;
-    }
+    /*.hero{*/
+    /*    background-image: url("/img/bg-hero.jpg");*/
+    /*    background-repeat: no-repeat;*/
+    /*    background-size: cover;*/
+    /*}*/
 
 
-    .vision-section{
-        margin-top: 50px;
-        display: flex;
-        justify-content: center;
-    }
-    .vision-title{
-        font-size: 1.5em;
-    }
-    .vision-wrapper{
-        max-width: 640px;
-        font-size: 1.5em;
-        margin: auto;
-    }
-    .vision-img{
-        margin: auto;
-    }
-    .vision-section > div{
-        margin: 15px;
-    }
 
-    @media only screen and (max-width: 1024px) {
-        .vision-section{
-            flex-direction: column;
-            align-items: center;
-        }
+    /*@media only screen and (max-width: 1024px) {*/
+    /*    .vision-section{*/
+    /*        flex-direction: column;*/
+    /*        align-items: center;*/
+    /*    }*/
 
-        .mission-section{
-            flex-direction: column;
-            align-items: center;
-        }
+    /*    .mission-section{*/
+    /*        flex-direction: column;*/
+    /*        align-items: center;*/
+    /*    }*/
 
-    }
+    /*}*/
 
-
-    .mask{
-        border-radius: 50%;
-         width:200px;
-    }
-
-    .hand{
-        border-radius: 50%;
-        width:200px;
-
-    }
-
-    .touch{
-        border-radius: 50%;
-        width:200px;
-    }
-    .tissue{
-        border-radius: 50%;
-        width:200px;
-    }
-     .dist{
-        border-radius: 50%;
-        width:200px;
-    }
-
-    .footertwo{
-        background-color: whitesmoke;
-        color: black;
-        width: 100%;
-        margin: auto;
-    }
-    .footertwo-logo{
-        width: 100px;
-        margin: auto;
-    }
-    .footertwo-logo-wrapper{
-        display: flex;
-        height: 100px;
-         width: 100px;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-    }.flex-container {
-  display: flex;
-
-}
-.flex-container > div {
-
-  margin: 10px;
-  padding: 10px;
-  font-size: 20px;
-}
 
 </style>
