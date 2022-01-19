@@ -15,8 +15,8 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id('payment_id');
-            $table->unsignedBigInteger('book_bedroom_id');
-            $table->foreign('book_bedroom_id')->references('book_bedroom_id')->on('book_bedrooms');
+            $table->unsignedBigInteger('book_bedspace_id');
+            $table->foreign('book_bedspace_id')->references('book_bedspace_id')->on('book_bedspaces');
             $table->double('payment_price')->default(0);
             $table->date('payment_date')->nullable();
             $table->timestamps();

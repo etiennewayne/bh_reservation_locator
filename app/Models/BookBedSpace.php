@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BedRoom extends Model
+class BookBedSpace extends Model
 {
     use HasFactory;
 
-    protected $table = 'bedrooms';
-    protected $primaryKey = 'bedroom_id';
+    protected $table = 'book_bedspaces';
+    protected $primaryKey = 'book_bedspace_id';
 }

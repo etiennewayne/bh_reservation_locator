@@ -2,5 +2,8 @@
 
 @section('content')
 
+    {{ auth()->user()->role }}
+
+
 @endsection
 

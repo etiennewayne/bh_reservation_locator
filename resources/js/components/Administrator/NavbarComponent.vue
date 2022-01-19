@@ -111,7 +111,8 @@ export default {
 
     .mynav{
         padding: 25px;
-        border-bottom: 2px solid rgba(22, 69, 28, 0.53);
+        /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     }
 
 </style>

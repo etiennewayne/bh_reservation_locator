@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookBedrooms extends Migration
+class CreateBookBedspaces extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateBookBedrooms extends Migration
      */
     public function up()
     {
-        Schema::create('book_bedrooms', function (Blueprint $table) {
-            $table->id('book_bedroom_id');
-            $table->unsignedBigInteger('bedroom_id');
-            $table->foreign('bedroom_id')->references('bedroom_id')->on('bedrooms');
+        Schema::create('book_bedspaces', function (Blueprint $table) {
+            $table->id('book_bedspace_id');
+            $table->unsignedBigInteger('bedspace_id');
+            $table->foreign('bedspace_id')->references('bedspace_id')->on('bedspaces');
             $table->unsignedBigInteger('book_user_id');
             $table->foreign('book_user_id')->references('user_id')->on('users');
             $table->date('book_date')->nullable();
@@ -34,6 +34,6 @@ class CreateBookBedrooms extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_bedrooms');
+        Schema::dropIfExists('book_bedspaces');
     }
 }

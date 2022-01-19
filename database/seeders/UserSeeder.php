@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09167789581',
                 'guardian_address' => 'POB. BONIFACIO',
-                'role' => 'owner',
+                'role' => 'LANDOWNER',
                 'password' => Hash::make('a')
             ],
             [

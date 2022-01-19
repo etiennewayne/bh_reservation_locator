@@ -21,14 +21,17 @@ Route::get('/', function () {
 Auth::routes([
     'register' => false,
 ]);
-
+Route::middleware('guest')->get('/gate', function () {
+    //this route will check and redirect user
+});
 
 
 Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/register', [App\Http\Controllers\RegisterPageController::class, 'index']);
+Route::resource('/register', App\Http\Controllers\RegisterPageController::class);
+
 
 
 
@@ -47,10 +50,17 @@ Route::resource('/dashboard', App\Http\Controllers\Administrator\AdminDashboardC
 Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
 
-Route::resource('/appointment-type', App\Http\Controllers\Administrator\AppointmentTypeController::class);
-Route::get('/get-appointment-types', [App\Http\Controllers\Administrator\AppointmentTypeController::class, 'getAppointmentTypes']);
-Route::get('/get-open-appointment-types', [App\Http\Controllers\AppointmentTypeOpenController::class, 'getAppointmentTypes']);
 
+
+
+
+
+
+//LANDOWNER
+Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\LandownerDashboardController::class);
+
+Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class);
+Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBhouses']);
 
 
 

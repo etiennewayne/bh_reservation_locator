@@ -19,8 +19,8 @@ class CreateReservationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
 
-            $table->unsignedBigInteger('bedroom_id');
-            $table->foreign('bedroom_id')->references('bedroom_id')->on('bedrooms');
+            $table->unsignedBigInteger('bedspace_id');
+            $table->foreign('bedspace_id')->references('bedspace_id')->on('bedspaces');
 
             $table->text('remarks')->nullable();
             $table->date('date_reserve')->nullable();

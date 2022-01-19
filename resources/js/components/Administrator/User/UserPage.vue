@@ -118,87 +118,59 @@
                         <div class="">
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Username" label-position="on-border"
+                                    <b-field label="Username"
                                              :type="this.errors.username ? 'is-danger':''"
                                              :message="this.errors.username ? this.errors.username[0] : ''">
-                                        <b-input v-model="fields.username"
-                                                 placeholder="Username" required>
-                                        </b-input>
+                                        <b-input v-model="fields.username" type="text" icon="account"></b-input>
                                     </b-field>
                                 </div>
                             </div>
 
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Last Name" label-position="on-border"
-                                             :type="this.errors.lname ? 'is-danger':''"
-                                             :message="this.errors.lname ? this.errors.lname[0] : ''">
-                                        <b-input v-model="fields.lname"
-                                                 placeholder="Last Name" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="First Name" label-position="on-border"
-                                             :type="this.errors.fname ? 'is-danger':''"
-                                             :message="this.errors.fname ? this.errors.fname[0] : ''">
-                                        <b-input v-model="fields.fname"
-                                                 placeholder="First Name" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Middle Name" label-position="on-border"
-                                             :type="this.errors.mname ? 'is-danger':''"
-                                             :message="this.errors.mname ? this.errors.mname[0] : ''">
-                                        <b-input v-model="fields.mname"
-                                                 placeholder="Middle Name">
-                                        </b-input>
-                                    </b-field>
-                                </div>
-
-                                <div class="column">
-                                    <b-field label="Email" label-position="on-border"
-                                             :type="this.errors.email ? 'is-danger':''"
-                                             :message="this.errors.email ? this.errors.email[0] : ''">
-                                        <b-input type="email" v-model="fields.email"
-                                                 placeholder="Email" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Contact No" label-position="on-border"
-                                             :type="this.errors.contact_no ? 'is-danger':''"
-                                             :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
-                                        <b-input type="number" v-model="fields.contact_no"
-                                                 placeholder="Contact No" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                            </div>
                             <div class="columns" v-if="global_id < 1">
                                 <div class="column">
-                                    <b-field label="Password" label-position="on-border"
+                                    <b-field label="Password"
                                              :type="this.errors.password ? 'is-danger':''"
                                              :message="this.errors.password ? this.errors.password[0] : ''">
-                                        <b-input type="password" password-reveal v-model="fields.password"
-                                                 placeholder="Password" required>
-                                        </b-input>
+                                        <b-input type="password" v-model="fields.password" icon="lock" password-reveal></b-input>
                                     </b-field>
                                 </div>
                                 <div class="column">
-                                    <b-field label="Confirm Password" label-position="on-border"
-                                             :type="this.errors.password_confirmation ? 'is-danger':''"
-                                             :message="this.errors.password_confirmation ? this.errors.password_confirmation[0] : ''">
-                                        <b-input type="password" v-model="fields.password_confirmation"
-                                                 placeholder="Confirm Password" required>
-                                        </b-input>
+                                    <b-field label="Re-type Password">
+                                        <b-input type="password" v-model="fields.password_confirmation" password-reveal></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Email"
+                                             :type="this.errors.email ? 'is-danger':''"
+                                             :message="this.errors.email ? this.errors.email[0] : ''">
+                                        <b-input v-model="fields.email" placeholder="E-mail" type="email"></b-input>
+                                    </b-field>
+                                </div>
+                                <div class="column">
+                                    <b-field label="Contact No"
+                                             :type="this.errors.contact_no ? 'is-danger':''"
+                                             :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
+                                        <b-input type="text" placeholder="Contact No" v-model="fields.contact_no"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Last Name"
+                                             :type="this.errors.lname ? 'is-danger':''"
+                                             :message="this.errors.lname ? this.errors.lname[0] : ''">
+                                        <b-input v-model="fields.lname" placeholder="Last Name" type="text"></b-input>
+                                    </b-field>
+                                </div>
+                                <div class="column">
+                                    <b-field label="First Name"
+                                             :type="this.errors.fname ? 'is-danger':''"
+                                             :message="this.errors.fname ? this.errors.fname[0] : ''">
+                                        <b-input v-model="fields.fname" placeholder="First Name" type="text"></b-input>
                                     </b-field>
                                 </div>
                             </div>
@@ -206,35 +178,75 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Sex" label-position="on-border" expanded
+                                    <b-field label="Middle Name">
+                                        <b-input placeholder="Middle Name" v-model="fields.mname" type="text"></b-input>
+                                    </b-field>
+                                </div>
+                                <div class="column">
+                                    <b-field label="Suffix">
+                                        <b-input placeholder="Middle Name" v-model="fields.suffix" type="text"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Sex" expanded
                                              :type="this.errors.sex ? 'is-danger':''"
-                                             :message="this.errors.sex ? this.errors.sex[0] : ''"
-                                            >
-                                        <b-select v-model="fields.sex" expanded>
+                                             :message="this.errors.sex ? this.errors.sex[0] : ''">
+                                        <b-select placeholder="Sex" v-model="fields.sex" icon="account" expanded>
                                             <option value="MALE">MALE</option>
                                             <option value="FEMALE">FEMALE</option>
                                         </b-select>
                                     </b-field>
                                 </div>
-
                                 <div class="column">
-                                    <b-field label="Role" label-position="on-border" expanded
+                                    <b-field label="Role" expanded
                                              :type="this.errors.role ? 'is-danger':''"
-                                             :message="this.errors.role ? this.errors.role[0] : ''"
-                                            >
-                                        <b-select v-model="fields.role" expanded>
-                                            <option value="ADMIN">ADMINISTRATOR</option>
-                                            <option value="USER">USER</option>
+                                             :message="this.errors.role ? this.errors.role[0] : ''">
+                                        <b-select placeholder="Role" v-model="fields.role" icon="account" expanded>
+                                            <option value="BOARDER">BOARDER</option>
+                                            <option value="LANDOWNER">LANDOWNER</option>
                                         </b-select>
                                     </b-field>
                                 </div>
                             </div>
 
+                            <div v-if="fields.role === 'BOARDER'">
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Guardian Name" expanded
+                                                 :type="this.errors.guardian_name ? 'is-danger':''"
+                                                 :message="this.errors.guardian_name ? this.errors.guardian_name[0] : ''">
+                                            <b-input type="text" v-model="fields.guardian_name" placeholder="Guardian Name"></b-input>
+                                        </b-field>
+                                    </div>
+                                    <div class="column">
+                                        <b-field label="Guardian Contact No" expanded
+                                                 :type="this.errors.guardian_contact_no ? 'is-danger':''"
+                                                 :message="this.errors.guardian_contact_no ? this.errors.guardian_contact_no[0] : ''">
+                                            <b-input type="text" v-model="fields.guardian_contact_no" placeholder="Guardian Contact No"></b-input>
+                                        </b-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="fields.role === 'BOARDER'">
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-field label="Guardian Address" expanded
+                                                 :type="this.errors.guardian_address ? 'is-danger':''"
+                                                 :message="this.errors.guardian_address ? this.errors.guardian_address[0] : ''">
+                                            <b-input type="text" v-model="fields.guardian_address" placeholder="Guardian Address"></b-input>
+                                        </b-field>
+                                    </div>
+                                </div>
+                            </div>
 
 
+                            <hr>
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Province" label-position="on-border" expanded
+                                    <b-field label="Province" expanded
                                              :type="this.errors.province ? 'is-danger':''"
                                              :message="this.errors.province ? this.errors.province[0] : ''">
                                         <b-select v-model="fields.province" @input="loadCity" expanded>
@@ -244,7 +256,7 @@
                                 </div>
 
                                 <div class="column">
-                                    <b-field label="City" label-position="on-border" expanded
+                                    <b-field label="City" expanded
                                              :type="this.errors.city ? 'is-danger':''"
                                              :message="this.errors.city ? this.errors.city[0] : ''">
                                         <b-select v-model="fields.city" @input="loadBarangay" expanded>
@@ -254,9 +266,10 @@
                                 </div>
                             </div>
 
+
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Barangay" label-position="on-border" expanded
+                                    <b-field label="Barangay" expanded
                                              :type="this.errors.barangay ? 'is-danger':''"
                                              :message="this.errors.barangay ? this.errors.barangay[0] : ''">
                                         <b-select v-model="fields.barangay" expanded>
@@ -265,9 +278,9 @@
                                     </b-field>
                                 </div>
                                 <div class="column">
-                                    <b-field label="Street" label-position="on-border">
+                                    <b-field label="Street">
                                         <b-input v-model="fields.street"
-                                                 placeholder="Street" required>
+                                                 placeholder="Street">
                                         </b-input>
                                     </b-field>
                                 </div>

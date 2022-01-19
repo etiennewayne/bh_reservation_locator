@@ -19,6 +19,7 @@ class BoardingHouseSeeder extends Seeder
         $data = [
             [
               'bhouse_name' => 'DACLES BOARDING HOUSE',
+              'user_id' => 2,
               'owner' => 'DACLES',
               'business_permit' => '000-1111',
               'bhouse_img_path' => '',
@@ -27,6 +28,7 @@ class BoardingHouseSeeder extends Seeder
             ],
             [
                 'bhouse_name' => 'FUENTES BOARDING HOUSE',
+                'user_id' => 2,
                 'owner' => 'FUENTES',
                 'business_permit' => '000-1112',
                 'bhouse_img_path' => '',
@@ -35,6 +37,7 @@ class BoardingHouseSeeder extends Seeder
             ],
             [
                 'bhouse_name' => 'SIETE BOARDING HOUSE',
+                'user_id' => 2,
                 'owner' => 'SIETE',
                 'business_permit' => '000-1113',
                 'bhouse_img_path' => '',
@@ -43,6 +46,7 @@ class BoardingHouseSeeder extends Seeder
             ],
             [
                 'bhouse_name' => 'TAGOBAR BOARDING HOUSE',
+                'user_id' => 2,
                 'owner' => 'SIETE',
                 'business_permit' => '000-1114',
                 'bhouse_img_path' => '',

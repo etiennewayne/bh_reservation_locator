@@ -42,8 +42,8 @@ export default {
     methods: {
         submit: function(){
             axios.post('/login').then(()=>{
-                window.location = '/dashboard';
-            })
+                //window.location = '/gate';
+            });
         }
     }
 }

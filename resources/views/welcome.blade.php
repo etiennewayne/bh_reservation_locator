@@ -1,4 +1,4 @@
-@extends('layouts.no-navbar')
+@extends('layouts.main-navbar')
 
 
 @section('content')
