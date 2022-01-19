@@ -63,7 +63,6 @@
                     </b-menu>
                 </div>
             </b-sidebar>
-
         </section>
     </div>
 
@@ -74,10 +73,10 @@ export default {
     data(){
         return{
             open: false,
-            overlay: true,
+            overlay: false,
             fullheight: true,
             fullwidth: false,
-            right: true
+            right: false
         }
     },
     methods: {
@@ -100,8 +99,8 @@ export default {
         width: 20px;
         height: 3px;
         background-color: #696969;
-        margin: 0 0 3px 0;
-        margin-left: auto;
+        margin: 0 auto 3px 0;
+
         border-radius: 10px;
     }
 

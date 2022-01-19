@@ -2469,15 +2469,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       open: false,
-      overlay: true,
+      overlay: false,
       fullheight: true,
       fullwidth: false,
-      right: true
+      right: false
     };
   },
   methods: {
@@ -3315,124 +3314,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3694,7 +3575,8 @@ __webpack_require__.r(__webpack_exports__);
         role: 'BOARDER'
       }
     };
-  }
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -22001,7 +21883,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-5dc66390]{\n    padding: 0 30px 0 30px;\n    height: 90px;\n}\n.burger-div[data-v-5dc66390]{\n    width: 20px;\n    height: 3px;\n    background-color: #696969;\n    margin: 0 0 3px 0;\n    margin-left: auto;\n    border-radius: 10px;\n}\n.burger-button[data-v-5dc66390]{\n    display: flex;\n    flex-direction: column;\n}\n.mynav[data-v-5dc66390]{\n    padding: 25px;\n    border-bottom: 2px solid rgba(22, 69, 28, 0.53);\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-5dc66390]{\n    padding: 0 30px 0 30px;\n    height: 90px;\n}\n.burger-div[data-v-5dc66390]{\n    width: 20px;\n    height: 3px;\n    background-color: #696969;\n    margin: 0 auto 3px 0;\n\n    border-radius: 10px;\n}\n.burger-button[data-v-5dc66390]{\n    display: flex;\n    flex-direction: column;\n}\n.mynav[data-v-5dc66390]{\n    padding: 25px;\n    border-bottom: 2px solid rgba(22, 69, 28, 0.53);\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22073,7 +21955,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-fa44bb0e]{\r\n    height: 80px;\n}\n.modal > modal-background[data-v-fa44bb0e]{\r\n    background-color: red;\n}\r\n\r\n    /*.hero{*/\r\n    /*    background-image: url(\"/img/bg-hero.jpg\");*/\r\n    /*    background-repeat: no-repeat;*/\r\n    /*    background-size: cover;*/\r\n    /*}*/\r\n\r\n\r\n\r\n    /*@media only screen and (max-width: 1024px) {*/\r\n    /*    .vision-section{*/\r\n    /*        flex-direction: column;*/\r\n    /*        align-items: center;*/\r\n    /*    }*/\r\n\r\n    /*    .mission-section{*/\r\n    /*        flex-direction: column;*/\r\n    /*        align-items: center;*/\r\n    /*    }*/\r\n\r\n    /*}*/\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-fa44bb0e]{\n    height: 80px;\n}\n.modal > modal-background[data-v-fa44bb0e]{\n    background-color: red;\n}\n\n    /*.hero{*/\n    /*    background-image: url(\"/img/bg-hero.jpg\");*/\n    /*    background-repeat: no-repeat;*/\n    /*    background-size: cover;*/\n    /*}*/\n\n\n\n    /*@media only screen and (max-width: 1024px) {*/\n    /*    .vision-section{*/\n    /*        flex-direction: column;*/\n    /*        align-items: center;*/\n    /*    }*/\n\n    /*    .mission-section{*/\n    /*        flex-direction: column;*/\n    /*        align-items: center;*/\n    /*    }*/\n\n    /*}*/\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22121,7 +22003,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.panel-body[data-v-df7d9286]{\n        /*padding: 25px;*/\n}\n.panel > .panel-heading[data-v-df7d9286]{\n        background-color: #4a5568;\n        color:white;\n}\n\n/*    dere lang kubia ang panel color*/\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.panel-body[data-v-df7d9286]{\n        /*padding: 25px;*/\n}\n\n\n/*    dere lang kubia ang panel color*/\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23260,43 +23142,6 @@ component.options.__file = "resources/js/components/RegisterPage.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/Welcome.vue":
-/*!*********************************************!*\
-  !*** ./resources/js/components/Welcome.vue ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Welcome_vue_vue_type_template_id_51777872___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Welcome.vue?vue&type=template&id=51777872& */ "./resources/js/components/Welcome.vue?vue&type=template&id=51777872&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-var script = {}
-
-
-/* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
-  _Welcome_vue_vue_type_template_id_51777872___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Welcome_vue_vue_type_template_id_51777872___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/Welcome.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
 /***/ "./resources/js/components/Administrator/Appointment/AppointmentType.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************!*\
   !*** ./resources/js/components/Administrator/Appointment/AppointmentType.vue?vue&type=script&lang=js& ***!
@@ -23619,23 +23464,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPage_vue_vue_type_template_id_df7d9286_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPage_vue_vue_type_template_id_df7d9286_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RegisterPage.vue?vue&type=template&id=df7d9286&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RegisterPage.vue?vue&type=template&id=df7d9286&scoped=true&");
-
-
-/***/ }),
-
-/***/ "./resources/js/components/Welcome.vue?vue&type=template&id=51777872&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/Welcome.vue?vue&type=template&id=51777872& ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_template_id_51777872___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_template_id_51777872___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_template_id_51777872___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Welcome.vue?vue&type=template&id=51777872& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Welcome.vue?vue&type=template&id=51777872&");
 
 
 /***/ }),
@@ -25668,12 +25496,6 @@ var render = function () {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3),
-      _vm._v(" "),
-      _vm._m(4),
-      _vm._v(" "),
       _c(
         "b-modal",
         {
@@ -25708,7 +25530,7 @@ var render = function () {
               }),
             ]),
             _vm._v(" "),
-            _c("section", { staticClass: "modal-card-body" }, [
+            _c("div", { staticClass: "modal-card-body" }, [
               _c("div", [
                 _c(
                   "form",
@@ -25856,181 +25678,6 @@ var staticRenderFns = [
         _c("div", { staticClass: "hero-foot" }),
       ]
     )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "section" }, [
-      _c("div", { staticClass: "mission-section" }, [
-        _c("div", { staticClass: "mission-wrapper" }, [
-          _c("div", { staticClass: "mission-title" }, [
-            _c("h2", [
-              _c("span", [_vm._v("“")]),
-              _vm._v(
-                "\n                            MISSION\n                            "
-              ),
-              _c("span", [_vm._v("“")]),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("p", { staticStyle: { "text-align": "justify" } }, [
-              _vm._v(
-                "\n                            To provide opportunities for continuing education for faculty and staff,\n                            providing upgraded facilities for quality and research-based instruction to students towards community engagement and linkages to industry.\n                        "
-              ),
-            ]),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "mission-img" }, [
-          _c("img", { attrs: { src: "/img/gadtc.png" } }),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "section" }, [
-      _c("div", { staticClass: "vision-section" }, [
-        _c("div", { staticClass: "vision-img" }, [
-          _c("img", { attrs: { src: "/img/facilities.jpg" } }),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "vision-wrapper" }, [
-          _c("div", { staticClass: "vision-title" }, [
-            _c("h2", [
-              _c("span", [_vm._v("“")]),
-              _vm._v(
-                "\n                            VISION\n                            "
-              ),
-              _c("span", [_vm._v("“")]),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("p", [
-              _vm._v(
-                "\n                            To provide opportunities for continuing education for faculty and staff,\n                            providing upgraded facilities for quality and research-based instruction to students towards community engagement and linkages to industry.\n                        "
-              ),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", [
-      _c(
-        "div",
-        {
-          staticStyle: {
-            "background-color": "#1d6530",
-            padding: "30px",
-            margin: "20px 0 20px 0",
-            "text-align": "center",
-          },
-        },
-        [
-          _c("div", { staticClass: "title", staticStyle: { color: "white" } }, [
-            _vm._v(
-              "\n                    COVID-19 SAFETY TIPS\n                "
-            ),
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "subtitle", staticStyle: { color: "white" } },
-            [
-              _vm._v(
-                "\n                    Help prevent the prevent the spread of respiratory disease like COVID-19\n                "
-              ),
-            ]
-          ),
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "columns" }, [
-        _c("div", { staticClass: "column is-10 is-offset-1" }, [
-          _c("div", { staticClass: "columns" }, [
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "panel" }, [
-                _c("div", { staticClass: "panel-body" }, [
-                  _c("h3", { staticClass: "title" }, [_vm._v("WEAR FACEMASK")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(" Everyone must wear mask ")]),
-                  _vm._v(" "),
-                  _c("img", { attrs: { src: "/img/mask.png" } }),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "panel" }, [
-                _c("div", { staticClass: "panel-body" }, [
-                  _c("h3", { staticClass: "title" }, [
-                    _vm._v("WASH YOUR HANDS"),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v("Wash your hands frequently with soap and water"),
-                  ]),
-                  _vm._v(" "),
-                  _c("img", { attrs: { src: "/img/hands.png" } }),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "panel" }, [
-                _c("div", { staticClass: "panel-body" }, [
-                  _c("h3", [_vm._v("DON'T TOUCH")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(" Do not touch your eyes with dirty hands")]),
-                  _vm._v(" "),
-                  _c("img", { attrs: { src: "/img/touch.png" } }),
-                ]),
-              ]),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "columns" }, [
-            _c("div", { staticClass: "column is-4" }, [
-              _c("div", { staticClass: "panel" }, [
-                _c("div", { staticClass: "panel-body" }, [
-                  _c("h3", [_vm._v("COVER A COUGH OR SNEEZE")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("use tissue when cough/ sneeze")]),
-                  _vm._v(" "),
-                  _c("img", { attrs: { src: "/img/tissue.png" } }),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column is-4" }, [
-              _c("div", { staticClass: "panel" }, [
-                _c("div", { staticClass: "panel-body" }, [
-                  _c("h3", { staticClass: "title" }, [
-                    _vm._v("KEEP YOUR DISTANCE"),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v("Avoid close contact with poeple wwho are sick."),
-                  ]),
-                  _vm._v(" "),
-                  _c("img", { attrs: { src: "/img/dist.png" } }),
-                ]),
-              ]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
   },
   function () {
     var _vm = this
@@ -26242,7 +25889,7 @@ var render = function () {
   return _c("section", { staticClass: "section" }, [
     _c("div", { staticClass: "columns" }, [
       _c("div", { staticClass: "column is-8 is-offset-2" }, [
-        _c("div", { staticClass: "panel" }, [
+        _c("div", { staticClass: "panel is-primary" }, [
           _c("div", { staticClass: "panel-heading" }, [
             _vm._v("\n                    REGISTER HERE\n                "),
           ]),
@@ -26645,7 +26292,7 @@ var render = function () {
               "div",
               { staticClass: "buttons is-right" },
               [
-                _c("b-button", { attrs: { type: "is-success" } }, [
+                _c("b-button", { attrs: { type: "is-primary" } }, [
                   _vm._v("Register"),
                 ]),
               ],
@@ -26655,33 +26302,6 @@ var render = function () {
         ]),
       ]),
     ]),
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Welcome.vue?vue&type=template&id=51777872&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Welcome.vue?vue&type=template&id=51777872& ***!
-  \*******************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._v("\n\n    WELCOME TO BJMP E LOG SYSTEM USING VUE JS\n\n"),
   ])
 }
 var staticRenderFns = []
@@ -38864,8 +38484,7 @@ var map = {
 	"./components/ExampleComponent.vue": "./resources/js/components/ExampleComponent.vue",
 	"./components/HomePage.vue": "./resources/js/components/HomePage.vue",
 	"./components/Login.vue": "./resources/js/components/Login.vue",
-	"./components/RegisterPage.vue": "./resources/js/components/RegisterPage.vue",
-	"./components/Welcome.vue": "./resources/js/components/Welcome.vue"
+	"./components/RegisterPage.vue": "./resources/js/components/RegisterPage.vue"
 };
 
 

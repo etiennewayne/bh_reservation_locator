@@ -2,7 +2,7 @@
     <section class="section">
         <div class="columns">
             <div class="column is-8 is-offset-2">
-                <div class="panel">
+                <div class="panel is-primary">
                     <div class="panel-heading">
                         REGISTER HERE
                     </div>
@@ -104,8 +104,8 @@
                                 </div>
                             </div>
                          </div>
-                       
-                        
+
+
                         <hr>
                         <div class="columns">
                             <div class="column">
@@ -135,7 +135,7 @@
 
 
                         <div class="buttons is-right">
-                            <b-button type="is-success">Register</b-button>
+                            <b-button type="is-primary">Register</b-button>
                         </div>
 
                     </div> <!--panel -body-->
@@ -155,8 +155,12 @@ export default {
             },
 
         }
-        
+
     },
+
+    methods: {
+
+    }
 
 
 }
@@ -169,10 +173,6 @@ export default {
         /*padding: 25px;*/
     }
 
-    .panel > .panel-heading{
-        background-color: #4a5568;
-        color:white;
-    }
 
 /*    dere lang kubia ang panel color*/
 </style>
