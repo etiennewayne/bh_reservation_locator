@@ -137,9 +137,7 @@ export default {
                 if(theMarker != undefined){
                     mymap.removeLayer(theMarker);
                 }
-
                 theMarker = L.marker([lat,long]).addTo(mymap);  
-
                 //assign data to vm
                 vm.lat = lat;
                 vm.long = long;
@@ -149,7 +147,7 @@ export default {
         submit: function(){
             
             var formData = new FormData();
-
+            
             formData.append('bhouse_name', this.fields.bhouse_name);
             formData.append('owner', this.fields.owner);
             formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
@@ -158,15 +156,10 @@ export default {
             formData.append('long', this.fields.long);
            
             axios.post('/boarding-house', formData).then(res=>{
+                console.log(res.data.status);
                 if(res.data.status === 'saved'){
-                    this.$buefy.dialog.alert({
-                        title: 'SAVED!',
-                        message: 'Boarding house successfully saved. Please wait for the approval of your boarding house.',
-                        type: 'is-success',
-                        onConfirm: ()=> {
-                            window.location = '/boarding-house'
-                        }
-                    })
+                    alert('Boarding house successfully saved. Please wait for the approval of your boarding house.');
+                    window.location = '/boarding-house';
                 }
             }).catch(err=>{
                 if(err.response.status === 422){
