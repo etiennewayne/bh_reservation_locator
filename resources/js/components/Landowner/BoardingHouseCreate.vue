@@ -12,17 +12,21 @@
                             </div>
                             <div class="panel-body">
 
-                                <b-field label="BHOUSE NAME">
+                                <b-field label="BHOUSE NAME"
+                                    :type="this.errors.bhouse_name ? 'is-danger':''"
+                                    :message="this.errors.bhouse_name ? this.errors.bhouse_name[0] : ''">
                                     <b-input type="text" v-model="fields.bhouse_name" placeholder="Bhouse Name" />
                                 </b-field>
 
-                                <b-field label="OWNER">
+                                <b-field label="OWNER"
+                                    :type="this.errors.owner ? 'is-danger':''"
+                                    :message="this.errors.owner ? this.errors.owner[0] : ''">
                                     <b-input type="text" v-model="fields.owner" placeholder="Bhouse Owner" />
                                 </b-field>
 
                                 <b-field label="ATTACH BUSINESS PERMIT"
                                         :type="this.errors.business_permit_imgpath ? 'is-danger':''"
-                                         :message="this.errors.business_permit_imgpath ? this.errors.business_permit_imgpath[0] : ''">
+                                        :message="this.errors.business_permit_imgpath ? this.errors.business_permit_imgpath[0] : ''">
                                     <b-upload v-model="fields.business_permit_imgpath" class="file-label">
                                         <span class="file-cta">
                                             <b-icon class="file-icon" icon="upload"></b-icon>
@@ -34,7 +38,9 @@
                                     </b-upload>
                                 </b-field>
 
-                                <b-field label="BHOUSE IMAGE">
+                                <b-field label="BHOUSE IMAGE"
+                                        :type="this.errors.bhouse_img_path ? 'is-danger':''"
+                                        :message="this.errors.bhouse_img_path ? this.errors.bhouse_img_path[0] : ''">
                                     <b-upload v-model="fields.bhouse_img_path" class="file-label">
                                         <span class="file-cta">
                                             <b-icon class="file-icon" icon="upload"></b-icon>
@@ -53,10 +59,14 @@
                                 </div>
 
                                 <b-field>
-                                    <b-field label="LATITUDE">
+                                    <b-field label="LATITUDE"
+                                        :type="this.errors.lat ? 'is-danger':''"
+                                        :message="this.errors.lat ? this.errors.lat[0] : ''">
                                         <b-input type="text" v-model="fields.lat" placeholder="Latitude"></b-input>
                                     </b-field>
-                                    <b-field label="LONGITUDE">
+                                    <b-field label="LONGITUDE"
+                                        :type="this.errors.long ? 'is-danger':''"
+                                        :message="this.errors.long ? this.errors.long[0] : ''">
                                         <b-input type="text" v-model="fields.long" placeholder="Latitude"></b-input>
                                     </b-field>
                                 </b-field>

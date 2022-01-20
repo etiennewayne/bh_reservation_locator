@@ -38,13 +38,16 @@ class LandownerBoardingHouseController extends Controller
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
             'owner' => ['required', 'string', 'max: 100'],
-            'business_permit_imgpath' => ['required', 'mimes:jpg,png,bmp', 'file|size:700'],
-            'bhouse_img_path' => ['required', 'mimes:jpg,png,bmp', 'file|size:700'],
+            'business_permit_imgpath' => ['required', 'mimes:jpg,png,bmp', 'file', 'max:700'],
+            'bhouse_img_path' => ['required', 'mimes:jpg,png,bmp', 'file', 'max:700'],
             'long' => ['required'],
             'lat' => ['required'],
         ], $message = [
             'bhouse_img_path.size' => 'Size must atleast 700 kb',
             'business_permit_imgpath.size' => 'Size must atleast 700 kb',
+
+            'bhouse_img_path.mimes' => 'Boarding house must be an image.',
+            'business_permit_imgpath.mimes' => 'Business permit must be an image.',
         ]);
 
         //upload image b permit

@@ -3530,6 +3530,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -27160,7 +27170,15 @@ var render = function () {
                   [
                     _c(
                       "b-field",
-                      { attrs: { label: "BHOUSE NAME" } },
+                      {
+                        attrs: {
+                          label: "BHOUSE NAME",
+                          type: this.errors.bhouse_name ? "is-danger" : "",
+                          message: this.errors.bhouse_name
+                            ? this.errors.bhouse_name[0]
+                            : "",
+                        },
+                      },
                       [
                         _c("b-input", {
                           attrs: { type: "text", placeholder: "Bhouse Name" },
@@ -27178,7 +27196,15 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "b-field",
-                      { attrs: { label: "OWNER" } },
+                      {
+                        attrs: {
+                          label: "OWNER",
+                          type: this.errors.owner ? "is-danger" : "",
+                          message: this.errors.owner
+                            ? this.errors.owner[0]
+                            : "",
+                        },
+                      },
                       [
                         _c("b-input", {
                           attrs: { type: "text", placeholder: "Bhouse Owner" },
@@ -27260,7 +27286,15 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "b-field",
-                      { attrs: { label: "BHOUSE IMAGE" } },
+                      {
+                        attrs: {
+                          label: "BHOUSE IMAGE",
+                          type: this.errors.bhouse_img_path ? "is-danger" : "",
+                          message: this.errors.bhouse_img_path
+                            ? this.errors.bhouse_img_path[0]
+                            : "",
+                        },
+                      },
                       [
                         _c(
                           "b-upload",
@@ -27313,7 +27347,15 @@ var render = function () {
                       [
                         _c(
                           "b-field",
-                          { attrs: { label: "LATITUDE" } },
+                          {
+                            attrs: {
+                              label: "LATITUDE",
+                              type: this.errors.lat ? "is-danger" : "",
+                              message: this.errors.lat
+                                ? this.errors.lat[0]
+                                : "",
+                            },
+                          },
                           [
                             _c("b-input", {
                               attrs: { type: "text", placeholder: "Latitude" },
@@ -27331,7 +27373,15 @@ var render = function () {
                         _vm._v(" "),
                         _c(
                           "b-field",
-                          { attrs: { label: "LONGITUDE" } },
+                          {
+                            attrs: {
+                              label: "LONGITUDE",
+                              type: this.errors.long ? "is-danger" : "",
+                              message: this.errors.long
+                                ? this.errors.long[0]
+                                : "",
+                            },
+                          },
                           [
                             _c("b-input", {
                               attrs: { type: "text", placeholder: "Latitude" },
