@@ -28,7 +28,10 @@ class LandownerBoardingHouseController extends Controller
 
 
     public function getBhouses(Request $req){
-        return BoardingHouse::where('bhouse_name', 'like', $req->bhousename . '%')
+        $id = Auth::user()->user_id;
+        
+        return BoardingHouse::where('user_id', $id)
+            ->where('bhouse_name', 'like', $req->bhousename . '%')
             ->orderBy('bhouse_id', 'desc')
             ->get();
     }
@@ -47,8 +50,8 @@ class LandownerBoardingHouseController extends Controller
             'long' => ['required'],
             'lat' => ['required'],
         ], $message = [
-            'bhouse_img_path.size' => 'Size must atleast 700 kb',
-            'business_permit_imgpath.size' => 'Size must atleast 700 kb',
+            'bhouse_img_path.max' => 'Size must atleast 700 kb',
+            'business_permit_imgpath.max' => 'Size must atleast 700 kb',
 
             'bhouse_img_path.mimes' => 'Boarding house must be an image.',
             'business_permit_imgpath.mimes' => 'Business permit must be an image.',

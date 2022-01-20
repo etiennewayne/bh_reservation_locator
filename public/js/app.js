@@ -3337,6 +3337,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -27046,17 +27062,37 @@ var render = function () {
                   }),
                   _vm._v(" "),
                   _c("b-table-column", {
-                    attrs: { field: "owner", label: "Owner" },
+                    attrs: { field: "is_approve", label: "Status" },
                     scopedSlots: _vm._u([
                       {
                         key: "default",
                         fn: function (props) {
                           return [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(props.row.owner) +
-                                "\n                        "
-                            ),
+                            props.row.is_approve === 1
+                              ? _c(
+                                  "span",
+                                  {
+                                    staticStyle: {
+                                      "font-weight": "bold",
+                                      color: "green",
+                                    },
+                                  },
+                                  [_vm._v("APPROVED")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            props.row.is_approve === 0
+                              ? _c(
+                                  "span",
+                                  {
+                                    staticStyle: {
+                                      "font-weight": "bold",
+                                      color: "orange",
+                                    },
+                                  },
+                                  [_vm._v("PENDING")]
+                                )
+                              : _vm._e(),
                           ]
                         },
                       },
@@ -27071,31 +27107,53 @@ var render = function () {
                         fn: function (props) {
                           return [
                             _c(
-                              "div",
-                              { staticClass: "is-flex" },
+                              "b-dropdown",
+                              {
+                                attrs: { "aria-role": "list" },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "trigger",
+                                      fn: function (ref) {
+                                        var active = ref.active
+                                        return [
+                                          _c("b-button", {
+                                            staticClass: "is-small",
+                                            attrs: {
+                                              label: "...",
+                                              type: "is-primary",
+                                              "icon-right": active
+                                                ? "menu-up"
+                                                : "menu-down",
+                                            },
+                                          }),
+                                        ]
+                                      },
+                                    },
+                                  ],
+                                  null,
+                                  true
+                                ),
+                              },
                               [
-                                _c("b-button", {
-                                  staticClass:
-                                    "button is-small is-warning mr-1",
-                                  attrs: { tag: "a", "icon-right": "pencil" },
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.getData(props.row.bhouse_id)
-                                    },
-                                  },
-                                }),
                                 _vm._v(" "),
-                                _c("b-button", {
-                                  staticClass: "button is-small is-danger mr-1",
-                                  attrs: { "icon-right": "delete" },
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.confirmDelete(
-                                        props.row.bhouse_id
-                                      )
-                                    },
-                                  },
-                                }),
+                                _c(
+                                  "b-dropdown-item",
+                                  { attrs: { "aria-role": "listitem" } },
+                                  [_vm._v("Modify")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-dropdown-item",
+                                  { attrs: { "aria-role": "listitem" } },
+                                  [_vm._v("Approve")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-dropdown-item",
+                                  { attrs: { "aria-role": "listitem" } },
+                                  [_vm._v("Delete")]
+                                ),
                               ],
                               1
                             ),

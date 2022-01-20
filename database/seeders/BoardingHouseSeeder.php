@@ -21,37 +21,33 @@ class BoardingHouseSeeder extends Seeder
               'bhouse_name' => 'DACLES BOARDING HOUSE',
               'user_id' => 2,
               'owner' => 'DACLES',
-              'business_permit' => '000-1111',
-              'bhouse_img_path' => '',
               'long' => '8.061954385341004',
-              'lat' => '123.75697910785675'
+              'lat' => '123.75697910785675',
+              'is_approve' => 0
             ],
             [
                 'bhouse_name' => 'FUENTES BOARDING HOUSE',
                 'user_id' => 2,
                 'owner' => 'FUENTES',
-                'business_permit' => '000-1112',
-                'bhouse_img_path' => '',
                 'long' => '8.063680587142077',
-                'lat' => '123.75273048877715'
+                'lat' => '123.75273048877715',
+                'is_approve' => 0
             ],
             [
                 'bhouse_name' => 'SIETE BOARDING HOUSE',
                 'user_id' => 2,
                 'owner' => 'SIETE',
-                'business_permit' => '000-1113',
-                'bhouse_img_path' => '',
                 'long' => '8.061486981739758',
-                'lat' => '123.75372290611267'
+                'lat' => '123.75372290611267',
+                'is_approve' => 0
             ],
             [
                 'bhouse_name' => 'TAGOBAR BOARDING HOUSE',
                 'user_id' => 2,
                 'owner' => 'SIETE',
-                'business_permit' => '000-1114',
-                'bhouse_img_path' => '',
                 'long' => '8.063834617098614',
-                'lat' => '123.75342249870299'
+                'lat' => '123.75342249870299',
+                'is_approve' => 0
             ],
         ];
 

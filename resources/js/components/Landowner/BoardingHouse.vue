@@ -65,15 +65,31 @@
                                 {{ props.row.bhouse_name }}
                             </b-table-column>
 
-                            <b-table-column field="owner" label="Owner" v-slot="props">
-                                {{ props.row.owner }}
-                            </b-table-column>
+                            <b-table-column field="is_approve" label="Status" v-slot="props">
+                                <span style="font-weight: bold; color: green;" v-if="props.row.is_approve === 1">APPROVED</span>
+                                <span style="font-weight: bold; color: orange;" v-if="props.row.is_approve === 0">PENDING</span>
 
+                            </b-table-column>
+                            
                             <b-table-column label="Action" v-slot="props">
-                                <div class="is-flex">
+                                <b-dropdown aria-role="list">
+                                    <template #trigger="{ active }">
+                                        <b-button
+                                            label="..."
+                                            type="is-primary"
+                                            class="is-small"
+                                            :icon-right="active ? 'menu-up' : 'menu-down'" />
+                                    </template>
+
+
+                                    <b-dropdown-item aria-role="listitem">Modify</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem">Approve</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem">Delete</b-dropdown-item>
+                                </b-dropdown>
+                                <!-- <div class="is-flex">
                                     <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
                                     <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.bhouse_id)"></b-button>
-                                </div>
+                                </div> -->
                             </b-table-column>
                         </b-table>
                     </div><!--close column-->
