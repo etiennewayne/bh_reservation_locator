@@ -62,6 +62,8 @@ Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\Landowner
 Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class);
 Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBhouses']);
 
+//BOARDING HOUSE - BEDSPACE
+Route::get('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
 
 
 Route::get('/session', function(){

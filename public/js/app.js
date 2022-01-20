@@ -3353,6 +3353,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -27147,6 +27148,20 @@ var render = function () {
                                   "b-dropdown-item",
                                   { attrs: { "aria-role": "listitem" } },
                                   [_vm._v("Approve")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-dropdown-item",
+                                  {
+                                    attrs: {
+                                      "aria-role": "listitem",
+                                      tag: "a",
+                                      href:
+                                        "/boarding-house-bedspace/" +
+                                        props.row.bhouse_id,
+                                    },
+                                  },
+                                  [_vm._v("Bedspace")]
                                 ),
                                 _vm._v(" "),
                                 _c(

@@ -81,10 +81,11 @@
                                             :icon-right="active ? 'menu-up' : 'menu-down'" />
                                     </template>
 
-
                                     <b-dropdown-item aria-role="listitem">Modify</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem">Approve</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + props.row.bhouse_id">Bedspace</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem">Delete</b-dropdown-item>
+                                    
                                 </b-dropdown>
                                 <!-- <div class="is-flex">
                                     <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
