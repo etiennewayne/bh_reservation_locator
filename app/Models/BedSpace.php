@@ -11,4 +11,6 @@ class BedSpace extends Model
 
     protected $table = 'bedspaces';
     protected $primaryKey = 'bedspace_id';
+
+    protected $fillable = ['bhouse_id', 'bedspace_name', 'bedspace_desc', 'price', 'is_book'];
 }

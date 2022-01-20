@@ -79,6 +79,7 @@ class LandownerBoardingHouseController extends Controller
             'owner' => strtoupper($req->owner),
             'business_permit_imgpath' => $n[2] != null ? $n[2]: '',
             'bhouse_img_path' => $bhouse_imgpath[2] != null ? $bhouse_imgpath[2]: '',
+            'bhouse_rule' => $req->bhouse_rule,
             'long' => $req->long,
             'lat' => $req->lat
         ]);
@@ -110,7 +111,7 @@ class LandownerBoardingHouseController extends Controller
             }
         }
 
-        //$data = BoardingHouse::destroy($id);
+        $data = BoardingHouse::destroy($id);
 
 
     //    $bedspaces = BedSpace::where('bhouse_id', $id)->get();

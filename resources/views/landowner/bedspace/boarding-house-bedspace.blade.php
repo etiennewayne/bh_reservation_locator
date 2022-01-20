@@ -1,11 +1,8 @@
 @extends('layouts.no-navbar')
 
-
-
-
 @section('content')
 
-    <boarding-house-create></boarding-house-create>
+    <bedspace prop-data-id='{{ $bhouse_id }}'></bedspace>
 
 @endsection
 

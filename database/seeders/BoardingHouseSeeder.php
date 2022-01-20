@@ -21,6 +21,7 @@ class BoardingHouseSeeder extends Seeder
               'bhouse_name' => 'DACLES BOARDING HOUSE',
               'user_id' => 2,
               'owner' => 'DACLES',
+              'bhouse_rule' => 'SAMPLE BHOUSE RULE',
               'long' => '8.061954385341004',
               'lat' => '123.75697910785675',
               'is_approve' => 0
@@ -29,6 +30,7 @@ class BoardingHouseSeeder extends Seeder
                 'bhouse_name' => 'FUENTES BOARDING HOUSE',
                 'user_id' => 2,
                 'owner' => 'FUENTES',
+                'bhouse_rule' => 'SAMPLE BHOUSE RULE',
                 'long' => '8.063680587142077',
                 'lat' => '123.75273048877715',
                 'is_approve' => 0
@@ -37,6 +39,7 @@ class BoardingHouseSeeder extends Seeder
                 'bhouse_name' => 'SIETE BOARDING HOUSE',
                 'user_id' => 2,
                 'owner' => 'SIETE',
+                'bhouse_rule' => 'SAMPLE BHOUSE RULE',
                 'long' => '8.061486981739758',
                 'lat' => '123.75372290611267',
                 'is_approve' => 0
@@ -45,6 +48,7 @@ class BoardingHouseSeeder extends Seeder
                 'bhouse_name' => 'TAGOBAR BOARDING HOUSE',
                 'user_id' => 2,
                 'owner' => 'SIETE',
+                'bhouse_rule' => 'SAMPLE BHOUSE RULE',
                 'long' => '8.063834617098614',
                 'lat' => '123.75342249870299',
                 'is_approve' => 0

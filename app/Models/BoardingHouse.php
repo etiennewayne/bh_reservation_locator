@@ -14,6 +14,6 @@ class BoardingHouse extends Model
     
     protected $fillable = ['bhouse_name', 
     'user_id', 'owner', 'business_permit_imgpath', 
-    'bhouse_img_path', 'long', 'lat', 'is_approve'];
+    'bhouse_img_path', 'bhouse_rule', 'long', 'lat', 'is_approve'];
 
 }

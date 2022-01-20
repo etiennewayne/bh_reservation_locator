@@ -24,6 +24,12 @@
                                     <b-input type="text" v-model="fields.owner" placeholder="Bhouse Owner" />
                                 </b-field>
 
+                                <b-field label="BHOUSE RULE"
+                                    :type="this.errors.bhouse_rule ? 'is-danger':''"
+                                    :message="this.errors.bhouse_rule ? this.errors.bhouse_rule[0] : ''">
+                                    <b-input type="textarea" v-model="fields.bhouse_rule" placeholder="Bhouse Rule" />
+                                </b-field>
+
                                 <b-field label="ATTACH BUSINESS PERMIT"
                                         :type="this.errors.business_permit_imgpath ? 'is-danger':''"
                                         :message="this.errors.business_permit_imgpath ? this.errors.business_permit_imgpath[0] : ''">

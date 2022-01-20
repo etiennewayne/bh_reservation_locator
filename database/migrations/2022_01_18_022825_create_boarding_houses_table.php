@@ -21,6 +21,7 @@ class CreateBoardingHousesTable extends Migration
             $table->string('owner')->nullable();
             $table->string('business_permit_imgpath')->nullable();
             $table->string('bhouse_img_path')->nullable();
+            $table->text('bhouse_rule')->nullable();
             $table->string('long')->nullable();
             $table->string('lat')->nullable();
             $table->tinyInteger('is_approve')->default(0);
