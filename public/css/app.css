@@ -26643,6 +26643,11 @@ html {
   border: 1px solid red;
 }
 
+.panel-footer {
+  padding: 15px;
+  border-top: 1px solid #e2e2e2;
+}
+
 /*!
 * animate.css - https://animate.style/
 * Version - 4.1.1

@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="buttons mt-3 is-right">
-                            <b-button icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
+                            <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>
                         </div>
 
                         <b-table
