@@ -51,6 +51,15 @@ Route::resource('/users', App\Http\Controllers\Administrator\UserController::cla
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
 
 
+//ROUTE FOR REQUEST BHOUSE // KANANG MAG PA APPROVE SA BHOUSE E DISPLAY
+// ANG BUSINESS PERMIT
+Route::resource('/bh-request', App\Http\Controllers\Administrator\BHRequestController::class);
+Route::get('/get-bh-requests', [App\Http\Controllers\Administrator\BHRequestController::class, 'getBHRequests']);
+Route::post('/bh-request-approved/{id}', [App\Http\Controllers\Administrator\BHRequestController::class, 'approveBh']);
+Route::post('bh-request-deactivate/{id}', [App\Http\Controllers\Administrator\BHRequestController::class, 'deactivateBh']);
+
+
+//---------------------------//
 
 
 
