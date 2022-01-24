@@ -14,6 +14,19 @@
                                     <button class="button" @click="openModal">NEW BEDSPACE</button>
                                 </div>
                             </div>
+
+                            <div class="section">
+                                <div class="columns">
+                                    <div class="column">
+                                        <div v-for="(item, index) in this.bedspaces" :key="index" class="card-container">
+                                            <div class="img-container">
+                                                <img :src="`/storage/bedspaces/` + item.bedspace_img_path" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -115,7 +128,7 @@
         </b-modal>
         <!--close modal-->
 
-        
+
     </div>
 </template>
 
@@ -129,12 +142,15 @@ export default {
     },
     data(){
         return{
-           
+
             isModalCreate: false,
 
             fields: {
-                bedspaces: null,
+                bedspaces: {},
             },
+
+            bedspaces: [],
+
             errors: {},
 
             btnClass: {
@@ -147,7 +163,14 @@ export default {
     },
 
     methods: {
-        
+
+        loadBedspaces: function(){
+            axios.get('/get-boarding-house-bedspaces/' + parseInt(this.propDataId)).then(res=>{
+                this.bedspaces = res.data;
+                console.log(this.bedspaces);
+            });
+        },
+
         openModal(){
             this.isModalCreate=true;
             this.fields = {};
@@ -164,19 +187,45 @@ export default {
 
             formData.append('bedspace_name', this.fields.bedspace_name);
             formData.append('bedspace_desc', this.fields.bedspace_desc);
-            formData.append('bedspace_img_path', this.fields.bedspaces);
+
+            this.fields.bedspaces.forEach(item =>{
+                formData.append('bedspace_img_path[]', item);
+            });
             formData.append('price', this.fields.price);
 
-
             axios.post('/boarding-house-bedspace/' + parseInt(this.propDataId), formData).then(res=>{
-                console.log(res.data);
+                if(res.data.status === 'saved'){
+                    this.isModalCreate =- false;
+                    this.$buefy.dialog.alert({
+                        title: 'Success!',
+                        message: 'Bedspace(s) successfully saved.',
+                        type: 'is-success',
+                    });
+                }
             });
         }
 
     },
 
     mounted(){
-
+        this.loadBedspaces();
     }
 }
 </script>
+
+<style scoped>
+
+.card-container{
+    display: flex;
+    flex-direction: row;
+}
+.img-container{
+    padding: 15px;
+    border: 1px solid black;
+    margin: 15px;
+    width: 150px;
+}
+.img-container > img{
+    width: 150px;
+}
+</style>

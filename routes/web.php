@@ -57,8 +57,7 @@ Route::resource('/bh-request', App\Http\Controllers\Administrator\BHRequestContr
 Route::get('/get-bh-requests', [App\Http\Controllers\Administrator\BHRequestController::class, 'getBHRequests']);
 Route::post('/bh-request-approved/{id}', [App\Http\Controllers\Administrator\BHRequestController::class, 'approveBh']);
 Route::post('bh-request-deactivate/{id}', [App\Http\Controllers\Administrator\BHRequestController::class, 'deactivateBh']);
-
-
+//---------------------------//
 //---------------------------//
 
 
@@ -68,12 +67,28 @@ Route::post('bh-request-deactivate/{id}', [App\Http\Controllers\Administrator\BH
 //LANDOWNER
 Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\LandownerDashboardController::class);
 
+
+//BOARDING HOUSE
 Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class);
 Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBhouses']);
+//-------------------------///
+
+
+
 
 //BOARDING HOUSE - BEDSPACE
 Route::get('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
 Route::post('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'store']);
+Route::get('/get-boarding-house-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBedspaces']);
+
+
+//-------------------------///
+
+
+
+
+
+
 
 
 Route::get('/session', function(){

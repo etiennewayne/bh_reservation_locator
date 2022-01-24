@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\BedSpace;
 use App\Models\BedspaceImg;
-
+use Illuminate\Support\Facades\DB;
 
 
 class LandownerBedspaceController extends Controller
@@ -27,24 +27,34 @@ class LandownerBedspaceController extends Controller
             ->with('bhouse_id', $id)
             ->with('bedspaces', $bedspaces);
     }
-    
+
+    public function getBedspaces($bhouse_id){
+
+
+        return DB::table('boarding_houses as a')
+            ->join('bedspaces as b', 'a.bhouse_id', 'b.bhouse_id')
+            ->join('bedspace_imgs as c', 'b.bedspace_id', 'c.bedspace_id')
+            ->where('a.bhouse_id', $bhouse_id)
+            ->get();
+    }
+
 
 
 
     public function store(Request $req, $id){
 
-        return $req;
 
-        // $validate = $req->validate([
-        //     'bedspace_name' => ['required'],
-        //     'bedspace_desc' => ['required'],
-        //     'bedspace_img_path' => ['required', 'mimes:jpg,bmp,png', 'max:700']
+        $req->validate([
+            'bedspace_name' => ['required'],
+            'bedspace_desc' => ['required'],
+            'bedspace_img_path.*' => ['required', 'mimes:jpg,bmp,png', 'max:700']
 
-        // ], $message = [
-        //     'bedspace_img_path.mimes' => 'Image must be a jpeg, png or bmp.',
-        //     'bedspace_img_path.max' => 'Image size must be atleast 700kb each.',
+        ], $message = [
+            'bedspace_img_path.mimes' => 'Image must be a jpeg, png or bmp.',
+            'bedspace_img_path.max' => 'Image size must be atleast 700kb each.',
 
-        // ]);
+        ]);
+
 
         $bedspace = BedSpace::create([
             'bhouse_id' => $id,
@@ -56,22 +66,24 @@ class LandownerBedspaceController extends Controller
 
         $bedspace_id = $bedspace->bedspace_id;
 
-        $bedspacesImg = $req->file('bedspace_img_path');
-
-        if($bedspacesImg){
+        if($req->hasFile('bedspace_img_path')){
             foreach($req->file('bedspace_img_path') as $image){
-                $pathFile = $bedspacesImg->store('public/bedspaces'); //get path of the file
+                $pathFile = $image->store('public/bedspaces'); //get path of the file
                 $n = explode('/', $pathFile); //split into array using /
 
 
                 //insert into database after upload 1 image
                 BedspaceImg::create([
                     'bedspace_id' => $bedspace_id,
-                    'bedspace_img_path' => $pathFile
+                    'bedspace_img_path' => $n[2]
 
                 ]);
             }
         }
+
+        return response()->json([
+            'status'=>'saved'
+        ],200);
 
     }
 
