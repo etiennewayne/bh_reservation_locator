@@ -5,28 +5,82 @@
                 <div class="column is-8 is-offset-2">
                     <div class="panel">
                         <div class="panel-heading">
-                            BEDSAPACE
+                            BEDSPACE
                         </div>
 
                         <div class="panel-body">
+                            <div class="buttons">
+                                <b-button icon-left="chevron-left" tag="a" href="/boarding-house">
+                                    BACK
+                                </b-button>
+                            </div>
                             <div class="">
-                                <div class="buttons">
-                                    <button class="button" @click="openModal">NEW BEDSPACE</button>
+                                <div class="buttons mb-3 is-right">
+                                    <b-button class="button is-primary" icon-left="bunk-bed-outline" @click="openModal">NEW BEDSPACE</b-button>
                                 </div>
                             </div>
 
-                            <div class="section">
-                                <div class="columns">
-                                    <div class="column">
-                                        <div v-for="(item, index) in this.bedspaces" :key="index" class="card-container">
-                                            <div class="img-container">
-                                                <img :src="`/storage/bedspaces/` + item.bedspace_img_path" />
-                                            </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <b-table
+                                :data="data"
+                                :loading="loading"
+                                paginated
+                                backend-pagination
+                                :total="total"
+                                :per-page="perPage"
+                                @page-change="onPageChange"
+                                aria-next-label="Next page"
+                                aria-previous-label="Previous page"
+                                aria-page-label="Page"
+                                aria-current-label="Current page"
+                                backend-sorting
+                                :default-sort-direction="defaultSortDirection"
+                                @sort="onSort">
+
+                                <b-table-column field="bedspace_id" label="ID" v-slot="props">
+                                    {{ props.row.bedspace_id }}
+                                </b-table-column>
+
+                                <b-table-column field="bedspace_name" label="Bedspace Name" v-slot="props">
+                                    {{ props.row.bedspace_name }}
+                                </b-table-column>
+
+                                <b-table-column field="bedspace_desc" label="Description" v-slot="props">
+                                    {{ props.row.bedspace_desc }}
+                                </b-table-column>
+
+                                <b-table-column field="price" label="Price" v-slot="props">
+                                    {{ props.row.price }}
+                                </b-table-column>
+
+                                <b-table-column field="is_booked" label="Status" v-slot="props">
+                                    <span v-if="props.row.is_booked === 1">OCCUPIED</span>
+                                    <span v-else>VACANT</span>
+                                </b-table-column>
+
+                                <b-table-column label="Action" v-slot="props">
+                                    <b-dropdown aria-role="list">
+                                        <template #trigger="{ nactive }">
+                                            <b-button
+                                                label="..."
+                                                type="is-primary"
+                                                class="is-small"
+                                                :icon-right="nactive ? 'menu-up' : 'menu-down'" />
+                                        </template>
+
+                                        <b-dropdown-item aria-role="listitem">Modify</b-dropdown-item>
+                                         <b-dropdown-item aria-role="listitem">List of Boarder</b-dropdown-item>
+                                        <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.bedspace_id)">Delete</b-dropdown-item>
+                                        
+                                    </b-dropdown>
+                                    <!-- <div class="is-flex">
+                                        <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
+                                        <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.bhouse_id)"></b-button>
+                                    </div> -->
+                                </b-table-column>
+                            </b-table>
+
+                            
                         </div>
 
 
@@ -76,7 +130,7 @@
                                     <b-field label="Price"
                                             :type="this.errors.price ? 'is-danger':''"
                                             :message="this.errors.price ? this.errors.price[0] : ''">
-                                        <b-numberinput v-model="fields.price" step="0.01" controls-alignment="right" controls-position="compact"></b-numberinput>
+                                        <b-numberinput v-model="fields.price" step="1" controls-alignment="right" controls-position="compact"></b-numberinput>
                                     </b-field>
 
                                     <b-field mb-auto>
@@ -143,15 +197,36 @@ export default {
     data(){
         return{
 
+            data: [],
+            total: 0,
+            loading: false,
+            sortField: 'bedspace_id',
+            sortOrder: 'desc',
+            page: 1,
+            perPage: 5,
+            defaultSortDirection: 'asc',
+
+
+
+
+
             isModalCreate: false,
 
             fields: {
+                bedspace_name: '',
+                bedspace_desc: '',
                 bedspaces: {},
             },
 
+            errors: {},
+            search: {
+                bhousename: '',
+            },
+
+
             bedspaces: [],
 
-            errors: {},
+           
 
             btnClass: {
                 'is-success': true,
@@ -159,15 +234,78 @@ export default {
                 'is-loading':false,
             },
 
+            global_bedspace_id: 0,
+
+
         }
     },
 
     methods: {
 
-        loadBedspaces: function(){
-            axios.get('/get-boarding-house-bedspaces/' + parseInt(this.propDataId)).then(res=>{
+        initData: function(){
+              this.global_bedspace_id = parseInt(this.propDataId);
+        },
+
+        /*
+        * Load async data
+        */
+        loadAsyncData() {
+            const params = [
+                `sort_by=${this.sortField}.${this.sortOrder}`,
+                `bhousename=${this.search.bhousename}`,
+                `perpage=${this.perPage}`,
+                `page=${this.page}`
+            ].join('&')
+
+            this.loading = true
+            axios.get(`/get-bhouse-bedspaces?${params}`)
+                .then(({ data }) => {
+                    this.data = [];
+                    let currentTotal = data.total
+                    if (data.total / this.perPage > 1000) {
+                        currentTotal = this.perPage * 1000
+                    }
+
+                    this.total = currentTotal
+                        data.data.forEach((item) => {
+                        //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+                        this.data.push(item)
+                    })
+                    this.loading = false
+                })
+                .catch((error) => {
+                    this.data = []
+                    this.total = 0
+                    this.loading = false
+                    throw error
+                })
+        },
+        /*
+        * Handle page-change event
+        */
+        onPageChange(page) {
+            this.page = page
+            this.loadAsyncData()
+        },
+
+        onSort(field, order) {
+            this.sortField = field
+            this.sortOrder = order
+            this.loadAsyncData()
+        },
+
+        setPerPage(){
+            this.loadAsyncData()
+        },
+
+
+
+
+
+        loadBedspaceImgs: function(){
+        
+            axios.get('/get-boarding-house-bedspaces-imgs/' + this.global_bedspace_id).then(res=>{
                 this.bedspaces = res.data;
-                console.log(this.bedspaces);
             });
         },
 
@@ -185,30 +323,71 @@ export default {
 
             var formData = new FormData();
 
-            formData.append('bedspace_name', this.fields.bedspace_name);
-            formData.append('bedspace_desc', this.fields.bedspace_desc);
+            formData.append('bedspace_name', this.fields.bedspace_name ? this.fields.bedspace_name : '');
+            formData.append('bedspace_desc', this.fields.bedspace_desc ? this.fields.bedspace_desc : '');
 
-            this.fields.bedspaces.forEach(item =>{
-                formData.append('bedspace_img_path[]', item);
-            });
+            if(this.fields.bedspaces){
+                this.fields.bedspaces.forEach(item =>{
+                    formData.append('bedspace_img_path[]', item);
+                });
+            }
+            
             formData.append('price', this.fields.price);
 
-            axios.post('/boarding-house-bedspace/' + parseInt(this.propDataId), formData).then(res=>{
+            axios.post('/boarding-house-bedspace/' + this.global_bedspace_id, formData).then(res=>{
                 if(res.data.status === 'saved'){
-                    this.isModalCreate =- false;
+                    this.isModalCreate = false;
                     this.$buefy.dialog.alert({
                         title: 'Success!',
                         message: 'Bedspace(s) successfully saved.',
                         type: 'is-success',
+                        oncConfirm: ()=>{
+                            this.loadAsyncData();
+                        }
                     });
                 }
+            }).catch(err=>{
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
+                }
             });
-        }
+        },
+
+
+
+        //alert box ask for deletion
+        confirmDelete(delete_id) {
+            this.$buefy.dialog.confirm({
+                title: 'DELETE!',
+                type: 'is-danger',
+                message: 'Are you sure you want to delete this bedspace?',
+                cancelText: 'Cancel',
+                confirmText: 'Delete?',
+                onConfirm: () => this.deleteSubmit(delete_id)
+            });
+        },
+
+        //execute delete after confirming
+        deleteSubmit(delete_id) {
+            axios.delete('/boarding-house-bedspace-delete/' + delete_id).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
+
+
+
+
 
     },
 
     mounted(){
-        this.loadBedspaces();
+        this.initData();
+        this.loadBedspaceImgs();
+        this.loadAsyncData();
     }
 }
 </script>
@@ -223,7 +402,7 @@ export default {
     padding: 15px;
     border: 1px solid black;
     margin: 15px;
-    width: 150px;
+    width: 200px;
 }
 .img-container > img{
     width: 150px;

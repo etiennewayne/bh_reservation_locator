@@ -21,7 +21,9 @@
 
         <section class="section">
             <boarding-house-list></boarding-house-list>
+            <search-boarding-houses></search-boarding-houses>
         </section>
+
 
         <section>
             <div class="footer" style="margin-top: 30px; background-color: #5a9669; color:white;">
@@ -79,7 +81,9 @@
 </template>
 
 <script>
+import SearchBoardingHouses from './SearchBoardingHouses.vue'
 export default {
+  components: { SearchBoardingHouses },
 
 }
 </script>

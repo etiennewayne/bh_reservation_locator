@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes([
     'register' => false,
 ]);
+
 Route::middleware('guest')->get('/gate', function () {
     //this route will check and redirect user
 });
@@ -79,7 +80,10 @@ Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHous
 //BOARDING HOUSE - BEDSPACE
 Route::get('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
 Route::post('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'store']);
-Route::get('/get-boarding-house-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBedspaces']);
+Route::get('/get-boarding-house-bedspaces-imgs/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBedspaceImgs']);
+Route::get('/get-bhouse-bedspaces', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBhBedspaces']);
+Route::delete('/boarding-house-bedspace-delete/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'destroy']);
+
 
 
 //-------------------------///

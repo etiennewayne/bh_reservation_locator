@@ -3563,6 +3563,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _SearchBoardingHouses_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchBoardingHouses.vue */ "./resources/js/components/SearchBoardingHouses.vue");
 //
 //
 //
@@ -3643,7 +3644,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    SearchBoardingHouses: _SearchBoardingHouses_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+});
 
 /***/ }),
 
@@ -3792,6 +3800,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -3801,26 +3863,89 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      data: [],
+      total: 0,
+      loading: false,
+      sortField: 'bedspace_id',
+      sortOrder: 'desc',
+      page: 1,
+      perPage: 5,
+      defaultSortDirection: 'asc',
       isModalCreate: false,
       fields: {
+        bedspace_name: '',
+        bedspace_desc: '',
         bedspaces: {}
       },
-      bedspaces: [],
       errors: {},
+      search: {
+        bhousename: ''
+      },
+      bedspaces: [],
       btnClass: {
         'is-success': true,
         'button': true,
         'is-loading': false
-      }
+      },
+      global_bedspace_id: 0
     };
   },
   methods: {
-    loadBedspaces: function loadBedspaces() {
+    initData: function initData() {
+      this.global_bedspace_id = parseInt(this.propDataId);
+    },
+
+    /*
+    * Load async data
+    */
+    loadAsyncData: function loadAsyncData() {
       var _this = this;
 
-      axios.get('/get-boarding-house-bedspaces/' + parseInt(this.propDataId)).then(function (res) {
-        _this.bedspaces = res.data;
-        console.log(_this.bedspaces);
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "bhousename=".concat(this.search.bhousename), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      this.loading = true;
+      axios.get("/get-bhouse-bedspaces?".concat(params)).then(function (_ref) {
+        var data = _ref.data;
+        _this.data = [];
+        var currentTotal = data.total;
+
+        if (data.total / _this.perPage > 1000) {
+          currentTotal = _this.perPage * 1000;
+        }
+
+        _this.total = currentTotal;
+        data.data.forEach(function (item) {
+          //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+          _this.data.push(item);
+        });
+        _this.loading = false;
+      })["catch"](function (error) {
+        _this.data = [];
+        _this.total = 0;
+        _this.loading = false;
+        throw error;
+      });
+    },
+
+    /*
+    * Handle page-change event
+    */
+    onPageChange: function onPageChange(page) {
+      this.page = page;
+      this.loadAsyncData();
+    },
+    onSort: function onSort(field, order) {
+      this.sortField = field;
+      this.sortOrder = order;
+      this.loadAsyncData();
+    },
+    setPerPage: function setPerPage() {
+      this.loadAsyncData();
+    },
+    loadBedspaceImgs: function loadBedspaceImgs() {
+      var _this2 = this;
+
+      axios.get('/get-boarding-house-bedspaces-imgs/' + this.global_bedspace_id).then(function (res) {
+        _this2.bedspaces = res.data;
       });
     },
     openModal: function openModal() {
@@ -3832,30 +3957,70 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.bedspaces.splice(index, 1);
     },
     submit: function submit() {
-      var _this2 = this;
+      var _this3 = this;
 
       var formData = new FormData();
-      formData.append('bedspace_name', this.fields.bedspace_name);
-      formData.append('bedspace_desc', this.fields.bedspace_desc);
-      this.fields.bedspaces.forEach(function (item) {
-        formData.append('bedspace_img_path[]', item);
-      });
-      formData.append('price', this.fields.price);
-      axios.post('/boarding-house-bedspace/' + parseInt(this.propDataId), formData).then(function (res) {
-        if (res.data.status === 'saved') {
-          _this2.isModalCreate = -false;
+      formData.append('bedspace_name', this.fields.bedspace_name ? this.fields.bedspace_name : '');
+      formData.append('bedspace_desc', this.fields.bedspace_desc ? this.fields.bedspace_desc : '');
 
-          _this2.$buefy.dialog.alert({
+      if (this.fields.bedspaces) {
+        this.fields.bedspaces.forEach(function (item) {
+          formData.append('bedspace_img_path[]', item);
+        });
+      }
+
+      formData.append('price', this.fields.price);
+      axios.post('/boarding-house-bedspace/' + this.global_bedspace_id, formData).then(function (res) {
+        if (res.data.status === 'saved') {
+          _this3.isModalCreate = false;
+
+          _this3.$buefy.dialog.alert({
             title: 'Success!',
             message: 'Bedspace(s) successfully saved.',
-            type: 'is-success'
+            type: 'is-success',
+            oncConfirm: function oncConfirm() {
+              _this3.loadAsyncData();
+            }
           });
+        }
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this3.errors = err.response.data.errors;
+        }
+      });
+    },
+    //alert box ask for deletion
+    confirmDelete: function confirmDelete(delete_id) {
+      var _this4 = this;
+
+      this.$buefy.dialog.confirm({
+        title: 'DELETE!',
+        type: 'is-danger',
+        message: 'Are you sure you want to delete this bedspace?',
+        cancelText: 'Cancel',
+        confirmText: 'Delete?',
+        onConfirm: function onConfirm() {
+          return _this4.deleteSubmit(delete_id);
+        }
+      });
+    },
+    //execute delete after confirming
+    deleteSubmit: function deleteSubmit(delete_id) {
+      var _this5 = this;
+
+      axios["delete"]('/boarding-house-bedspace-delete/' + delete_id).then(function (res) {
+        _this5.loadAsyncData();
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this5.errors = err.response.data.errors;
         }
       });
     }
   },
   mounted: function mounted() {
-    this.loadBedspaces();
+    this.initData();
+    this.loadBedspaceImgs();
+    this.loadAsyncData();
   }
 });
 
@@ -4840,6 +5005,34 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.loadProvince();
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SearchBoardingHouses.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SearchBoardingHouses.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {};
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -23218,7 +23411,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-4b28310d]{\n    display: flex;\n    flex-direction: row;\n}\n.img-container[data-v-4b28310d]{\n    padding: 15px;\n    border: 1px solid black;\n    margin: 15px;\n    width: 150px;\n}\n.img-container > img[data-v-4b28310d]{\n    width: 150px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-4b28310d]{\n    display: flex;\n    flex-direction: row;\n}\n.img-container[data-v-4b28310d]{\n    padding: 15px;\n    border: 1px solid black;\n    margin: 15px;\n    width: 200px;\n}\n.img-container > img[data-v-4b28310d]{\n    width: 150px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -24846,6 +25039,45 @@ component.options.__file = "resources/js/components/RegisterPage.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/SearchBoardingHouses.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/SearchBoardingHouses.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SearchBoardingHouses_vue_vue_type_template_id_0205a63c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchBoardingHouses.vue?vue&type=template&id=0205a63c& */ "./resources/js/components/SearchBoardingHouses.vue?vue&type=template&id=0205a63c&");
+/* harmony import */ var _SearchBoardingHouses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchBoardingHouses.vue?vue&type=script&lang=js& */ "./resources/js/components/SearchBoardingHouses.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SearchBoardingHouses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SearchBoardingHouses_vue_vue_type_template_id_0205a63c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _SearchBoardingHouses_vue_vue_type_template_id_0205a63c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/SearchBoardingHouses.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Administrator/Appointment/AppointmentType.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************!*\
   !*** ./resources/js/components/Administrator/Appointment/AppointmentType.vue?vue&type=script&lang=js& ***!
@@ -25067,6 +25299,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RegisterPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RegisterPage.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SearchBoardingHouses.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/SearchBoardingHouses.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBoardingHouses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchBoardingHouses.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SearchBoardingHouses.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBoardingHouses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -25438,6 +25686,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPage_vue_vue_type_template_id_df7d9286_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPage_vue_vue_type_template_id_df7d9286_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RegisterPage.vue?vue&type=template&id=df7d9286&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RegisterPage.vue?vue&type=template&id=df7d9286&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/SearchBoardingHouses.vue?vue&type=template&id=0205a63c&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/SearchBoardingHouses.vue?vue&type=template&id=0205a63c& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBoardingHouses_vue_vue_type_template_id_0205a63c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBoardingHouses_vue_vue_type_template_id_0205a63c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBoardingHouses_vue_vue_type_template_id_0205a63c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchBoardingHouses.vue?vue&type=template&id=0205a63c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SearchBoardingHouses.vue?vue&type=template&id=0205a63c&");
 
 
 /***/ }),
@@ -27958,7 +28223,12 @@ var render = function () {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("section", { staticClass: "section" }, [_c("boarding-house-list")], 1),
+    _c(
+      "section",
+      { staticClass: "section" },
+      [_c("boarding-house-list"), _vm._v(" "), _c("search-boarding-houses")],
+      1
+    ),
     _vm._v(" "),
     _vm._m(1),
   ])
@@ -28108,48 +28378,245 @@ var render = function () {
             _c("div", { staticClass: "panel" }, [
               _c("div", { staticClass: "panel-heading" }, [
                 _vm._v(
-                  "\n                        BEDSAPACE\n                    "
+                  "\n                        BEDSPACE\n                    "
                 ),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "panel-body" }, [
-                _c("div", {}, [
-                  _c("div", { staticClass: "buttons" }, [
-                    _c(
-                      "button",
-                      { staticClass: "button", on: { click: _vm.openModal } },
-                      [_vm._v("NEW BEDSPACE")]
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "section" }, [
-                  _c("div", { staticClass: "columns" }, [
+              _c(
+                "div",
+                { staticClass: "panel-body" },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "buttons" },
+                    [
+                      _c(
+                        "b-button",
+                        {
+                          attrs: {
+                            "icon-left": "chevron-left",
+                            tag: "a",
+                            href: "/boarding-house",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                BACK\n                            "
+                          ),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", {}, [
                     _c(
                       "div",
-                      { staticClass: "column" },
-                      _vm._l(this.bedspaces, function (item, index) {
-                        return _c(
-                          "div",
-                          { key: index, staticClass: "card-container" },
-                          [
-                            _c("div", { staticClass: "img-container" }, [
-                              _c("img", {
-                                attrs: {
-                                  src:
-                                    "/storage/bedspaces/" +
-                                    item.bedspace_img_path,
-                                },
-                              }),
-                            ]),
-                          ]
-                        )
-                      }),
-                      0
+                      { staticClass: "buttons mb-3 is-right" },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            staticClass: "button is-primary",
+                            attrs: { "icon-left": "bunk-bed-outline" },
+                            on: { click: _vm.openModal },
+                          },
+                          [_vm._v("NEW BEDSPACE")]
+                        ),
+                      ],
+                      1
                     ),
                   ]),
-                ]),
-              ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-table",
+                    {
+                      attrs: {
+                        data: _vm.data,
+                        loading: _vm.loading,
+                        paginated: "",
+                        "backend-pagination": "",
+                        total: _vm.total,
+                        "per-page": _vm.perPage,
+                        "aria-next-label": "Next page",
+                        "aria-previous-label": "Previous page",
+                        "aria-page-label": "Page",
+                        "aria-current-label": "Current page",
+                        "backend-sorting": "",
+                        "default-sort-direction": _vm.defaultSortDirection,
+                      },
+                      on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
+                    },
+                    [
+                      _c("b-table-column", {
+                        attrs: { field: "bedspace_id", label: "ID" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.bedspace_id) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: {
+                          field: "bedspace_name",
+                          label: "Bedspace Name",
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.bedspace_name) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { field: "bedspace_desc", label: "Description" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.bedspace_desc) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { field: "price", label: "Price" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.price) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { field: "is_booked", label: "Status" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                props.row.is_booked === 1
+                                  ? _c("span", [_vm._v("OCCUPIED")])
+                                  : _c("span", [_vm._v("VACANT")]),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { label: "Action" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _c(
+                                  "b-dropdown",
+                                  {
+                                    attrs: { "aria-role": "list" },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "trigger",
+                                          fn: function (ref) {
+                                            var nactive = ref.nactive
+                                            return [
+                                              _c("b-button", {
+                                                staticClass: "is-small",
+                                                attrs: {
+                                                  label: "...",
+                                                  type: "is-primary",
+                                                  "icon-right": nactive
+                                                    ? "menu-up"
+                                                    : "menu-down",
+                                                },
+                                              }),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  },
+                                  [
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-dropdown-item",
+                                      { attrs: { "aria-role": "listitem" } },
+                                      [_vm._v("Modify")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-dropdown-item",
+                                      { attrs: { "aria-role": "listitem" } },
+                                      [_vm._v("List of Boarder")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-dropdown-item",
+                                      {
+                                        attrs: { "aria-role": "listitem" },
+                                        on: {
+                                          click: function ($event) {
+                                            return _vm.confirmDelete(
+                                              props.row.bedspace_id
+                                            )
+                                          },
+                                        },
+                                      },
+                                      [_vm._v("Delete")]
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
             ]),
           ]),
         ]),
@@ -28280,7 +28747,7 @@ var render = function () {
                             [
                               _c("b-numberinput", {
                                 attrs: {
-                                  step: "0.01",
+                                  step: "1",
                                   "controls-alignment": "right",
                                   "controls-position": "compact",
                                 },
@@ -30423,6 +30890,50 @@ var render = function () {
         ),
       ]),
     ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SearchBoardingHouses.vue?vue&type=template&id=0205a63c&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SearchBoardingHouses.vue?vue&type=template&id=0205a63c& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "buttons is-centered" },
+      [
+        _c(
+          "b-button",
+          {
+            attrs: {
+              tag: "a",
+              href: "/search-boarding-houses",
+              type: "is-link",
+            },
+          },
+          [_vm._v("SEE MORE BOARDING HOUSES")]
+        ),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = []
@@ -42612,7 +43123,8 @@ var map = {
 	"./components/Landowner/NavbarLandOwner.vue": "./resources/js/components/Landowner/NavbarLandOwner.vue",
 	"./components/Login.vue": "./resources/js/components/Login.vue",
 	"./components/MainNavbar.vue": "./resources/js/components/MainNavbar.vue",
-	"./components/RegisterPage.vue": "./resources/js/components/RegisterPage.vue"
+	"./components/RegisterPage.vue": "./resources/js/components/RegisterPage.vue",
+	"./components/SearchBoardingHouses.vue": "./resources/js/components/SearchBoardingHouses.vue"
 };
 
 

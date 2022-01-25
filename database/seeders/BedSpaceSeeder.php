@@ -15,22 +15,22 @@ class BedSpaceSeeder extends Seeder
     public function run()
     {
         $data = [
-            [
-                'bhouse_id' => 1,
-                'bedspace_name' => 'BEDROOM 1',
-                'bedspace_desc' => 't is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed',
-                'bedspace_img_path' => '',
-                'price' => 300,
-                'is_booked' => 0
-            ],
-            [
-                'bhouse_id' => 1,
-                'bedspace_name' => 'BEDROOM 2',
-                'bedspace_desc' => 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from',
-                'bedspace_img_path' => '',
-                'price' => 450,
-                'is_booked' => 0
-            ],
+            // [
+            //     'bhouse_id' => 1,
+            //     'bedspace_name' => 'BEDROOM 1',
+            //     'bedspace_desc' => 't is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed',
+            //     'bedspace_img_path' => '',
+            //     'price' => 300,
+            //     'is_booked' => 0
+            // ],
+            // [
+            //     'bhouse_id' => 1,
+            //     'bedspace_name' => 'BEDROOM 2',
+            //     'bedspace_desc' => 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from',
+            //     'bedspace_img_path' => '',
+            //     'price' => 450,
+            //     'is_booked' => 0
+            // ],
             [
                 'bhouse_id' => 2,
                 'bedspace_name' => 'BEDROOM B1',

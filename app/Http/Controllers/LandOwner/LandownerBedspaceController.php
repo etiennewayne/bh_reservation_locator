@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 use App\Models\BedSpace;
 use App\Models\BedspaceImg;
 use Illuminate\Support\Facades\DB;
-
+use Auth;
 
 class LandownerBedspaceController extends Controller
 {
     //
 
     public function __construct(){
+      
+
         $this->middleware('auth');
         $this->middleware('landowner');
 
@@ -28,8 +30,7 @@ class LandownerBedspaceController extends Controller
             ->with('bedspaces', $bedspaces);
     }
 
-    public function getBedspaces($bhouse_id){
-
+    public function getBedspaceImgs($bhouse_id){
 
         return DB::table('boarding_houses as a')
             ->join('bedspaces as b', 'a.bhouse_id', 'b.bhouse_id')
@@ -46,8 +47,9 @@ class LandownerBedspaceController extends Controller
 
         $req->validate([
             'bedspace_name' => ['required'],
-            'bedspace_desc' => ['required'],
-            'bedspace_img_path.*' => ['required', 'mimes:jpg,bmp,png', 'max:700']
+            'bedspace_name' => ['required'],
+            'bedspace_img_path.*' => ['required', 'mimes:jpg,bmp,png', 'max:700'],
+            'price' => ['required', 'integer'],
 
         ], $message = [
             'bedspace_img_path.mimes' => 'Image must be a jpeg, png or bmp.',
@@ -87,6 +89,24 @@ class LandownerBedspaceController extends Controller
 
     }
 
+    public function getBhBedspaces(Request $req){
+        $id = Auth::user()->user_id;
+
+        return DB::table('bedspaces as a')
+            ->join('boarding_houses as b', 'a.bhouse_id', 'b.bhouse_id')
+            ->where('b.user_id', $id)
+            ->orderBy('bedspace_id', 'desc')
+            ->paginate($req->perpage);
+
+    }
+
+
+    public function destroy($id){
+        BedSpace::destroy($id);
+        return response()->json([
+            'status'=>'deleted'
+        ],200);
+    }
 
 
 
