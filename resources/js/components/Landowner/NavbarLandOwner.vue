@@ -25,7 +25,7 @@
                         </b-menu-list>
 
                         <b-menu-list>
-                            <b-menu-item label="Boarding House" icon="link" target="a" href="/boarding-house"></b-menu-item>
+                            <b-menu-item label="Boarding House" icon="link" tag="a" href="/boarding-house"></b-menu-item>
                         </b-menu-list>
 
                         <b-menu-list label="Actions">

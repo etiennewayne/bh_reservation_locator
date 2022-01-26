@@ -258,7 +258,7 @@ export default {
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-bhouse-bedspaces?${params}`)
+            axios.get(`/get-bhouse-bedspaces/${this.global_bedspace_id}?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -302,12 +302,12 @@ export default {
 
 
 
-        loadBedspaceImgs: function(){
+        // loadBedspaceImgs: function(){
         
-            axios.get('/get-boarding-house-bedspaces-imgs/' + this.global_bedspace_id).then(res=>{
-                this.bedspaces = res.data;
-            });
-        },
+        //     axios.get('/get-boarding-house-bedspaces-imgs/' + this.global_bedspace_id).then(res=>{
+        //         this.bedspaces = res.data;
+        //     });
+        // },
 
         openModal(){
             this.isModalCreate=true;
@@ -386,7 +386,7 @@ export default {
 
     mounted(){
         this.initData();
-        this.loadBedspaceImgs();
+        //this.loadBedspaceImgs();
         this.loadAsyncData();
     }
 }

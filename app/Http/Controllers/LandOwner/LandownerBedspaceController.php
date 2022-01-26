@@ -40,8 +40,6 @@ class LandownerBedspaceController extends Controller
     }
 
 
-
-
     public function store(Request $req, $id){
 
 
@@ -60,8 +58,8 @@ class LandownerBedspaceController extends Controller
 
         $bedspace = BedSpace::create([
             'bhouse_id' => $id,
-            'bedspace_name' => $req->bedspace_name,
-            'bedspace_desc' => $req->bedspace_desc,
+            'bedspace_name' => strtoupper($req->bedspace_name),
+            'bedspace_desc' => strtoupper($req->bedspace_desc),
             'price' => $req->price,
             'is_booked' => 0
         ]);
@@ -89,12 +87,13 @@ class LandownerBedspaceController extends Controller
 
     }
 
-    public function getBhBedspaces(Request $req){
-        $id = Auth::user()->user_id;
+    public function getBhBedspaces(Request $req, $id){
+        $user_id = Auth::user()->user_id;
 
         return DB::table('bedspaces as a')
             ->join('boarding_houses as b', 'a.bhouse_id', 'b.bhouse_id')
-            ->where('b.user_id', $id)
+            ->where('b.bhouse_id', $id)
+            ->where('b.user_id', $user_id)
             ->orderBy('bedspace_id', 'desc')
             ->paginate($req->perpage);
 
