@@ -29778,7 +29778,7 @@ var render = function () {
                                       "aria-role": "listitem",
                                       tag: "a",
                                       href:
-                                        "/boarding-house-room/" +
+                                        "/boarding-house-rooms/" +
                                         props.row.bhouse_id,
                                     },
                                   },

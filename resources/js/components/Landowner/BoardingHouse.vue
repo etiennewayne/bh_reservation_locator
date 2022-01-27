@@ -81,7 +81,7 @@
                                     </template>
 
                                     <b-dropdown-item aria-role="listitem" @click="openLink(props.row.bhouse_id)">Modify</b-dropdown-item>
-                                    <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-room/` + props.row.bhouse_id">Room</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-rooms/` + props.row.bhouse_id">Room</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.bhouse_id)">Delete</b-dropdown-item>
                                     
                                 </b-dropdown>

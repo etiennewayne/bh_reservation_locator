@@ -15,7 +15,8 @@ class LandOwnerRoomController extends Controller
     }
 
 
-    public function index(){
-        return view('landowner.room.boarding-house-room');
+    public function index($id){
+        return view('landowner.room.boarding-house-room')
+            ->with('id', $id);
     }
 }
