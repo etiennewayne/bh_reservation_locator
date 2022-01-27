@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="section">
-            <h1 class="title is-flex is-justify-content-center">LANDOWNER DASHBOARD</h1>
+            <h1 class="title is-flex is-justify-content-center">ADMINISTRATOR DASHBOARD</h1>
              
         </div>
        
@@ -10,10 +10,8 @@
 
 <script>
 export default {
-    data() {
-        return{
-            
-        }
+    date() {
+        
     },
 }
 </script>

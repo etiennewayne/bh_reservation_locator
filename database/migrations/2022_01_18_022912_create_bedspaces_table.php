@@ -15,8 +15,8 @@ class CreateBedspacesTable extends Migration
     {
         Schema::create('bedspaces', function (Blueprint $table) {
             $table->id('bedspace_id');
-            $table->unsignedBigInteger('bhouse_id');
-            $table->foreign('bhouse_id')->references('bhouse_id')->on('boarding_houses');
+            $table->unsignedBigInteger('room_id');
+            $table->foreign('room_id')->references('bhouse_id')->on('rooms');
             $table->string('bedspace_name')->nullable();
             $table->text('bedspace_desc')->nullable();
             $table->string('bedspace_img_path')->nullable();

@@ -5,7 +5,7 @@
                 <div class="column is-8 is-offset-2">
                     <div class="panel">
                         <div class="panel-heading">
-                            BEDSPACE
+                            BED SPACE
                         </div>
 
                         <div class="panel-body">
@@ -16,10 +16,9 @@
                             </div>
                             <div class="">
                                 <div class="buttons mb-3 is-right">
-                                    <b-button class="button is-primary" icon-left="bunk-bed-outline" @click="openModal">NEW BEDSPACE</b-button>
+                                    <b-button class="button is-primary" icon-left="bunk-bed-outline" @click="openModal(0)">NEW BED SPACE</b-button>
                                 </div>
                             </div>
-
 
                             <b-table
                                 :data="data"
@@ -41,7 +40,7 @@
                                     {{ props.row.bedspace_id }}
                                 </b-table-column>
 
-                                <b-table-column field="bedspace_name" label="Bedspace Name" v-slot="props">
+                                <b-table-column field="bedspace_name" label="Bed Space Name" v-slot="props">
                                     {{ props.row.bedspace_name }}
                                 </b-table-column>
 
@@ -68,7 +67,7 @@
                                                 :icon-right="nactive ? 'menu-up' : 'menu-down'" />
                                         </template>
 
-                                        <b-dropdown-item aria-role="listitem">Modify</b-dropdown-item>
+                                        <b-dropdown-item aria-role="listitem" @click="openModal(props.row.bedspace_id)">Modify</b-dropdown-item>
                                          <b-dropdown-item aria-role="listitem">List of Boarder</b-dropdown-item>
                                         <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.bedspace_id)">Delete</b-dropdown-item>
                                         
@@ -103,7 +102,7 @@
             <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Bedspaces</p>
+                        <p class="modal-card-title">Bed Spaces</p>
                         <button
                             type="button"
                             class="delete"
@@ -115,17 +114,21 @@
                             <div class="columns">
                                 <div class="column">
 
-                                    <b-field label="Bedspace Name"
+                                    <b-field label="Bed Space Name"
                                              :type="this.errors.bedspace_name ? 'is-danger':''"
                                              :message="this.errors.bedspace_name ? this.errors.bedspace_name[0] : ''">
                                         <b-input v-model="fields.bedspace_name" type="text" icon="account"></b-input>
                                     </b-field>
 
-                                    <b-field label="Bedspace Description"
+                                    <b-field label="Bed Space Description"
                                             :type="this.errors.bedspace_desc ? 'is-danger':''"
                                             :message="this.errors.bedspace_desc ? this.errors.bedspace_desc[0] : ''">
                                         <b-input v-model="fields.bedspace_desc" type="textarea"></b-input>
                                     </b-field>
+
+                                    <div class="is-flex">
+
+                                    </div>
 
                                     <b-field label="Price"
                                             :type="this.errors.price ? 'is-danger':''"
@@ -133,7 +136,7 @@
                                         <b-numberinput v-model="fields.price" step="1" controls-alignment="right" controls-position="compact"></b-numberinput>
                                     </b-field>
 
-                                    <b-field mb-auto>
+                                    <b-field mb-auto v-if="global_bedspace_id < 1">
                                         <b-upload v-model="fields.bedspaces"
                                             multiple
                                             drag-drop>
@@ -192,7 +195,7 @@ export default {
         propDataId: {
             type: String,
             default: '',
-        }
+        },
     },
     data(){
         return{
@@ -205,9 +208,6 @@ export default {
             page: 1,
             perPage: 5,
             defaultSortDirection: 'asc',
-
-
-
 
 
             isModalCreate: false,
@@ -234,6 +234,7 @@ export default {
                 'is-loading':false,
             },
 
+            global_bhouse_id: 0,
             global_bedspace_id: 0,
 
 
@@ -243,7 +244,7 @@ export default {
     methods: {
 
         initData: function(){
-              this.global_bedspace_id = parseInt(this.propDataId);
+              this.global_bhouse_id = parseInt(this.propDataId);
         },
 
         /*
@@ -258,7 +259,7 @@ export default {
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-bhouse-bedspaces/${this.global_bedspace_id}?${params}`)
+            axios.get(`/get-bhouse-bedspaces/${this.global_bhouse_id}?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -299,9 +300,6 @@ export default {
         },
 
 
-
-
-
         // loadBedspaceImgs: function(){
         
         //     axios.get('/get-boarding-house-bedspaces-imgs/' + this.global_bedspace_id).then(res=>{
@@ -309,7 +307,16 @@ export default {
         //     });
         // },
 
-        openModal(){
+        openModal(id){
+            this.global_bedspace_id = 0;
+
+            if(id > 0){
+                axios.get('/get-boarding-house-bedspaces/' + id).then(res=>{
+                    this.fields = res.data;
+                });
+            }
+
+            this.global_bedspace_id = id;
             this.isModalCreate=true;
             this.fields = {};
             this.errors = {};
@@ -321,36 +328,69 @@ export default {
 
         submit: function(){
 
-            var formData = new FormData();
+            if(this.global_bedspace_id > 0){
+                //update
+                //var formData = new FormData();
+                // formData.append('bedspace_name', this.fields.bedspace_name ? this.fields.bedspace_name : '');
+                // formData.append('bedspace_desc', this.fields.bedspace_desc ? this.fields.bedspace_desc : '');
+                // formData.append('price', this.fields.price);
 
-            formData.append('bedspace_name', this.fields.bedspace_name ? this.fields.bedspace_name : '');
-            formData.append('bedspace_desc', this.fields.bedspace_desc ? this.fields.bedspace_desc : '');
-
-            if(this.fields.bedspaces){
-                this.fields.bedspaces.forEach(item =>{
-                    formData.append('bedspace_img_path[]', item);
+                axios.put('/boarding-house-bedspace-update/' + this.global_bedspace_id, this.fields).then(res=>{
+                    if(res.data.status === 'updated'){
+                        this.isModalCreate = false;
+                        this.$buefy.dialog.alert({
+                            title: 'Success!',
+                            message: 'Bedspace(s) successfully updated.',
+                            type: 'is-success',
+                            onConfirm: ()=>{
+                                this.global_bedspace_id = 0;
+                                this.fields = {};
+                                this.loadAsyncData();
+                            }
+                        });
+                    }
+                }).catch(err=>{
+                    if(err.response.status === 422){
+                        this.errors = err.response.data.errors;
+                    }
                 });
-            }
-            
-            formData.append('price', this.fields.price);
 
-            axios.post('/boarding-house-bedspace/' + this.global_bedspace_id, formData).then(res=>{
-                if(res.data.status === 'saved'){
-                    this.isModalCreate = false;
-                    this.$buefy.dialog.alert({
-                        title: 'Success!',
-                        message: 'Bedspace(s) successfully saved.',
-                        type: 'is-success',
-                        oncConfirm: ()=>{
-                            this.loadAsyncData();
-                        }
+                
+            }else{
+                //insert
+                var formData = new FormData();
+                formData.append('bedspace_name', this.fields.bedspace_name ? this.fields.bedspace_name : '');
+                formData.append('bedspace_desc', this.fields.bedspace_desc ? this.fields.bedspace_desc : '');
+
+                if(this.fields.bedspaces){
+                    this.fields.bedspaces.forEach(item =>{
+                        formData.append('bedspace_img_path[]', item);
                     });
                 }
-            }).catch(err=>{
-                if(err.response.status === 422){
-                    this.errors = err.response.data.errors;
-                }
-            });
+                
+                formData.append('price', this.fields.price);
+
+                axios.post('/boarding-house-bedspace/' + this.global_bhouse_id, formData).then(res=>{
+
+                    if(res.data.status === 'saved'){
+                        this.isModalCreate = false;
+                        this.$buefy.dialog.alert({
+                            title: 'Success!',
+                            message: 'Bedspace(s) successfully saved.',
+                            type: 'is-success',
+                            onConfirm: ()=>{
+                                this.loadAsyncData();
+                            }
+                        });
+                    }
+                }).catch(err=>{
+                    if(err.response.status === 422){
+                        this.errors = err.response.data.errors;
+                    }
+                });
+            }
+
+            
         },
 
 

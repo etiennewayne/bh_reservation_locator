@@ -10,8 +10,15 @@
 
 
 @section('content')
+    
+   
 
-    <boarding-house-create></boarding-house-create>
+    @if (isset($id))
+        <boarding-house-create prop-data-id='{{ $id }}' prop-data='@json($bhouse)'></boarding-house-create>
+    @else
+        <boarding-house-create prop-data-id='0' prop-data=''></boarding-house-create>
+    @endif
+   
 
 @endsection
 

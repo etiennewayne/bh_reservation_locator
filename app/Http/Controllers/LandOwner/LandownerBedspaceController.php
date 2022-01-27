@@ -19,7 +19,6 @@ class LandownerBedspaceController extends Controller
 
         $this->middleware('auth');
         $this->middleware('landowner');
-
     }
 
 
@@ -39,9 +38,11 @@ class LandownerBedspaceController extends Controller
             ->get();
     }
 
+    public function showBedSpace($id){
+        return BedSpace::find($id);
+    }
 
     public function store(Request $req, $id){
-
 
         $req->validate([
             'bedspace_name' => ['required'],
@@ -87,6 +88,27 @@ class LandownerBedspaceController extends Controller
 
     }
 
+
+    public function update(Request $req, $id){
+
+        $req->validate([
+            'bedspace_name' => ['required'],
+            'bedspace_name' => ['required'],
+            'price' => ['required', 'integer'],
+        ]);
+
+        $data = BedSpace::find($id);
+        $data->bedspace_name = strtoupper($req->bedspace_name);
+        $data->bedspace_desc = strtoupper($req->bedspace_desc);
+        $data->price = $req->price;
+        $data->save();
+
+        return response()->json([
+            'status'=>'updated'
+        ],200);
+
+    }
+
     public function getBhBedspaces(Request $req, $id){
         $user_id = Auth::user()->user_id;
 
@@ -96,9 +118,7 @@ class LandownerBedspaceController extends Controller
             ->where('b.user_id', $user_id)
             ->orderBy('bedspace_id', 'desc')
             ->paginate($req->perpage);
-
     }
-
 
     public function destroy($id){
         BedSpace::destroy($id);

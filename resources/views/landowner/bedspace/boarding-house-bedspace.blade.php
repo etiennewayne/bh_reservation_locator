@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <bedspace prop-data-id='{{ $bhouse_id }}'></bedspace>
+    <boarding-house-bedspace prop-data-id='{{ $bhouse_id }}'></boarding-house-bedspace>
 
 @endsection
 

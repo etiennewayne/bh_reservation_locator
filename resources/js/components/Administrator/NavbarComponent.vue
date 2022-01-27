@@ -58,12 +58,12 @@
 
 
                         <b-menu-list>
-                            <b-menu-item label="Appointment Type" icon="link" target="a" href="/appointment-type"></b-menu-item>
+                            <b-menu-item label="Appointment Type" icon="link" tag="a" href="/appointment-type"></b-menu-item>
                         </b-menu-list>
 
-                        <b-menu-list>
+                        <!-- <b-menu-list>
                             <b-menu-item label="Expo" icon="link" target="_blank" to="/expo"></b-menu-item>
-                        </b-menu-list>
+                        </b-menu-list> -->
 
                         <b-menu-list label="Actions">
                             <b-menu-item @click="logout" label="Logout"></b-menu-item>

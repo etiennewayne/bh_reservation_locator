@@ -27,6 +27,9 @@ Route::middleware('guest')->get('/gate', function () {
 });
 
 
+
+
+
 Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -79,10 +82,16 @@ Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHous
 
 //BOARDING HOUSE - BEDSPACE
 Route::get('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
+Route::get('/get-boarding-house-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'showBedSpace']);
+
 Route::post('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'store']);
 //Route::get('/get-boarding-house-bedspaces-imgs/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBedspaceImgs']);
+Route::put('/boarding-house-bedspace-update/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'update']);
+
 Route::get('/get-bhouse-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBhBedspaces']);
 Route::delete('/boarding-house-bedspace-delete/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'destroy']);
+
+
 
 
 
@@ -91,6 +100,9 @@ Route::delete('/boarding-house-bedspace-delete/{id}', [App\Http\Controllers\Land
 
 
 
+//CLIENT BOARDING HOUSES //
+Route::get('/get-client-bhouses', [App\Http\Controllers\ClientBhouseController::class, 'getBhouses']);
+Route::get('/client-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'showBhouseDetail']);
 
 
 

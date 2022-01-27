@@ -81,8 +81,7 @@
                                             :icon-right="active ? 'menu-up' : 'menu-down'" />
                                     </template>
 
-                                    <b-dropdown-item aria-role="listitem">Modify</b-dropdown-item>
-                                    <b-dropdown-item aria-role="listitem">Approve</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem" @click="openLink(props.row.bhouse_id)">Modify</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + props.row.bhouse_id">Bedspace</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.bhouse_id)">Delete</b-dropdown-item>
                                     
@@ -207,6 +206,11 @@ export default{
                 }
             });
         },
+
+
+        openLink(id){
+            window.location = '/boarding-house/' +id + '/edit';
+        }
 
 
     },

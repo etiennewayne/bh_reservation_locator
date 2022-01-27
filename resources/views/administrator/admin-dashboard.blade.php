@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {{ auth()->user()->role }}
+    <admin-dashboard></admin-dashboard>
 
 
 @endsection

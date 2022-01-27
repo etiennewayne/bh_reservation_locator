@@ -26,6 +26,11 @@ class LandownerBoardingHouseController extends Controller
         return view('landowner.boarding-house');
     }
 
+    public function show($id){
+        
+        return BoardingHouse::find($id);
+    }
+
 
     public function getBhouses(Request $req){
         $id = Auth::user()->user_id;
@@ -41,18 +46,24 @@ class LandownerBoardingHouseController extends Controller
     }
 
     public function store(Request $req){
+       
 
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
-            'owner' => ['required', 'string', 'max: 100'],
             'business_permit_imgpath' => ['required', 'mimes:jpg,png,bmp', 'file', 'max:700'],
             'bhouse_img_path' => ['required', 'mimes:jpg,png,bmp', 'file', 'max:700'],
+            'bhouse_rule' => ['required', 'string'],
             'long' => ['required'],
             'lat' => ['required'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'barangay' => ['required'],
+            'street' => ['required'],
+
         ], $message = [
             'bhouse_img_path.max' => 'Size must atleast 700 kb',
             'business_permit_imgpath.max' => 'Size must atleast 700 kb',
-
+            'bhouse_rule.required' => 'Please input boarding house rule.',
             'bhouse_img_path.mimes' => 'Boarding house must be an image.',
             'business_permit_imgpath.mimes' => 'Business permit must be an image.',
         ]);
@@ -76,12 +87,15 @@ class LandownerBoardingHouseController extends Controller
         BoardingHouse::create([
             'bhouse_name' => strtoupper($req->bhouse_name),
             'user_id' => $userid,
-            'owner' => strtoupper($req->owner),
             'business_permit_imgpath' => $n[2] != null ? $n[2]: '',
             'bhouse_img_path' => $bhouse_imgpath[2] != null ? $bhouse_imgpath[2]: '',
             'bhouse_rule' => $req->bhouse_rule,
             'long' => $req->long,
-            'lat' => $req->lat
+            'lat' => $req->lat,
+            'province' => strtoupper($req->province),
+            'city' => strtoupper($req->city),
+            'barangay' => strtoupper($req->barangay),
+            'street' => strtoupper($req->street),
         ]);
 
         return response()->json([
@@ -90,17 +104,44 @@ class LandownerBoardingHouseController extends Controller
     }
 
 
+    public function edit($id){
+        $bhouse = BoardingHouse::find($id);
+        return view('landowner.boarding-house-create')
+            ->with('bhouse', $bhouse)
+            ->with('id', $id);
+    }
+
+    public function update(Request $req, $id){
+        $validate = $req->validate([
+            'bhouse_name' => ['required', 'string', 'max: 100'],
+            'bhouse_rule' => ['required', 'string'],
+            'long' => ['required'],
+            'lat' => ['required'],
+        ]);
 
 
+        $data = BoardingHouse::find($id);
+        $data->bhouse_name = strtoupper($req->bhouse_name);
+        $data->bhouse_rule = strtoupper($req->bhouse_rule);
+        $data->long = strtoupper($req->long);
+        $data->lat = strtoupper($req->lat);
 
+        $data->province = strtoupper($req->province);
+        $data->city = strtoupper($req->city);
+        $data->barangay = strtoupper($req->barangay);
+        $data->street = strtoupper($req->street);
+        $data->save();
+
+        return response()->json([
+            'status' => 'updated'
+        ], 200);
+    }
 
 
 
     public function destroy($id){
         
         $data = BoardingHouse::find($id);
-    
-
         if($data != '' || $data != null){
             if(Storage::exists('public/bpermit/'. $data->business_permit_imgpath)){
                 Storage::delete('public/bpermit/'. $data->business_permit_imgpath);

@@ -12,8 +12,8 @@ class BoardingHouse extends Model
     protected $table = 'boarding_houses';
     protected $primaryKey = 'bhouse_id';
     
-    protected $fillable = ['bhouse_name', 
+    protected $fillable = ['bhouse_name', 'bhouse_desc',
     'user_id', 'owner', 'business_permit_imgpath', 
-    'bhouse_img_path', 'bhouse_rule', 'long', 'lat', 'is_approve'];
+    'bhouse_img_path', 'bhouse_rule', 'long', 'lat', 'is_approve', 'province', 'city', 'barangay', 'street'];
 
 }

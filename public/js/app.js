@@ -2054,6 +2054,33 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/AdminDashboard.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/AdminDashboard.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  date: function date() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Appointment/AppointmentType.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Appointment/AppointmentType.vue?vue&type=script&lang=js& ***!
@@ -3505,48 +3532,113 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       test: 0,
-      items: [{
-        title: 'Slide 1',
-        image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        rating: 4.4
-      }, {
-        title: 'Slide 2',
-        image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        rating: 3.5
-      }, {
-        title: 'Slide 3',
-        image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        rating: 5
-      }, {
-        title: 'Slide 4',
-        image: 'https://buefy.org/static/img/placeholder-1280x960.png'
-      }, {
-        title: 'Slide 5',
-        image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        rating: 5
-      }, {
-        title: 'Slide 6',
-        image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        rating: 4
-      }, {
-        title: 'Slide 7',
-        image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        rating: 2.7
-      }, {
-        title: 'Slide 8',
-        image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        rating: 1.5
-      }]
+      items: [// {
+        //     title: 'Slide 1',
+        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
+        //     rating: 4.4
+        // },
+        // {
+        //     title: 'Slide 2',
+        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
+        //     rating: 3.5
+        // },
+        // {
+        //     title: 'Slide 3',
+        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
+        //     rating: 5
+        // },
+        // {
+        //     title: 'Slide 4',
+        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png'
+        // },
+        // {
+        //     title: 'Slide 5',
+        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
+        //     rating: 5
+        // },
+        // {
+        //     title: 'Slide 6',
+        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
+        //     rating: 4
+        // },
+        // {
+        //     title: 'Slide 7',
+        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
+        //     rating: 2.7
+        // },
+        // {
+        //     title: 'Slide 8',
+        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
+        //     rating: 1.5
+        // }
+      ]
     };
   },
   methods: {
     info: function info(value) {
       this.test = value;
+    },
+    loadBoardingHouses: function loadBoardingHouses() {
+      var _this = this;
+
+      axios.get('/get-client-bhouses').then(function (res) {
+        _this.items = res.data;
+      })["catch"](function (err) {});
     }
+  },
+  mounted: function mounted() {
+    this.loadBoardingHouses();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientBhouseDetail.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientBhouseDetail.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    propData: {
+      type: String,
+      "default": ''
+    }
+  },
+  data: function data() {
+    return {
+      data: []
+    };
+  },
+  methods: {},
+  mounted: function mounted() {
+    this.data = JSON.stringify(this.propData);
   }
 });
 
@@ -3655,10 +3747,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3666,6 +3758,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -3887,12 +3982,13 @@ __webpack_require__.r(__webpack_exports__);
         'button': true,
         'is-loading': false
       },
+      global_bhouse_id: 0,
       global_bedspace_id: 0
     };
   },
   methods: {
     initData: function initData() {
-      this.global_bedspace_id = parseInt(this.propDataId);
+      this.global_bhouse_id = parseInt(this.propDataId);
     },
 
     /*
@@ -3903,7 +3999,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "bhousename=".concat(this.search.bhousename), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
-      axios.get("/get-bhouse-bedspaces/".concat(this.global_bedspace_id, "?").concat(params)).then(function (_ref) {
+      axios.get("/get-bhouse-bedspaces/".concat(this.global_bhouse_id, "?").concat(params)).then(function (_ref) {
         var data = _ref.data;
         _this.data = [];
         var currentTotal = data.total;
@@ -3946,7 +4042,18 @@ __webpack_require__.r(__webpack_exports__);
     //         this.bedspaces = res.data;
     //     });
     // },
-    openModal: function openModal() {
+    openModal: function openModal(id) {
+      var _this2 = this;
+
+      this.global_bedspace_id = 0;
+
+      if (id > 0) {
+        axios.get('/get-boarding-house-bedspaces/' + id).then(function (res) {
+          _this2.fields = res.data;
+        });
+      }
+
+      this.global_bedspace_id = id;
       this.isModalCreate = true;
       this.fields = {};
       this.errors = {};
@@ -3955,41 +4062,71 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.bedspaces.splice(index, 1);
     },
     submit: function submit() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var formData = new FormData();
-      formData.append('bedspace_name', this.fields.bedspace_name ? this.fields.bedspace_name : '');
-      formData.append('bedspace_desc', this.fields.bedspace_desc ? this.fields.bedspace_desc : '');
+      if (this.global_bedspace_id > 0) {
+        //update
+        //var formData = new FormData();
+        // formData.append('bedspace_name', this.fields.bedspace_name ? this.fields.bedspace_name : '');
+        // formData.append('bedspace_desc', this.fields.bedspace_desc ? this.fields.bedspace_desc : '');
+        // formData.append('price', this.fields.price);
+        axios.put('/boarding-house-bedspace-update/' + this.global_bedspace_id, this.fields).then(function (res) {
+          if (res.data.status === 'updated') {
+            _this3.isModalCreate = false;
 
-      if (this.fields.bedspaces) {
-        this.fields.bedspaces.forEach(function (item) {
-          formData.append('bedspace_img_path[]', item);
+            _this3.$buefy.dialog.alert({
+              title: 'Success!',
+              message: 'Bedspace(s) successfully updated.',
+              type: 'is-success',
+              onConfirm: function onConfirm() {
+                _this3.global_bedspace_id = 0;
+                _this3.fields = {};
+
+                _this3.loadAsyncData();
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this3.errors = err.response.data.errors;
+          }
         });
-      }
+      } else {
+        //insert
+        var formData = new FormData();
+        formData.append('bedspace_name', this.fields.bedspace_name ? this.fields.bedspace_name : '');
+        formData.append('bedspace_desc', this.fields.bedspace_desc ? this.fields.bedspace_desc : '');
 
-      formData.append('price', this.fields.price);
-      axios.post('/boarding-house-bedspace/' + this.global_bedspace_id, formData).then(function (res) {
-        if (res.data.status === 'saved') {
-          _this2.isModalCreate = false;
-
-          _this2.$buefy.dialog.alert({
-            title: 'Success!',
-            message: 'Bedspace(s) successfully saved.',
-            type: 'is-success',
-            oncConfirm: function oncConfirm() {
-              _this2.loadAsyncData();
-            }
+        if (this.fields.bedspaces) {
+          this.fields.bedspaces.forEach(function (item) {
+            formData.append('bedspace_img_path[]', item);
           });
         }
-      })["catch"](function (err) {
-        if (err.response.status === 422) {
-          _this2.errors = err.response.data.errors;
-        }
-      });
+
+        formData.append('price', this.fields.price);
+        axios.post('/boarding-house-bedspace/' + this.global_bhouse_id, formData).then(function (res) {
+          if (res.data.status === 'saved') {
+            _this3.isModalCreate = false;
+
+            _this3.$buefy.dialog.alert({
+              title: 'Success!',
+              message: 'Bedspace(s) successfully saved.',
+              type: 'is-success',
+              onConfirm: function onConfirm() {
+                _this3.loadAsyncData();
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this3.errors = err.response.data.errors;
+          }
+        });
+      }
     },
     //alert box ask for deletion
     confirmDelete: function confirmDelete(delete_id) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$buefy.dialog.confirm({
         title: 'DELETE!',
@@ -3998,19 +4135,19 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Delete?',
         onConfirm: function onConfirm() {
-          return _this3.deleteSubmit(delete_id);
+          return _this4.deleteSubmit(delete_id);
         }
       });
     },
     //execute delete after confirming
     deleteSubmit: function deleteSubmit(delete_id) {
-      var _this4 = this;
+      var _this5 = this;
 
       axios["delete"]('/boarding-house-bedspace-delete/' + delete_id).then(function (res) {
-        _this4.loadAsyncData();
+        _this5.loadAsyncData();
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this4.errors = err.response.data.errors;
+          _this5.errors = err.response.data.errors;
         }
       });
     }
@@ -4035,7 +4172,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -4232,6 +4368,9 @@ __webpack_require__.r(__webpack_exports__);
           _this3.errors = err.response.data.errors;
         }
       });
+    },
+    openLink: function openLink(id) {
+      window.location = '/boarding-house/' + id + '/edit';
     }
   },
   mounted: function mounted() {
@@ -4347,26 +4486,96 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    propDataId: {
+      type: String,
+      "default": ''
+    },
+    propData: {
+      type: String,
+      "default": ''
+    }
+  },
   data: function data() {
     return {
       fields: {
         bhouse_name: '',
-        owner: '',
         business_permit_imgpath: null,
         bhouse_img_path: null,
         lat: 0,
         "long": 0
       },
-      errors: {}
+      errors: {},
+      global_bhouse_id: 0,
+      provinces: [],
+      cities: [],
+      barangays: []
     };
   },
   methods: {
     loadMap: function loadMap() {
       //init map
-      var mymap = L.map('mapid').setView([8.062958238977133, 123.75316500663757], 17); //to call data inside nested function
+      var init_lat = 0,
+          init_long = 0; //init coordinates
+      //separate init if edit mode..
 
-      var vm = this.fields;
+      if (this.global_bhouse_id > 0) {
+        //edit mode
+        init_lat = this.fields.lat;
+        init_long = this.fields["long"];
+      } else {
+        init_lat = 8.062958238977133;
+        init_long = 123.75316500663757;
+      }
+
+      var mymap = L.map('mapid').setView([init_lat, init_long], 17); //to call data inside nested function
+
       L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -4375,7 +4584,13 @@ __webpack_require__.r(__webpack_exports__);
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw'
       }).addTo(mymap);
-      var theMarker = {};
+      var theMarker = {}; //edit mode, if it has an ID
+
+      if (this.global_bhouse_id > 0) {
+        theMarker = L.marker([this.fields.lat, this.fields["long"]]).addTo(mymap);
+      }
+
+      var vm = this.fields;
       mymap.on('click', function (e) {
         //this.fields.lat = e.latlng.lat;
         //this.fields.long = e.latlng.lng;
@@ -4395,28 +4610,99 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
-      var formData = new FormData();
-      formData.append('bhouse_name', this.fields.bhouse_name);
-      formData.append('owner', this.fields.owner);
-      formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
-      formData.append('bhouse_img_path', this.fields.bhouse_img_path);
-      formData.append('lat', this.fields.lat);
-      formData.append('long', this.fields["long"]);
-      axios.post('/boarding-house', formData).then(function (res) {
-        console.log(res.data.status);
+      //console.log(this.global_bhouse_id);
+      if (this.global_bhouse_id > 0) {
+        //udpate
+        axios.put('/boarding-house/' + this.global_bhouse_id, this.fields).then(function (res) {
+          if (res.data.status === 'updated') {
+            alert('Boarding house successfully updated. Please wait for the approval of your boarding house.');
+            window.location = '/boarding-house';
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this.errors = err.response.data.errors;
+          }
+        });
+      } else {
+        //insert
+        var formData = new FormData();
+        formData.append('bhouse_name', this.fields.bhouse_name);
+        formData.append('bhouse_rule', this.fields.bhouse_rule);
+        formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
+        formData.append('bhouse_img_path', this.fields.bhouse_img_path);
+        formData.append('lat', this.fields.lat);
+        formData.append('long', this.fields["long"]);
+        formData.append('province', this.fields.province);
+        formData.append('city', this.fields.city);
+        formData.append('barangay', this.fields.barangay);
+        formData.append('street', this.fields.street);
+        axios.post('/boarding-house', formData).then(function (res) {
+          if (res.data.status === 'saved') {
+            alert('Boarding house successfully saved. Please wait for the approval of your boarding house.');
+            window.location = '/boarding-house';
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this.errors = err.response.data.errors;
+          }
+        });
+      }
+    },
+    ///ADDRESS MODULE
+    loadProvince: function loadProvince() {
+      var _this2 = this;
 
-        if (res.data.status === 'saved') {
-          alert('Boarding house successfully saved. Please wait for the approval of your boarding house.');
-          window.location = '/boarding-house';
-        }
-      })["catch"](function (err) {
-        if (err.response.status === 422) {
-          _this.errors = err.response.data.errors;
-        }
+      axios.get('/load-provinces').then(function (res) {
+        _this2.provinces = res.data;
+      });
+    },
+    loadCity: function loadCity() {
+      var _this3 = this;
+
+      axios.get('/load-cities?prov=' + this.fields.province).then(function (res) {
+        _this3.cities = res.data;
+      });
+    },
+    loadBarangay: function loadBarangay() {
+      var _this4 = this;
+
+      axios.get('/load-barangays?prov=' + this.fields.province + '&city_code=' + this.fields.city).then(function (res) {
+        _this4.barangays = res.data;
+      });
+    },
+    initData: function initData() {
+      this.fields = {};
+      this.global_bhouse_id = parseInt(this.propDataId);
+
+      if (this.global_bhouse_id > 0) {
+        this.fields = JSON.parse(this.propData);
+        this.getData(this.global_bhouse_id);
+      }
+    },
+    getData: function getData(data_id) {
+      var _this5 = this;
+
+      this.isModalCreate = true; //nested axios for getting the address 1 by 1 or request by request
+
+      axios.get('/boarding-house/' + data_id).then(function (res) {
+        //this.fields = res.data;
+        var tempData = res.data; //load city first
+
+        axios.get('/load-cities?prov=' + _this5.fields.province).then(function (res) {
+          //load barangay
+          _this5.cities = res.data;
+          axios.get('/load-barangays?prov=' + _this5.fields.province + '&city_code=' + _this5.fields.city).then(function (res) {
+            _this5.barangays = res.data;
+            console.log(tempData.barangay);
+            _this5.fields.barangay = tempData.barangay;
+          });
+        });
       });
     }
   },
   mounted: function mounted() {
+    this.loadProvince();
+    this.initData();
     this.loadMap();
   }
 });
@@ -4442,8 +4728,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "LandownerDashboard"
+  data: function data() {
+    return {};
+  }
 });
 
 /***/ }),
@@ -23392,10 +23682,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin:
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -23409,7 +23699,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-4b28310d]{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.img-container[data-v-4b28310d]{\r\n    padding: 15px;\r\n    border: 1px solid black;\r\n    margin: 15px;\r\n    width: 200px;\n}\n.img-container > img[data-v-4b28310d]{\r\n    width: 150px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-3c3c025e]{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.img-container[data-v-3c3c025e]{\r\n    padding: 15px;\r\n    border: 1px solid black;\r\n    margin: 15px;\r\n    width: 200px;\n}\n.img-container > img[data-v-3c3c025e]{\r\n    width: 150px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23909,10 +24199,10 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -23922,7 +24212,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_style_index_0_id_4b28310d_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_style_index_0_id_3c3c025e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css&");
 
             
 
@@ -23931,11 +24221,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_style_index_0_id_4b28310d_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_style_index_0_id_3c3c025e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_style_index_0_id_4b28310d_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_style_index_0_id_3c3c025e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -24402,6 +24692,45 @@ component.options.__file = "resources/js/components/AboutPage.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Administrator/AdminDashboard.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/Administrator/AdminDashboard.vue ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AdminDashboard_vue_vue_type_template_id_2ed08a12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminDashboard.vue?vue&type=template&id=2ed08a12& */ "./resources/js/components/Administrator/AdminDashboard.vue?vue&type=template&id=2ed08a12&");
+/* harmony import */ var _AdminDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminDashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/Administrator/AdminDashboard.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AdminDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminDashboard_vue_vue_type_template_id_2ed08a12___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AdminDashboard_vue_vue_type_template_id_2ed08a12___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Administrator/AdminDashboard.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Administrator/Appointment/AppointmentType.vue":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/Administrator/Appointment/AppointmentType.vue ***!
@@ -24603,6 +24932,45 @@ component.options.__file = "resources/js/components/BoardingHouseList.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/ClientBhouseDetail.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/ClientBhouseDetail.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ClientBhouseDetail_vue_vue_type_template_id_147bde05___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClientBhouseDetail.vue?vue&type=template&id=147bde05& */ "./resources/js/components/ClientBhouseDetail.vue?vue&type=template&id=147bde05&");
+/* harmony import */ var _ClientBhouseDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ClientBhouseDetail.vue?vue&type=script&lang=js& */ "./resources/js/components/ClientBhouseDetail.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ClientBhouseDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ClientBhouseDetail_vue_vue_type_template_id_147bde05___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ClientBhouseDetail_vue_vue_type_template_id_147bde05___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ClientBhouseDetail.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ContactPage.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/ContactPage.vue ***!
@@ -24713,10 +25081,10 @@ component.options.__file = "resources/js/components/HomePage.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/Bedspace/Bedspace.vue":
-/*!*****************************************************************!*\
-  !*** ./resources/js/components/Landowner/Bedspace/Bedspace.vue ***!
-  \*****************************************************************/
+/***/ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -24724,9 +25092,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Bedspace_vue_vue_type_template_id_4b28310d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Bedspace.vue?vue&type=template&id=4b28310d&scoped=true& */ "./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=template&id=4b28310d&scoped=true&");
-/* harmony import */ var _Bedspace_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Bedspace.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=script&lang=js&");
-/* harmony import */ var _Bedspace_vue_vue_type_style_index_0_id_4b28310d_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css& */ "./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css&");
+/* harmony import */ var _BoardingHouseBedspace_vue_vue_type_template_id_3c3c025e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true& */ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true&");
+/* harmony import */ var _BoardingHouseBedspace_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BoardingHouseBedspace.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=script&lang=js&");
+/* harmony import */ var _BoardingHouseBedspace_vue_vue_type_style_index_0_id_3c3c025e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css& */ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -24737,19 +25105,19 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Bedspace_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Bedspace_vue_vue_type_template_id_4b28310d_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Bedspace_vue_vue_type_template_id_4b28310d_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _BoardingHouseBedspace_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BoardingHouseBedspace_vue_vue_type_template_id_3c3c025e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BoardingHouseBedspace_vue_vue_type_template_id_3c3c025e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "4b28310d",
+  "3c3c025e",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/Landowner/Bedspace/Bedspace.vue"
+component.options.__file = "resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -24847,7 +25215,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true& */ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true&");
+/* harmony import */ var _LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LandownerDashboard.vue?vue&type=template&id=5aacca1e& */ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&");
 /* harmony import */ var _LandownerDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LandownerDashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -24859,11 +25227,11 @@ __webpack_require__.r(__webpack_exports__);
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _LandownerDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "5aacca1e",
+  null,
   null
   
 )
@@ -25076,6 +25444,22 @@ component.options.__file = "resources/js/components/SearchBoardingHouses.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Administrator/AdminDashboard.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/Administrator/AdminDashboard.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminDashboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/AdminDashboard.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Administrator/Appointment/AppointmentType.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************!*\
   !*** ./resources/js/components/Administrator/Appointment/AppointmentType.vue?vue&type=script&lang=js& ***!
@@ -25156,6 +25540,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ClientBhouseDetail.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/ClientBhouseDetail.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientBhouseDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ClientBhouseDetail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientBhouseDetail.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientBhouseDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/HomePage.vue?vue&type=script&lang=js&":
 /*!***********************************************************************!*\
   !*** ./resources/js/components/HomePage.vue?vue&type=script&lang=js& ***!
@@ -25172,10 +25572,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************/
+/***/ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -25183,8 +25583,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Bedspace.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoardingHouseBedspace.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -25355,15 +25755,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css&":
-/*!**************************************************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css& ***!
-  \**************************************************************************************************************************/
+/***/ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_style_index_0_id_4b28310d_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=style&index=0&id=4b28310d&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_style_index_0_id_3c3c025e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=style&index=0&id=3c3c025e&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -25429,6 +25829,23 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterPage_vue_vue_type_style_index_0_id_df7d9286_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RegisterPage.vue?vue&type=style&index=0&id=df7d9286&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RegisterPage.vue?vue&type=style&index=0&id=df7d9286&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Administrator/AdminDashboard.vue?vue&type=template&id=2ed08a12&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/Administrator/AdminDashboard.vue?vue&type=template&id=2ed08a12& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminDashboard_vue_vue_type_template_id_2ed08a12___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminDashboard_vue_vue_type_template_id_2ed08a12___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminDashboard_vue_vue_type_template_id_2ed08a12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminDashboard.vue?vue&type=template&id=2ed08a12& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/AdminDashboard.vue?vue&type=template&id=2ed08a12&");
 
 
 /***/ }),
@@ -25518,6 +25935,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ClientBhouseDetail.vue?vue&type=template&id=147bde05&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/ClientBhouseDetail.vue?vue&type=template&id=147bde05& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientBhouseDetail_vue_vue_type_template_id_147bde05___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientBhouseDetail_vue_vue_type_template_id_147bde05___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ClientBhouseDetail_vue_vue_type_template_id_147bde05___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ClientBhouseDetail.vue?vue&type=template&id=147bde05& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientBhouseDetail.vue?vue&type=template&id=147bde05&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -25552,19 +25986,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=template&id=4b28310d&scoped=true&":
-/*!************************************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=template&id=4b28310d&scoped=true& ***!
-  \************************************************************************************************************/
+/***/ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true&":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true& ***!
+  \*************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_template_id_4b28310d_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_template_id_4b28310d_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_template_id_3c3c025e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_template_id_3c3c025e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bedspace_vue_vue_type_template_id_4b28310d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Bedspace.vue?vue&type=template&id=4b28310d&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=template&id=4b28310d&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_template_id_3c3c025e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true&");
 
 
 /***/ }),
@@ -25603,19 +26037,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true&":
-/*!*************************************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true& ***!
-  \*************************************************************************************************************/
+/***/ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e& ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LandownerDashboard.vue?vue&type=template&id=5aacca1e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&");
 
 
 /***/ }),
@@ -25701,6 +26135,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBoardingHouses_vue_vue_type_template_id_0205a63c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBoardingHouses_vue_vue_type_template_id_0205a63c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchBoardingHouses.vue?vue&type=template&id=0205a63c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SearchBoardingHouses.vue?vue&type=template&id=0205a63c&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/AdminDashboard.vue?vue&type=template&id=2ed08a12&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/AdminDashboard.vue?vue&type=template&id=2ed08a12& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "section" }, [
+        _c("h1", { staticClass: "title is-flex is-justify-content-center" }, [
+          _vm._v("ADMINISTRATOR DASHBOARD"),
+        ]),
+      ]),
+    ])
+  },
+]
+render._withStripped = true
+
 
 
 /***/ }),
@@ -26799,23 +27271,8 @@ var render = function () {
                           attrs: {
                             label: "Appointment Type",
                             icon: "link",
-                            target: "a",
+                            tag: "a",
                             href: "/appointment-type",
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-menu-list",
-                      [
-                        _c("b-menu-item", {
-                          attrs: {
-                            label: "Expo",
-                            icon: "link",
-                            target: "_blank",
-                            to: "/expo",
                           },
                         }),
                       ],
@@ -28090,64 +28547,59 @@ var render = function () {
                         },
                       },
                     },
-                    [_c("img", { attrs: { src: list.image } })]
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "/storage/bhouse/" + list.bhouse_img_path,
+                        },
+                      }),
+                    ]
                   ),
                 ]),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-content" }, [
-                _c(
-                  "div",
-                  { staticClass: "content" },
-                  [
-                    _c("p", { staticClass: "title is-6" }, [
-                      _vm._v(_vm._s(list.title)),
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "subtitle is-7" }, [
-                      _vm._v("@johnsmith"),
-                    ]),
-                    _vm._v(" "),
-                    _c("b-field", { attrs: { grouped: "" } }, [
-                      list.rating
-                        ? _c(
-                            "p",
-                            { staticClass: "control" },
-                            [
-                              _c("b-rate", {
-                                attrs: {
-                                  value: list.rating,
-                                  "show-score": "",
-                                  disabled: "",
-                                },
-                              }),
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
+                _c("div", { staticClass: "content" }, [
+                  _c("p", { staticClass: "title is-6" }, [
+                    _vm._v(_vm._s(list.bhouse_name)),
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(list.bhouse_desc) +
+                        "\n                            "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                    _vm._v(
+                      "\n                                Located at: " +
+                        _vm._s(list.street) +
+                        "\n                            "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "buttons" },
+                    [
                       _c(
-                        "p",
+                        "b-button",
                         {
-                          staticClass: "control",
-                          staticStyle: { "margin-left": "auto" },
+                          attrs: {
+                            type: "is-link",
+                            "icon-right": "chevron-right",
+                            tag: "a",
+                            href: "/client-bhouse-detail/" + list.bhouse_id,
+                          },
                         },
-                        [
-                          _c("b-button", {
-                            attrs: {
-                              size: "is-small",
-                              type: "is-danger",
-                              "icon-left": "heart",
-                              outlined: "",
-                            },
-                          }),
-                        ],
-                        1
+                        [_vm._v("SEE MORE...")]
                       ),
-                    ]),
-                  ],
-                  1
-                ),
+                    ],
+                    1
+                  ),
+                ]),
               ]),
             ]),
           ]
@@ -28162,6 +28614,31 @@ var render = function () {
       expression: "test",
     },
   })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientBhouseDetail.vue?vue&type=template&id=147bde05&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientBhouseDetail.vue?vue&type=template&id=147bde05& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_vm._v("\n    " + _vm._s(_vm.data) + "\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -28351,10 +28828,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=template&id=4b28310d&scoped=true&":
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/Bedspace.vue?vue&type=template&id=4b28310d&scoped=true& ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -28376,7 +28853,7 @@ var render = function () {
             _c("div", { staticClass: "panel" }, [
               _c("div", { staticClass: "panel-heading" }, [
                 _vm._v(
-                  "\n                        BEDSPACE\n                    "
+                  "\n                        BED SPACE\n                    "
                 ),
               ]),
               _vm._v(" "),
@@ -28417,9 +28894,13 @@ var render = function () {
                           {
                             staticClass: "button is-primary",
                             attrs: { "icon-left": "bunk-bed-outline" },
-                            on: { click: _vm.openModal },
+                            on: {
+                              click: function ($event) {
+                                return _vm.openModal(0)
+                              },
+                            },
                           },
-                          [_vm._v("NEW BEDSPACE")]
+                          [_vm._v("NEW BED SPACE")]
                         ),
                       ],
                       1
@@ -28467,7 +28948,7 @@ var render = function () {
                       _c("b-table-column", {
                         attrs: {
                           field: "bedspace_name",
-                          label: "Bedspace Name",
+                          label: "Bed Space Name",
                         },
                         scopedSlots: _vm._u([
                           {
@@ -28577,7 +29058,16 @@ var render = function () {
                                     _vm._v(" "),
                                     _c(
                                       "b-dropdown-item",
-                                      { attrs: { "aria-role": "listitem" } },
+                                      {
+                                        attrs: { "aria-role": "listitem" },
+                                        on: {
+                                          click: function ($event) {
+                                            return _vm.openModal(
+                                              props.row.bedspace_id
+                                            )
+                                          },
+                                        },
+                                      },
                                       [_vm._v("Modify")]
                                     ),
                                     _vm._v(" "),
@@ -28654,7 +29144,7 @@ var render = function () {
               _c("div", { staticClass: "modal-card" }, [
                 _c("header", { staticClass: "modal-card-head" }, [
                   _c("p", { staticClass: "modal-card-title" }, [
-                    _vm._v("Bedspaces"),
+                    _vm._v("Bed Spaces"),
                   ]),
                   _vm._v(" "),
                   _c("button", {
@@ -28679,7 +29169,7 @@ var render = function () {
                             "b-field",
                             {
                               attrs: {
-                                label: "Bedspace Name",
+                                label: "Bed Space Name",
                                 type: this.errors.bedspace_name
                                   ? "is-danger"
                                   : "",
@@ -28707,7 +29197,7 @@ var render = function () {
                             "b-field",
                             {
                               attrs: {
-                                label: "Bedspace Description",
+                                label: "Bed Space Description",
                                 type: this.errors.bedspace_desc
                                   ? "is-danger"
                                   : "",
@@ -28730,6 +29220,8 @@ var render = function () {
                             ],
                             1
                           ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "is-flex" }),
                           _vm._v(" "),
                           _c(
                             "b-field",
@@ -28761,57 +29253,63 @@ var render = function () {
                             1
                           ),
                           _vm._v(" "),
-                          _c(
-                            "b-field",
-                            { attrs: { "mb-auto": "" } },
-                            [
-                              _c(
-                                "b-upload",
-                                {
-                                  attrs: { multiple: "", "drag-drop": "" },
-                                  model: {
-                                    value: _vm.fields.bedspaces,
-                                    callback: function ($$v) {
-                                      _vm.$set(_vm.fields, "bedspaces", $$v)
-                                    },
-                                    expression: "fields.bedspaces",
-                                  },
-                                },
+                          _vm.global_bedspace_id < 1
+                            ? _c(
+                                "b-field",
+                                { attrs: { "mb-auto": "" } },
                                 [
-                                  _c("section", { staticClass: "section" }, [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "content has-text-centered",
+                                  _c(
+                                    "b-upload",
+                                    {
+                                      attrs: { multiple: "", "drag-drop": "" },
+                                      model: {
+                                        value: _vm.fields.bedspaces,
+                                        callback: function ($$v) {
+                                          _vm.$set(_vm.fields, "bedspaces", $$v)
+                                        },
+                                        expression: "fields.bedspaces",
                                       },
-                                      [
-                                        _c(
-                                          "p",
-                                          [
-                                            _c("b-icon", {
-                                              attrs: {
-                                                icon: "upload",
-                                                size: "is-large",
-                                              },
-                                            }),
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c("p", [
-                                          _vm._v(
-                                            "Drop your files here or click to upload"
+                                    },
+                                    [
+                                      _c(
+                                        "section",
+                                        { staticClass: "section" },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "content has-text-centered",
+                                            },
+                                            [
+                                              _c(
+                                                "p",
+                                                [
+                                                  _c("b-icon", {
+                                                    attrs: {
+                                                      icon: "upload",
+                                                      size: "is-large",
+                                                    },
+                                                  }),
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v(
+                                                  "Drop your files here or click to upload"
+                                                ),
+                                              ]),
+                                            ]
                                           ),
-                                        ]),
-                                      ]
-                                    ),
-                                  ]),
-                                ]
-                              ),
-                            ],
-                            1
-                          ),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                ],
+                                1
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -29209,14 +29707,15 @@ var render = function () {
                                 _vm._v(" "),
                                 _c(
                                   "b-dropdown-item",
-                                  { attrs: { "aria-role": "listitem" } },
+                                  {
+                                    attrs: { "aria-role": "listitem" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.openLink(props.row.bhouse_id)
+                                      },
+                                    },
+                                  },
                                   [_vm._v("Modify")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-dropdown-item",
-                                  { attrs: { "aria-role": "listitem" } },
-                                  [_vm._v("Approve")]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -29345,32 +29844,6 @@ var render = function () {
                       "b-field",
                       {
                         attrs: {
-                          label: "OWNER",
-                          type: this.errors.owner ? "is-danger" : "",
-                          message: this.errors.owner
-                            ? this.errors.owner[0]
-                            : "",
-                        },
-                      },
-                      [
-                        _c("b-input", {
-                          attrs: { type: "text", placeholder: "Bhouse Owner" },
-                          model: {
-                            value: _vm.fields.owner,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.fields, "owner", $$v)
-                            },
-                            expression: "fields.owner",
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-field",
-                      {
-                        attrs: {
                           label: "BHOUSE RULE",
                           type: this.errors.bhouse_rule ? "is-danger" : "",
                           message: this.errors.bhouse_rule
@@ -29396,125 +29869,157 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "b-field",
-                      {
-                        attrs: {
-                          label: "ATTACH BUSINESS PERMIT",
-                          type: this.errors.business_permit_imgpath
-                            ? "is-danger"
-                            : "",
-                          message: this.errors.business_permit_imgpath
-                            ? this.errors.business_permit_imgpath[0]
-                            : "",
-                        },
-                      },
-                      [
-                        _c(
-                          "b-upload",
-                          {
-                            staticClass: "file-label",
-                            model: {
-                              value: _vm.fields.business_permit_imgpath,
-                              callback: function ($$v) {
-                                _vm.$set(
-                                  _vm.fields,
-                                  "business_permit_imgpath",
-                                  $$v
-                                )
-                              },
-                              expression: "fields.business_permit_imgpath",
-                            },
-                          },
+                    _vm.global_bhouse_id < 1
+                      ? _c(
+                          "div",
                           [
                             _c(
-                              "span",
-                              { staticClass: "file-cta" },
+                              "b-field",
+                              {
+                                attrs: {
+                                  label: "ATTACH BUSINESS PERMIT",
+                                  type: this.errors.business_permit_imgpath
+                                    ? "is-danger"
+                                    : "",
+                                  message: this.errors.business_permit_imgpath
+                                    ? this.errors.business_permit_imgpath[0]
+                                    : "",
+                                },
+                              },
                               [
-                                _c("b-icon", {
-                                  staticClass: "file-icon",
-                                  attrs: { icon: "upload" },
-                                }),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "file-label" }, [
-                                  _vm._v("Click to upload"),
-                                ]),
+                                _c(
+                                  "b-upload",
+                                  {
+                                    staticClass: "file-label",
+                                    model: {
+                                      value: _vm.fields.business_permit_imgpath,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.fields,
+                                          "business_permit_imgpath",
+                                          $$v
+                                        )
+                                      },
+                                      expression:
+                                        "fields.business_permit_imgpath",
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { staticClass: "file-cta" },
+                                      [
+                                        _c("b-icon", {
+                                          staticClass: "file-icon",
+                                          attrs: { icon: "upload" },
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          { staticClass: "file-label" },
+                                          [_vm._v("Click to upload")]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _vm.fields.business_permit_imgpath
+                                      ? _c(
+                                          "span",
+                                          { staticClass: "file-name" },
+                                          [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.fields
+                                                    .business_permit_imgpath
+                                                    .name
+                                                ) +
+                                                "\n                                        "
+                                            ),
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                  ]
+                                ),
                               ],
                               1
                             ),
                             _vm._v(" "),
-                            _vm.fields.business_permit_imgpath
-                              ? _c("span", { staticClass: "file-name" }, [
-                                  _vm._v(
-                                    "\n                                        " +
-                                      _vm._s(
-                                        _vm.fields.business_permit_imgpath.name
-                                      ) +
-                                      "\n                                    "
-                                  ),
-                                ])
-                              : _vm._e(),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-field",
-                      {
-                        attrs: {
-                          label: "BHOUSE IMAGE",
-                          type: this.errors.bhouse_img_path ? "is-danger" : "",
-                          message: this.errors.bhouse_img_path
-                            ? this.errors.bhouse_img_path[0]
-                            : "",
-                        },
-                      },
-                      [
-                        _c(
-                          "b-upload",
-                          {
-                            staticClass: "file-label",
-                            model: {
-                              value: _vm.fields.bhouse_img_path,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.fields, "bhouse_img_path", $$v)
-                              },
-                              expression: "fields.bhouse_img_path",
-                            },
-                          },
-                          [
                             _c(
-                              "span",
-                              { staticClass: "file-cta" },
+                              "b-field",
+                              {
+                                attrs: {
+                                  label: "BHOUSE IMAGE",
+                                  type: this.errors.bhouse_img_path
+                                    ? "is-danger"
+                                    : "",
+                                  message: this.errors.bhouse_img_path
+                                    ? this.errors.bhouse_img_path[0]
+                                    : "",
+                                },
+                              },
                               [
-                                _c("b-icon", {
-                                  staticClass: "file-icon",
-                                  attrs: { icon: "upload" },
-                                }),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "file-label" }, [
-                                  _vm._v("Click to upload"),
-                                ]),
+                                _c(
+                                  "b-upload",
+                                  {
+                                    staticClass: "file-label",
+                                    model: {
+                                      value: _vm.fields.bhouse_img_path,
+                                      callback: function ($$v) {
+                                        _vm.$set(
+                                          _vm.fields,
+                                          "bhouse_img_path",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "fields.bhouse_img_path",
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { staticClass: "file-cta" },
+                                      [
+                                        _c("b-icon", {
+                                          staticClass: "file-icon",
+                                          attrs: { icon: "upload" },
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          { staticClass: "file-label" },
+                                          [_vm._v("Click to upload")]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _vm.fields.bhouse_img_path
+                                      ? _c(
+                                          "span",
+                                          { staticClass: "file-name" },
+                                          [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.fields.bhouse_img_path
+                                                    .name
+                                                ) +
+                                                "\n                                        "
+                                            ),
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                  ]
+                                ),
                               ],
                               1
                             ),
-                            _vm._v(" "),
-                            _vm.fields.bhouse_img_path
-                              ? _c("span", { staticClass: "file-name" }, [
-                                  _vm._v(
-                                    "\n                                        " +
-                                      _vm._s(_vm.fields.bhouse_img_path.name) +
-                                      "\n                                    "
-                                  ),
-                                ])
-                              : _vm._e(),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
+                          ],
+                          1
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
                     _vm._m(0),
                     _vm._v(" "),
@@ -29575,6 +30080,195 @@ var render = function () {
                       ],
                       1
                     ),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Province",
+                                "label-position": "on-border",
+                                expanded: "",
+                                type: this.errors.province ? "is-danger" : "",
+                                message: this.errors.province
+                                  ? this.errors.province[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-select",
+                                {
+                                  attrs: { expanded: "" },
+                                  on: { input: _vm.loadCity },
+                                  model: {
+                                    value: _vm.fields.province,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.fields, "province", $$v)
+                                    },
+                                    expression: "fields.province",
+                                  },
+                                },
+                                _vm._l(_vm.provinces, function (item, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: item.provCode },
+                                    },
+                                    [_vm._v(_vm._s(item.provDesc))]
+                                  )
+                                }),
+                                0
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "City",
+                                "label-position": "on-border",
+                                expanded: "",
+                                type: this.errors.city ? "is-danger" : "",
+                                message: this.errors.city
+                                  ? this.errors.city[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-select",
+                                {
+                                  attrs: { expanded: "" },
+                                  on: { input: _vm.loadBarangay },
+                                  model: {
+                                    value: _vm.fields.city,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.fields, "city", $$v)
+                                    },
+                                    expression: "fields.city",
+                                  },
+                                },
+                                _vm._l(_vm.cities, function (item, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: item.citymunCode },
+                                    },
+                                    [_vm._v(_vm._s(item.citymunDesc))]
+                                  )
+                                }),
+                                0
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Barangay",
+                                "label-position": "on-border",
+                                expanded: "",
+                                type: this.errors.barangay ? "is-danger" : "",
+                                message: this.errors.barangay
+                                  ? this.errors.barangay[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-select",
+                                {
+                                  attrs: { expanded: "" },
+                                  model: {
+                                    value: _vm.fields.barangay,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.fields, "barangay", $$v)
+                                    },
+                                    expression: "fields.barangay",
+                                  },
+                                },
+                                _vm._l(_vm.barangays, function (item, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: item.brgyCode },
+                                    },
+                                    [_vm._v(_vm._s(item.brgyDesc))]
+                                  )
+                                }),
+                                0
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Street",
+                                "label-position": "on-border",
+                                type: this.errors.street ? "is-danger" : "",
+                                message: this.errors.street
+                                  ? this.errors.street[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: { placeholder: "Street" },
+                                model: {
+                                  value: _vm.fields.street,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "street", $$v)
+                                  },
+                                  expression: "fields.street",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
                   ],
                   1
                 ),
@@ -29616,10 +30310,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true&":
-/*!****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true& ***!
-  \****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -29632,11 +30326,22 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._v("\r\n\r\n\r\n    LAND OWNER COMPONENT DASHBOARD\r\n"),
-  ])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "section" }, [
+        _c("h1", { staticClass: "title is-flex is-justify-content-center" }, [
+          _vm._v("LANDOWNER DASHBOARD"),
+        ]),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -29921,15 +30626,15 @@ var render = function () {
             fn: function () {
               return [
                 _c("b-navbar-item", { attrs: { href: "/" } }, [
-                  _vm._v("\r\n                Home\r\n            "),
+                  _vm._v("\n                Home\n            "),
                 ]),
                 _vm._v(" "),
                 _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\r\n                About\r\n            "),
+                  _vm._v("\n                About\n            "),
                 ]),
                 _vm._v(" "),
                 _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\r\n                Contact\r\n            "),
+                  _vm._v("\n                Contact\n            "),
                 ]),
               ]
             },
@@ -43108,15 +43813,17 @@ Vue.compile = compileToFunctions;
 
 var map = {
 	"./components/AboutPage.vue": "./resources/js/components/AboutPage.vue",
+	"./components/Administrator/AdminDashboard.vue": "./resources/js/components/Administrator/AdminDashboard.vue",
 	"./components/Administrator/Appointment/AppointmentType.vue": "./resources/js/components/Administrator/Appointment/AppointmentType.vue",
 	"./components/Administrator/BhRequest/BhRequest.vue": "./resources/js/components/Administrator/BhRequest/BhRequest.vue",
 	"./components/Administrator/NavbarComponent.vue": "./resources/js/components/Administrator/NavbarComponent.vue",
 	"./components/Administrator/User/UserPage.vue": "./resources/js/components/Administrator/User/UserPage.vue",
 	"./components/BoardingHouseList.vue": "./resources/js/components/BoardingHouseList.vue",
+	"./components/ClientBhouseDetail.vue": "./resources/js/components/ClientBhouseDetail.vue",
 	"./components/ContactPage.vue": "./resources/js/components/ContactPage.vue",
 	"./components/ExampleComponent.vue": "./resources/js/components/ExampleComponent.vue",
 	"./components/HomePage.vue": "./resources/js/components/HomePage.vue",
-	"./components/Landowner/Bedspace/Bedspace.vue": "./resources/js/components/Landowner/Bedspace/Bedspace.vue",
+	"./components/Landowner/Bedspace/BoardingHouseBedspace.vue": "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue",
 	"./components/Landowner/BoardingHouse.vue": "./resources/js/components/Landowner/BoardingHouse.vue",
 	"./components/Landowner/BoardingHouseCreate.vue": "./resources/js/components/Landowner/BoardingHouseCreate.vue",
 	"./components/Landowner/LandownerDashboard.vue": "./resources/js/components/Landowner/LandownerDashboard.vue",
@@ -43156,7 +43863,7 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\wayne\\\\Desktop\\\\GitHub\\\\bh_reservation_locator"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\wayne\\\\Desktop\\\\GitHub\\\\bh_reservation_locator","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/","#USER"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\Users\\\\eshen\\\\Desktop\\\\Github\\\\schoolpass","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 
