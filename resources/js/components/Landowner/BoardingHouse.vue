@@ -93,7 +93,6 @@
                         </b-table>
                     </div><!--close column-->
                 </div>
-
             </div>
         </div><!--section div-->
     </div>
