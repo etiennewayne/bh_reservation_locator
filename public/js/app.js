@@ -4273,7 +4273,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4749,6 +4748,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -25284,6 +25284,43 @@ component.options.__file = "resources/js/components/Landowner/NavbarLandOwner.vu
 
 /***/ }),
 
+/***/ "./resources/js/components/Landowner/Room/BhouseRoom.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/Landowner/Room/BhouseRoom.vue ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BhouseRoom.vue?vue&type=template&id=7606fc6b& */ "./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Landowner/Room/BhouseRoom.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Login.vue":
 /*!*******************************************!*\
   !*** ./resources/js/components/Login.vue ***!
@@ -26067,6 +26104,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NavbarLandOwner_vue_vue_type_template_id_0493a076_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NavbarLandOwner_vue_vue_type_template_id_0493a076_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./NavbarLandOwner.vue?vue&type=template&id=0493a076&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/NavbarLandOwner.vue?vue&type=template&id=0493a076&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BhouseRoom.vue?vue&type=template&id=7606fc6b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b&");
 
 
 /***/ }),
@@ -29725,11 +29779,11 @@ var render = function () {
                                       "aria-role": "listitem",
                                       tag: "a",
                                       href:
-                                        "/boarding-house-bedspace/" +
+                                        "/boarding-house-room/" +
                                         props.row.bhouse_id,
                                     },
                                   },
-                                  [_vm._v("Bedspace")]
+                                  [_vm._v("Room")]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -30471,6 +30525,31 @@ var render = function () {
       1
     ),
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43828,6 +43907,7 @@ var map = {
 	"./components/Landowner/BoardingHouseCreate.vue": "./resources/js/components/Landowner/BoardingHouseCreate.vue",
 	"./components/Landowner/LandownerDashboard.vue": "./resources/js/components/Landowner/LandownerDashboard.vue",
 	"./components/Landowner/NavbarLandOwner.vue": "./resources/js/components/Landowner/NavbarLandOwner.vue",
+	"./components/Landowner/Room/BhouseRoom.vue": "./resources/js/components/Landowner/Room/BhouseRoom.vue",
 	"./components/Login.vue": "./resources/js/components/Login.vue",
 	"./components/MainNavbar.vue": "./resources/js/components/MainNavbar.vue",
 	"./components/RegisterPage.vue": "./resources/js/components/RegisterPage.vue",

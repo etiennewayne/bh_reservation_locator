@@ -11,4 +11,6 @@ class BookBedSpace extends Model
 
     protected $table = 'book_bedspaces';
     protected $primaryKey = 'book_bedspace_id';
+    
+
 }

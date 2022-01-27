@@ -32,16 +32,16 @@ class BedSpaceSeeder extends Seeder
             //     'is_booked' => 0
             // ],
             [
-                'bhouse_id' => 2,
-                'bedspace_name' => 'BEDROOM B1',
+                'room_id' => 1,
+                'bedspace_name' => 'BED SPACE B1',
                 'bedspace_desc' => 'to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.',
                 'bedspace_img_path' => '',
                 'price' => 450,
                 'is_booked' => 0
             ],
             [
-                'bhouse_id' => 2,
-                'bedspace_name' => 'BEDROOM B2',
+                'room_id' => 1,
+                'bedspace_name' => 'BED SPACE B2',
                 'bedspace_desc' => 'ou are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks',
                 'bedspace_img_path' => '',
                 'price' => 450,

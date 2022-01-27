@@ -5,5 +5,4 @@
 
     <client-bhouse-detail prop-data='@json($data)'></client-bhouse-detail>
 
-
 @endsection

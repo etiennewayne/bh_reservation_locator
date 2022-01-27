@@ -68,7 +68,6 @@
                             <b-table-column field="is_approve" label="Status" v-slot="props">
                                 <span style="font-weight: bold; color: green;" v-if="props.row.is_approve === 1">APPROVED</span>
                                 <span style="font-weight: bold; color: orange;" v-if="props.row.is_approve === 0">PENDING</span>
-
                             </b-table-column>
                             
                             <b-table-column label="Action" v-slot="props">
@@ -82,7 +81,7 @@
                                     </template>
 
                                     <b-dropdown-item aria-role="listitem" @click="openLink(props.row.bhouse_id)">Modify</b-dropdown-item>
-                                    <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + props.row.bhouse_id">Bedspace</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-room/` + props.row.bhouse_id">Room</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.bhouse_id)">Delete</b-dropdown-item>
                                     
                                 </b-dropdown>
