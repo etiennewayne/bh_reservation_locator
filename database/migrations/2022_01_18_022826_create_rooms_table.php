@@ -11,17 +11,17 @@ class CreateRoomsTable extends Migration
      *
      * @return void
      */
+
+    
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id('room_id');
             $table->unsignedBigInteger('bhouse_id');
             $table->foreign('bhouse_id')->references('bhouse_id')->on('boarding_houses');
-            $table->foreign('room_no')-nullable();
-            $table->foreign('room_desc')-nullable();
-            $table->foreign('room_img_path')-nullable();
-
-
+            $table->string('room_no')->nullable();
+            $table->string('room_desc')->nullable();
+            $table->string('room_img_path')->nullable();
             $table->timestamps();
         });
     }

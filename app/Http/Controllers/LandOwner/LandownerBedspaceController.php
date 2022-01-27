@@ -56,7 +56,6 @@ class LandownerBedspaceController extends Controller
 
         ]);
 
-
         $bedspace = BedSpace::create([
             'bhouse_id' => $id,
             'bedspace_name' => strtoupper($req->bedspace_name),
