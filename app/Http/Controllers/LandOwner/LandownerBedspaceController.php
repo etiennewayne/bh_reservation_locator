@@ -15,7 +15,7 @@ class LandownerBedspaceController extends Controller
     //
 
     public function __construct(){
-      
+
 
         $this->middleware('auth');
         $this->middleware('landowner');
@@ -23,30 +23,34 @@ class LandownerBedspaceController extends Controller
 
 
     public function index($id){
-        $bedspaces = BedSpace::where('bhouse_id', $id)->get();
+        $bedspaces = BedSpace::where('room_id', $id)->get();
         return view('landowner.bedspace.boarding-house-bedspace')
-            ->with('bhouse_id', $id)
+            ->with('room_id', $id)
             ->with('bedspaces', $bedspaces);
     }
 
-    public function getBedspaceImgs($bhouse_id){
+//    public function getBedspaceImgs($room_id){
+//
+//        return DB::table('boarding_houses as a')
+//            ->join('rooms as b', 'a.bhouse_id', 'b.bhouse_id')
+//            ->join('bedspaces as c', 'b.room_id', 'c.room_id')
+//            ->where('a.bhouse_id', $room_id)
+//            ->get();
+//    }
 
-        return DB::table('boarding_houses as a')
-            ->join('bedspaces as b', 'a.bhouse_id', 'b.bhouse_id')
-            ->join('bedspace_imgs as c', 'b.bedspace_id', 'c.bedspace_id')
-            ->where('a.bhouse_id', $bhouse_id)
-            ->get();
-    }
+
 
     public function showBedSpace($id){
         return BedSpace::find($id);
     }
 
+
+
     public function store(Request $req, $id){
 
         $req->validate([
             'bedspace_name' => ['required'],
-            'bedspace_name' => ['required'],
+            'bedspace_desc' => ['required'],
             'bedspace_img_path.*' => ['required', 'mimes:jpg,bmp,png', 'max:700'],
             'price' => ['required', 'integer'],
 
@@ -57,7 +61,7 @@ class LandownerBedspaceController extends Controller
         ]);
 
         $bedspace = BedSpace::create([
-            'bhouse_id' => $id,
+            'room_id' => $id,
             'bedspace_name' => strtoupper($req->bedspace_name),
             'bedspace_desc' => strtoupper($req->bedspace_desc),
             'price' => $req->price,
@@ -76,7 +80,6 @@ class LandownerBedspaceController extends Controller
                 BedspaceImg::create([
                     'bedspace_id' => $bedspace_id,
                     'bedspace_img_path' => $n[2]
-
                 ]);
             }
         }
@@ -92,7 +95,7 @@ class LandownerBedspaceController extends Controller
 
         $req->validate([
             'bedspace_name' => ['required'],
-            'bedspace_name' => ['required'],
+            'bedspace_desc' => ['required'],
             'price' => ['required', 'integer'],
         ]);
 
@@ -110,12 +113,14 @@ class LandownerBedspaceController extends Controller
 
     public function getBhBedspaces(Request $req, $id){
         $user_id = Auth::user()->user_id;
+        $sort = explode('.', $req->sort_by);
 
         return DB::table('bedspaces as a')
-            ->join('boarding_houses as b', 'a.bhouse_id', 'b.bhouse_id')
-            ->where('b.bhouse_id', $id)
-            ->where('b.user_id', $user_id)
-            ->orderBy('bedspace_id', 'desc')
+            ->join('rooms as b', 'a.room_id', 'b.room_id')
+            ->join('boarding_houses as c', 'b.bhouse_id', 'c.bhouse_id')
+            ->where('b.room_id', $id)
+            ->where('c.user_id', $user_id)
+            ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
     }
 

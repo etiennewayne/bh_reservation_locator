@@ -12,6 +12,7 @@ window.axios = require('axios');
 //import Vue from 'vue'
 import Buefy from 'buefy'
 // import 'buefy/dist/buefy.css'
+//import LeafletMachine from 'leaflet-routing-machine'
 
 
 /**
@@ -47,7 +48,8 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  */
 
 
- Vue.use(Buefy)
+Vue.use(Buefy)
+//Vue.use(LeafletMachine);
 
 
 

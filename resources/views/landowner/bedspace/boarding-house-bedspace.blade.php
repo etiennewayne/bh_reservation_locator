@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <boarding-house-bedspace prop-data-id='{{ $bhouse_id }}'></boarding-house-bedspace>
+    <boarding-house-bedspace prop-data-id='{{ $room_id }}' prop-route-back="{{url()->previous()}}"></boarding-house-bedspace>
 
 @endsection
 

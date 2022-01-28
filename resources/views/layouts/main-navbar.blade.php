@@ -18,6 +18,10 @@
 
 <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('extracss')
+    @yield('extrajs')
+
 </head>
 <body>
 <div id="app">

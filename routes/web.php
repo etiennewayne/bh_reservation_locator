@@ -80,7 +80,9 @@ Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHous
 
 //BOARDING HOUSE ROOMS
 Route::get('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'index']);
-Route::get('/get-boarding-house-rooms', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getRooms']);
+Route::post('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'store']);
+
+Route::get('/get-boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getRooms']);
 //-------------------------///
 
 

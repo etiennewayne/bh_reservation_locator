@@ -10,7 +10,7 @@
 
                         <div class="panel-body">
                             <div class="buttons">
-                                <b-button icon-left="chevron-left" tag="a" href="/boarding-house">
+                                <b-button icon-left="chevron-left" tag="a" :href="`${this.propRouteback}`">
                                     BACK
                                 </b-button>
                             </div>
@@ -70,7 +70,7 @@
                                         <b-dropdown-item aria-role="listitem" @click="openModal(props.row.bedspace_id)">Modify</b-dropdown-item>
                                          <b-dropdown-item aria-role="listitem">List of Boarder</b-dropdown-item>
                                         <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.bedspace_id)">Delete</b-dropdown-item>
-                                        
+
                                     </b-dropdown>
                                     <!-- <div class="is-flex">
                                         <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
@@ -79,7 +79,7 @@
                                 </b-table-column>
                             </b-table>
 
-                            
+
                         </div>
 
 
@@ -196,6 +196,12 @@ export default {
             type: String,
             default: '',
         },
+
+        propRouteback: {
+            type: String,
+            default: '',
+        }
+
     },
     data(){
         return{
@@ -226,7 +232,7 @@ export default {
 
             bedspaces: [],
 
-           
+
 
             btnClass: {
                 'is-success': true,
@@ -234,7 +240,7 @@ export default {
                 'is-loading':false,
             },
 
-            global_bhouse_id: 0,
+            global_room_id: 0,
             global_bedspace_id: 0,
 
 
@@ -244,7 +250,7 @@ export default {
     methods: {
 
         initData: function(){
-              this.global_bhouse_id = parseInt(this.propDataId);
+              this.global_room_id = parseInt(this.propDataId);
         },
 
         /*
@@ -259,7 +265,7 @@ export default {
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-bhouse-bedspaces/${this.global_bhouse_id}?${params}`)
+            axios.get(`/get-bhouse-bedspaces/${this.global_room_id}?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -301,7 +307,7 @@ export default {
 
 
         // loadBedspaceImgs: function(){
-        
+
         //     axios.get('/get-boarding-house-bedspaces-imgs/' + this.global_bedspace_id).then(res=>{
         //         this.bedspaces = res.data;
         //     });
@@ -355,7 +361,7 @@ export default {
                     }
                 });
 
-                
+
             }else{
                 //insert
                 var formData = new FormData();
@@ -367,10 +373,10 @@ export default {
                         formData.append('bedspace_img_path[]', item);
                     });
                 }
-                
+
                 formData.append('price', this.fields.price);
 
-                axios.post('/boarding-house-bedspace/' + this.global_bhouse_id, formData).then(res=>{
+                axios.post('/boarding-house-bedspace/' + this.global_room_id, formData).then(res=>{
 
                     if(res.data.status === 'saved'){
                         this.isModalCreate = false;
@@ -390,7 +396,7 @@ export default {
                 });
             }
 
-            
+
         },
 
 

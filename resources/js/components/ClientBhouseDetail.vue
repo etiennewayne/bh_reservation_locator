@@ -1,12 +1,45 @@
 <template>
     <div>
-        {{data}}
+
+        <div class="columns">
+            <div class="column is-8 is-offset-2">
+
+                <div class="section">
+                    <div class="bhouse-wrapper">
+                        <div class="bhouse-image">
+                            <img :src="`/storage/bhouse/${data.bhouse_img_path}`" />
+                        </div>
+
+                        <div class="bhouse-right">
+                            <div class="bhouse-title">
+                                {{data.bhouse_name}}
+                            </div>
+                            <div class="bhouse-desc">
+                                {{ data.bhouse_desc }}
+                            </div>
+
+                            <div class="bhouse-loc">
+                                <b-icon icon="map-marker-right"></b-icon> {{ data.street }}
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- section -->
+
+                <div id="mapid"></div>
+
+
+            </div>
+        </div>
+
     </div>
 </template>
 
 
 <script>
+
+
 export default {
+
     props: {
         propData:{
             type: String,
@@ -16,16 +49,117 @@ export default {
     data() {
         return{
             data: [],
+            //position: {},
+
+            nlat: 0,
+            nlong: 0,
         }
-        
+
     },
 
     methods: {
 
+        loadNavigator(){
+            if(navigator.geolocation){
+                navigator.permissions.query({ name: 'geolocation' }).then(permission=>{
+                    // if(permission.state === 'denied'){
+                    //     alert('Please allow us to record your location.');
+                    //     return;
+                    // }
+                    navigator.geolocation.getCurrentPosition(this.getPosition);
+                })
+
+            }else{
+                //this.camera = 'off';
+                alert('Geolocation is not supported by this browser but still you can continue using the scanner.');
+            }
+        },
+        getPosition(position) {
+            //console.log(position.coords.latitude, position.coords.longitude);
+            //this.position.lat = position.coords.latitude;
+            //this.position.long = position.coords.longitude;
+            this.nlat = position.coords.latitude;
+            this.nlong = position.coords.longitude;
+
+            this.loadMap();
+        },
+
+        loadMap(){
+            //init map
+
+
+
+            var mymap = L.map('mapid').setView([this.data.lat, this.data.long], 17);
+
+
+            //to call data inside nested function
+
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw'
+            }).addTo(mymap);
+
+            //add route in leaflet
+
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(this.data.lat, this.data.long),
+                    L.latLng(this.nlat, this.nlong)
+                ]
+            }).addTo(mymap);
+
+         
+        },
+
+
     },
 
     mounted() {
-        this.data = JSON.stringify(this.propData);
+        this.data = JSON.parse(this.propData);
+        this.loadNavigator();
+
+        //this.loadMap();
+
     }
 }
 </script>
+
+<style scoped>
+
+    .bhouse-wrapper{
+        display: flex;
+        width: 720px;
+        border: 1px solid #b2b2b2;
+        border-radius: 5px;
+        padding: 10px;
+        margin: auto;
+    }
+
+
+    .bhouse-image{
+        border: 1px solid #c4c4c4;
+        width: 500px;
+        border-radius: 3px;
+        margin-right: 10px;
+    }
+
+    .bhouse-title{
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    .bhouse-desc{
+        font-size: 1em;
+        margin-top: 5px;
+    }
+    .bhouse-loc{
+        margin-top: 15px;
+    }
+
+    #mapid { height: 500px; z-index: 0;}
+
+</style>

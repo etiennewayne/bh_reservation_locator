@@ -31,6 +31,10 @@
         "buefy": "^0.9.13",
         "bulma": "^0.9.3",
         "font-awesome": "^4.7.0",
-        "qrcode": "^1.4.4"
+        "leaflet": "^1.7.1",
+        "leaflet-routing-machine": "^3.2.12",
+        "qrcode": "^1.4.4",
+        "vue-json-excel": "^0.3.0",
+        "vue-qrcode-reader": "^3.0.3"
     }
 }
