@@ -34,12 +34,14 @@ class LandOwnerRoomController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $userid = Auth::user()->user_id;
-        return DB::table('rooms as a')
+        $data =  DB::table('rooms as a')
             ->join('boarding_houses as b', 'a.bhouse_id', 'b.bhouse_id')
             ->where('a.bhouse_id', $bhouse_id)
             ->where('b.user_id', $userid)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
+
+        return $data;
     }
 
     public function store(Request $req, $id){
@@ -73,6 +75,17 @@ class LandOwnerRoomController extends Controller
             'status' => 'saved'
         ]);
     }
+
+
+    public function destroy($id){
+        Room::destroy($id);
+
+        
+        return response()->json([
+            'status' => 'deleted'
+        ]);
+    }
+
 
 
 }

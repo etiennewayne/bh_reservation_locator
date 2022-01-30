@@ -329,6 +329,30 @@ export default {
             this.global_bhouse_id = parseInt(this.propDataId);
         },
 
+        //alert box ask for deletion
+        confirmDelete(delete_id) {
+            this.$buefy.dialog.confirm({
+                title: 'DELETE!',
+                type: 'is-danger',
+                message: 'Are you sure you want to delete this data?',
+                cancelText: 'Cancel',
+                confirmText: 'Delete?',
+                onConfirm: () => this.deleteSubmit(delete_id)
+            });
+        },
+
+        //execute delete after confirming
+        deleteSubmit(delete_id) {
+            axios.delete('/boarding-house-room-delete/' + delete_id).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
+
+
     },
 
     mounted(){

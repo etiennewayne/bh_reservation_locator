@@ -44,7 +44,7 @@ Route::resource('/register', App\Http\Controllers\RegisterPageController::class)
 Route::get('/load-provinces', [App\Http\Controllers\AddressController::class, 'loadProvinces']);
 Route::get('/load-cities', [App\Http\Controllers\AddressController::class, 'loadCities']);
 Route::get('/load-barangays', [App\Http\Controllers\AddressController::class, 'loadBarangays']);
-
+//get, post, put, delete
 
 
 
@@ -83,6 +83,8 @@ Route::get('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwn
 Route::post('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'store']);
 
 Route::get('/get-boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getRooms']);
+Route::delete('/boarding-house-room-delete/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'destroy']);
+
 //-------------------------///
 
 
