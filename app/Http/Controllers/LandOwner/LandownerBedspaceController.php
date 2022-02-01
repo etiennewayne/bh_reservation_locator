@@ -22,10 +22,12 @@ class LandownerBedspaceController extends Controller
     }
 
 
-    public function index($id){
-        $bedspaces = BedSpace::where('room_id', $id)->get();
+    public function index($bhouse_id, $bh_room_id){
+
+        $bedspaces = BedSpace::where('room_id', $bh_room_id)->get();
         return view('landowner.bedspace.boarding-house-bedspace')
-            ->with('room_id', $id)
+            ->with('bhouse_id', $bhouse_id)
+            ->with('bh_room_id', $bh_room_id)
             ->with('bedspaces', $bedspaces);
     }
 

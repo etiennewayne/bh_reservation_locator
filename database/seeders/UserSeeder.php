@@ -31,6 +31,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09167789581',
                 'guardian_address' => 'POB. BONIFACIO',
+                'business_permit_img' => '',
                 'role' => 'BOARDER',
                 'password' => Hash::make('a')
             ],
@@ -49,6 +50,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09167789581',
                 'guardian_address' => 'POB. BONIFACIO',
+                'business_permit_img' => 'X58cNXkY5OWADcJVy3wO1jCAKKGAqC9NkoQ5yr5x.png',
                 'role' => 'LANDOWNER',
                 'password' => Hash::make('a')
             ],
@@ -67,6 +69,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09167789581',
                 'guardian_address' => 'POB. BONIFACIO',
+                'business_permit_img' => '',
                 'role' => 'LANDOWNER',
                 'password' => Hash::make('a')
             ],
@@ -85,6 +88,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09165873641',
                 'guardian_address' => 'POB. BONIFACIO',
+                'business_permit_img' => '',
                 'role' => 'LANDOWNER',
                 'password' => Hash::make('a')
             ],
@@ -103,6 +107,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09165873641',
                 'guardian_address' => 'POB. BONIFACIO',
+                'business_permit_img' => '',
                 'role' => 'LANDOWNER',
                 'password' => Hash::make('a')
             ],
@@ -121,6 +126,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09167789581',
                 'guardian_address' => 'POB. BONIFACIO',
+                'business_permit_img' => '',
                 'role' => 'BOARDER',
                 'password' => Hash::make('a')
             ],
@@ -139,6 +145,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09167789581',
                 'guardian_address' => 'POB. BONIFACIO',
+                'business_permit_img' => '',
                 'role' => 'ADMINISTRATOR',
                 'password' => Hash::make('a')
             ],
@@ -157,6 +164,7 @@ class UserSeeder extends Seeder
                 'guardian_name' => 'JUAN DELA CRUZ',
                 'guardian_contact_no' => '09167789581',
                 'guardian_address' => 'POB. BONIFACIO',
+                'business_permit_img' => '',
                 'role' => 'BOARDER',
                 'password' => Hash::make('a')
             ]

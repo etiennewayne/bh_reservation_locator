@@ -73,12 +73,24 @@ class RegisterPageController extends Controller
             'contact_no' => ['required', 'max:30'],
 
             'role' => ['required', 'max:30'],
-
+            'business_permit_img' => ['required', 'mimes:jpg,png,bmp', 'max:800'],
             'province' => ['required'],
             'city' => ['required'],
             'barangay' => ['required'],
             'street' => ['required'],
+        ],  $message = [
+            'business_permit_img.mimes' => 'Your uploaded file must be a file of jpg, png or bmp.',
+            'business_permit_img.size' => 'Your uploaded file must be a less than equal to 800Kb',
         ]);
+
+
+        $imgBusinessPermit = $req->file('business_permit_img');
+        if($imgBusinessPermit){
+            $pathFile = $imgBusinessPermit->store('public/bpermits'); //get path of the file
+            $n = explode('/', $pathFile); //split into array using /
+        }
+
+
 
         User::create([
             'username' => $req->username,

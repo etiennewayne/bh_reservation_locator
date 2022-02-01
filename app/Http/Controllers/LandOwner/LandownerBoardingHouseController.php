@@ -50,45 +50,21 @@ class LandownerBoardingHouseController extends Controller
 
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
-            'business_permit_imgpath' => ['required', 'mimes:jpg,png,bmp', 'file', 'max:700'],
-            'bhouse_img_path' => ['required', 'mimes:jpg,png,bmp', 'file', 'max:700'],
-            'bhouse_rule' => ['required', 'string'],
+            'bhouse_rule' => ['required'],
             'long' => ['required'],
             'lat' => ['required'],
             'province' => ['required'],
             'city' => ['required'],
             'barangay' => ['required'],
             'street' => ['required'],
-
-        ], $message = [
-            'bhouse_img_path.max' => 'Size must atleast 700 kb',
-            'business_permit_imgpath.max' => 'Size must atleast 700 kb',
-            'bhouse_rule.required' => 'Please input boarding house rule.',
-            'bhouse_img_path.mimes' => 'Boarding house must be an image.',
-            'business_permit_imgpath.mimes' => 'Business permit must be an image.',
         ]);
 
-        //upload image b permit
-        $bPermitImg = $req->file('business_permit_imgpath');
-        if($bPermitImg){
-            $pathFile = $bPermitImg->store('public/bpermit'); //get path of the file
-            $n = explode('/', $pathFile); //split into array using /
-        }
-
-        //upload image b house
-        $bhouseImg = $req->file('bhouse_img_path');
-        if($bhouseImg){
-            $pathFile = $bhouseImg->store('public/bhouse'); //get path of the file
-            $bhouse_imgpath = explode('/', $pathFile); //split into array using /
-        }
 
         $userid = Auth::user()->user_id;
         
         BoardingHouse::create([
             'bhouse_name' => strtoupper($req->bhouse_name),
             'user_id' => $userid,
-            'business_permit_imgpath' => $n[2] != null ? $n[2]: '',
-            'bhouse_img_path' => $bhouse_imgpath[2] != null ? $bhouse_imgpath[2]: '',
             'bhouse_rule' => $req->bhouse_rule,
             'long' => $req->long,
             'lat' => $req->lat,
@@ -141,16 +117,16 @@ class LandownerBoardingHouseController extends Controller
 
     public function destroy($id){
         
-        $data = BoardingHouse::find($id);
-        if($data != '' || $data != null){
-            if(Storage::exists('public/bpermit/'. $data->business_permit_imgpath)){
-                Storage::delete('public/bpermit/'. $data->business_permit_imgpath);
-            }
+        // $data = BoardingHouse::find($id);
+        // if($data != '' || $data != null){
+        //     if(Storage::exists('public/bpermit/'. $data->business_permit_imgpath)){
+        //         Storage::delete('public/bpermit/'. $data->business_permit_imgpath);
+        //     }
 
-            if(Storage::exists('public/bhouse/'. $data->bhouse_img_path)){
-                Storage::delete('public/bhouse/'. $data->bhouse_img_path);
-            }
-        }
+        //     if(Storage::exists('public/bhouse/'. $data->bhouse_img_path)){
+        //         Storage::delete('public/bhouse/'. $data->bhouse_img_path);
+        //     }
+        // }
 
         $data = BoardingHouse::destroy($id);
 

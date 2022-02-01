@@ -90,7 +90,7 @@
                                         </template>
 
                                         <b-dropdown-item aria-role="listitem" @click="openLink(props.row.bhouse_id)">Modify</b-dropdown-item>
-                                        <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + props.row.room_id">Bed Space</b-dropdown-item>
+                                        <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + global_bhouse_id + `/` + props.row.room_id">Bed Space</b-dropdown-item>
                                         <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.room_id)">Delete</b-dropdown-item>
 
                                     </b-dropdown>

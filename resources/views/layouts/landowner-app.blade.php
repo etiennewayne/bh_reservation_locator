@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        
+        <navbar-land-owner></navbar-land-owner>
         <div>
             @yield('content')
         </div>

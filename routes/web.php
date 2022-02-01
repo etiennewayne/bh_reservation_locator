@@ -29,14 +29,11 @@ Route::middleware('guest')->get('/gate', function () {
 
 
 
-
 Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/register', App\Http\Controllers\RegisterPageController::class);
-
-
 
 
 
@@ -89,7 +86,7 @@ Route::delete('/boarding-house-room-delete/{id}', [App\Http\Controllers\LandOwne
 
 
 //BOARDING HOUSE - BEDSPACE
-Route::get('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
+Route::get('/boarding-house-bedspace/{bhouse_id}/{bh_room_id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
 Route::get('/get-boarding-house-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'showBedSpace']);
 
 Route::post('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'store']);

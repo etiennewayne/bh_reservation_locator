@@ -5,23 +5,29 @@
             <div class="column is-8 is-offset-2">
 
                 <div class="section">
-                    <div class="bhouse-wrapper">
-                        <div class="bhouse-image">
-                            <img :src="`/storage/bhouse/${data.bhouse_img_path}`" />
+                    <div class="">
+                        <div class="columns">
+                            <div class="column">
+                                <div class="bhouse-image">
+                                    <img :src="`/storage/bhouse/${data.bhouse_img_path}`" />
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="bhouse-right">
+                                    <div class="bhouse-title">
+                                        {{data.bhouse_name}}
+                                    </div>
+                                    <div class="bhouse-desc">
+                                        {{ data.bhouse_desc }}
+                                    </div>
+
+                                    <div class="bhouse-loc">
+                                        <b-icon icon="map-marker-right"></b-icon> {{ data.street }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="bhouse-right">
-                            <div class="bhouse-title">
-                                {{data.bhouse_name}}
-                            </div>
-                            <div class="bhouse-desc">
-                                {{ data.bhouse_desc }}
-                            </div>
-
-                            <div class="bhouse-loc">
-                                <b-icon icon="map-marker-right"></b-icon> {{ data.street }}
-                            </div>
-                        </div>
                     </div>
                 </div><!-- section -->
 
@@ -132,21 +138,10 @@ export default {
 <style scoped>
 
     .bhouse-wrapper{
-        display: flex;
-        width: 720px;
-        border: 1px solid #b2b2b2;
-        border-radius: 5px;
-        padding: 10px;
-        margin: auto;
+       
     }
 
 
-    .bhouse-image{
-        border: 1px solid #c4c4c4;
-        width: 500px;
-        border-radius: 3px;
-        margin-right: 10px;
-    }
 
     .bhouse-title{
         font-size: 1.5em;

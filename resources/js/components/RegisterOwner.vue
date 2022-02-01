@@ -92,6 +92,28 @@
             
         </div>
 
+
+        <div class="columns">
+            <div class="column">
+                <b-field label="Upload Business permit"
+                        :type="this.errors.business_permit_img ? 'is-danger':''"
+                        :message="this.errors.business_permit_img ? this.errors.business_permit_img[0] : ''">
+                    <b-field class="file is-primary" :class="{'has-name': !!fields.business_permit_img}">
+                        <b-upload v-model="fields.business_permit_img" class="file-label">
+                            <span class="file-cta">
+                                <b-icon class="file-icon" icon="upload"></b-icon>
+                                <span class="file-label">Click to upload</span>
+                            </span>
+                            <span class="file-name" v-if="fields.business_permit_img">
+                                {{ fields.business_permit_img.name }}
+                            </span>
+                        </b-upload>
+                    </b-field>
+                </b-field>
+                
+            </div>
+        </div>
+
         <hr>
         <div class="columns">
             <div class="column">
@@ -153,7 +175,16 @@ export default {
                 'button' : true,
                 'is-loading' : false,
             },
-            fields: {},
+            fields: {
+                usernamew: '',
+                password: '',
+                password_confirmation: '',
+                lname: '', fname: '', mname: '',
+                suffix: '', sex: '', email: '',
+                contact_no : '', business_permit_img: null,
+                province: '', city: '', barangay: '', street: '',
+
+            },
             errors: {},
 
 
@@ -167,7 +198,28 @@ export default {
         submit: function(){
             this.btnClass['is-loading'] = true;
             this.fields.role = 'LANDOWNER';
-            axios.post('/register', this.fields).then(res=>{
+
+
+            var formData = new FormData();
+            formData.append('username', this.fields.username);
+            formData.append('password', this.fields.password);
+            formData.append('password_confirmation', this.fields.password_confirmation);
+            formData.append('lname', this.fields.lname);
+            formData.append('fname', this.fields.fname);
+            formData.append('mname', this.fields.mname);
+            formData.append('suffix', this.fields.suffix);
+            formData.append('sex', this.fields.sex);
+            formData.append('email', this.fields.email);
+            formData.append('contact_no', this.fields.contact_no);
+            formData.append('business_permit_img', this.fields.business_permit_img);
+            formData.append('province', this.fields.province);
+            formData.append('city', this.fields.city);
+            formData.append('barangay', this.fields.barangay);
+            formData.append('street', this.fields.street);
+            formData.append('role', this.fields.role);
+
+
+            axios.post('/register', formData).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
                         title: 'SAVED!',

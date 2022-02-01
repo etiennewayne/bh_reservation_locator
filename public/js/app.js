@@ -3654,6 +3654,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propData: {
@@ -4029,11 +4035,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    propDataId: {
+    propBhId: {
       type: String,
       "default": ''
     },
-    propRouteback: {
+    propBhRoomId: {
       type: String,
       "default": ''
     }
@@ -4064,13 +4070,15 @@ __webpack_require__.r(__webpack_exports__);
         'button': true,
         'is-loading': false
       },
+      global_bh_id: 0,
       global_room_id: 0,
       global_bedspace_id: 0
     };
   },
   methods: {
     initData: function initData() {
-      this.global_room_id = parseInt(this.propDataId);
+      this.global_room_id = parseInt(this.propBhRoomId);
+      this.global_bh_id = parseInt(this.propBhId);
     },
 
     /*
@@ -4626,10 +4634,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       fields: {
         bhouse_name: '',
-        business_permit_imgpath: null,
-        bhouse_img_path: null,
+        bhouse_rule: '',
         lat: 0,
-        "long": 0
+        "long": 0,
+        province: '',
+        city: '',
+        barangay: '',
+        street: ''
       },
       errors: {},
       global_bhouse_id: 0,
@@ -4695,7 +4706,7 @@ __webpack_require__.r(__webpack_exports__);
         //udpate
         axios.put('/boarding-house/' + this.global_bhouse_id, this.fields).then(function (res) {
           if (res.data.status === 'updated') {
-            alert('Boarding house successfully updated. Please wait for the approval of your boarding house.');
+            alert('Boarding house successfully updated.');
             window.location = '/boarding-house';
           }
         })["catch"](function (err) {
@@ -4705,20 +4716,20 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         //insert
-        var formData = new FormData();
-        formData.append('bhouse_name', this.fields.bhouse_name);
-        formData.append('bhouse_rule', this.fields.bhouse_rule);
-        formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
-        formData.append('bhouse_img_path', this.fields.bhouse_img_path);
-        formData.append('lat', this.fields.lat);
-        formData.append('long', this.fields["long"]);
-        formData.append('province', this.fields.province);
-        formData.append('city', this.fields.city);
-        formData.append('barangay', this.fields.barangay);
-        formData.append('street', this.fields.street);
-        axios.post('/boarding-house', formData).then(function (res) {
+        // var formData = new FormData();
+        // formData.append('bhouse_name', this.fields.bhouse_name);
+        // formData.append('bhouse_rule', this.fields.bhouse_rule);
+        // formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
+        // formData.append('bhouse_img_path', this.fields.bhouse_img_path);
+        // formData.append('lat', this.fields.lat);
+        // formData.append('long', this.fields.long);
+        // formData.append('province', this.fields.province);
+        // formData.append('city', this.fields.city);
+        // formData.append('barangay', this.fields.barangay);
+        // formData.append('street', this.fields.street);
+        axios.post('/boarding-house', this.fields).then(function (res) {
           if (res.data.status === 'saved') {
-            alert('Boarding house successfully saved. Please wait for the approval of your boarding house.');
+            alert('Boarding house successfully saved.');
             window.location = '/boarding-house';
           }
         })["catch"](function (err) {
@@ -5877,6 +5888,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5885,7 +5918,23 @@ __webpack_require__.r(__webpack_exports__);
         'button': true,
         'is-loading': false
       },
-      fields: {},
+      fields: {
+        usernamew: '',
+        password: '',
+        password_confirmation: '',
+        lname: '',
+        fname: '',
+        mname: '',
+        suffix: '',
+        sex: '',
+        email: '',
+        contact_no: '',
+        business_permit_img: null,
+        province: '',
+        city: '',
+        barangay: '',
+        street: ''
+      },
       errors: {},
       provinces: [],
       cities: [],
@@ -5898,7 +5947,24 @@ __webpack_require__.r(__webpack_exports__);
 
       this.btnClass['is-loading'] = true;
       this.fields.role = 'LANDOWNER';
-      axios.post('/register', this.fields).then(function (res) {
+      var formData = new FormData();
+      formData.append('username', this.fields.username);
+      formData.append('password', this.fields.password);
+      formData.append('password_confirmation', this.fields.password_confirmation);
+      formData.append('lname', this.fields.lname);
+      formData.append('fname', this.fields.fname);
+      formData.append('mname', this.fields.mname);
+      formData.append('suffix', this.fields.suffix);
+      formData.append('sex', this.fields.sex);
+      formData.append('email', this.fields.email);
+      formData.append('contact_no', this.fields.contact_no);
+      formData.append('business_permit_img', this.fields.business_permit_img);
+      formData.append('province', this.fields.province);
+      formData.append('city', this.fields.city);
+      formData.append('barangay', this.fields.barangay);
+      formData.append('street', this.fields.street);
+      formData.append('role', this.fields.role);
+      axios.post('/register', formData).then(function (res) {
         if (res.data.status === 'saved') {
           _this.$buefy.dialog.alert({
             title: 'SAVED!',
@@ -5959,10 +6025,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
 //
 //
 //
@@ -24401,7 +24463,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-wrapper[data-v-147bde05]{\n    display: flex;\n    width: 720px;\n    border: 1px solid #b2b2b2;\n    border-radius: 5px;\n    padding: 10px;\n    margin: auto;\n}\n.bhouse-image[data-v-147bde05]{\n    border: 1px solid #c4c4c4;\n    width: 500px;\n    border-radius: 3px;\n    margin-right: 10px;\n}\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-wrapper[data-v-147bde05]{\n}\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29560,41 +29622,51 @@ var render = function () {
     _c("div", { staticClass: "columns" }, [
       _c("div", { staticClass: "column is-8 is-offset-2" }, [
         _c("div", { staticClass: "section" }, [
-          _c("div", { staticClass: "bhouse-wrapper" }, [
-            _c("div", { staticClass: "bhouse-image" }, [
-              _c("img", {
-                attrs: { src: "/storage/bhouse/" + _vm.data.bhouse_img_path },
-              }),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "bhouse-right" }, [
-              _c("div", { staticClass: "bhouse-title" }, [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.data.bhouse_name) +
-                    "\n                        "
-                ),
+          _c("div", {}, [
+            _c("div", { staticClass: "columns" }, [
+              _c("div", { staticClass: "column" }, [
+                _c("div", { staticClass: "bhouse-image" }, [
+                  _c("img", {
+                    attrs: {
+                      src: "/storage/bhouse/" + _vm.data.bhouse_img_path,
+                    },
+                  }),
+                ]),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "bhouse-desc" }, [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.data.bhouse_desc) +
-                    "\n                        "
-                ),
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "bhouse-loc" },
-                [
-                  _c("b-icon", { attrs: { icon: "map-marker-right" } }),
-                  _vm._v(
-                    " " + _vm._s(_vm.data.street) + "\n                        "
+              _c("div", { staticClass: "column" }, [
+                _c("div", { staticClass: "bhouse-right" }, [
+                  _c("div", { staticClass: "bhouse-title" }, [
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(_vm.data.bhouse_name) +
+                        "\n                                "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "bhouse-desc" }, [
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(_vm.data.bhouse_desc) +
+                        "\n                                "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "bhouse-loc" },
+                    [
+                      _c("b-icon", { attrs: { icon: "map-marker-right" } }),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.data.street) +
+                          "\n                                "
+                      ),
+                    ],
+                    1
                   ),
-                ],
-                1
-              ),
+                ]),
+              ]),
             ]),
           ]),
         ]),
@@ -29835,7 +29907,7 @@ var render = function () {
                           attrs: {
                             "icon-left": "chevron-left",
                             tag: "a",
-                            href: "" + this.propRouteback,
+                            href: "/boarding-house-rooms/" + this.global_bh_id,
                           },
                         },
                         [
@@ -30833,158 +30905,6 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
-                    _vm.global_bhouse_id < 1
-                      ? _c(
-                          "div",
-                          [
-                            _c(
-                              "b-field",
-                              {
-                                attrs: {
-                                  label: "ATTACH BUSINESS PERMIT",
-                                  type: this.errors.business_permit_imgpath
-                                    ? "is-danger"
-                                    : "",
-                                  message: this.errors.business_permit_imgpath
-                                    ? this.errors.business_permit_imgpath[0]
-                                    : "",
-                                },
-                              },
-                              [
-                                _c(
-                                  "b-upload",
-                                  {
-                                    staticClass: "file-label",
-                                    model: {
-                                      value: _vm.fields.business_permit_imgpath,
-                                      callback: function ($$v) {
-                                        _vm.$set(
-                                          _vm.fields,
-                                          "business_permit_imgpath",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "fields.business_permit_imgpath",
-                                    },
-                                  },
-                                  [
-                                    _c(
-                                      "span",
-                                      { staticClass: "file-cta" },
-                                      [
-                                        _c("b-icon", {
-                                          staticClass: "file-icon",
-                                          attrs: { icon: "upload" },
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "span",
-                                          { staticClass: "file-label" },
-                                          [_vm._v("Click to upload")]
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _vm.fields.business_permit_imgpath
-                                      ? _c(
-                                          "span",
-                                          { staticClass: "file-name" },
-                                          [
-                                            _vm._v(
-                                              "\n                                            " +
-                                                _vm._s(
-                                                  _vm.fields
-                                                    .business_permit_imgpath
-                                                    .name
-                                                ) +
-                                                "\n                                        "
-                                            ),
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                  ]
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-field",
-                              {
-                                attrs: {
-                                  label: "BHOUSE IMAGE",
-                                  type: this.errors.bhouse_img_path
-                                    ? "is-danger"
-                                    : "",
-                                  message: this.errors.bhouse_img_path
-                                    ? this.errors.bhouse_img_path[0]
-                                    : "",
-                                },
-                              },
-                              [
-                                _c(
-                                  "b-upload",
-                                  {
-                                    staticClass: "file-label",
-                                    model: {
-                                      value: _vm.fields.bhouse_img_path,
-                                      callback: function ($$v) {
-                                        _vm.$set(
-                                          _vm.fields,
-                                          "bhouse_img_path",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "fields.bhouse_img_path",
-                                    },
-                                  },
-                                  [
-                                    _c(
-                                      "span",
-                                      { staticClass: "file-cta" },
-                                      [
-                                        _c("b-icon", {
-                                          staticClass: "file-icon",
-                                          attrs: { icon: "upload" },
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "span",
-                                          { staticClass: "file-label" },
-                                          [_vm._v("Click to upload")]
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _vm.fields.bhouse_img_path
-                                      ? _c(
-                                          "span",
-                                          { staticClass: "file-name" },
-                                          [
-                                            _vm._v(
-                                              "\n                                            " +
-                                                _vm._s(
-                                                  _vm.fields.bhouse_img_path
-                                                    .name
-                                                ) +
-                                                "\n                                        "
-                                            ),
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                  ]
-                                ),
-                              ],
-                              1
-                            ),
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
                     _vm._m(0),
                     _vm._v(" "),
                     _c(
@@ -31790,6 +31710,8 @@ var render = function () {
                                           tag: "a",
                                           href:
                                             "/boarding-house-bedspace/" +
+                                            _vm.global_bhouse_id +
+                                            "/" +
                                             props.row.room_id,
                                         },
                                       },
@@ -33429,6 +33351,83 @@ var render = function () {
                       expression: "fields.contact_no",
                     },
                   }),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "columns" }, [
+          _c(
+            "div",
+            { staticClass: "column" },
+            [
+              _c(
+                "b-field",
+                {
+                  attrs: {
+                    label: "Upload Business permit",
+                    type: this.errors.business_permit_img ? "is-danger" : "",
+                    message: this.errors.business_permit_img
+                      ? this.errors.business_permit_img[0]
+                      : "",
+                  },
+                },
+                [
+                  _c(
+                    "b-field",
+                    {
+                      staticClass: "file is-primary",
+                      class: { "has-name": !!_vm.fields.business_permit_img },
+                    },
+                    [
+                      _c(
+                        "b-upload",
+                        {
+                          staticClass: "file-label",
+                          model: {
+                            value: _vm.fields.business_permit_img,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.fields, "business_permit_img", $$v)
+                            },
+                            expression: "fields.business_permit_img",
+                          },
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "file-cta" },
+                            [
+                              _c("b-icon", {
+                                staticClass: "file-icon",
+                                attrs: { icon: "upload" },
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "file-label" }, [
+                                _vm._v("Click to upload"),
+                              ]),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm.fields.business_permit_img
+                            ? _c("span", { staticClass: "file-name" }, [
+                                _vm._v(
+                                  "\n                              " +
+                                    _vm._s(
+                                      _vm.fields.business_permit_img.name
+                                    ) +
+                                    "\n                          "
+                                ),
+                              ])
+                            : _vm._e(),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
                 ],
                 1
               ),

@@ -24,7 +24,7 @@
                                     <b-input type="textarea" v-model="fields.bhouse_rule" placeholder="Bhouse Rule" />
                                 </b-field>
 
-                                <div v-if="global_bhouse_id < 1">
+                                <!-- <div v-if="global_bhouse_id < 1">
                                     <b-field label="ATTACH BUSINESS PERMIT"
                                             :type="this.errors.business_permit_imgpath ? 'is-danger':''"
                                             :message="this.errors.business_permit_imgpath ? this.errors.business_permit_imgpath[0] : ''">
@@ -52,7 +52,7 @@
                                             </span>
                                         </b-upload>
                                     </b-field>
-                                </div>
+                                </div> -->
                                 
 
                                 <div class="columns">
@@ -158,11 +158,13 @@ export default {
         return{
             fields: {
                 bhouse_name: '',
-                business_permit_imgpath: null,
-                bhouse_img_path: null,
+                bhouse_rule: '',
                 lat: 0,
-                long: 0
+                long: 0,
+                province: '', city: '', barangay: '', street: '',
             },
+
+
             errors: {},
 
             global_bhouse_id: 0,
@@ -241,7 +243,7 @@ export default {
                 //udpate
                 axios.put('/boarding-house/' + this.global_bhouse_id, this.fields).then(res=>{
                      if(res.data.status === 'updated'){
-                        alert('Boarding house successfully updated. Please wait for the approval of your boarding house.');
+                        alert('Boarding house successfully updated.');
                         window.location = '/boarding-house';
                     }
                 }).catch(err=>{
@@ -250,25 +252,26 @@ export default {
                     }
                 });
             }else{
-                //insert
-                var formData = new FormData();
-            
-                formData.append('bhouse_name', this.fields.bhouse_name);
-                formData.append('bhouse_rule', this.fields.bhouse_rule);
-                formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
-                formData.append('bhouse_img_path', this.fields.bhouse_img_path);
-                formData.append('lat', this.fields.lat);
-                formData.append('long', this.fields.long);
 
-                formData.append('province', this.fields.province);
-                formData.append('city', this.fields.city);
-                formData.append('barangay', this.fields.barangay);
-                formData.append('street', this.fields.street);
+                //insert
+                // var formData = new FormData();
             
-                axios.post('/boarding-house', formData).then(res=>{
+                // formData.append('bhouse_name', this.fields.bhouse_name);
+                // formData.append('bhouse_rule', this.fields.bhouse_rule);
+                // formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
+                // formData.append('bhouse_img_path', this.fields.bhouse_img_path);
+                // formData.append('lat', this.fields.lat);
+                // formData.append('long', this.fields.long);
+
+                // formData.append('province', this.fields.province);
+                // formData.append('city', this.fields.city);
+                // formData.append('barangay', this.fields.barangay);
+                // formData.append('street', this.fields.street);
+            
+                axios.post('/boarding-house', this.fields).then(res=>{
                    
                     if(res.data.status === 'saved'){
-                        alert('Boarding house successfully saved. Please wait for the approval of your boarding house.');
+                        alert('Boarding house successfully saved.');
                         window.location = '/boarding-house';
                     }
                 }).catch(err=>{

@@ -23,10 +23,6 @@
                         <register-owner></register-owner>
                     </b-tab-item>
                 </b-tabs>
-
-
-                
-
             </div>
         </div>
     </section>

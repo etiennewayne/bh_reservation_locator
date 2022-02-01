@@ -10,7 +10,7 @@
 
                         <div class="panel-body">
                             <div class="buttons">
-                                <b-button icon-left="chevron-left" tag="a" :href="`${this.propRouteback}`">
+                                <b-button icon-left="chevron-left" tag="a" :href="`/boarding-house-rooms/${this.global_bh_id}`">
                                     BACK
                                 </b-button>
                             </div>
@@ -192,12 +192,12 @@
 <script>
 export default {
     props: {
-        propDataId: {
+        propBhId: {
             type: String,
             default: '',
         },
 
-        propRouteback: {
+        propBhRoomId: {
             type: String,
             default: '',
         }
@@ -240,6 +240,7 @@ export default {
                 'is-loading':false,
             },
 
+            global_bh_id: 0,
             global_room_id: 0,
             global_bedspace_id: 0,
 
@@ -250,7 +251,9 @@ export default {
     methods: {
 
         initData: function(){
-              this.global_room_id = parseInt(this.propDataId);
+            this.global_room_id = parseInt(this.propBhRoomId);
+            this.global_bh_id = parseInt(this.propBhId);
+
         },
 
         /*

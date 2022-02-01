@@ -1,4 +1,4 @@
-@extends('layouts.no-navbar')
+@extends('layouts.landowner-app')
 
 @section('content')
     <landowner-dashboard></landowner-dashboard>

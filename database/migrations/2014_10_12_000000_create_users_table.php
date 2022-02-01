@@ -30,7 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('guardian_name')->nullable();
             $table->string('guardian_contact_no')->nullable();
             $table->string('guardian_address')->nullable();
-
+            $table->string('business_permit_img')->nullable();
+            $table->tinyInteger('is_approve')->default(0);
             $table->string('role')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

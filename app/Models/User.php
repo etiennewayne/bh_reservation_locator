@@ -24,8 +24,7 @@ class User extends Authenticatable
         'email', 'contact_no',
         'guardian_name', 'guardian_contact_no','guardian_address',
         'province', 'city', 'barangay', 'street',
-        'role',
-        'password',
+        'password', 'business_permit_img', 'is_approve', 'role',
     ];
 
     /**
