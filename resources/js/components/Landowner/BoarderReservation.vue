@@ -8,7 +8,7 @@
                         <div class="column is-8">
                             <div class="panel">
                                 <div class="panel-heading">
-                                    MY RESERVATION
+                                    BOARDER RESERVATION
                                 </div>
 
                                 <div class="panel-body">
@@ -44,9 +44,9 @@
                                         </div>
                                     </div>
 
-<!--                                    <div class="buttons mt-3 is-right">-->
-<!--                                        <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="buttons mt-3 is-right">-->
+                                    <!--                                        <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>-->
+                                    <!--                                    </div>-->
 
                                     <b-table
                                         :data="data"
@@ -69,11 +69,15 @@
                                         </b-table-column>
 
                                         <b-table-column field="bedspace_name" label="Bed Space Name" v-slot="props">
-                                            {{ props.row.bedspace.bedspace_name }}
+                                            {{ props.row.bedspace_name }}
+                                        </b-table-column>
+
+                                        <b-table-column field="boarder_name" label="Boarder Name" v-slot="props">
+                                            {{ props.row.lname }}, {{ props.row.fname }} {{ props.row.mname }}
                                         </b-table-column>
 
                                         <b-table-column field="price" label="Rental Price" v-slot="props">
-                                            {{ props.row.book_price }}
+                                            {{ props.row.rental_price }}
                                         </b-table-column>
 
                                         <b-table-column field="is_approved" label="Status" v-slot="props">
@@ -92,7 +96,7 @@
                                                         :icon-right="active ? 'menu-up' : 'menu-down'" />
                                                 </template>
 
-                                                <b-dropdown-item aria-role="listitem" @click="openUloadModal(props.row.book_bedspace_id)">Upload</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="openProofTransactionModal(props.row.book_bedspace_id)">Proof of Transaction</b-dropdown-item>
                                             </b-dropdown>
                                             <!-- <div class="is-flex">
                                                 <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
@@ -113,7 +117,7 @@
 
 
         <!--modal create-->
-        <b-modal v-model="modalUploadImage" has-modal-card
+        <b-modal v-model="modalProofTransaction" has-modal-card
                  trap-focus
                  :width="640"
                  aria-role="dialog"
@@ -127,7 +131,7 @@
                         <button
                             type="button"
                             class="delete"
-                            @click="modalUploadImage = false"/>
+                            @click="modalProofTransaction = false"/>
                     </header>
 
                     <section class="modal-card-body">
@@ -135,31 +139,7 @@
                             <div class="columns is-centered">
                                 <div class="column is-8">
 
-                                    <b-field>
-                                        <b-upload v-model="dropFiles"
-                                                  drag-drop>
-                                            <section class="section">
-
-                                                <div class="content has-text-centered">
-                                                    <p>
-                                                        <b-icon
-                                                            icon="upload"
-                                                            size="is-large">
-                                                        </b-icon>
-                                                    </p>
-                                                    <p>Drop your files here or click to upload</p>
-                                                </div>
-
-                                            </section>
-                                        </b-upload>
-                                    </b-field>
-                                    <div class="tags">
-                                        <span v-if="dropFiles" class="tag is-primary" >
-                                            {{dropFiles.name}}
-                                            <button class="delete is-small" type="button" @click="deleteDropFile"></button>
-                                        </span>
-                                    </div>
-
+<!--                                    <img :src="test" />-->
 
                                 </div><!-- column -->
                             </div>
@@ -168,7 +148,7 @@
                     <footer class="modal-card-foot">
                         <b-button
                             label="Close"
-                            @click="modalUploadImage=false"/>
+                            @click="modalProofTransaction=false"/>
                         <button
                             label="Save"
                             class="button is-link">Upload</button>
@@ -191,7 +171,7 @@ export default{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'bedspace_id',
+            sortField: 'book_bedspace_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 5,
@@ -201,7 +181,7 @@ export default{
                 bedspace: '',
             },
 
-            modalUploadImage: false,
+            modalProofTransaction: false,
 
             global_bookbedspace_id: 0,
 
@@ -222,13 +202,12 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `bedspace=${this.search.bedspace}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-my-reservation?${params}`)
+            axios.get(`/get-boarder-reservation?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -268,9 +247,9 @@ export default{
             this.loadAsyncData()
         },
 
-        openUloadModal(dataId){
+        openProofTransactionModal(dataId){
             this.global_bookbedspace_id = dataId;
-            this.modalUploadImage = true;
+            this.modalProofTransaction = true;
         },
         deleteDropFile() {
             this.dropFiles = null;
@@ -288,7 +267,7 @@ export default{
                         type: 'is-success',
                         onConfirm: ()=> {
                             this.loadAsyncData();
-                            this.modalUploadImage = false;
+                            this.modalProofTransaction = false;
                             this.dropFiles = null;
                         }
                     });

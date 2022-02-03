@@ -201,7 +201,7 @@ export default {
                 if(err.response.status === 422){
                     if(err.response.data.errors === 'active'){
                         this.$buefy.dialog.alert({
-                            message: 'You have an active booking. Please settle it first. Thank you.',
+                            message: 'You have an active reservation. Please settle it first. Thank you.',
                             type: 'is-warning',
                             title: 'ACTIVE BOOK DETECTED!'
                         })

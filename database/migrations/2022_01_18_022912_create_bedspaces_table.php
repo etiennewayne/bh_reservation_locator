@@ -24,6 +24,7 @@ class CreateBedspacesTable extends Migration
             $table->string('bedspace_img_path')->nullable();
             $table->double('price')->default(0);
             $table->tinyInteger('is_booked')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

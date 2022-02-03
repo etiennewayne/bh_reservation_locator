@@ -73,6 +73,7 @@ Route::post('bh-request-deactivate/{id}', [App\Http\Controllers\Administrator\BH
 
 
 //LANDOWNER
+//-------------------------///
 Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\LandownerDashboardController::class);
 
 
@@ -89,6 +90,12 @@ Route::post('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOw
 Route::get('/get-boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getRooms']);
 Route::delete('/boarding-house-room-delete/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'destroy']);
 
+Route::get('/boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'index']);
+Route::get('/get-boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'getBoarderReservation']);
+
+
+
+//-------------LANDOWNER------------///
 //-------------------------///
 
 
@@ -108,8 +115,6 @@ Route::delete('/boarding-house-bedspace-delete/{id}', [App\Http\Controllers\Land
 
 
 //-------------------------///
-
-
 
 //BOARDER DASHBOARD
 Route::get('/boarder-dashboard', [App\Http\Controllers\Boarder\BoarderDashboardController::class, 'index']);

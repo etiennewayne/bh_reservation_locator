@@ -28,7 +28,10 @@
                             <b-menu-item label="Boarding House" icon="link" tag="a" href="/boarding-house"></b-menu-item>
                         </b-menu-list>
 
-                        
+                        <b-menu-list>
+                            <b-menu-item label="Boarder Reservation" icon="link" tag="a" href="/boarder-reservation"></b-menu-item>
+                        </b-menu-list>
+
                         <b-menu-list label="Actions">
                             <b-menu-item @click="logout" label="Logout"></b-menu-item>
                         </b-menu-list>
