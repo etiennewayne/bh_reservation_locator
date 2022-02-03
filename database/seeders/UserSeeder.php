@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'username' => 'angel',
+                'qr_ref' => 'XYZA24',
                 'lname' => 'LOPEZ',
                 'fname' => 'ANGEL',
                 'mname' => 'P',
@@ -37,6 +38,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'dacles',
+                'qr_ref' => 'GGH334',
                 'lname' => 'DACLES',
                 'fname' => 'RICHE',
                 'mname' => '',
@@ -56,6 +58,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'fuentes',
+                'qr_ref' => 'GJAS45',
                 'lname' => 'FUENTES',
                 'fname' => 'JOHN',
                 'mname' => '',
@@ -75,6 +78,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'siete',
+                'qr_ref' => 'PPO9312',
                 'lname' => 'SIETE',
                 'fname' => 'PARLING',
                 'mname' => '',
@@ -94,6 +98,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'tagobar',
+                'qr_ref' => '123JHDT',
                 'lname' => 'TAGOBAR',
                 'fname' => 'MICHAEL',
                 'mname' => '',
@@ -113,6 +118,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'jerecho',
+                'qr_ref' => 'HUYD684',
                 'lname' => 'MELLEJOR',
                 'fname' => 'JERECHO',
                 'mname' => '',
@@ -132,6 +138,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'admin',
+                'qr_ref' => 'ADMIN112',
                 'lname' => 'ALGADIPE',
                 'fname' => 'HESSEL',
                 'mname' => '',
@@ -151,6 +158,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'kimchie',
+                'qr_ref' => 'JUG66878',
                 'lname' => 'HIBAYA',
                 'fname' => 'NIMCHIE',
                 'mname' => '',

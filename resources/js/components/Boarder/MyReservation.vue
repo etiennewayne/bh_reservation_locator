@@ -76,8 +76,12 @@
                                             {{ props.row.rental_price }}
                                         </b-table-column>
 
-                                        <b-table-column field="approval_status" label="Status" v-slot="props">
+                                        <b-table-column field="is_active" label="ACTIVE" v-slot="props">
+                                            <span v-if="props.row.is_active === 1">ACTIVE</span>
+                                            <span v-else>INACTIVE</span>
+                                        </b-table-column>
 
+                                        <b-table-column field="approval_status" label="Status" v-slot="props">
                                             <span v-if="props.row.approval_status === 'APPROVED'">APPROVED</span>
                                             <span v-else-if="props.row.approval_status === 'CANCELLED'">CANCELLED</span>
                                             <span v-else>PENDING</span>

@@ -4021,6 +4021,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -31950,6 +31954,22 @@ var render = function () {
                                         _vm._s(props.row.rental_price) +
                                         "\n                                        "
                                     ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "is_active", label: "ACTIVE" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    props.row.is_active === 1
+                                      ? _c("span", [_vm._v("ACTIVE")])
+                                      : _c("span", [_vm._v("INACTIVE")]),
                                   ]
                                 },
                               },
