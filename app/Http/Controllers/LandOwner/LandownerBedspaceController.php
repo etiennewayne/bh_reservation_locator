@@ -48,7 +48,7 @@ class LandownerBedspaceController extends Controller
 
 
 
-    public function store(Request $req, $id){
+    public function store(Request $req, $bhouse_id, $room_id){
 
         $req->validate([
             'bedspace_name' => ['required'],
@@ -63,7 +63,8 @@ class LandownerBedspaceController extends Controller
         ]);
 
         $bedspace = BedSpace::create([
-            'room_id' => $id,
+            'room_id' => $room_id,
+            'bhouse_id' => $bhouse_id,
             'bedspace_name' => strtoupper($req->bedspace_name),
             'bedspace_desc' => strtoupper($req->bedspace_desc),
             'price' => $req->price,

@@ -87,11 +87,6 @@
                                             <b-button class="button is-small is-danger mr-1" tag="a" icon-right="laptop-off" @click="deactivateBhouse(props.row.bhouse_id)"></b-button>
                                         </b-tooltip>
 
-                                        <b-tooltip label="Modify">
-                                            <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
-                                        </b-tooltip>
-
-                                        <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.bhouse_id)"></b-button>
                                     </div>
                                 </b-table-column>
                             </b-table>

@@ -52,6 +52,13 @@ Route::resource('/users', App\Http\Controllers\Administrator\UserController::cla
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
 
 
+Route::resource('/request-accounts', App\Http\Controllers\Administrator\RequestAccountController::class);
+Route::get('/get-request-accounts', [App\Http\Controllers\Administrator\RequestAccountController::class, 'getRequestAccount']);
+Route::post('/request-account-approved/{id}', [App\Http\Controllers\Administrator\RequestAccountController::class, 'approveAccount']);
+Route::post('/request-account-disapproved/{id}', [App\Http\Controllers\Administrator\RequestAccountController::class, 'disapproveAccount']);
+
+
+
 //ROUTE FOR REQUEST BHOUSE // KANANG MAG PA APPROVE SA BHOUSE E DISPLAY
 // ANG BUSINESS PERMIT
 Route::resource('/bh-request', App\Http\Controllers\Administrator\BHRequestController::class);
@@ -89,7 +96,7 @@ Route::delete('/boarding-house-room-delete/{id}', [App\Http\Controllers\LandOwne
 Route::get('/boarding-house-bedspace/{bhouse_id}/{bh_room_id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
 Route::get('/get-boarding-house-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'showBedSpace']);
 
-Route::post('/boarding-house-bedspace/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'store']);
+Route::post('/boarding-house-bedspace/{bhouse_id}/{room_id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'store']);
 //Route::get('/get-boarding-house-bedspaces-imgs/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBedspaceImgs']);
 Route::put('/boarding-house-bedspace-update/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'update']);
 
@@ -104,10 +111,30 @@ Route::delete('/boarding-house-bedspace-delete/{id}', [App\Http\Controllers\Land
 
 
 
+//BOARDER DASHBOARD
+Route::get('/boarder-dashboard', [App\Http\Controllers\Boarder\BoarderDashboardController::class, 'index']);
+
+//My Reservation
+Route::get('/my-reservation', [App\Http\Controllers\Boarder\MyReservationController::class, 'index']);
+Route::get('/get-my-reservation', [App\Http\Controllers\Boarder\MyReservationController::class, 'getMyReservation']);
+//upload proof of transaction
+Route::post('/upload-proof-transaction/{book_bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'uploadProofTransaction']);
+
+
+
+
+
 
 //CLIENT BOARDING HOUSES //
 Route::get('/get-client-bhouses', [App\Http\Controllers\ClientBhouseController::class, 'getBhouses']);
 Route::get('/client-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'showBhouseDetail']);
+
+//client bhroom
+Route::get('/client-bh-rooms/{id}', [App\Http\Controllers\ClientBhouseRoomController::class, 'index']);
+Route::get('/get-client-bh-rooms/{id}', [App\Http\Controllers\ClientBhouseRoomController::class, 'getBhRoomsClient']);
+Route::get('/get-client-bhroom-bedspaces/{id}', [App\Http\Controllers\ClientBhouseRoomController::class, 'getBedSpaces']);
+Route::post('/client-bhroom-bedspace-reserve/{bedspace_id}', [App\Http\Controllers\ClientReserveBedSpaceController::class, 'reserveBedspace']);
+
 
 
 

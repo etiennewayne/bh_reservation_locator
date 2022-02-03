@@ -27,7 +27,7 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.lname" placeholder="Search Lastname"
+                                                 v-model="search.bhousename" placeholder="Search Bhouse"
                                                  @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                             <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
@@ -65,11 +65,10 @@
                                 {{ props.row.bhouse_name }}
                             </b-table-column>
 
-                            <b-table-column field="is_approve" label="Status" v-slot="props">
-                                <span style="font-weight: bold; color: green;" v-if="props.row.is_approve === 1">APPROVED</span>
-                                <span style="font-weight: bold; color: orange;" v-if="props.row.is_approve === 0">PENDING</span>
+                            <b-table-column field="bhouse_desc" label="Bhouse Description" v-slot="props">
+                                {{ props.row.bhouse_desc }}
                             </b-table-column>
-                            
+
                             <b-table-column label="Action" v-slot="props">
                                 <b-dropdown aria-role="list">
                                     <template #trigger="{ active }">
@@ -83,7 +82,7 @@
                                     <b-dropdown-item aria-role="listitem" @click="openLink(props.row.bhouse_id)">Modify</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-rooms/` + props.row.bhouse_id">Room</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.bhouse_id)">Delete</b-dropdown-item>
-                                    
+
                                 </b-dropdown>
                                 <!-- <div class="is-flex">
                                     <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>

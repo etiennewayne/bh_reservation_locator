@@ -23,6 +23,9 @@
 
         <template #end>
             <b-navbar-item tag="div" v-if="user.username">
+                <b-navbar-item @click="open =  true">
+                    <strong>MENU</strong>
+                </b-navbar-item>
                 <b-navbar-item href="/gate">
                     <strong>Dashboard</strong>
                 </b-navbar-item>
@@ -41,6 +44,39 @@
 
         </template>
     </b-navbar>
+
+
+
+    <section>
+        <b-sidebar
+            type="is-light"
+            :fullheight="fullheight"
+            :fullwidth="fullwidth"
+            :overlay="overlay"
+            :right="right"
+            v-model="open"
+        >
+            <div class="p-4">
+                <h3 class="title is-4">BOARDER</h3>
+                <b-menu>
+                    <b-menu-list label="Menu">
+                        <b-menu-item icon="monitor-dashboard" label="Dashboard" tag="a" href="/boarder-dashboard"></b-menu-item>
+                    </b-menu-list>
+
+                    <b-menu-list>
+                        <b-menu-item label="My Reservation" icon="home-floor-a" tag="a" href="/my-reservation"></b-menu-item>
+                    </b-menu-list>
+
+
+                    <b-menu-list label="Actions">
+                        <b-menu-item @click="logout" label="Logout"></b-menu-item>
+                    </b-menu-list>
+                </b-menu>
+            </div>
+        </b-sidebar>
+    </section>
+
+
 
 
     <!--modal-->
@@ -87,6 +123,10 @@
 
 
 
+
+
+
+
 </div>
 </template>
 
@@ -101,6 +141,13 @@ export default {
 
     data(){
         return{
+            open: false,
+            overlay: false,
+            fullheight: true,
+            fullwidth: false,
+            right: true,
+
+
             isModalActive: false,
             fields: {},
             errors: {},

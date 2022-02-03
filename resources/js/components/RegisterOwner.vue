@@ -30,7 +30,7 @@
         </div>
 
         <div class="columns">
-            
+
         </div>
 
         <div class="columns">
@@ -89,7 +89,7 @@
                     <b-input type="text" placeholder="Contact No" v-model="fields.contact_no"></b-input>
                 </b-field>
             </div>
-            
+
         </div>
 
 
@@ -110,7 +110,6 @@
                         </b-upload>
                     </b-field>
                 </b-field>
-                
             </div>
         </div>
 
@@ -161,7 +160,7 @@
         <div class="buttons is-right">
             <button :class="btnClass" >Register</button>
         </div>
-      
+
     </form> <!-- form -->
   </div>
 </template>

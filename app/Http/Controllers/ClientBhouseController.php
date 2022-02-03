@@ -12,7 +12,7 @@ class ClientBhouseController extends Controller
     //
 
     public function __construct(){
-        
+
     }
 
 
@@ -27,6 +27,7 @@ class ClientBhouseController extends Controller
         $data = BoardingHouse::find($id);
 
         return view('client-bhouse-detail')
-            ->with('data', $data);
+            ->with('data', $data)
+            ->with('id', $id);
     }
 }

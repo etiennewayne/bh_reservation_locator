@@ -11,7 +11,7 @@
 
                         <div class="panel-body">
                             <div class="buttons">
-                                <b-button icon-left="chevron-left" tag="a" :href="`${this.propRouteback}`">
+                                <b-button icon-left="chevron-left" tag="a" href="/boarding-house">
                                     BACK
                                 </b-button>
                             </div>

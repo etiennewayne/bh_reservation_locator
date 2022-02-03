@@ -1,10 +1,13 @@
 <template>
-    <section class="section">
+    <div class="section">
         <div class="columns">
 
-            
-            
             <div class="column is-8 is-offset-2">
+                
+                <div style="margin: 15px 0;">
+                    <a href="/" class="mb-5">HOME</a>
+                </div>
+                
 
                 <b-tabs type="is-boxed">
                     <b-tab-item>
@@ -25,7 +28,7 @@
                 </b-tabs>
             </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>

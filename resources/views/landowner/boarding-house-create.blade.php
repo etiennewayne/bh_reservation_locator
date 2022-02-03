@@ -1,4 +1,4 @@
-@extends('layouts.no-navbar')
+@extends('layouts.landowner-app')
 
 @section('extracss')
     <link rel="stylesheet" href="{{ asset('/css/leaflet.css ') }}">
@@ -10,15 +10,15 @@
 
 
 @section('content')
-    
-   
+
+
 
     @if (isset($id))
         <boarding-house-create prop-data-id='{{ $id }}' prop-data='@json($bhouse)'></boarding-house-create>
     @else
         <boarding-house-create prop-data-id='0' prop-data=''></boarding-house-create>
     @endif
-   
+
 
 @endsection
 

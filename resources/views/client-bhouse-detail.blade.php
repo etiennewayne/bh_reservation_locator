@@ -16,6 +16,6 @@
 @section('content')
 
 
-    <client-bhouse-detail prop-data='@json($data)'></client-bhouse-detail>
+    <client-bhouse-detail prop-data='@json($data)' prop-bhouse-id="{{ $id }}"></client-bhouse-detail>
 
 @endsection

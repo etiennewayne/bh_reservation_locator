@@ -24,6 +24,10 @@
                                     <div class="bhouse-loc">
                                         <b-icon icon="map-marker-right"></b-icon> {{ data.street }}
                                     </div>
+
+                                    <div class="buttons mt-5">
+                                        <b-button type="is-link" tag="a" :href="`/client-bh-rooms/${bhouse_id}`">SEE MORE...</b-button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -50,6 +54,10 @@ export default {
         propData:{
             type: String,
             default: '',
+        },
+        propBhouseId : {
+            type: String,
+            default: '',
         }
     },
     data() {
@@ -59,6 +67,8 @@ export default {
 
             nlat: 0,
             nlong: 0,
+
+            bhouse_id: 0,
         }
 
     },
@@ -119,15 +129,21 @@ export default {
                 ]
             }).addTo(mymap);
 
-         
+
         },
+
+
+        initData: function(){
+            this.data = JSON.parse(this.propData);
+            this.bhouse_id = parseInt(this.propBhouseId);
+        }
 
 
     },
 
     mounted() {
-        this.data = JSON.parse(this.propData);
-        this.loadNavigator();
+       this.initData();
+       this.loadNavigator();
 
         //this.loadMap();
 
@@ -138,7 +154,7 @@ export default {
 <style scoped>
 
     .bhouse-wrapper{
-       
+
     }
 
 

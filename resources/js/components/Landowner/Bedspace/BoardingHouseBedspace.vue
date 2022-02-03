@@ -221,7 +221,7 @@ export default {
             fields: {
                 bedspace_name: '',
                 bedspace_desc: '',
-                bedspaces: {},
+                bedspaces: null,
             },
 
             errors: {},
@@ -253,7 +253,6 @@ export default {
         initData: function(){
             this.global_room_id = parseInt(this.propBhRoomId);
             this.global_bh_id = parseInt(this.propBhId);
-
         },
 
         /*
@@ -379,7 +378,7 @@ export default {
 
                 formData.append('price', this.fields.price);
 
-                axios.post('/boarding-house-bedspace/' + this.global_room_id, formData).then(res=>{
+                axios.post('/boarding-house-bedspace/' + this.global_bh_id + '/' +this.global_room_id, formData).then(res=>{
 
                     if(res.data.status === 'saved'){
                         this.isModalCreate = false;
