@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Boarder;
 
 use App\Http\Controllers\Controller;
+use App\Models\BedSpace;
 use App\Models\BookBedSpace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use function Symfony\Component\String\s;
 
 class MyReservationController extends Controller
 {
@@ -66,6 +68,23 @@ class MyReservationController extends Controller
         return response()->json([
             'status' => 'uploaded'
         ]);
+    }
+
+
+    public function cancelReservation($id){
+
+        $data = BookBedSpace::find($id);
+        $data->approval_status = 'CANCELLED';
+        $data->save();
+
+        $bedspace_id = $data->bedspace_id;
+        $data = BedSpace::find($bedspace_id);
+        $data->is_booked = 0;
+        $data->save();
+
+        return response()->json([
+            'status' => 'cancelled'
+        ], 200);
     }
 
 

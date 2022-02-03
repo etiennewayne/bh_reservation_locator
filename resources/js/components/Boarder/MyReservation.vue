@@ -72,18 +72,22 @@
                                             {{ props.row.bedspace.bedspace_name }}
                                         </b-table-column>
 
-                                        <b-table-column field="price" label="Rental Price" v-slot="props">
-                                            {{ props.row.book_price }}
+                                        <b-table-column field="rental_price" label="Rental Price" v-slot="props">
+                                            {{ props.row.rental_price }}
                                         </b-table-column>
 
-                                        <b-table-column field="is_approved" label="Status" v-slot="props">
-                                            <span v-if="props.row.is_approved === 1">APPROVE</span>
+                                        <b-table-column field="approval_status" label="Status" v-slot="props">
+
+                                            <span v-if="props.row.approval_status === 'APPROVED'">APPROVED</span>
+                                            <span v-else-if="props.row.approval_status === 'CANCELLED'">CANCELLED</span>
                                             <span v-else>PENDING</span>
-
                                         </b-table-column>
+
+
+
 
                                         <b-table-column label="Action" v-slot="props">
-                                            <b-dropdown aria-role="list">
+                                            <b-dropdown aria-role="list" v-if="props.row.approval_status === 'PENDING'">
                                                 <template #trigger="{ active }">
                                                     <b-button
                                                         label="..."
@@ -92,7 +96,11 @@
                                                         :icon-right="active ? 'menu-up' : 'menu-down'" />
                                                 </template>
 
-                                                <b-dropdown-item aria-role="listitem" @click="openUloadModal(props.row.book_bedspace_id)">Upload</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="openUploadModal(props.row.book_bedspace_id)">Upload</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="cancelReservation(props.row.book_bedspace_id)">Cancel Reservation</b-dropdown-item>
+
+
+
                                             </b-dropdown>
                                             <!-- <div class="is-flex">
                                                 <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
@@ -191,7 +199,7 @@ export default{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'bedspace_id',
+            sortField: 'book_bedspace_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 5,
@@ -268,7 +276,7 @@ export default{
             this.loadAsyncData()
         },
 
-        openUloadModal(dataId){
+        openUploadModal(dataId){
             this.global_bookbedspace_id = dataId;
             this.modalUploadImage = true;
         },
@@ -292,6 +300,30 @@ export default{
                             this.dropFiles = null;
                         }
                     });
+                }
+            })
+        },
+
+        cancelReservation: function(dataId){
+            this.$buefy.dialog.confirm({
+                title: 'CANCEL?',
+                message: 'Do you want to cancel your reservation?',
+                type: 'is-warning',
+                onConfirm: ()=>{
+                    this.submitCancelReservation(dataId);
+                }
+            });
+        },
+
+        submitCancelReservation(dataId){
+            axios.post('/my-reservation-cancel/' +dataId).then(res=>{
+                if(res.data.status === 'cancelled'){
+                    this.$buefy.toast.open({
+                        message: 'Reservation cancelled.',
+                        type: 'is-success'
+                    });
+
+                    this.loadAsyncData();
                 }
             })
         },

@@ -13,7 +13,7 @@ class BookBedSpace extends Model
     protected $primaryKey = 'book_bedspace_id';
 
 
-    protected $fillable = ['bedspace_id', 'book_user_id', 'book_date', 'occupy_date', 'rental_price', 'is_cancelled', 'is_paid', 'is_active', 'is_approved'];
+    protected $fillable = ['bedspace_id', 'book_user_id', 'book_date', 'occupy_date', 'rental_price', 'approval_status', 'is_active'];
 
     public function bedspace(){
         return $this->hasOne(BedSpace::class, 'bedspace_id', 'bedspace_id');

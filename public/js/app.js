@@ -4013,13 +4013,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       data: [],
       total: 0,
       loading: false,
-      sortField: 'bedspace_id',
+      sortField: 'book_bedspace_id',
       sortOrder: 'desc',
       page: 1,
       perPage: 5,
@@ -4084,7 +4092,7 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
-    openUloadModal: function openUloadModal(dataId) {
+    openUploadModal: function openUploadModal(dataId) {
       this.global_bookbedspace_id = dataId;
       this.modalUploadImage = true;
     },
@@ -4109,6 +4117,32 @@ __webpack_require__.r(__webpack_exports__);
               _this2.dropFiles = null;
             }
           });
+        }
+      });
+    },
+    cancelReservation: function cancelReservation(dataId) {
+      var _this3 = this;
+
+      this.$buefy.dialog.confirm({
+        title: 'CANCEL?',
+        message: 'Do you want to cancel your reservation?',
+        type: 'is-warning',
+        onConfirm: function onConfirm() {
+          _this3.submitCancelReservation(dataId);
+        }
+      });
+    },
+    submitCancelReservation: function submitCancelReservation(dataId) {
+      var _this4 = this;
+
+      axios.post('/my-reservation-cancel/' + dataId).then(function (res) {
+        if (res.data.status === 'cancelled') {
+          _this4.$buefy.toast.open({
+            message: 'Reservation cancelled.',
+            type: 'is-success'
+          });
+
+          _this4.loadAsyncData();
         }
       });
     }
@@ -5296,6 +5330,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5317,7 +5352,8 @@ __webpack_require__.r(__webpack_exports__);
         'button': true,
         'is-loading': false
       },
-      dropFiles: null
+      dropFiles: null,
+      proofTransURL: ''
     };
   },
   methods: {
@@ -5367,9 +5403,10 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
-    openProofTransactionModal: function openProofTransactionModal(dataId) {
-      this.global_bookbedspace_id = dataId;
+    openProofTransactionModal: function openProofTransactionModal(rowData) {
+      this.global_bookbedspace_id = rowData.book_bedspace_id;
       this.modalProofTransaction = true;
+      this.proofTransURL = rowData.proof_transaction;
     },
     deleteDropFile: function deleteDropFile() {
       this.dropFiles = null;
@@ -5390,6 +5427,25 @@ __webpack_require__.r(__webpack_exports__);
 
               _this2.modalProofTransaction = false;
               _this2.dropFiles = null;
+            }
+          });
+        }
+      });
+    },
+    submitApproved: function submitApproved() {
+      var _this3 = this;
+
+      axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id).then(function (res) {
+        if (res.data.status === 'approved') {
+          _this3.$buefy.dialog.alert({
+            title: "APPROVED!",
+            message: 'Boarder successfully approved.',
+            type: 'is-success',
+            onConfirm: function onConfirm() {
+              _this3.loadAsyncData();
+
+              _this3.modalProofTransaction = false;
+              _this3.proofTransURL = '';
             }
           });
         }
@@ -25736,7 +25792,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-3c3c025e]{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.img-container[data-v-3c3c025e]{\r\n    padding: 15px;\r\n    border: 1px solid black;\r\n    margin: 15px;\r\n    width: 200px;\n}\n.img-container > img[data-v-3c3c025e]{\r\n    width: 150px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-3c3c025e]{\n    display: flex;\n    flex-direction: row;\n}\n.img-container[data-v-3c3c025e]{\n    padding: 15px;\n    border: 1px solid black;\n    margin: 15px;\n    width: 200px;\n}\n.img-container > img[data-v-3c3c025e]{\n    width: 150px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -25760,7 +25816,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.panel[data-v-9af7903c]{\r\n    padding: 25px;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.panel[data-v-9af7903c]{\n    padding: 25px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -25808,7 +25864,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-0493a076]{\n    padding: 0 30px 0 30px;\n    height: 90px;\n}\n.burger-div[data-v-0493a076]{\n    width: 20px;\n    height: 3px;\n    background-color: #696969;\n    margin: 0 auto 3px 0;\n\n    border-radius: 10px;\n}\n.burger-button[data-v-0493a076]{\n    display: flex;\n    flex-direction: column;\n}\n.mynav[data-v-0493a076]{\n    padding: 25px;\n    /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/\n    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-0493a076]{\r\n    padding: 0 30px 0 30px;\r\n    height: 90px;\n}\n.burger-div[data-v-0493a076]{\r\n    width: 20px;\r\n    height: 3px;\r\n    background-color: #696969;\r\n    margin: 0 auto 3px 0;\r\n\r\n    border-radius: 10px;\n}\n.burger-button[data-v-0493a076]{\r\n    display: flex;\r\n    flex-direction: column;\n}\n.mynav[data-v-0493a076]{\r\n    padding: 25px;\r\n    /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/\r\n    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -31880,7 +31936,10 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("b-table-column", {
-                            attrs: { field: "price", label: "Rental Price" },
+                            attrs: {
+                              field: "rental_price",
+                              label: "Rental Price",
+                            },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -31888,7 +31947,7 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                            " +
-                                        _vm._s(props.row.book_price) +
+                                        _vm._s(props.row.rental_price) +
                                         "\n                                        "
                                     ),
                                   ]
@@ -31898,14 +31957,20 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("b-table-column", {
-                            attrs: { field: "is_approved", label: "Status" },
+                            attrs: {
+                              field: "approval_status",
+                              label: "Status",
+                            },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
                                 fn: function (props) {
                                   return [
-                                    props.row.is_approved === 1
-                                      ? _c("span", [_vm._v("APPROVE")])
+                                    props.row.approval_status === "APPROVED"
+                                      ? _c("span", [_vm._v("APPROVED")])
+                                      : props.row.approval_status ===
+                                        "CANCELLED"
+                                      ? _c("span", [_vm._v("CANCELLED")])
                                       : _c("span", [_vm._v("PENDING")]),
                                   ]
                                 },
@@ -31920,54 +31985,75 @@ var render = function () {
                                 key: "default",
                                 fn: function (props) {
                                   return [
-                                    _c(
-                                      "b-dropdown",
-                                      {
-                                        attrs: { "aria-role": "list" },
-                                        scopedSlots: _vm._u(
-                                          [
-                                            {
-                                              key: "trigger",
-                                              fn: function (ref) {
-                                                var active = ref.active
-                                                return [
-                                                  _c("b-button", {
-                                                    staticClass: "is-small",
-                                                    attrs: {
-                                                      label: "...",
-                                                      type: "is-primary",
-                                                      "icon-right": active
-                                                        ? "menu-up"
-                                                        : "menu-down",
-                                                    },
-                                                  }),
-                                                ]
-                                              },
-                                            },
-                                          ],
-                                          null,
-                                          true
-                                        ),
-                                      },
-                                      [
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-dropdown-item",
+                                    props.row.approval_status === "PENDING"
+                                      ? _c(
+                                          "b-dropdown",
                                           {
-                                            attrs: { "aria-role": "listitem" },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.openUloadModal(
-                                                  props.row.book_bedspace_id
-                                                )
-                                              },
-                                            },
+                                            attrs: { "aria-role": "list" },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "trigger",
+                                                  fn: function (ref) {
+                                                    var active = ref.active
+                                                    return [
+                                                      _c("b-button", {
+                                                        staticClass: "is-small",
+                                                        attrs: {
+                                                          label: "...",
+                                                          type: "is-primary",
+                                                          "icon-right": active
+                                                            ? "menu-up"
+                                                            : "menu-down",
+                                                        },
+                                                      }),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              true
+                                            ),
                                           },
-                                          [_vm._v("Upload")]
-                                        ),
-                                      ],
-                                      1
-                                    ),
+                                          [
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-dropdown-item",
+                                              {
+                                                attrs: {
+                                                  "aria-role": "listitem",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.openUploadModal(
+                                                      props.row.book_bedspace_id
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [_vm._v("Upload")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-dropdown-item",
+                                              {
+                                                attrs: {
+                                                  "aria-role": "listitem",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.cancelReservation(
+                                                      props.row.book_bedspace_id
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [_vm._v("Cancel Reservation")]
+                                            ),
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
                                   ]
                                 },
                               },
@@ -33413,7 +33499,7 @@ var render = function () {
                 _c("div", { staticClass: "panel" }, [
                   _c("div", { staticClass: "panel-heading" }, [
                     _vm._v(
-                      "\n                                    BOARDER RESERVATION\n                                "
+                      "\n                                BOARDER RESERVATION\n                            "
                     ),
                   ]),
                   _vm._v(" "),
@@ -33587,9 +33673,9 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                            " +
+                                      "\n                                        " +
                                         _vm._s(props.row.book_bedspace_id) +
-                                        "\n                                        "
+                                        "\n                                    "
                                     ),
                                   ]
                                 },
@@ -33608,9 +33694,9 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                            " +
+                                      "\n                                        " +
                                         _vm._s(props.row.bedspace_name) +
-                                        "\n                                        "
+                                        "\n                                    "
                                     ),
                                   ]
                                 },
@@ -33629,13 +33715,13 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                            " +
+                                      "\n                                        " +
                                         _vm._s(props.row.lname) +
                                         ", " +
                                         _vm._s(props.row.fname) +
                                         " " +
                                         _vm._s(props.row.mname) +
-                                        "\n                                        "
+                                        "\n                                    "
                                     ),
                                   ]
                                 },
@@ -33651,9 +33737,9 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                            " +
+                                      "\n                                        " +
                                         _vm._s(props.row.rental_price) +
-                                        "\n                                        "
+                                        "\n                                    "
                                     ),
                                   ]
                                 },
@@ -33668,8 +33754,13 @@ var render = function () {
                                 key: "default",
                                 fn: function (props) {
                                   return [
-                                    props.row.is_approved === 1
-                                      ? _c("span", [_vm._v("APPROVE")])
+                                    props.row.approval_status === "PENDING"
+                                      ? _c("span", [_vm._v("PENDING")])
+                                      : props.row.approval_status ===
+                                        "CANCELLED"
+                                      ? _c("span", [_vm._v("CANCELLED")])
+                                      : props.row.approval_status === "APPROVED"
+                                      ? _c("span", [_vm._v("APPROVED")])
                                       : _c("span", [_vm._v("PENDING")]),
                                   ]
                                 },
@@ -33722,7 +33813,7 @@ var render = function () {
                                             on: {
                                               click: function ($event) {
                                                 return _vm.openProofTransactionModal(
-                                                  props.row.book_bedspace_id
+                                                  props.row
                                                 )
                                               },
                                             },
@@ -33776,7 +33867,7 @@ var render = function () {
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
-                  return _vm.submitUpload.apply(null, arguments)
+                  return _vm.submitApproved.apply(null, arguments)
                 },
               },
             },
@@ -33784,7 +33875,7 @@ var render = function () {
               _c("div", { staticClass: "modal-card" }, [
                 _c("header", { staticClass: "modal-card-head" }, [
                   _c("p", { staticClass: "modal-card-title" }, [
-                    _vm._v("Upload Transaction"),
+                    _vm._v("Proof of Transaction"),
                   ]),
                   _vm._v(" "),
                   _c("button", {
@@ -33801,7 +33892,13 @@ var render = function () {
                 _c("section", { staticClass: "modal-card-body" }, [
                   _c("div", {}, [
                     _c("div", { staticClass: "columns is-centered" }, [
-                      _c("div", { staticClass: "column is-8" }),
+                      _c("div", { staticClass: "column is-8" }, [
+                        _c("img", {
+                          attrs: {
+                            src: "/storage/prooftrans/" + _vm.proofTransURL,
+                          },
+                        }),
+                      ]),
                     ]),
                   ]),
                 ]),
@@ -33825,7 +33922,7 @@ var render = function () {
                         staticClass: "button is-link",
                         attrs: { label: "Save" },
                       },
-                      [_vm._v("Upload")]
+                      [_vm._v("APPROVED")]
                     ),
                   ],
                   1
@@ -35550,15 +35647,15 @@ var render = function () {
             fn: function () {
               return [
                 _c("b-navbar-item", { attrs: { href: "/" } }, [
-                  _vm._v("\r\n                Home\r\n            "),
+                  _vm._v("\n                Home\n            "),
                 ]),
                 _vm._v(" "),
                 _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\r\n                About\r\n            "),
+                  _vm._v("\n                About\n            "),
                 ]),
                 _vm._v(" "),
                 _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\r\n                Contact\r\n            "),
+                  _vm._v("\n                Contact\n            "),
                 ]),
               ]
             },
@@ -49494,7 +49591,7 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\wayne\\\\Desktop\\\\GitHub\\\\bh_reservation_locator"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\wayne\\\\Desktop\\\\GitHub\\\\bh_reservation_locator","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/","#USER"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\Users\\\\eshen\\\\Desktop\\\\Github\\\\schoolpass","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

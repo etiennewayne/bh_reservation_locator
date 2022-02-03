@@ -22,6 +22,7 @@ class ClientReserveBedSpaceController extends Controller
 
         $isExist = BookBedSpace::where('book_user_id',$userid)
             ->where('is_active', 1)
+            ->where('approval_status', '!=',  'CANCELLED')
             ->exists();
 
         if($isExist){
@@ -39,7 +40,7 @@ class ClientReserveBedSpaceController extends Controller
             'bedspace_id' => $bedspace_id,
             'book_user_id' => $userid,
             'book_date' => $ndate,
-            'book_price' => $bedspace->price
+            'rental_price' => $bedspace->price
         ]);
 
         return response()->json([

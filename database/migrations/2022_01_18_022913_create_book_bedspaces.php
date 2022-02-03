@@ -22,10 +22,8 @@ class CreateBookBedspaces extends Migration
             $table->date('book_date')->nullable();
             $table->date('occupy_date')->nullable();
             $table->double('rental_price')->default(0);
-            $table->tinyInteger('is_cancelled')->default(0);
-            $table->tinyInteger('is_paid')->default(0);
             $table->tinyInteger('is_active')->default(1);
-            $table->tinyInteger('is_approved')->default(0);
+            $table->string('approval_status', 20)->default('PENDING');
             $table->string('proof_transaction')->nullable();
             $table->timestamps();
         });

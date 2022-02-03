@@ -81,9 +81,10 @@
                                         </b-table-column>
 
                                         <b-table-column field="is_approved" label="Status" v-slot="props">
-                                            <span v-if="props.row.is_approved === 1">APPROVE</span>
+                                            <span v-if="props.row.approval_status === 'PENDING'">PENDING</span>
+                                            <span v-else-if="props.row.approval_status === 'CANCELLED'">CANCELLED</span>
+                                            <span v-else-if="props.row.approval_status === 'APPROVED'">APPROVED</span>
                                             <span v-else>PENDING</span>
-
                                         </b-table-column>
 
                                         <b-table-column label="Action" v-slot="props">
@@ -96,7 +97,7 @@
                                                         :icon-right="active ? 'menu-up' : 'menu-down'" />
                                                 </template>
 
-                                                <b-dropdown-item aria-role="listitem" @click="openProofTransactionModal(props.row.book_bedspace_id)">Proof of Transaction</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="openProofTransactionModal(props.row)">Proof of Transaction</b-dropdown-item>
                                             </b-dropdown>
                                             <!-- <div class="is-flex">
                                                 <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
@@ -124,10 +125,10 @@
                  aria-label="Modal"
                  aria-modal>
 
-            <form @submit.prevent="submitUpload">
+            <form @submit.prevent="submitApproved">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Upload Transaction</p>
+                        <p class="modal-card-title">Proof of Transaction</p>
                         <button
                             type="button"
                             class="delete"
@@ -139,7 +140,7 @@
                             <div class="columns is-centered">
                                 <div class="column is-8">
 
-<!--                                    <img :src="test" />-->
+                                    <img :src="`/storage/prooftrans/${proofTransURL}`" />
 
                                 </div><!-- column -->
                             </div>
@@ -151,7 +152,7 @@
                             @click="modalProofTransaction=false"/>
                         <button
                             label="Save"
-                            class="button is-link">Upload</button>
+                            class="button is-link">APPROVED</button>
                     </footer>
                 </div>
             </form><!--close form-->
@@ -192,6 +193,8 @@ export default{
             },
 
             dropFiles: null,
+
+            proofTransURL: '',
 
         }
     },
@@ -247,9 +250,10 @@ export default{
             this.loadAsyncData()
         },
 
-        openProofTransactionModal(dataId){
-            this.global_bookbedspace_id = dataId;
+        openProofTransactionModal(rowData){
+            this.global_bookbedspace_id = rowData.book_bedspace_id;
             this.modalProofTransaction = true;
+            this.proofTransURL = rowData.proof_transaction;
         },
         deleteDropFile() {
             this.dropFiles = null;
@@ -269,6 +273,23 @@ export default{
                             this.loadAsyncData();
                             this.modalProofTransaction = false;
                             this.dropFiles = null;
+                        }
+                    });
+                }
+            })
+        },
+
+        submitApproved: function(){
+            axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id).then(res=>{
+                if(res.data.status==='approved'){
+                    this.$buefy.dialog.alert({
+                        title: "APPROVED!",
+                        message: 'Boarder successfully approved.',
+                        type: 'is-success',
+                        onConfirm: ()=> {
+                            this.loadAsyncData();
+                            this.modalProofTransaction = false;
+                            this.proofTransURL = '';
                         }
                     });
                 }

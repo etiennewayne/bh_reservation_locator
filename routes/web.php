@@ -80,6 +80,12 @@ Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\Landowner
 //BOARDING HOUSE
 Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class);
 Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBhouses']);
+
+Route::post('/boarder-reservation-approved/{book_bedspace_id}', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'approvedReservation']);
+
+
+
+
 //-------------------------///
 
 
@@ -124,9 +130,7 @@ Route::get('/my-reservation', [App\Http\Controllers\Boarder\MyReservationControl
 Route::get('/get-my-reservation', [App\Http\Controllers\Boarder\MyReservationController::class, 'getMyReservation']);
 //upload proof of transaction
 Route::post('/upload-proof-transaction/{book_bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'uploadProofTransaction']);
-
-
-
+Route::post('/my-reservation-cancel/{bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'cancelReservation']);
 
 
 
