@@ -254,9 +254,7 @@ export default{
             this.modalProofTransaction = true;
             this.proofTransURL = rowData.proof_transaction;
         },
-        deleteDropFile() {
-            this.dropFiles = null;
-        },
+
 
         submitUpload: function(){
             var formData = new FormData();
@@ -288,7 +286,6 @@ export default{
                         onConfirm: ()=> {
                             this.loadAsyncData();
                             this.modalProofTransaction = false;
-                            this.proofTransURL = '';
                         }
                     });
                 }

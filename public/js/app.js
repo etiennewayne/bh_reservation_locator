@@ -5703,9 +5703,6 @@ __webpack_require__.r(__webpack_exports__);
       this.modalProofTransaction = true;
       this.proofTransURL = rowData.proof_transaction;
     },
-    deleteDropFile: function deleteDropFile() {
-      this.dropFiles = null;
-    },
     submitUpload: function submitUpload() {
       var _this2 = this;
 
@@ -5740,7 +5737,6 @@ __webpack_require__.r(__webpack_exports__);
               _this3.loadAsyncData();
 
               _this3.modalProofTransaction = false;
-              _this3.proofTransURL = '';
             }
           });
         }
