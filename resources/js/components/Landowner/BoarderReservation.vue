@@ -159,7 +159,6 @@
         </b-modal>
         <!--close modal-->
 
-
     </div>
 </template>
 
