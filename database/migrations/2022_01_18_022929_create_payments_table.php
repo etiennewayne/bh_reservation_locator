@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id('payment_id');
             $table->unsignedBigInteger('book_bedspace_id');
             $table->foreign('book_bedspace_id')->references('book_bedspace_id')->on('book_bedspaces');
+            $table->string('payment_qr_ref', 20)->unique();
             $table->double('payment_price')->default(0);
             $table->date('payment_date')->nullable();
             $table->timestamps();

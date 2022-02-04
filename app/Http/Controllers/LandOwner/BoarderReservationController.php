@@ -4,6 +4,7 @@ namespace App\Http\Controllers\LandOwner;
 
 use App\Http\Controllers\Controller;
 use App\Models\BookBedSpace;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -65,6 +66,17 @@ class BoarderReservationController extends Controller
         $data = BookBedSpace::find($book_bedspace_id);
         $data->approval_status = 'APPROVED';
         $data->save();
+
+        $ndate = date('Y-m-d');
+
+        $qr_code = substr(md5(time() . $data->book_user_id), -8);
+
+        Payment::create([
+            'book_bedspace_id' => $data->book_bedspace_id,
+            'payment_qr_ref' => $qr_code,
+            'payment_price' => $data->rental_price,
+            'payment_date' => $ndate,
+        ]);
 
         return response()->json([
             'status' => 'approved'

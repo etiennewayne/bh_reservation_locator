@@ -8,7 +8,7 @@
                         <div class="column is-8">
                             <div class="panel">
                                 <div class="panel-heading">
-                                    MY RESERVATION
+                                    MY PAYMENT
                                 </div>
 
                                 <div class="panel-body">
@@ -44,9 +44,9 @@
                                         </div>
                                     </div>
 
-<!--                                    <div class="buttons mt-3 is-right">-->
-<!--                                        <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="buttons mt-3 is-right">-->
+                                    <!--                                        <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>-->
+                                    <!--                                    </div>-->
 
                                     <b-table
                                         :data="data"
@@ -86,6 +86,9 @@
                                             <span v-else-if="props.row.approval_status === 'CANCELLED'">CANCELLED</span>
                                             <span v-else>PENDING</span>
                                         </b-table-column>
+
+
+
 
                                         <b-table-column label="Action" v-slot="props">
                                             <b-dropdown aria-role="list" v-if="props.row.approval_status === 'PENDING'">
@@ -165,7 +168,7 @@
                                     <div class="tags">
                                         <span v-if="dropFiles" class="tag is-primary" >
                                             {{dropFiles.name}}
-                                            <button class="delete is-small" type="button" @click="deleteDropFile"></button>
+                                            <button class="delete is-small" type="button" @click=""></button>
                                         </span>
                                     </div>
 
@@ -195,6 +198,13 @@
 <script>
 
 export default{
+
+    props:{
+        propData:{
+            type: String,
+            default: '',
+        }
+    },
     data(){
         return{
             data: [],
@@ -210,17 +220,14 @@ export default{
                 bedspace: '',
             },
 
-            modalUploadImage: false,
-
-            global_bookbedspace_id: 0,
-
             btnClass: {
                 'is-success': true,
                 'button': true,
                 'is-loading':false,
             },
 
-            dropFiles: null,
+            modalUploadImage: false,
+            dropFiles: [],
 
         }
     },
@@ -237,7 +244,7 @@ export default{
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-my-reservation?${params}`)
+            axios.get(`/get-my-payment?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -277,63 +284,18 @@ export default{
             this.loadAsyncData()
         },
 
-        openUploadModal(dataId){
-            this.global_bookbedspace_id = dataId;
-            this.modalUploadImage = true;
-        },
-        deleteDropFile() {
-            this.dropFiles = null;
-        },
 
-        submitUpload: function(){
-            var formData = new FormData();
-            formData.append('proof_transaction', this.dropFiles);
 
-            axios.post('/upload-proof-transaction/' + this.global_bookbedspace_id, formData).then(res=>{
-                if(res.data.status === 'uploaded'){
-                    this.$buefy.dialog.alert({
-                        title: 'UPLOADED!',
-                        message: 'Uploaded successfully.',
-                        type: 'is-success',
-                        onConfirm: ()=> {
-                            this.loadAsyncData();
-                            this.modalUploadImage = false;
-                            this.dropFiles = null;
-                        }
-                    });
-                }
-            })
-        },
 
-        cancelReservation: function(dataId){
-            this.$buefy.dialog.confirm({
-                title: 'CANCEL?',
-                message: 'Do you want to cancel your reservation?',
-                type: 'is-warning',
-                onConfirm: ()=>{
-                    this.submitCancelReservation(dataId);
-                }
-            });
-        },
-
-        submitCancelReservation(dataId){
-            axios.post('/my-reservation-cancel/' +dataId).then(res=>{
-                if(res.data.status === 'cancelled'){
-                    this.$buefy.toast.open({
-                        message: 'Reservation cancelled.',
-                        type: 'is-success'
-                    });
-
-                    this.loadAsyncData();
-                }
-            })
+        initData(){
+            this.data = JSON.parse(this.propData);
         },
 
 
     },
 
     mounted() {
-        this.loadAsyncData();
+        this.initData();
 
     }
 

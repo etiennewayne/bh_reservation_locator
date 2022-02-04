@@ -13,4 +13,9 @@ class Payment extends Model
     protected $primaryKey = 'payment_id';
 
 
+    protected $fillable = ['book_bedspace_id', 'payment_qr_ref', 'payment_price', 'payment_date'];
+
+
+
+
 }

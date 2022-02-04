@@ -132,6 +132,14 @@ Route::get('/get-my-reservation', [App\Http\Controllers\Boarder\MyReservationCon
 Route::post('/upload-proof-transaction/{book_bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'uploadProofTransaction']);
 Route::post('/my-reservation-cancel/{bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'cancelReservation']);
 
+Route::get('/my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'index']);
+Route::get('/get-my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPayment']);
+
+//BOARDER DASHBOARD
+
+
+
+
 
 
 //CLIENT BOARDING HOUSES //

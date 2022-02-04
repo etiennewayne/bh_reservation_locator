@@ -67,6 +67,10 @@
                         <b-menu-item label="My Reservation" icon="home-floor-a" tag="a" href="/my-reservation"></b-menu-item>
                     </b-menu-list>
 
+                    <b-menu-list>
+                        <b-menu-item label="My Payment" icon="currency-php" tag="a" href="/my-payment"></b-menu-item>
+                    </b-menu-list>
+
 
                     <b-menu-list label="Actions">
                         <b-menu-item @click="logout" label="Logout"></b-menu-item>

@@ -3817,6 +3817,301 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/MyPayment.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/MyPayment.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    propData: {
+      type: String,
+      "default": ''
+    }
+  },
+  data: function data() {
+    return {
+      data: [],
+      total: 0,
+      loading: false,
+      sortField: 'book_bedspace_id',
+      sortOrder: 'desc',
+      page: 1,
+      perPage: 5,
+      defaultSortDirection: 'asc',
+      search: {
+        bedspace: ''
+      },
+      btnClass: {
+        'is-success': true,
+        'button': true,
+        'is-loading': false
+      },
+      modalUploadImage: false,
+      dropFiles: []
+    };
+  },
+  methods: {
+    /*
+    * Load async data
+    */
+    loadAsyncData: function loadAsyncData() {
+      var _this = this;
+
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "bedspace=".concat(this.search.bedspace), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      this.loading = true;
+      axios.get("/get-my-payment?".concat(params)).then(function (_ref) {
+        var data = _ref.data;
+        _this.data = [];
+        var currentTotal = data.total;
+
+        if (data.total / _this.perPage > 1000) {
+          currentTotal = _this.perPage * 1000;
+        }
+
+        _this.total = currentTotal;
+        data.data.forEach(function (item) {
+          //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+          _this.data.push(item);
+        });
+        _this.loading = false;
+      })["catch"](function (error) {
+        _this.data = [];
+        _this.total = 0;
+        _this.loading = false;
+        throw error;
+      });
+    },
+
+    /*
+    * Handle page-change event
+    */
+    onPageChange: function onPageChange(page) {
+      this.page = page;
+      this.loadAsyncData();
+    },
+    onSort: function onSort(field, order) {
+      this.sortField = field;
+      this.sortOrder = order;
+      this.loadAsyncData();
+    },
+    setPerPage: function setPerPage() {
+      this.loadAsyncData();
+    },
+    initData: function initData() {
+      this.data = JSON.parse(this.propData);
+    }
+  },
+  mounted: function mounted() {
+    this.initData();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/MyReservation.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/MyReservation.vue?vue&type=script&lang=js& ***!
@@ -3828,9 +4123,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
 //
 //
 //
@@ -6570,6 +6862,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -27126,6 +27422,45 @@ component.options.__file = "resources/js/components/Boarder/BoarderDashboard.vue
 
 /***/ }),
 
+/***/ "./resources/js/components/Boarder/MyPayment.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Boarder/MyPayment.vue ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _MyPayment_vue_vue_type_template_id_001293c3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MyPayment.vue?vue&type=template&id=001293c3& */ "./resources/js/components/Boarder/MyPayment.vue?vue&type=template&id=001293c3&");
+/* harmony import */ var _MyPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MyPayment.vue?vue&type=script&lang=js& */ "./resources/js/components/Boarder/MyPayment.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MyPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MyPayment_vue_vue_type_template_id_001293c3___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MyPayment_vue_vue_type_template_id_001293c3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Boarder/MyPayment.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Boarder/MyReservation.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/Boarder/MyReservation.vue ***!
@@ -28027,6 +28362,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Boarder/MyPayment.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/Boarder/MyPayment.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MyPayment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/MyPayment.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Boarder/MyReservation.vue?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/Boarder/MyReservation.vue?vue&type=script&lang=js& ***!
@@ -28573,6 +28924,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderDashboard_vue_vue_type_template_id_1cc9a348___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderDashboard_vue_vue_type_template_id_1cc9a348___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderDashboard.vue?vue&type=template&id=1cc9a348& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/BoarderDashboard.vue?vue&type=template&id=1cc9a348&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Boarder/MyPayment.vue?vue&type=template&id=001293c3&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Boarder/MyPayment.vue?vue&type=template&id=001293c3& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyPayment_vue_vue_type_template_id_001293c3___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyPayment_vue_vue_type_template_id_001293c3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyPayment_vue_vue_type_template_id_001293c3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MyPayment.vue?vue&type=template&id=001293c3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/MyPayment.vue?vue&type=template&id=001293c3&");
 
 
 /***/ }),
@@ -31719,6 +32087,562 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [_vm._v("\n\n    BOARDER DASHBOARD\n\n")])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/MyPayment.vue?vue&type=template&id=001293c3&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Boarder/MyPayment.vue?vue&type=template&id=001293c3& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "columns" }, [
+          _c("div", { staticClass: "column" }, [
+            _c("div", { staticClass: "columns is-centered" }, [
+              _c("div", { staticClass: "column is-8" }, [
+                _c("div", { staticClass: "panel" }, [
+                  _c("div", { staticClass: "panel-heading" }, [
+                    _vm._v(
+                      "\n                                MY PAYMENT\n                            "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "panel-body" },
+                    [
+                      _c("div", { staticClass: "level" }, [
+                        _c(
+                          "div",
+                          { staticClass: "level-left" },
+                          [
+                            _c(
+                              "b-field",
+                              { attrs: { label: "Page" } },
+                              [
+                                _c(
+                                  "b-select",
+                                  {
+                                    on: { input: _vm.setPerPage },
+                                    model: {
+                                      value: _vm.perPage,
+                                      callback: function ($$v) {
+                                        _vm.perPage = $$v
+                                      },
+                                      expression: "perPage",
+                                    },
+                                  },
+                                  [
+                                    _c("option", { attrs: { value: "5" } }, [
+                                      _vm._v("5 per page"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "10" } }, [
+                                      _vm._v("10 per page"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "15" } }, [
+                                      _vm._v("15 per page"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "20" } }, [
+                                      _vm._v("20 per page"),
+                                    ]),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-select",
+                                  {
+                                    on: { input: _vm.loadAsyncData },
+                                    model: {
+                                      value: _vm.sortOrder,
+                                      callback: function ($$v) {
+                                        _vm.sortOrder = $$v
+                                      },
+                                      expression: "sortOrder",
+                                    },
+                                  },
+                                  [
+                                    _c("option", { attrs: { value: "asc" } }, [
+                                      _vm._v("ASC"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "desc" } }, [
+                                      _vm._v("DESC"),
+                                    ]),
+                                  ]
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "level-right" }, [
+                          _c(
+                            "div",
+                            { staticClass: "level-item" },
+                            [
+                              _c(
+                                "b-field",
+                                { attrs: { label: "Search" } },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Search Bedspace",
+                                    },
+                                    nativeOn: {
+                                      keyup: function ($event) {
+                                        if (
+                                          !$event.type.indexOf("key") &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "enter",
+                                            13,
+                                            $event.key,
+                                            "Enter"
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        return _vm.loadAsyncData.apply(
+                                          null,
+                                          arguments
+                                        )
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.search.bedspace,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.search, "bedspace", $$v)
+                                      },
+                                      expression: "search.bedspace",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "p",
+                                    { staticClass: "control" },
+                                    [
+                                      _c("b-button", {
+                                        attrs: {
+                                          type: "is-primary",
+                                          "icon-right": "account-filter",
+                                        },
+                                        on: { click: _vm.loadAsyncData },
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-table",
+                        {
+                          attrs: {
+                            data: _vm.data,
+                            loading: _vm.loading,
+                            paginated: "",
+                            "backend-pagination": "",
+                            total: _vm.total,
+                            "per-page": _vm.perPage,
+                            "aria-next-label": "Next page",
+                            "aria-previous-label": "Previous page",
+                            "aria-page-label": "Page",
+                            "aria-current-label": "Current page",
+                            "backend-sorting": "",
+                            "default-sort-direction": _vm.defaultSortDirection,
+                          },
+                          on: {
+                            "page-change": _vm.onPageChange,
+                            sort: _vm.onSort,
+                          },
+                        },
+                        [
+                          _c("b-table-column", {
+                            attrs: { field: "book_bedspace_id", label: "ID" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.book_bedspace_id) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "bedspace_name",
+                              label: "Bed Space Name",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(
+                                          props.row.bedspace.bedspace_name
+                                        ) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "rental_price",
+                              label: "Rental Price",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.rental_price) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "is_active", label: "ACTIVE" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    props.row.is_active === 1
+                                      ? _c("span", [_vm._v("ACTIVE")])
+                                      : _c("span", [_vm._v("INACTIVE")]),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "approval_status",
+                              label: "Status",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    props.row.approval_status === "APPROVED"
+                                      ? _c("span", [_vm._v("APPROVED")])
+                                      : props.row.approval_status ===
+                                        "CANCELLED"
+                                      ? _c("span", [_vm._v("CANCELLED")])
+                                      : _c("span", [_vm._v("PENDING")]),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { label: "Action" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    props.row.approval_status === "PENDING"
+                                      ? _c(
+                                          "b-dropdown",
+                                          {
+                                            attrs: { "aria-role": "list" },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "trigger",
+                                                  fn: function (ref) {
+                                                    var active = ref.active
+                                                    return [
+                                                      _c("b-button", {
+                                                        staticClass: "is-small",
+                                                        attrs: {
+                                                          label: "...",
+                                                          type: "is-primary",
+                                                          "icon-right": active
+                                                            ? "menu-up"
+                                                            : "menu-down",
+                                                        },
+                                                      }),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              true
+                                            ),
+                                          },
+                                          [
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-dropdown-item",
+                                              {
+                                                attrs: {
+                                                  "aria-role": "listitem",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.openUploadModal(
+                                                      props.row.book_bedspace_id
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [_vm._v("Upload")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-dropdown-item",
+                                              {
+                                                attrs: {
+                                                  "aria-role": "listitem",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.cancelReservation(
+                                                      props.row.book_bedspace_id
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [_vm._v("Cancel Reservation")]
+                                            ),
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.modalUploadImage,
+            callback: function ($$v) {
+              _vm.modalUploadImage = $$v
+            },
+            expression: "modalUploadImage",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submitUpload.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Upload Transaction"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.modalUploadImage = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("div", { staticClass: "columns is-centered" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column is-8" },
+                        [
+                          _c(
+                            "b-field",
+                            [
+                              _c(
+                                "b-upload",
+                                {
+                                  attrs: { "drag-drop": "" },
+                                  model: {
+                                    value: _vm.dropFiles,
+                                    callback: function ($$v) {
+                                      _vm.dropFiles = $$v
+                                    },
+                                    expression: "dropFiles",
+                                  },
+                                },
+                                [
+                                  _c("section", { staticClass: "section" }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "content has-text-centered",
+                                      },
+                                      [
+                                        _c(
+                                          "p",
+                                          [
+                                            _c("b-icon", {
+                                              attrs: {
+                                                icon: "upload",
+                                                size: "is-large",
+                                              },
+                                            }),
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c("p", [
+                                          _vm._v(
+                                            "Drop your files here or click to upload"
+                                          ),
+                                        ]),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "tags" }, [
+                            _vm.dropFiles
+                              ? _c("span", { staticClass: "tag is-primary" }, [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(_vm.dropFiles.name) +
+                                      "\n                                        "
+                                  ),
+                                  _c("button", {
+                                    staticClass: "delete is-small",
+                                    attrs: { type: "button" },
+                                    on: { click: function ($event) {} },
+                                  }),
+                                ])
+                              : _vm._e(),
+                          ]),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  { staticClass: "modal-card-foot" },
+                  [
+                    _c("b-button", {
+                      attrs: { label: "Close" },
+                      on: {
+                        click: function ($event) {
+                          _vm.modalUploadImage = false
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "button is-link",
+                        attrs: { label: "Save" },
+                      },
+                      [_vm._v("Upload")]
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+            ]
+          ),
+        ]
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -35709,15 +36633,15 @@ var render = function () {
             fn: function () {
               return [
                 _c("b-navbar-item", { attrs: { href: "/" } }, [
-                  _vm._v("\r\n                Home\r\n            "),
+                  _vm._v("\n                Home\n            "),
                 ]),
                 _vm._v(" "),
                 _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\r\n                About\r\n            "),
+                  _vm._v("\n                About\n            "),
                 ]),
                 _vm._v(" "),
                 _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\r\n                Contact\r\n            "),
+                  _vm._v("\n                Contact\n            "),
                 ]),
               ]
             },
@@ -35839,6 +36763,21 @@ var render = function () {
                               icon: "home-floor-a",
                               tag: "a",
                               href: "/my-reservation",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-menu-list",
+                        [
+                          _c("b-menu-item", {
+                            attrs: {
+                              label: "My Payment",
+                              icon: "currency-php",
+                              tag: "a",
+                              href: "/my-payment",
                             },
                           }),
                         ],
@@ -49602,6 +50541,7 @@ var map = {
 	"./components/Administrator/User/RequestAccounts.vue": "./resources/js/components/Administrator/User/RequestAccounts.vue",
 	"./components/Administrator/User/UserPage.vue": "./resources/js/components/Administrator/User/UserPage.vue",
 	"./components/Boarder/BoarderDashboard.vue": "./resources/js/components/Boarder/BoarderDashboard.vue",
+	"./components/Boarder/MyPayment.vue": "./resources/js/components/Boarder/MyPayment.vue",
 	"./components/Boarder/MyReservation.vue": "./resources/js/components/Boarder/MyReservation.vue",
 	"./components/BoardingHouseList.vue": "./resources/js/components/BoardingHouseList.vue",
 	"./components/ClientBhRooms.vue": "./resources/js/components/ClientBhRooms.vue",
