@@ -83,7 +83,9 @@ Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHous
 
 Route::post('/boarder-reservation-approved/{book_bedspace_id}', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'approvedReservation']);
 
-
+//LADN OWNER ->>>BOADER LIST
+Route::resource('/boarder-list', App\Http\Controllers\LandOwner\BoarderListController::class);
+Route::get('/get-boarder-list', [App\Http\Controllers\LandOwner\BoarderListController::class, 'getBoarderList']);
 
 
 //-------------------------///
@@ -134,6 +136,8 @@ Route::post('/my-reservation-cancel/{bedspace_id}', [App\Http\Controllers\Boarde
 
 Route::get('/my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'index']);
 Route::get('/get-my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPayment']);
+
+
 
 //BOARDER DASHBOARD
 

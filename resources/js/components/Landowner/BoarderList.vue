@@ -8,7 +8,7 @@
                         <div class="column is-8">
                             <div class="panel">
                                 <div class="panel-heading">
-                                    BOARDER RESERVATION
+                                    BOARDER LIST
                                 </div>
 
                                 <div class="panel-body">
@@ -65,7 +65,11 @@
                                         @sort="onSort">
 
                                         <b-table-column field="book_bedspace_id" label="ID" v-slot="props">
-                                            {{ props.row.book_bedspace_id }}
+                                            {{ props.row.boarder_id }}
+                                        </b-table-column>
+
+                                        <b-table-column field="bhouse_name" label="Boarding House" v-slot="props">
+                                            {{ props.row.bhouse_name }}
                                         </b-table-column>
 
                                         <b-table-column field="bedspace_name" label="Bed Space Name" v-slot="props">
@@ -78,13 +82,6 @@
 
                                         <b-table-column field="price" label="Rental Price" v-slot="props">
                                             {{ props.row.rental_price }}
-                                        </b-table-column>
-
-                                        <b-table-column field="is_approved" label="Status" v-slot="props">
-                                            <span v-if="props.row.approval_status === 'PENDING'">PENDING</span>
-                                            <span v-else-if="props.row.approval_status === 'CANCELLED'">CANCELLED</span>
-                                            <span v-else-if="props.row.approval_status === 'APPROVED'">APPROVED</span>
-                                            <span v-else>PENDING</span>
                                         </b-table-column>
 
                                         <b-table-column label="Action" v-slot="props">
@@ -150,7 +147,7 @@
                         <b-button
                             label="Close"
                             @click="modalProofTransaction=false"/>
-                        <button v-if="editRowData.approval_status !== 'APPROVED'"
+                        <button
                             label="Save"
                             class="button is-link">APPROVED</button>
                     </footer>
@@ -171,7 +168,7 @@ export default{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'book_bedspace_id',
+            sortField: 'boarder_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 5,
@@ -195,8 +192,6 @@ export default{
 
             proofTransURL: '',
 
-            editRowData: {},
-
         }
     },
     methods: {
@@ -211,7 +206,7 @@ export default{
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-boarder-reservation?${params}`)
+            axios.get(`/get-boarder-list?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -252,7 +247,6 @@ export default{
         },
 
         openProofTransactionModal(rowData){
-            this.editRowData = rowData;
             this.global_bookbedspace_id = rowData.book_bedspace_id;
             this.modalProofTransaction = true;
             this.proofTransURL = rowData.proof_transaction;

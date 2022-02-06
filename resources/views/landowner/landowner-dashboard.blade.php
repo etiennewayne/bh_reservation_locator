@@ -1,6 +1,6 @@
 @extends('layouts.landowner-app')
 
 @section('content')
-    <landowner-dashboard prop-is-approve="{{ $is_approve }}"></landowner-dashboard>
+    <landowner-dashboard prop-user="{{ auth()->user() }}"></landowner-dashboard>
 @endsection
 

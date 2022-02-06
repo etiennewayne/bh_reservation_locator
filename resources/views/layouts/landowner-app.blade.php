@@ -21,11 +21,17 @@
 
     @yield('extracss')
     @yield('extrajs')
-    
+
 </head>
 <body>
     <div id="app">
-        <navbar-land-owner></navbar-land-owner>
+        @if(Auth::check())
+            <navbar-land-owner prop-user='{{ Auth::user() }}'></navbar-land-owner>
+        @else
+            <navbar-land-owner prop-user=''></navbar-land-owner>
+        @endif
+
+
         <div>
             @yield('content')
         </div>

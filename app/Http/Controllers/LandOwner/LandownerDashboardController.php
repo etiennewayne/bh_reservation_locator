@@ -17,10 +17,7 @@ class LandownerDashboardController extends Controller
 
     public function index(){
 
-        $is_approve = Auth::user()->is_approve;
-
-        return view('landowner.landowner-dashboard')
-            ->with('is_approve', $is_approve);
+        return view('landowner.landowner-dashboard');
     }
 
 
