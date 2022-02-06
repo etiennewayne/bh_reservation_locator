@@ -14,8 +14,6 @@ class BoarderReservationController extends Controller
 {
     //
     public function __construct(){
-
-
         $this->middleware('auth');
         $this->middleware('landowner');
     }
@@ -62,15 +60,17 @@ class BoarderReservationController extends Controller
         return $data;
     }
 
-    public function approvedReservation($book_bedspace_id){
+    public function approvedReservation(Request $req, $book_bedspace_id){
 
+        $date =  $req->nstart_date;
+        $nstart_date = date("Y-m-d", strtotime($date));
 
 
         $data = BookBedSpace::find($book_bedspace_id);
         $data->approval_status = 'APPROVED';
         $data->save();
 
-        $ndate = date('Y-m-d');
+        //$ndate = date('Y-m-d');
 
         $qr_code = substr(md5(time() . $data->book_user_id), -8);
 
@@ -87,7 +87,7 @@ class BoarderReservationController extends Controller
                 'boarder_user_id' => $data->book_user_id,
                 'bedspace_id' => $data->bedspace_id,
                 'rental_price' => $data->rental_price,
-                'date_acceptance' => $ndate,
+                'date_acceptance' => $nstart_date,
             ]
         );
 

@@ -64,34 +64,29 @@
                                         :default-sort-direction="defaultSortDirection"
                                         @sort="onSort">
 
-                                        <b-table-column field="book_bedspace_id" label="ID" v-slot="props">
-                                            {{ props.row.book_bedspace_id }}
+                                        <b-table-column field="payment_detail_id" label="ID" v-slot="props">
+                                            {{ props.row.payment_detail_id }}
+                                        </b-table-column>
+
+                                        <b-table-column field="date_pay" label="Payment Date" v-slot="props">
+                                            {{ new Date(props.row.date_pay).toLocaleDateString() }}
                                         </b-table-column>
 
                                         <b-table-column field="bedspace_name" label="Bed Space Name" v-slot="props">
-                                            {{ props.row.bedspace.bedspace_name }}
+                                            {{ props.row.bedspace_name }}
                                         </b-table-column>
 
                                         <b-table-column field="rental_price" label="Rental Price" v-slot="props">
                                             {{ props.row.rental_price }}
                                         </b-table-column>
 
-                                        <b-table-column field="is_active" label="ACTIVE" v-slot="props">
-                                            <span v-if="props.row.is_active === 1">ACTIVE</span>
-                                            <span v-else>INACTIVE</span>
+                                        <b-table-column field="payment_status" label="Status" v-slot="props">
+                                            {{ props.row.payment_status }}
                                         </b-table-column>
-
-                                        <b-table-column field="approval_status" label="Status" v-slot="props">
-                                            <span v-if="props.row.approval_status === 'APPROVED'">APPROVED</span>
-                                            <span v-else-if="props.row.approval_status === 'CANCELLED'">CANCELLED</span>
-                                            <span v-else>PENDING</span>
-                                        </b-table-column>
-
-
 
 
                                         <b-table-column label="Action" v-slot="props">
-                                            <b-dropdown aria-role="list" v-if="props.row.approval_status === 'PENDING'">
+                                            <b-dropdown aria-role="list">
                                                 <template #trigger="{ active }">
                                                     <b-button
                                                         label="..."
@@ -100,8 +95,8 @@
                                                         :icon-right="active ? 'menu-up' : 'menu-down'" />
                                                 </template>
 
-                                                <b-dropdown-item aria-role="listitem" @click="openUploadModal(props.row.book_bedspace_id)">Upload</b-dropdown-item>
-                                                <b-dropdown-item aria-role="listitem" @click="cancelReservation(props.row.book_bedspace_id)">Cancel Reservation</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="openModalAttachment(props.row.book_bedspace_id)">Attach Payment Receipt</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="cancelReservation(props.row.book_bedspace_id)">Show QR</b-dropdown-item>
 
 
 
@@ -125,7 +120,7 @@
 
 
         <!--modal create-->
-        <b-modal v-model="modalUploadImage" has-modal-card
+        <b-modal v-model="modalAttachment" has-modal-card
                  trap-focus
                  :width="640"
                  aria-role="dialog"
@@ -139,7 +134,7 @@
                         <button
                             type="button"
                             class="delete"
-                            @click="modalUploadImage = false"/>
+                            @click="modalAttachment = false"/>
                     </header>
 
                     <section class="modal-card-body">
@@ -171,8 +166,6 @@
                                             <button class="delete is-small" type="button" @click=""></button>
                                         </span>
                                     </div>
-
-
                                 </div><!-- column -->
                             </div>
                         </div>
@@ -180,7 +173,7 @@
                     <footer class="modal-card-foot">
                         <b-button
                             label="Close"
-                            @click="modalUploadImage=false"/>
+                            @click="modalAttachment=false"/>
                         <button
                             label="Save"
                             class="button is-link">Upload</button>
@@ -210,7 +203,7 @@ export default{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'book_bedspace_id',
+            sortField: 'payment_detail_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 5,
@@ -226,7 +219,7 @@ export default{
                 'is-loading':false,
             },
 
-            modalUploadImage: false,
+            modalAttachment: false,
             dropFiles: [],
 
         }
@@ -285,17 +278,15 @@ export default{
         },
 
 
-
-
-        initData(){
-            this.data = JSON.parse(this.propData);
+        openModalAttachment: function(){
+            this.modalAttachment = true;
         },
 
 
     },
 
     mounted() {
-        this.initData();
+        this.loadAsyncData()
 
     }
 

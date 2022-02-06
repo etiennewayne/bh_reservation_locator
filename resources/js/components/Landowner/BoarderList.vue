@@ -84,6 +84,10 @@
                                             {{ props.row.lname }}, {{ props.row.fname }} {{ props.row.mname }}
                                         </b-table-column>
 
+                                        <b-table-column field="date_acceptance" label="Start Date" v-slot="props">
+                                            {{ props.row.date_acceptance }}
+                                        </b-table-column>
+
                                         <b-table-column field="price" label="Rental Price" v-slot="props">
                                             {{ props.row.rental_price }}
                                         </b-table-column>
@@ -98,7 +102,7 @@
                                                         :icon-right="active ? 'menu-up' : 'menu-down'" />
                                                 </template>
 
-                                                <b-dropdown-item aria-role="listitem" @click="openProofTransactionModal(props.row)">Send Bill</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="openSendBill(props.row)">Send Bill</b-dropdown-item>
                                                 <b-dropdown-item aria-role="listitem" @click="">Remove as boarder</b-dropdown-item>
 
                                             </b-dropdown>
@@ -121,41 +125,45 @@
 
 
         <!--modal create-->
-        <b-modal v-model="modalProofTransaction" has-modal-card
+        <b-modal v-model="modalSendBill" has-modal-card
                  trap-focus
                  :width="640"
                  aria-role="dialog"
                  aria-label="Modal"
                  aria-modal>
 
-            <form @submit.prevent="submitApproved">
+            <form @submit.prevent="submitSendBill">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Proof of Transaction</p>
+                        <p class="modal-card-title">Send Bill</p>
                         <button
                             type="button"
                             class="delete"
-                            @click="modalProofTransaction = false"/>
+                            @click="modalSendBill = false"/>
                     </header>
 
                     <section class="modal-card-body">
                         <div class="">
-                            <div class="columns is-centered">
-                                <div class="column is-8">
-
-                                    <img :src="`/storage/prooftrans/${proofTransURL}`" />
-
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Payment Date">
+                                        <b-datepicker v-model="fields.payment_date"></b-datepicker>
+                                    </b-field>
+                                    <b-field label="Amount to pay">
+                                        <b-numberinput v-model="fields.amount_to_pay"></b-numberinput>
+                                    </b-field>
                                 </div><!-- column -->
                             </div>
                         </div>
                     </section>
+
                     <footer class="modal-card-foot">
                         <b-button
                             label="Close"
-                            @click="modalProofTransaction=false"/>
+                            @click="modalSendBill=false"/>
                         <button
                             label="Save"
-                            class="button is-link">APPROVED</button>
+                            class="button is-link">SEND</button>
                     </footer>
                 </div>
             </form><!--close form-->
@@ -169,6 +177,8 @@
 <script>
 
 export default{
+
+
     data(){
         return{
             data: [],
@@ -184,20 +194,21 @@ export default{
                 bedspace: '',
             },
 
-            modalProofTransaction: false,
+            fields: {
+                payment_date: new Date(),
+                npayment_date: null,
+            },
 
-            global_bookbedspace_id: 0,
+            modalSendBill: false,
+
+            rawData: {},
+
 
             btnClass: {
                 'is-success': true,
                 'button': true,
                 'is-loading':false,
             },
-
-            dropFiles: null,
-
-            proofTransURL: '',
-
         }
     },
     methods: {
@@ -252,57 +263,55 @@ export default{
             this.loadAsyncData()
         },
 
-        openProofTransactionModal(rowData){
-            this.global_bookbedspace_id = rowData.book_bedspace_id;
-            this.modalProofTransaction = true;
-            this.proofTransURL = rowData.proof_transaction;
+        openSendBill(row){
+            this.modalSendBill = true;
+            this.rawData = row;
+            this.fields.payment_date = new Date(row.date_acceptance);
+            this.fields.amount_to_pay = row.rental_price;
         },
 
 
-        submitUpload: function(){
-            var formData = new FormData();
-            formData.append('proof_transaction', this.dropFiles);
+        submitSendBill: function(){
+            this.fields.boarder_id = this.rawData.boarder_id;
+            let d = new Date();
+            this.fields.npayment_date = new Date(d.getFullYear(), d.getMonth(), this.fields.payment_date.getDate()).toLocaleDateString();
 
-            axios.post('/upload-proof-transaction/' + this.global_bookbedspace_id, formData).then(res=>{
-                if(res.data.status === 'uploaded'){
+
+            axios.post('/boarder-submit-bill', this.fields).then(res=>{
+                if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
-                        title: 'UPLOADED!',
-                        message: 'Uploaded successfully.',
+                        title: 'SAVED!',
+                        message: 'Save successfully.',
                         type: 'is-success',
                         onConfirm: ()=> {
                             this.loadAsyncData();
-                            this.modalProofTransaction = false;
-                            this.dropFiles = null;
+                            this.modalSendBill = false;
+                            this.rawData = {};
                         }
                     });
                 }
             })
         },
 
-        submitApproved: function(){
-            axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id).then(res=>{
-                if(res.data.status==='approved'){
-                    this.$buefy.dialog.alert({
-                        title: "APPROVED!",
-                        message: 'Boarder successfully approved.',
-                        type: 'is-success',
-                        onConfirm: ()=> {
-                            this.loadAsyncData();
-                            this.modalProofTransaction = false;
-                        }
-                    });
-                }
-            })
-        },
 
 
     },
 
     mounted() {
-        this.loadAsyncData();
-
+       this.loadAsyncData()
     }
 
 
 }
 </script>
+
+
+<style scoped>
+    .modal .animation-content .modal-card {
+        overflow: visible !important;
+    }
+
+    .modal-card-body {
+        overflow: visible !important;
+    }
+</style>

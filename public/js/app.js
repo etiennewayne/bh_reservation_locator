@@ -4018,13 +4018,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propData: {
@@ -4037,7 +4030,7 @@ __webpack_require__.r(__webpack_exports__);
       data: [],
       total: 0,
       loading: false,
-      sortField: 'book_bedspace_id',
+      sortField: 'payment_detail_id',
       sortOrder: 'desc',
       page: 1,
       perPage: 5,
@@ -4050,7 +4043,7 @@ __webpack_require__.r(__webpack_exports__);
         'button': true,
         'is-loading': false
       },
-      modalUploadImage: false,
+      modalAttachment: false,
       dropFiles: []
     };
   },
@@ -4101,12 +4094,12 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
-    initData: function initData() {
-      this.data = JSON.parse(this.propData);
+    openModalAttachment: function openModalAttachment() {
+      this.modalAttachment = true;
     }
   },
   mounted: function mounted() {
-    this.initData();
+    this.loadAsyncData();
   }
 });
 
@@ -5631,6 +5624,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5645,15 +5646,17 @@ __webpack_require__.r(__webpack_exports__);
       search: {
         bedspace: ''
       },
-      modalProofTransaction: false,
-      global_bookbedspace_id: 0,
+      fields: {
+        payment_date: new Date(),
+        npayment_date: null
+      },
+      modalSendBill: false,
+      rawData: {},
       btnClass: {
         'is-success': true,
         'button': true,
         'is-loading': false
-      },
-      dropFiles: null,
-      proofTransURL: ''
+      }
     };
   },
   methods: {
@@ -5703,45 +5706,29 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
-    openProofTransactionModal: function openProofTransactionModal(rowData) {
-      this.global_bookbedspace_id = rowData.book_bedspace_id;
-      this.modalProofTransaction = true;
-      this.proofTransURL = rowData.proof_transaction;
+    openSendBill: function openSendBill(row) {
+      this.modalSendBill = true;
+      this.rawData = row;
+      this.fields.payment_date = new Date(row.date_acceptance);
+      this.fields.amount_to_pay = row.rental_price;
     },
-    submitUpload: function submitUpload() {
+    submitSendBill: function submitSendBill() {
       var _this2 = this;
 
-      var formData = new FormData();
-      formData.append('proof_transaction', this.dropFiles);
-      axios.post('/upload-proof-transaction/' + this.global_bookbedspace_id, formData).then(function (res) {
-        if (res.data.status === 'uploaded') {
+      this.fields.boarder_id = this.rawData.boarder_id;
+      var d = new Date();
+      this.fields.npayment_date = new Date(d.getFullYear(), d.getMonth(), this.fields.payment_date.getDate()).toLocaleDateString();
+      axios.post('/boarder-submit-bill', this.fields).then(function (res) {
+        if (res.data.status === 'saved') {
           _this2.$buefy.dialog.alert({
-            title: 'UPLOADED!',
-            message: 'Uploaded successfully.',
+            title: 'SAVED!',
+            message: 'Save successfully.',
             type: 'is-success',
             onConfirm: function onConfirm() {
               _this2.loadAsyncData();
 
-              _this2.modalProofTransaction = false;
-              _this2.dropFiles = null;
-            }
-          });
-        }
-      });
-    },
-    submitApproved: function submitApproved() {
-      var _this3 = this;
-
-      axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id).then(function (res) {
-        if (res.data.status === 'approved') {
-          _this3.$buefy.dialog.alert({
-            title: "APPROVED!",
-            message: 'Boarder successfully approved.',
-            type: 'is-success',
-            onConfirm: function onConfirm() {
-              _this3.loadAsyncData();
-
-              _this3.modalProofTransaction = false;
+              _this2.modalSendBill = false;
+              _this2.rawData = {};
             }
           });
         }
@@ -5931,6 +5918,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5944,6 +5933,10 @@ __webpack_require__.r(__webpack_exports__);
       defaultSortDirection: 'asc',
       search: {
         bedspace: ''
+      },
+      fields: {
+        start_date: null,
+        nstart_date: null
       },
       modalProofTransaction: false,
       global_bookbedspace_id: 0,
@@ -6034,7 +6027,8 @@ __webpack_require__.r(__webpack_exports__);
     submitApproved: function submitApproved() {
       var _this3 = this;
 
-      axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id).then(function (res) {
+      this.fields.nstart_date = this.fields.start_date.toLocaleDateString();
+      axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id, this.fields).then(function (res) {
         if (res.data.status === 'approved') {
           _this3.$buefy.dialog.alert({
             title: "APPROVED!",
@@ -26441,6 +26435,54 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-3c3c025e]{\n 
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-7d426aef] {\n    overflow: visible !important;\n}\n.modal-card-body[data-v-7d426aef] {\n    overflow: visible !important;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-5025578b] {\n    overflow: visible !important;\n}\n.modal-card-body[data-v-5025578b] {\n    overflow: visible !important;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoardingHouse.vue?vue&type=style&index=0&id=9af7903c&scoped=true&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoardingHouse.vue?vue&type=style&index=0&id=9af7903c&scoped=true&lang=css& ***!
@@ -27027,6 +27069,66 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseBedspace_vue_vue_type_style_index_0_id_3c3c025e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_style_index_0_id_7d426aef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_style_index_0_id_7d426aef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_style_index_0_id_7d426aef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_style_index_0_id_5025578b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_style_index_0_id_5025578b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_style_index_0_id_5025578b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -28105,23 +28207,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _BoarderList_vue_vue_type_template_id_7d426aef___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BoarderList.vue?vue&type=template&id=7d426aef& */ "./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&");
+/* harmony import */ var _BoarderList_vue_vue_type_template_id_7d426aef_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BoarderList.vue?vue&type=template&id=7d426aef&scoped=true& */ "./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&scoped=true&");
 /* harmony import */ var _BoarderList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BoarderList.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/BoarderList.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _BoarderList_vue_vue_type_style_index_0_id_7d426aef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css& */ "./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _BoarderList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _BoarderList_vue_vue_type_template_id_7d426aef___WEBPACK_IMPORTED_MODULE_0__.render,
-  _BoarderList_vue_vue_type_template_id_7d426aef___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _BoarderList_vue_vue_type_template_id_7d426aef_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BoarderList_vue_vue_type_template_id_7d426aef_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "7d426aef",
   null
   
 )
@@ -28144,23 +28248,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _BoarderReservation_vue_vue_type_template_id_5025578b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BoarderReservation.vue?vue&type=template&id=5025578b& */ "./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&");
+/* harmony import */ var _BoarderReservation_vue_vue_type_template_id_5025578b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BoarderReservation.vue?vue&type=template&id=5025578b&scoped=true& */ "./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&scoped=true&");
 /* harmony import */ var _BoarderReservation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BoarderReservation.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/BoarderReservation.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _BoarderReservation_vue_vue_type_style_index_0_id_5025578b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css& */ "./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _BoarderReservation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _BoarderReservation_vue_vue_type_template_id_5025578b___WEBPACK_IMPORTED_MODULE_0__.render,
-  _BoarderReservation_vue_vue_type_template_id_5025578b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _BoarderReservation_vue_vue_type_template_id_5025578b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BoarderReservation_vue_vue_type_template_id_5025578b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "5025578b",
   null
   
 )
@@ -29132,6 +29238,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css& ***!
+  \********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_style_index_0_id_7d426aef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_style_index_0_id_5025578b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Landowner/BoardingHouse.vue?vue&type=style&index=0&id=9af7903c&scoped=true&lang=css&":
 /*!**********************************************************************************************************************!*\
   !*** ./resources/js/components/Landowner/BoardingHouse.vue?vue&type=style&index=0&id=9af7903c&scoped=true&lang=css& ***!
@@ -29439,36 +29571,36 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef& ***!
-  \******************************************************************************************/
+/***/ "./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&scoped=true&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&scoped=true& ***!
+  \******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_template_id_7d426aef___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_template_id_7d426aef___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_template_id_7d426aef_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_template_id_7d426aef_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_template_id_7d426aef___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderList.vue?vue&type=template&id=7d426aef& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_template_id_7d426aef_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderList.vue?vue&type=template&id=7d426aef&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b& ***!
-  \*************************************************************************************************/
+/***/ "./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&scoped=true&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&scoped=true& ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_template_id_5025578b___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_template_id_5025578b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_template_id_5025578b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_template_id_5025578b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_template_id_5025578b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderReservation.vue?vue&type=template&id=5025578b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderReservation_vue_vue_type_template_id_5025578b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderReservation.vue?vue&type=template&id=5025578b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&scoped=true&");
 
 
 /***/ }),
@@ -32681,7 +32813,7 @@ var render = function () {
                         },
                         [
                           _c("b-table-column", {
-                            attrs: { field: "book_bedspace_id", label: "ID" },
+                            attrs: { field: "payment_detail_id", label: "ID" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -32689,7 +32821,29 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                        " +
-                                        _vm._s(props.row.book_bedspace_id) +
+                                        _vm._s(props.row.payment_detail_id) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "date_pay", label: "Payment Date" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(
+                                          new Date(
+                                            props.row.date_pay
+                                          ).toLocaleDateString()
+                                        ) +
                                         "\n                                    "
                                     ),
                                   ]
@@ -32710,9 +32864,7 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                        " +
-                                        _vm._s(
-                                          props.row.bedspace.bedspace_name
-                                        ) +
+                                        _vm._s(props.row.bedspace_name) +
                                         "\n                                    "
                                     ),
                                   ]
@@ -32743,37 +32895,17 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("b-table-column", {
-                            attrs: { field: "is_active", label: "ACTIVE" },
+                            attrs: { field: "payment_status", label: "Status" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
                                 fn: function (props) {
                                   return [
-                                    props.row.is_active === 1
-                                      ? _c("span", [_vm._v("ACTIVE")])
-                                      : _c("span", [_vm._v("INACTIVE")]),
-                                  ]
-                                },
-                              },
-                            ]),
-                          }),
-                          _vm._v(" "),
-                          _c("b-table-column", {
-                            attrs: {
-                              field: "approval_status",
-                              label: "Status",
-                            },
-                            scopedSlots: _vm._u([
-                              {
-                                key: "default",
-                                fn: function (props) {
-                                  return [
-                                    props.row.approval_status === "APPROVED"
-                                      ? _c("span", [_vm._v("APPROVED")])
-                                      : props.row.approval_status ===
-                                        "CANCELLED"
-                                      ? _c("span", [_vm._v("CANCELLED")])
-                                      : _c("span", [_vm._v("PENDING")]),
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.payment_status) +
+                                        "\n                                    "
+                                    ),
                                   ]
                                 },
                               },
@@ -32787,75 +32919,69 @@ var render = function () {
                                 key: "default",
                                 fn: function (props) {
                                   return [
-                                    props.row.approval_status === "PENDING"
-                                      ? _c(
-                                          "b-dropdown",
-                                          {
-                                            attrs: { "aria-role": "list" },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "trigger",
-                                                  fn: function (ref) {
-                                                    var active = ref.active
-                                                    return [
-                                                      _c("b-button", {
-                                                        staticClass: "is-small",
-                                                        attrs: {
-                                                          label: "...",
-                                                          type: "is-primary",
-                                                          "icon-right": active
-                                                            ? "menu-up"
-                                                            : "menu-down",
-                                                        },
-                                                      }),
-                                                    ]
-                                                  },
-                                                },
-                                              ],
-                                              null,
-                                              true
-                                            ),
-                                          },
+                                    _c(
+                                      "b-dropdown",
+                                      {
+                                        attrs: { "aria-role": "list" },
+                                        scopedSlots: _vm._u(
                                           [
-                                            _vm._v(" "),
-                                            _c(
-                                              "b-dropdown-item",
-                                              {
-                                                attrs: {
-                                                  "aria-role": "listitem",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.openUploadModal(
-                                                      props.row.book_bedspace_id
-                                                    )
-                                                  },
-                                                },
+                                            {
+                                              key: "trigger",
+                                              fn: function (ref) {
+                                                var active = ref.active
+                                                return [
+                                                  _c("b-button", {
+                                                    staticClass: "is-small",
+                                                    attrs: {
+                                                      label: "...",
+                                                      type: "is-primary",
+                                                      "icon-right": active
+                                                        ? "menu-up"
+                                                        : "menu-down",
+                                                    },
+                                                  }),
+                                                ]
                                               },
-                                              [_vm._v("Upload")]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "b-dropdown-item",
-                                              {
-                                                attrs: {
-                                                  "aria-role": "listitem",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.cancelReservation(
-                                                      props.row.book_bedspace_id
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [_vm._v("Cancel Reservation")]
-                                            ),
+                                            },
                                           ],
-                                          1
-                                        )
-                                      : _vm._e(),
+                                          null,
+                                          true
+                                        ),
+                                      },
+                                      [
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-dropdown-item",
+                                          {
+                                            attrs: { "aria-role": "listitem" },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.openModalAttachment(
+                                                  props.row.book_bedspace_id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Attach Payment Receipt")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-dropdown-item",
+                                          {
+                                            attrs: { "aria-role": "listitem" },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.cancelReservation(
+                                                  props.row.book_bedspace_id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Show QR")]
+                                        ),
+                                      ],
+                                      1
+                                    ),
                                   ]
                                 },
                               },
@@ -32886,11 +33012,11 @@ var render = function () {
             "aria-modal": "",
           },
           model: {
-            value: _vm.modalUploadImage,
+            value: _vm.modalAttachment,
             callback: function ($$v) {
-              _vm.modalUploadImage = $$v
+              _vm.modalAttachment = $$v
             },
-            expression: "modalUploadImage",
+            expression: "modalAttachment",
           },
         },
         [
@@ -32916,7 +33042,7 @@ var render = function () {
                     attrs: { type: "button" },
                     on: {
                       click: function ($event) {
-                        _vm.modalUploadImage = false
+                        _vm.modalAttachment = false
                       },
                     },
                   }),
@@ -33011,7 +33137,7 @@ var render = function () {
                       attrs: { label: "Close" },
                       on: {
                         click: function ($event) {
-                          _vm.modalUploadImage = false
+                          _vm.modalAttachment = false
                         },
                       },
                     }),
@@ -34830,10 +34956,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef& ***!
-  \*********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -35127,6 +35253,27 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("b-table-column", {
+                            attrs: {
+                              field: "date_acceptance",
+                              label: "Start Date",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.date_acceptance) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
                             attrs: { field: "price", label: "Rental Price" },
                             scopedSlots: _vm._u([
                               {
@@ -35188,7 +35335,7 @@ var render = function () {
                                             attrs: { "aria-role": "listitem" },
                                             on: {
                                               click: function ($event) {
-                                                return _vm.openProofTransactionModal(
+                                                return _vm.openSendBill(
                                                   props.row
                                                 )
                                               },
@@ -35238,11 +35385,11 @@ var render = function () {
             "aria-modal": "",
           },
           model: {
-            value: _vm.modalProofTransaction,
+            value: _vm.modalSendBill,
             callback: function ($$v) {
-              _vm.modalProofTransaction = $$v
+              _vm.modalSendBill = $$v
             },
-            expression: "modalProofTransaction",
+            expression: "modalSendBill",
           },
         },
         [
@@ -35252,7 +35399,7 @@ var render = function () {
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
-                  return _vm.submitApproved.apply(null, arguments)
+                  return _vm.submitSendBill.apply(null, arguments)
                 },
               },
             },
@@ -35260,7 +35407,7 @@ var render = function () {
               _c("div", { staticClass: "modal-card" }, [
                 _c("header", { staticClass: "modal-card-head" }, [
                   _c("p", { staticClass: "modal-card-title" }, [
-                    _vm._v("Proof of Transaction"),
+                    _vm._v("Send Bill"),
                   ]),
                   _vm._v(" "),
                   _c("button", {
@@ -35268,7 +35415,7 @@ var render = function () {
                     attrs: { type: "button" },
                     on: {
                       click: function ($event) {
-                        _vm.modalProofTransaction = false
+                        _vm.modalSendBill = false
                       },
                     },
                   }),
@@ -35276,14 +35423,47 @@ var render = function () {
                 _vm._v(" "),
                 _c("section", { staticClass: "modal-card-body" }, [
                   _c("div", {}, [
-                    _c("div", { staticClass: "columns is-centered" }, [
-                      _c("div", { staticClass: "column is-8" }, [
-                        _c("img", {
-                          attrs: {
-                            src: "/storage/prooftrans/" + _vm.proofTransURL,
-                          },
-                        }),
-                      ]),
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Payment Date" } },
+                            [
+                              _c("b-datepicker", {
+                                model: {
+                                  value: _vm.fields.payment_date,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "payment_date", $$v)
+                                  },
+                                  expression: "fields.payment_date",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Amount to pay" } },
+                            [
+                              _c("b-numberinput", {
+                                model: {
+                                  value: _vm.fields.amount_to_pay,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "amount_to_pay", $$v)
+                                  },
+                                  expression: "fields.amount_to_pay",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
                     ]),
                   ]),
                 ]),
@@ -35296,7 +35476,7 @@ var render = function () {
                       attrs: { label: "Close" },
                       on: {
                         click: function ($event) {
-                          _vm.modalProofTransaction = false
+                          _vm.modalSendBill = false
                         },
                       },
                     }),
@@ -35307,7 +35487,7 @@ var render = function () {
                         staticClass: "button is-link",
                         attrs: { label: "Save" },
                       },
-                      [_vm._v("APPROVED")]
+                      [_vm._v("SEND")]
                     ),
                   ],
                   1
@@ -35328,10 +35508,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&":
-/*!****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b& ***!
-  \****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=template&id=5025578b&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -35748,13 +35928,35 @@ var render = function () {
                 _c("section", { staticClass: "modal-card-body" }, [
                   _c("div", {}, [
                     _c("div", { staticClass: "columns is-centered" }, [
-                      _c("div", { staticClass: "column is-8" }, [
-                        _c("img", {
-                          attrs: {
-                            src: "/storage/prooftrans/" + _vm.proofTransURL,
-                          },
-                        }),
-                      ]),
+                      _c(
+                        "div",
+                        { staticClass: "column is-8" },
+                        [
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Set Start Date" } },
+                            [
+                              _c("b-datepicker", {
+                                model: {
+                                  value: _vm.fields.start_date,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "start_date", $$v)
+                                  },
+                                  expression: "fields.start_date",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("img", {
+                            attrs: {
+                              src: "/storage/prooftrans/" + _vm.proofTransURL,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
                     ]),
                   ]),
                 ]),

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<boarder-list prop-data='@json($data)'></boarder-list>
+<boarder-list></boarder-list>
 
 @endsection
 

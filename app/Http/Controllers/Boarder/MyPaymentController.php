@@ -18,24 +18,20 @@ class MyPaymentController extends Controller
 
 
     public function index(){
-        $data = DB::table('payments as a')
-            ->join('book_bedspaces as b', 'a.book_bedspace_id', 'b.book_bedspace_id')
-            ->join('users as c', 'b.book_user_id', 'c.user_id')
-            ->join('bedspaces as d', 'b.bedspace_id', 'd.bedspace_id')
-            ->get();
-
-        return view('boarder.my-payment')
-            ->with('data', $data);
+        return view('boarder.my-payment');
     }
 
 
     public function getMyPayment(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $data = DB::table('payments as a')
-            ->join('book_bedspaces as b', 'a.book_bedspace_id', 'b.book_bedspace_id')
-            ->join('users as c', 'b.book_user_id', 'c.user_id')
+        $data = DB::table('payment_details as a')
+            ->join('boarders as b', 'a.boarder_id', 'b.boarder_id')
+            ->join('users as c', 'b.boarder_user_id', 'c.user_id')
             ->join('bedspaces as d', 'b.bedspace_id', 'd.bedspace_id')
+            ->join('rooms as e', 'd.room_id', 'e.room_id')
+            ->join('boarding_houses as f', 'e.bhouse_id', 'f.bhouse_id')
+            ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
         return $data;

@@ -139,7 +139,9 @@
                         <div class="">
                             <div class="columns is-centered">
                                 <div class="column is-8">
-
+                                    <b-field label="Set Start Date">
+                                        <b-datepicker v-model="fields.start_date"></b-datepicker>
+                                    </b-field>
                                     <img :src="`/storage/prooftrans/${proofTransURL}`" />
 
                                 </div><!-- column -->
@@ -179,6 +181,11 @@ export default{
 
             search: {
                 bedspace: '',
+            },
+
+            fields: {
+                start_date: null,
+                nstart_date: null,
             },
 
             modalProofTransaction: false,
@@ -280,7 +287,10 @@ export default{
         },
 
         submitApproved: function(){
-            axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id).then(res=>{
+
+            this.fields.nstart_date = this.fields.start_date.toLocaleDateString();
+
+            axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id, this.fields).then(res=>{
                 if(res.data.status==='approved'){
                     this.$buefy.dialog.alert({
                         title: "APPROVED!",
@@ -306,3 +316,14 @@ export default{
 
 }
 </script>
+
+
+<style scoped>
+.modal .animation-content .modal-card {
+    overflow: visible !important;
+}
+
+.modal-card-body {
+    overflow: visible !important;
+}
+</style>

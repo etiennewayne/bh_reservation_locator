@@ -128,8 +128,6 @@ export default {
                     L.latLng(this.data.lat, this.data.long)//current location coordinates
                 ]
             }).addTo(mymap);
-
-
         },
 
 
