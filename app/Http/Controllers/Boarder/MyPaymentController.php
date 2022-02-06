@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Boarder;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use App\Models\PaymentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MyPaymentController extends Controller
 {
@@ -13,8 +15,8 @@ class MyPaymentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('boarder');
     }
-
 
 
     public function index(){
@@ -37,6 +39,35 @@ class MyPaymentController extends Controller
         return $data;
     }
 
+    public function submitReceipt(Request $req, $payment_detail_id){
+
+        $req->validate([
+            'receipt_img' =>  ['required', 'mimes:jpg,png,bmp', 'file', 'max:800'],
+        ], $message = [
+            'receipt_img.mimes' => 'Your uploaded image must be a file of jpg, png or bmp.',
+        ]);
+
+
+        $img = $req->file('receipt_img');
+        if($img){
+            $pathFile = $img->store('public/payment_receipt'); //get path of the file
+            $n = explode('/', $pathFile); //split into array using /
+        }
+
+        $data = PaymentDetail::find($payment_detail_id);
+
+        if(Storage::exists('public/payment_receipt/' .$data->receipt_img)) {
+            Storage::delete('public/payment_receipt/' . $data->receipt_img);
+        }
+
+        $data->receipt_img = $n[2];
+        $data->save();
+
+        return response()->json([
+            'status' => 'uploaded'
+        ], 200);
+
+    }
 
 
 }

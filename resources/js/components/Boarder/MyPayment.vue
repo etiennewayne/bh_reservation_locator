@@ -5,7 +5,7 @@
                 <div class="column">
 
                     <div class="columns is-centered">
-                        <div class="column is-8">
+                        <div class="column is-10">
                             <div class="panel">
                                 <div class="panel-heading">
                                     MY PAYMENT
@@ -84,6 +84,15 @@
                                             {{ props.row.payment_status }}
                                         </b-table-column>
 
+                                        <b-table-column field="receipt_img" label="Receipt" v-slot="props" centered>
+                                            <span v-if="props.row.receipt_img">
+                                                 <b-icon icon="check" type="is-success"></b-icon>
+                                            </span>
+                                            <span v-else>
+                                                <b-icon icon="minus-circle-outline" type="is-danger"></b-icon>
+                                            </span>
+                                        </b-table-column>
+
 
                                         <b-table-column label="Action" v-slot="props">
                                             <b-dropdown aria-role="list">
@@ -95,8 +104,8 @@
                                                         :icon-right="active ? 'menu-up' : 'menu-down'" />
                                                 </template>
 
-                                                <b-dropdown-item aria-role="listitem" @click="openModalAttachment(props.row.book_bedspace_id)">Attach Payment Receipt</b-dropdown-item>
-                                                <b-dropdown-item aria-role="listitem" @click="cancelReservation(props.row.book_bedspace_id)">Show QR</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="openModalAttachment(props.row)">Attach Payment Receipt</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="openQRModal(props.row)">Show QR</b-dropdown-item>
 
 
 
@@ -127,7 +136,7 @@
                  aria-label="Modal"
                  aria-modal>
 
-            <form @submit.prevent="submitUpload">
+            <form @submit.prevent="submitPaymentReceipt">
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Upload Transaction</p>
@@ -142,7 +151,8 @@
                             <div class="columns is-centered">
                                 <div class="column is-8">
 
-                                    <b-field>
+                                    <b-field :type="this.errors.receipt_img ? 'is-danger':''"
+                                             :message="this.errors.receipt_img ? this.errors.receipt_img[0] : ''">
                                         <b-upload v-model="dropFiles"
                                                   drag-drop>
                                             <section class="section">
@@ -177,6 +187,53 @@
                         <button
                             label="Save"
                             class="button is-link">Upload</button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
+
+        <!--modal create-->
+        <b-modal v-model="modalQr" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">QR Code</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalQr = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <div class="columns is-centered">
+                                <div class="column is-8">
+
+                                    <div class="qr-container">
+
+                                        <div>
+                                            <qrcode :value="rowData.qr_ref" :options="{ width: 200 }"></qrcode>
+                                        </div>
+                                        <div><b>QR CODE: {{ rowData.qr_ref }}</b></div>
+
+                                    </div>
+
+                                </div><!-- column -->
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <b-button
+                            label="Close"
+                            @click="modalQr=false"/>
                     </footer>
                 </div>
             </form><!--close form-->
@@ -220,7 +277,15 @@ export default{
             },
 
             modalAttachment: false,
-            dropFiles: [],
+            modalQr: false,
+
+            dropFiles: null,
+            errors: {},
+
+            rowData: {},
+
+
+            global_payment_detail_id: 0,
 
         }
     },
@@ -278,8 +343,40 @@ export default{
         },
 
 
-        openModalAttachment: function(){
+        openModalAttachment: function(row){
+            console.log(row);
             this.modalAttachment = true;
+            this.global_payment_detail_id = row.payment_detail_id;
+        },
+
+        openQRModal(row){
+            this.modalQr = true;
+            this.rowData = row;
+            console.log(row);
+        },
+
+        submitPaymentReceipt: function(){
+            let formData = new FormData();
+            formData.append('receipt_img', this.dropFiles);
+
+            axios.post('/submit-receipt/' + this.global_payment_detail_id, formData).then(res=>{
+                if(res.data.status === 'uploaded'){
+                    this.$buefy.dialog.alert({
+                        title: 'UPLOADED!',
+                        message: 'Receipt uploaded.',
+                        type: 'is-success',
+                        onConfirm: ()=> {
+                            this.loadAsyncData();
+                            this.modalAttachment = false;
+                            this.dropFiles = null;
+                        }
+                    })
+                }
+            }).catch(err=>{
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
+                }
+            });
         },
 
 

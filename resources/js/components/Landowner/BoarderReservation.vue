@@ -139,8 +139,10 @@
                         <div class="">
                             <div class="columns is-centered">
                                 <div class="column is-8">
-                                    <b-field label="Set Start Date">
-                                        <b-datepicker v-model="fields.start_date"></b-datepicker>
+                                    <b-field label="Set Start Date"
+                                             :type="this.errors.nstart_date ? 'is-danger':''"
+                                             :message="this.errors.nstart_date ? this.errors.nstart_date[0] : ''">
+                                        <b-datepicker v-model="fields.start_date" requried></b-datepicker>
                                     </b-field>
                                     <img :src="`/storage/prooftrans/${proofTransURL}`" />
 
@@ -187,6 +189,7 @@ export default{
                 start_date: null,
                 nstart_date: null,
             },
+            errors: {},
 
             modalProofTransaction: false,
 
@@ -287,6 +290,10 @@ export default{
         },
 
         submitApproved: function(){
+            if(!this.fields.start_date){
+                alert('Please select start data.');
+                return false;
+            }
 
             this.fields.nstart_date = this.fields.start_date.toLocaleDateString();
 
@@ -301,6 +308,10 @@ export default{
                             this.modalProofTransaction = false;
                         }
                     });
+                }
+            }).catch(err=>{
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
                 }
             })
         },

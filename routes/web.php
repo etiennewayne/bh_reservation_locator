@@ -86,15 +86,13 @@ Route::post('/boarder-reservation-approved/{book_bedspace_id}', [App\Http\Contro
 //LADN OWNER ->>>BOADER LIST
 Route::resource('/boarder-list', App\Http\Controllers\LandOwner\BoarderListController::class);
 Route::get('/get-boarder-list', [App\Http\Controllers\LandOwner\BoarderListController::class, 'getBoarderList']);
+Route::post('/remove-boarder/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'removeBoarder']);
 
 //Payment details
 Route::post('/boarder-submit-bill', [App\Http\Controllers\LandOwner\PaymentDetailController::class, 'store']);
 
 
-
-
-//-------------------------///
-//BOARDING HOUSE ROOMS
+//BOARDING HOUSE ROOMS LAND OWNER
 Route::get('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'index']);
 Route::post('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'store']);
 
@@ -127,8 +125,12 @@ Route::delete('/boarding-house-bedspace-delete/{id}', [App\Http\Controllers\Land
 
 //-------------------------///
 
-//BOARDER DASHBOARD
+//BOARDER DASHBOARD // CLIENT SIDE (BOARDER)
 Route::get('/boarder-dashboard', [App\Http\Controllers\Boarder\BoarderDashboardController::class, 'index']);
+
+Route::get('/get-bhouse-user', [App\Http\Controllers\Boarder\BoarderDashboardController::class, 'getUser']);
+
+
 
 //My Reservation
 Route::get('/my-reservation', [App\Http\Controllers\Boarder\MyReservationController::class, 'index']);
@@ -137,8 +139,10 @@ Route::get('/get-my-reservation', [App\Http\Controllers\Boarder\MyReservationCon
 Route::post('/upload-proof-transaction/{book_bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'uploadProofTransaction']);
 Route::post('/my-reservation-cancel/{bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'cancelReservation']);
 
+
 Route::get('/my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'index']);
 Route::get('/get-my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPayment']);
+Route::post('/submit-receipt/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'submitReceipt']);
 
 
 

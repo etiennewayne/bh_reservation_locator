@@ -20,7 +20,7 @@ class CreatePaymentDetailsTable extends Migration
             $table->double('payment_to_pay')->default(0);
             $table->date('date_pay')->nullable();
             $table->string('payment_status', 50)->nullable();
-
+            $table->string('receipt_img')->nullable();
             $table->timestamps();
         });
     }

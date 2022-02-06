@@ -44,6 +44,22 @@
                                         </div>
                                     </div>
 
+                                    <div class="level">
+                                        <div class="level-left">
+                                            <b-field label="Boarding Houses">
+                                                <b-select v-model="bhouse" @input="loadAsyncData">
+                                                    <option v-for="(item, index) in bhouses" :key="index" :value="item.bhouse_name">{{ item.bhouse_name }}</option>
+                                                </b-select>
+                                            </b-field>
+                                        </div>
+
+                                        <div class="level-right">
+                                            <div class="level-item">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <!--                                    <div class="buttons mt-3 is-right">-->
                                     <!--                                        <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>-->
                                     <!--                                    </div>-->
@@ -103,6 +119,7 @@
                                                 </template>
 
                                                 <b-dropdown-item aria-role="listitem" @click="openSendBill(props.row)">Send Bill</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="showBills(props.row)">Show Bills</b-dropdown-item>
                                                 <b-dropdown-item aria-role="listitem" @click="">Remove as boarder</b-dropdown-item>
 
                                             </b-dropdown>
@@ -203,6 +220,9 @@ export default{
 
             rawData: {},
 
+            bhouses: [],
+            bhouse: '',
+
 
             btnClass: {
                 'is-success': true,
@@ -219,6 +239,7 @@ export default{
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `perpage=${this.perPage}`,
+                `bhousename=${this.bhouse}`,
                 `page=${this.page}`
             ].join('&')
 
@@ -293,12 +314,43 @@ export default{
             })
         },
 
+        showBills: function(){
+
+        },
+
+        confirmRemoveBoarder(dataId){
+            this.$buefy.dialog.confirm({
+                title: 'DELETE!',
+                type: 'is-danger',
+                message: 'Are you sure you want to remove this boarder?',
+                cancelText: 'Cancel',
+                confirmText: 'Remove boarder?',
+                onConfirm: () => this.submitRemoveBoarder(dataId)
+            });
+        },
+
+        submitRemoveBoarder: function(){
+            axios.delete('/remove-boarder' + delete_id).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
+
+        loadBhouses(){
+            axios.get('/get-bhouses').then(res=>{
+                this.bhouses = res.data;
+            })
+        },
 
 
     },
 
     mounted() {
-       this.loadAsyncData()
+        this.loadBhouses();
+       this.loadAsyncData();
     }
 
 

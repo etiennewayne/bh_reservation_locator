@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\LandOwner;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookBedSpace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -40,5 +41,9 @@ class BoarderListController extends Controller
             ->paginate($req->perpage);
 
         return $data;
+    }
+
+    public function removeBoarder($id){
+        //BookBedSpace::
     }
 }

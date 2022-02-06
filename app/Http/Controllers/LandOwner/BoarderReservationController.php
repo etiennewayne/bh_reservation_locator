@@ -62,6 +62,10 @@ class BoarderReservationController extends Controller
 
     public function approvedReservation(Request $req, $book_bedspace_id){
 
+        $req->validate([
+            'nstart_date' => ['required']
+        ]);
+        //nstart_date
         $date =  $req->nstart_date;
         $nstart_date = date("Y-m-d", strtotime($date));
 

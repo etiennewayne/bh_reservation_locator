@@ -20,7 +20,10 @@ class PaymentDetailController extends Controller
         $date =  $req->npayment_date;
         $ndate = date("Y-m-d", strtotime($date));
 
-        PaymentDetail::create([
+        PaymentDetail::updateOrCreate([
+            'date_pay' => $ndate,
+            'boarder_id' => $req->boarder_id,
+        ],[
             'boarder_id' => $req->boarder_id,
             'payment_to_pay' => $req->amount_to_pay,
             'date_pay' => $ndate,
