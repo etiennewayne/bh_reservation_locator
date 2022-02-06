@@ -81,7 +81,7 @@ class BoarderReservationController extends Controller
 //            'payment_date' => $ndate,
 //        ]); //replace with boarder list
 
-        Boarder::updateOrCreate(['boarder_user_id' => $data->book_user_id, 'bedspace_id' => $data->bedspace_id],
+        Boarder::updateOrCreate(['boarder_user_id' => $data->book_user_id, 'bedspace_id' => $data->bedspace_id, 'is_active' => 1],
             [
                 'qr_ref' => $qr_code,
                 'boarder_user_id' => $data->book_user_id,

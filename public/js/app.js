@@ -4911,7 +4911,9 @@ __webpack_require__.r(__webpack_exports__);
       }).addTo(mymap); //add route in leaflet
 
       L.Routing.control({
-        waypoints: [L.latLng(this.data.lat, this.data["long"]), L.latLng(this.nlat, this.nlong)]
+        waypoints: [L.latLng(this.nlat, this.nlong), //bhouse coordiantes
+        L.latLng(this.data.lat, this.data["long"]) //current location coordinates
+        ]
       }).addTo(mymap);
     },
     initData: function initData() {
@@ -5461,6 +5463,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34845,7 +34853,7 @@ var render = function () {
         _c("div", { staticClass: "columns" }, [
           _c("div", { staticClass: "column" }, [
             _c("div", { staticClass: "columns is-centered" }, [
-              _c("div", { staticClass: "column is-8" }, [
+              _c("div", { staticClass: "column is-10" }, [
                 _c("div", { staticClass: "panel" }, [
                   _c("div", { staticClass: "panel-heading" }, [
                     _vm._v(
@@ -35055,6 +35063,24 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("b-table-column", {
+                            attrs: { field: "room_no", label: "Room No" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.room_no) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
                             attrs: {
                               field: "bedspace_name",
                               label: "Bed Space Name",
@@ -35168,7 +35194,16 @@ var render = function () {
                                               },
                                             },
                                           },
-                                          [_vm._v("Proof of Transaction")]
+                                          [_vm._v("Send Bill")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-dropdown-item",
+                                          {
+                                            attrs: { "aria-role": "listitem" },
+                                            on: { click: function ($event) {} },
+                                          },
+                                          [_vm._v("Remove as boarder")]
                                         ),
                                       ],
                                       1

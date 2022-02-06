@@ -5,7 +5,7 @@
                 <div class="column">
 
                     <div class="columns is-centered">
-                        <div class="column is-8">
+                        <div class="column is-10">
                             <div class="panel">
                                 <div class="panel-heading">
                                     BOARDER LIST
@@ -72,6 +72,10 @@
                                             {{ props.row.bhouse_name }}
                                         </b-table-column>
 
+                                        <b-table-column field="room_no" label="Room No" v-slot="props">
+                                            {{ props.row.room_no }}
+                                        </b-table-column>
+
                                         <b-table-column field="bedspace_name" label="Bed Space Name" v-slot="props">
                                             {{ props.row.bedspace_name }}
                                         </b-table-column>
@@ -94,7 +98,9 @@
                                                         :icon-right="active ? 'menu-up' : 'menu-down'" />
                                                 </template>
 
-                                                <b-dropdown-item aria-role="listitem" @click="openProofTransactionModal(props.row)">Proof of Transaction</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="openProofTransactionModal(props.row)">Send Bill</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="">Remove as boarder</b-dropdown-item>
+
                                             </b-dropdown>
                                             <!-- <div class="is-flex">
                                                 <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>

@@ -124,8 +124,8 @@ export default {
 
             L.Routing.control({
                 waypoints: [
-                    L.latLng(this.data.lat, this.data.long),
-                    L.latLng(this.nlat, this.nlong)
+                    L.latLng(this.nlat, this.nlong),//bhouse coordiantes
+                    L.latLng(this.data.lat, this.data.long)//current location coordinates
                 ]
             }).addTo(mymap);
 

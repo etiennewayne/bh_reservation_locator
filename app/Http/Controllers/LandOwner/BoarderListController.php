@@ -28,7 +28,7 @@ class BoarderListController extends Controller
             ->join('boarding_houses as d', 'c.bhouse_id', 'd.bhouse_id')
             ->join('users as e', 'a.boarder_user_id', 'e.user_id')
             ->select('a.boarder_id', 'a.bedspace_id', 'a.boarder_user_id', 'a.date_acceptance', 'a.rental_price', 'a.is_active',
-                'b.room_id', 'c.bhouse_id', 'b.bedspace_name',
+                'b.room_id', 'c.bhouse_id', 'b.bedspace_name', 'd.bhouse_name',
                 'b.bedspace_desc', 'b.price', 'b.is_booked', 'c.room_no', 'c.room_desc', 'e.lname', 'e.fname', 'e.mname', 'e.user_id', 'e.role')
             ->where('d.user_id', $userid)
             ->get();
@@ -48,7 +48,7 @@ class BoarderListController extends Controller
             ->join('boarding_houses as d', 'c.bhouse_id', 'd.bhouse_id')
             ->join('users as e', 'a.boarder_user_id', 'e.user_id')
             ->select('a.boarder_id', 'a.bedspace_id', 'a.boarder_user_id', 'a.date_acceptance', 'a.rental_price', 'a.is_active',
-                'b.room_id', 'c.bhouse_id', 'b.bedspace_name',
+                'b.room_id', 'c.bhouse_id', 'b.bedspace_name', 'd.bhouse_name',
                 'b.bedspace_desc', 'b.price', 'b.is_booked', 'c.room_no', 'c.room_desc', 'e.lname', 'e.fname', 'e.mname', 'e.user_id', 'e.role')
             ->where('d.user_id', $userid)
             ->orderBy($sort[0], $sort[1])
