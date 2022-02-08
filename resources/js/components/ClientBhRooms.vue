@@ -207,6 +207,14 @@ export default {
                         })
                     }
                 }
+                if(err.response.status === 401){
+                    this.$buefy.toast.open({
+                        message: 'Please login first.',
+                        type: 'is-danger',
+                        //title: 'UNAUTHORIZED!'
+                    })
+
+                }
             });
         },
 

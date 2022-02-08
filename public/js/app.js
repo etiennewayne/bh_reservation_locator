@@ -10397,6 +10397,14 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         }
+
+        if (err.response.status === 401) {
+          _this3.$buefy.toast.open({
+            message: 'Please login first.',
+            type: 'is-danger' //title: 'UNAUTHORIZED!'
+
+          });
+        }
       });
     },
     initData: function initData() {
