@@ -1,12 +1,25 @@
 <template>
-        <b-carousel-list v-model="test" :data="items" :items-to-show="3">
+
+    <div class="section">
+        <div class="columns is-centered">
+            <div class="column is-6">
+                <b-field>
+                    <b-input type="text" v-model="search.bhousename" expanded placeholder="Search Boarding House"></b-input>
+                    <p class="control">
+                        <button class="button is-link" icon-left="lens" @click="loadBoardingHouses"></button>
+                    </p>
+                </b-field>
+            </div>
+        </div>
+
+        <b-carousel-list v-model="test" :data="items" :items-to-show="itemShow">
             <template #item="list">
                 <div class="card">
                     <div class="card-image">
                         <figure class="image 5">
                             <a @click="info(list.index)"><img :src="`/storage/bhouse/${list.bhouse_img_path}`"></a>
                         </figure>
-<!--                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>-->
+                        <!--                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>-->
                     </div>
                     <div class="card-content">
                         <div class="content">
@@ -22,7 +35,7 @@
                             <div class="buttons">
                                 <b-button type="is-link" icon-right="chevron-right" tag="a" :href="`/client-bhouse-detail/${list.bhouse_id}`">SEE MORE...</b-button>
                             </div>
-                        
+
                             <!-- <b-field grouped >
                                 <p class="control" v-if="list.rating">
                                     <b-rate :value="list.rating" show-score disabled/>
@@ -37,7 +50,15 @@
             </template>
         </b-carousel-list>
 
+        <div class="columns">
+            <div class="column">
 
+
+
+            </div>
+        </div>
+
+    </div><!--root div section -->
 
 </template>
 
@@ -49,47 +70,12 @@ export default {
 
 
             test: 0,
-            items: [
-                // {
-                //     title: 'Slide 1',
-                //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-                //     rating: 4.4
-                // },
-                // {
-                //     title: 'Slide 2',
-                //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-                //     rating: 3.5
-                // },
-                // {
-                //     title: 'Slide 3',
-                //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-                //     rating: 5
-                // },
-                // {
-                //     title: 'Slide 4',
-                //     image: 'https://buefy.org/static/img/placeholder-1280x960.png'
-                // },
-                // {
-                //     title: 'Slide 5',
-                //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-                //     rating: 5
-                // },
-                // {
-                //     title: 'Slide 6',
-                //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-                //     rating: 4
-                // },
-                // {
-                //     title: 'Slide 7',
-                //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-                //     rating: 2.7
-                // },
-                // {
-                //     title: 'Slide 8',
-                //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-                //     rating: 1.5
-                // }
-            ],
+            items: [],
+            itemShow: 3,
+
+            search: {
+                bhousename: '',
+            }
 
 
         }
@@ -103,18 +89,38 @@ export default {
         },
 
         loadBoardingHouses: function(){
-            axios.get('/get-client-bhouses').then(res=>{
-                
+            console.log('test')
+            const params = [
+                `bhousename=${this.search.bhousename}`
+            ].join('&')
+            axios.get(`/get-client-bhouses?${params}`).then(res=>{
                 this.items = res.data;
             }).catch(err => {
 
             });
-        }
+        },
+
+        onResize(){
+            if(window.innerWidth < 600){
+                this.itemShow = 2;
+            }
+            if(window.innerWidth < 400){
+                this.itemShow = 1;
+            }
+        },
     },
 
     mounted(){
+        this.onResize();
+        window.addEventListener('resize', this.onResize);
+
         this.loadBoardingHouses();
-    }
+
+    },
+    beforeDestroy () {
+        if (typeof window === 'undefined') return
+        window.removeEventListener('resize', this.onResize)
+    },
 }
 </script>
 

@@ -19,8 +19,6 @@ class BoarderReservationController extends Controller
     }
 
 
-
-
     public function index(){
         $userid = Auth::user()->user_id;
 

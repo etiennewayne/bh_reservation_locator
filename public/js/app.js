@@ -8407,15 +8407,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9940,6 +9931,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10127,50 +10119,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       test: 0,
-      items: [// {
-        //     title: 'Slide 1',
-        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        //     rating: 4.4
-        // },
-        // {
-        //     title: 'Slide 2',
-        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        //     rating: 3.5
-        // },
-        // {
-        //     title: 'Slide 3',
-        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        //     rating: 5
-        // },
-        // {
-        //     title: 'Slide 4',
-        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png'
-        // },
-        // {
-        //     title: 'Slide 5',
-        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        //     rating: 5
-        // },
-        // {
-        //     title: 'Slide 6',
-        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        //     rating: 4
-        // },
-        // {
-        //     title: 'Slide 7',
-        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        //     rating: 2.7
-        // },
-        // {
-        //     title: 'Slide 8',
-        //     image: 'https://buefy.org/static/img/placeholder-1280x960.png',
-        //     rating: 1.5
-        // }
-      ]
+      items: [],
+      itemShow: 3,
+      search: {
+        bhousename: ''
+      }
     };
   },
   methods: {
@@ -10180,13 +10158,30 @@ __webpack_require__.r(__webpack_exports__);
     loadBoardingHouses: function loadBoardingHouses() {
       var _this = this;
 
-      axios.get('/get-client-bhouses').then(function (res) {
+      console.log('test');
+      var params = ["bhousename=".concat(this.search.bhousename)].join('&');
+      axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
         _this.items = res.data;
       })["catch"](function (err) {});
+    },
+    onResize: function onResize() {
+      if (window.innerWidth < 600) {
+        this.itemShow = 2;
+      }
+
+      if (window.innerWidth < 400) {
+        this.itemShow = 1;
+      }
     }
   },
   mounted: function mounted() {
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
     this.loadBoardingHouses();
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (typeof window === 'undefined') return;
+    window.removeEventListener('resize', this.onResize);
   }
 });
 
@@ -10426,6 +10421,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11279,6 +11281,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11290,6 +11358,10 @@ __webpack_require__.r(__webpack_exports__);
       page: 1,
       perPage: 5,
       defaultSortDirection: 'asc',
+      dataBill: [],
+      totalBill: 0,
+      loadingBill: false,
+      defaultSortDirectionBill: 'asc',
       search: {
         bedspace: ''
       },
@@ -11298,6 +11370,7 @@ __webpack_require__.r(__webpack_exports__);
         npayment_date: null
       },
       modalSendBill: false,
+      modalShowBill: false,
       rawData: {},
       bhouses: [],
       bhouse: '',
@@ -11355,6 +11428,48 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
+    //main table
+    showBills: function showBills(row) {
+      this.modalShowBill = true;
+      this.loadAsyncDataBill(row.boarder_id);
+    },
+    loadAsyncDataBill: function loadAsyncDataBill(dataId) {
+      var _this2 = this;
+
+      this.loadingBill = true;
+      axios.get("/get-boarder-bill/".concat(dataId)).then(function (_ref2) {
+        var data = _ref2.data;
+        _this2.dataBill = [];
+        var currentTotal = data.total;
+
+        if (data.total / _this2.perPageBill > 1000) {
+          currentTotal = _this2.perPageBill * 1000;
+        }
+
+        _this2.totalBill = currentTotal;
+        data.data.forEach(function (item) {
+          //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+          _this2.dataBill.push(item);
+        });
+        _this2.loadingBill = false;
+      })["catch"](function (error) {
+        _this2.dataBill = [];
+        _this2.totalBill = 0;
+        _this2.loadingBill = false;
+        throw error;
+      });
+    },
+
+    /*
+    * Handle page-change event
+    */
+    onPageChangeBill: function onPageChangeBill(page) {
+      this.pageBill = page;
+      this.loadAsyncData();
+    },
+    setPerPageBill: function setPerPageBill() {
+      this.loadAsyncData();
+    },
     openSendBill: function openSendBill(row) {
       this.modalSendBill = true;
       this.rawData = row;
@@ -11362,31 +11477,31 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.amount_to_pay = row.rental_price;
     },
     submitSendBill: function submitSendBill() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.fields.boarder_id = this.rawData.boarder_id;
       var d = new Date();
       this.fields.npayment_date = new Date(d.getFullYear(), d.getMonth(), this.fields.payment_date.getDate()).toLocaleDateString();
       axios.post('/boarder-submit-bill', this.fields).then(function (res) {
         if (res.data.status === 'saved') {
-          _this2.$buefy.dialog.alert({
+          _this3.$buefy.dialog.alert({
             title: 'SAVED!',
             message: 'Save successfully.',
             type: 'is-success',
             onConfirm: function onConfirm() {
-              _this2.loadAsyncData();
+              _this3.loadAsyncData();
 
-              _this2.modalSendBill = false;
-              _this2.rawData = {};
+              _this3.modalSendBill = false;
+              _this3.rawData = {};
             }
           });
         }
       });
     },
-    showBills: function showBills() {},
     confirmRemoveBoarder: function confirmRemoveBoarder(dataId) {
-      var _this3 = this;
+      var _this4 = this;
 
+      console.log(dataId);
       this.$buefy.dialog.confirm({
         title: 'DELETE!',
         type: 'is-danger',
@@ -11394,31 +11509,33 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Remove boarder?',
         onConfirm: function onConfirm() {
-          return _this3.submitRemoveBoarder(dataId);
+          return _this4.submitRemoveBoarder(dataId);
         }
       });
     },
-    submitRemoveBoarder: function submitRemoveBoarder() {
-      var _this4 = this;
+    submitRemoveBoarder: function submitRemoveBoarder(delete_id) {
+      var _this5 = this;
 
-      axios["delete"]('/remove-boarder' + delete_id).then(function (res) {
-        _this4.loadAsyncData();
+      axios.post('/removeboarder-boarder-list/' + delete_id).then(function (res) {
+        if (res.data.status === 'removed') {
+          _this5.loadAsyncData();
+        }
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this4.errors = err.response.data.errors;
+          _this5.errors = err.response.data.errors;
         }
       });
     },
     loadBhouses: function loadBhouses() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get('/get-bhouses').then(function (res) {
-        _this5.bhouses = res.data;
+        _this6.bhouses = res.data;
       });
     }
   },
   mounted: function mounted() {
-    this.loadBhouses();
+    //this.loadBhouses();
     this.loadAsyncData();
   }
 });
@@ -32182,7 +32299,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-5025578b] {\r\n    overflow: visible !important;\n}\n.modal-card-body[data-v-5025578b] {\r\n    overflow: visible !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-5025578b] {\n    overflow: visible !important;\n}\n.modal-card-body[data-v-5025578b] {\n    overflow: visible !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36585,21 +36702,6 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "b-menu-list",
-                      [
-                        _c("b-menu-item", {
-                          attrs: {
-                            label: "Appointment Type",
-                            icon: "link",
-                            tag: "a",
-                            href: "/appointment-type",
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-menu-list",
                       { attrs: { label: "Actions" } },
                       [
                         _c("b-menu-item", {
@@ -39606,94 +39708,150 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("b-carousel-list", {
-    attrs: { data: _vm.items, "items-to-show": 3 },
-    scopedSlots: _vm._u([
-      {
-        key: "item",
-        fn: function (list) {
-          return [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-image" }, [
-                _c("figure", { staticClass: "image 5" }, [
-                  _c(
-                    "a",
-                    {
-                      on: {
-                        click: function ($event) {
-                          return _vm.info(list.index)
-                        },
-                      },
+  return _c(
+    "div",
+    { staticClass: "section" },
+    [
+      _c("div", { staticClass: "columns is-centered" }, [
+        _c(
+          "div",
+          { staticClass: "column is-6" },
+          [
+            _c(
+              "b-field",
+              [
+                _c("b-input", {
+                  attrs: {
+                    type: "text",
+                    expanded: "",
+                    placeholder: "Search Boarding House",
+                  },
+                  model: {
+                    value: _vm.search.bhousename,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.search, "bhousename", $$v)
                     },
-                    [
-                      _c("img", {
-                        attrs: {
-                          src: "/storage/bhouse/" + list.bhouse_img_path,
-                        },
-                      }),
-                    ]
-                  ),
+                    expression: "search.bhousename",
+                  },
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "control" }, [
+                  _c("button", {
+                    staticClass: "button is-link",
+                    attrs: { "icon-left": "lens" },
+                    on: { click: _vm.loadBoardingHouses },
+                  }),
                 ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-content" }, [
-                _c("div", { staticClass: "content" }, [
-                  _c("p", { staticClass: "title is-6" }, [
-                    _vm._v(_vm._s(list.bhouse_name)),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                    _vm._v(
-                      "\n                                " +
-                        _vm._s(list.bhouse_desc) +
-                        "\n                            "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                    _vm._v(
-                      "\n                                Located at: " +
-                        _vm._s(list.street) +
-                        "\n                            "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "buttons" },
-                    [
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+      ]),
+      _vm._v(" "),
+      _c("b-carousel-list", {
+        attrs: { data: _vm.items, "items-to-show": _vm.itemShow },
+        scopedSlots: _vm._u([
+          {
+            key: "item",
+            fn: function (list) {
+              return [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-image" }, [
+                    _c("figure", { staticClass: "image 5" }, [
                       _c(
-                        "b-button",
+                        "a",
                         {
-                          attrs: {
-                            type: "is-link",
-                            "icon-right": "chevron-right",
-                            tag: "a",
-                            href: "/client-bhouse-detail/" + list.bhouse_id,
+                          on: {
+                            click: function ($event) {
+                              return _vm.info(list.index)
+                            },
                           },
                         },
-                        [_vm._v("SEE MORE...")]
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "/storage/bhouse/" + list.bhouse_img_path,
+                            },
+                          }),
+                        ]
                       ),
-                    ],
-                    1
-                  ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-content" }, [
+                    _c("div", { staticClass: "content" }, [
+                      _c("p", { staticClass: "title is-6" }, [
+                        _vm._v(_vm._s(list.bhouse_name)),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(list.bhouse_desc) +
+                            "\n                        "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                        _vm._v(
+                          "\n                            Located at: " +
+                            _vm._s(list.street) +
+                            "\n                        "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "buttons" },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                type: "is-link",
+                                "icon-right": "chevron-right",
+                                tag: "a",
+                                href: "/client-bhouse-detail/" + list.bhouse_id,
+                              },
+                            },
+                            [_vm._v("SEE MORE...")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
                 ]),
-              ]),
-            ]),
-          ]
+              ]
+            },
+          },
+        ]),
+        model: {
+          value: _vm.test,
+          callback: function ($$v) {
+            _vm.test = $$v
+          },
+          expression: "test",
         },
-      },
-    ]),
-    model: {
-      value: _vm.test,
-      callback: function ($$v) {
-        _vm.test = $$v
-      },
-      expression: "test",
-    },
-  })
+      }),
+      _vm._v(" "),
+      _vm._m(0),
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "columns" }, [
+      _c("div", { staticClass: "column" }),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -40065,6 +40223,14 @@ var render = function () {
                 ]),
               ]),
             ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "columns" }, [
+              _c("div", { staticClass: "column" }, [
+                _c("h1", { staticClass: "title is-4" }, [_vm._v("RULES")]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.data.bhouse_rule) + " ")]),
+              ]),
+            ]),
           ]),
         ]),
         _vm._v(" "),
@@ -40131,12 +40297,7 @@ var render = function () {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c(
-      "section",
-      { staticClass: "section" },
-      [_c("boarding-house-list"), _vm._v(" "), _c("search-boarding-houses")],
-      1
-    ),
+    _c("section", { staticClass: "section" }, [_c("boarding-house-list")], 1),
     _vm._v(" "),
     _vm._m(1),
   ])
@@ -40155,7 +40316,7 @@ var staticRenderFns = [
             _c(
               "p",
               { staticClass: "title animate__animated animate__backInLeft" },
-              [_vm._v("\n                    BHLMS\n                ")]
+              [_vm._v("\n                        BHLMS\n                    ")]
             ),
             _vm._v(" "),
             _c(
@@ -40165,7 +40326,7 @@ var staticRenderFns = [
               },
               [
                 _vm._v(
-                  "\n                    Boarding House Locator and Manangement System\n                "
+                  "\n                        Boarding House Locator and Manangement System\n                    "
                 ),
               ]
             ),
@@ -40206,13 +40367,13 @@ var staticRenderFns = [
               _c("div", { staticClass: "p-5" }, [
                 _c("div", { staticClass: "footer-component-title" }, [
                   _vm._v(
-                    "\n                           Quick Links\n                        "
+                    "\n                               Quick Links\n                            "
                   ),
                 ]),
                 _vm._v(" "),
                 _c("div", [
                   _vm._v(
-                    "\n                          Home\n                        "
+                    "\n                              Home\n                            "
                   ),
                 ]),
               ]),
@@ -40222,13 +40383,13 @@ var staticRenderFns = [
               _c("div", { staticClass: "p-5" }, [
                 _c("div", { staticClass: "footer-component-title" }, [
                   _vm._v(
-                    "\n                             Address\n                        "
+                    "\n                                 Address\n                            "
                   ),
                 ]),
                 _vm._v(" "),
                 _c("div", [
                   _vm._v(
-                    "\n                            Juan Luna St.\n                            Maloro, Tangub City\n                            Misamis Occidental\n                            Philippines\n                        "
+                    "\n                                Juan Luna St.\n                                Maloro, Tangub City\n                                Misamis Occidental\n                                Philippines\n                            "
                   ),
                 ]),
               ]),
@@ -40238,13 +40399,13 @@ var staticRenderFns = [
               _c("div", { staticClass: "p-5" }, [
                 _c("div", { staticClass: "footer-component-title" }, [
                   _vm._v(
-                    "\n                             Address\n                        "
+                    "\n                                 Address\n                            "
                   ),
                 ]),
                 _vm._v(" "),
                 _c("div", [
                   _vm._v(
-                    "\n                            Juan Luna St.\n                            Maloro, Tangub City\n                            Misamis Occidental\n                            Philippines\n                        "
+                    "\n                                Juan Luna St.\n                                Maloro, Tangub City\n                                Misamis Occidental\n                                Philippines\n                            "
                   ),
                 ]),
               ]),
@@ -41058,7 +41219,7 @@ var render = function () {
                         },
                         [
                           _c("b-table-column", {
-                            attrs: { field: "book_bedspace_id", label: "ID" },
+                            attrs: { field: "boarder_id", label: "ID" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -41269,7 +41430,13 @@ var render = function () {
                                           "b-dropdown-item",
                                           {
                                             attrs: { "aria-role": "listitem" },
-                                            on: { click: function ($event) {} },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.confirmRemoveBoarder(
+                                                  props.row.boarder_id
+                                                )
+                                              },
+                                            },
                                           },
                                           [_vm._v("Remove as boarder")]
                                         ),
@@ -41410,6 +41577,182 @@ var render = function () {
                       },
                       [_vm._v("SEND")]
                     ),
+                  ],
+                  1
+                ),
+              ]),
+            ]
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.modalShowBill,
+            callback: function ($$v) {
+              _vm.modalShowBill = $$v
+            },
+            expression: "modalShowBill",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submitSendBill.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Bills"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.modalShowBill = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c(
+                    "div",
+                    {},
+                    [
+                      _c(
+                        "b-table",
+                        {
+                          attrs: {
+                            data: _vm.dataBill,
+                            loading: _vm.loadingBill,
+                            paginated: "",
+                            "backend-pagination": "",
+                            total: _vm.totalBill,
+                            "per-page": _vm.perPageBill,
+                            "aria-next-label": "Next page",
+                            "aria-previous-label": "Previous page",
+                            "aria-page-label": "Page",
+                            "aria-current-label": "Current page",
+                            "backend-sorting": "",
+                            "default-sort-direction": _vm.defaultSortDirection,
+                          },
+                          on: { "page-change": _vm.onPageChange },
+                        },
+                        [
+                          _c("b-table-column", {
+                            attrs: { field: "boarder_id", label: "ID" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(props.row.payment_detail_id) +
+                                        "\n                            "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "date_pay", label: "Date Pay" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(props.row.date_pay) +
+                                        "\n                            "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "payment_status", label: "Status" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(props.row.payment_status) +
+                                        "\n                            "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "payment_to_pay",
+                              label: "Payment",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(props.row.payment_to_pay) +
+                                        "\n                            "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  { staticClass: "modal-card-foot" },
+                  [
+                    _c("b-button", {
+                      attrs: { label: "Close" },
+                      on: {
+                        click: function ($event) {
+                          _vm.modalShowBill = false
+                        },
+                      },
+                    }),
                   ],
                   1
                 ),

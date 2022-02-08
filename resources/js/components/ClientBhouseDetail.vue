@@ -30,6 +30,13 @@
                                     </div>
                                 </div>
                             </div>
+                        </div><!--cols-->
+
+                        <div class="columns">
+                            <div class="column">
+                                <h1 class="title is-4">RULES</h1>
+                                <p>{{ data.bhouse_rule }} </p>
+                            </div>
                         </div>
 
                     </div>

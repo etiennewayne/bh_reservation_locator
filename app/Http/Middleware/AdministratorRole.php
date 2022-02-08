@@ -18,9 +18,12 @@ class AdministratorRole
     public function handle(Request $request, Closure $next)
     {
         $role = Auth::user()->role;
-        if($role === 'ADMINISTRATOR'){
-            return $next($request);
+
+        $role = Auth::user()->role;
+        if(!in_array($role, ['ADMINISTRATOR'])){
+            return abort(403);
         }
-        return abort(403);
+        return $next($request);
+
     }
 }

@@ -48,6 +48,7 @@
 <!--                                        <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>-->
 <!--                                    </div>-->
 
+
                                     <b-table
                                         :data="data"
                                         :loading="loading"

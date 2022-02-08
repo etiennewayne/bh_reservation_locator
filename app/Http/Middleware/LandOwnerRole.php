@@ -18,7 +18,8 @@ class LandOwnerRole
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if($user->role === 'LANDOWNER' &&  $user->is_approve === 1){
+
+        if(in_array($user->role, ['LANDOWNER']) && $user->is_approve === 1){
             return $next($request);
         }
         return abort(403);

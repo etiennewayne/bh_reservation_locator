@@ -80,7 +80,7 @@
                                         :default-sort-direction="defaultSortDirection"
                                         @sort="onSort">
 
-                                        <b-table-column field="book_bedspace_id" label="ID" v-slot="props">
+                                        <b-table-column field="boarder_id" label="ID" v-slot="props">
                                             {{ props.row.boarder_id }}
                                         </b-table-column>
 
@@ -120,7 +120,7 @@
 
                                                 <b-dropdown-item aria-role="listitem" @click="openSendBill(props.row)">Send Bill</b-dropdown-item>
                                                 <b-dropdown-item aria-role="listitem" @click="showBills(props.row)">Show Bills</b-dropdown-item>
-                                                <b-dropdown-item aria-role="listitem" @click="">Remove as boarder</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="confirmRemoveBoarder(props.row.boarder_id)">Remove as boarder</b-dropdown-item>
 
                                             </b-dropdown>
                                             <!-- <div class="is-flex">
@@ -138,7 +138,6 @@
 
             </div><!-- column parent -->
         </div><!--cols parent -->
-
 
 
         <!--modal create-->
@@ -187,6 +186,73 @@
         </b-modal>
         <!--close modal-->
 
+
+
+
+
+
+        <!--modal show bill-->
+        <b-modal v-model="modalShowBill" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="submitSendBill">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Bills</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalShowBill = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <b-table
+                                :data="dataBill"
+                                :loading="loadingBill"
+                                paginated
+                                backend-pagination
+                                :total="totalBill"
+                                :per-page="perPageBill"
+                                @page-change="onPageChange"
+                                aria-next-label="Next page"
+                                aria-previous-label="Previous page"
+                                aria-page-label="Page"
+                                aria-current-label="Current page"
+                                backend-sorting
+                                :default-sort-direction="defaultSortDirection">
+
+                                <b-table-column field="boarder_id" label="ID" v-slot="props">
+                                    {{ props.row.payment_detail_id }}
+                                </b-table-column>
+                                <b-table-column field="date_pay" label="Date Pay" v-slot="props">
+                                    {{ props.row.date_pay }}
+                                </b-table-column>
+                                <b-table-column field="payment_status" label="Status" v-slot="props">
+                                    {{ props.row.payment_status }}
+                                </b-table-column>
+                                <b-table-column field="payment_to_pay" label="Payment" v-slot="props">
+                                    {{ props.row.payment_to_pay }}
+                                </b-table-column>
+
+                            </b-table>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <b-button
+                            label="Close"
+                            @click="modalShowBill=false"/>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close show modal bill-->
+
+
     </div>
 </template>
 
@@ -194,7 +260,6 @@
 <script>
 
 export default{
-
 
     data(){
         return{
@@ -207,6 +272,11 @@ export default{
             perPage: 5,
             defaultSortDirection: 'asc',
 
+            dataBill: [],
+            totalBill: 0,
+            loadingBill: false,
+            defaultSortDirectionBill: 'asc',
+
             search: {
                 bedspace: '',
             },
@@ -217,6 +287,7 @@ export default{
             },
 
             modalSendBill: false,
+            modalShowBill: false,
 
             rawData: {},
 
@@ -284,6 +355,51 @@ export default{
             this.loadAsyncData()
         },
 
+
+
+
+        //main table
+        showBills: function(row){
+            this.modalShowBill = true;
+            this.loadAsyncDataBill(row.boarder_id);
+        },
+        loadAsyncDataBill(dataId) {
+
+            this.loadingBill = true
+            axios.get(`/get-boarder-bill/${dataId}`)
+                .then(({ data }) => {
+                    this.dataBill = [];
+                    let currentTotal = data.total
+                    if (data.total / this.perPageBill > 1000) {
+                        currentTotal = this.perPageBill * 1000
+                    }
+
+                    this.totalBill = currentTotal
+                    data.data.forEach((item) => {
+                        //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+                        this.dataBill.push(item)
+                    })
+                    this.loadingBill = false
+                })
+                .catch((error) => {
+                    this.dataBill = []
+                    this.totalBill = 0
+                    this.loadingBill = false
+                    throw error
+                })
+        },
+        /*
+        * Handle page-change event
+        */
+        onPageChangeBill(page) {
+            this.pageBill = page
+            this.loadAsyncData()
+        },
+        setPerPageBill(){
+            this.loadAsyncData()
+        },
+
+
         openSendBill(row){
             this.modalSendBill = true;
             this.rawData = row;
@@ -291,12 +407,10 @@ export default{
             this.fields.amount_to_pay = row.rental_price;
         },
 
-
         submitSendBill: function(){
             this.fields.boarder_id = this.rawData.boarder_id;
             let d = new Date();
             this.fields.npayment_date = new Date(d.getFullYear(), d.getMonth(), this.fields.payment_date.getDate()).toLocaleDateString();
-
 
             axios.post('/boarder-submit-bill', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
@@ -314,11 +428,10 @@ export default{
             })
         },
 
-        showBills: function(){
 
-        },
 
         confirmRemoveBoarder(dataId){
+            console.log(dataId)
             this.$buefy.dialog.confirm({
                 title: 'DELETE!',
                 type: 'is-danger',
@@ -329,9 +442,11 @@ export default{
             });
         },
 
-        submitRemoveBoarder: function(){
-            axios.delete('/remove-boarder' + delete_id).then(res => {
-                this.loadAsyncData();
+        submitRemoveBoarder: function(delete_id){
+            axios.post('/removeboarder-boarder-list/' + delete_id).then(res => {
+                if(res.data.status === 'removed'){
+                    this.loadAsyncData();
+                }
             }).catch(err => {
                 if (err.response.status === 422) {
                     this.errors = err.response.data.errors;
@@ -349,8 +464,8 @@ export default{
     },
 
     mounted() {
-        this.loadBhouses();
-       this.loadAsyncData();
+        //this.loadBhouses();
+        this.loadAsyncData();
     }
 
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\LandOwner;
 
 use App\Http\Controllers\Controller;
+use App\Models\Boarder;
 use App\Models\BookBedSpace;
+use App\Models\PaymentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -37,13 +39,27 @@ class BoarderListController extends Controller
                 'b.room_id', 'c.bhouse_id', 'b.bedspace_name', 'd.bhouse_name',
                 'b.bedspace_desc', 'b.price', 'b.is_booked', 'c.room_no', 'c.room_desc', 'e.lname', 'e.fname', 'e.mname', 'e.user_id', 'e.role')
             ->where('d.user_id', $userid)
+            ->where('a.is_active', 1)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
         return $data;
     }
 
+
+    public function showPaymentDetails($id){
+        return PaymentDetail::where('payment_detail_id', $id)
+            ->orderBy('payment_detail_id', 'desc')
+            ->paginate(5);
+    }
     public function removeBoarder($id){
-        //BookBedSpace::
+
+        $data = Boarder::find($id);
+        $data->is_active = 0;
+        $data->save();
+
+        return response()->json([
+            'status' => 'removed'
+        ],200);
     }
 }

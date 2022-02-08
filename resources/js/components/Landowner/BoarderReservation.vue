@@ -321,7 +321,6 @@ export default{
 
     mounted() {
         this.loadAsyncData();
-
     }
 
 

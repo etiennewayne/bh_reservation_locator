@@ -21,7 +21,7 @@
 
         <section class="section">
             <boarding-house-list></boarding-house-list>
-            <search-boarding-houses></search-boarding-houses>
+<!--            <search-boarding-houses></search-boarding-houses>-->
         </section>
 
 

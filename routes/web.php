@@ -86,7 +86,13 @@ Route::post('/boarder-reservation-approved/{book_bedspace_id}', [App\Http\Contro
 //LADN OWNER ->>>BOADER LIST
 Route::resource('/boarder-list', App\Http\Controllers\LandOwner\BoarderListController::class);
 Route::get('/get-boarder-list', [App\Http\Controllers\LandOwner\BoarderListController::class, 'getBoarderList']);
-Route::post('/remove-boarder/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'removeBoarder']);
+Route::post('/removeboarder-boarder-list/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'removeBoarder']);
+
+
+Route::get('get-boarder-bill/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'showPaymentDetails']);
+
+
+
 
 //Payment details
 Route::post('/boarder-submit-bill', [App\Http\Controllers\LandOwner\PaymentDetailController::class, 'store']);

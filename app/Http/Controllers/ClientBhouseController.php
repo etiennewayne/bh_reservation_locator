@@ -17,8 +17,13 @@ class ClientBhouseController extends Controller
 
 
 
-    public function getBhouses(){
-        $data = DB::table('boarding_houses as a')->get();
+    public function getBhouses(Request $req){
+        $bhousename = $req->bhousename;
+
+
+        $data = DB::table('boarding_houses as a')
+            ->where('a.bhouse_name', 'like', $bhousename .'%')
+            ->get();
         return $data;
     }
 
