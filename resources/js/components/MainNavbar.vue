@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <b-navbar class="animate__animated animate__fadeIn">
+    <b-navbar class="animate__animated animate__fadeIn is-primary">
         <template #brand>
             <b-navbar-item>
                 <img class ="logo"
@@ -10,6 +10,10 @@
         </template>
 
         <template #start>
+
+        </template>
+
+        <template #end>
             <b-navbar-item href="/">
                 Home
             </b-navbar-item>
@@ -19,9 +23,7 @@
             <b-navbar-item href="#">
                 Contact
             </b-navbar-item>
-        </template>
 
-        <template #end>
             <b-navbar-item tag="div" v-if="user.username">
                 <b-navbar-item @click="open =  true">
                     <strong>MENU</strong>
@@ -40,7 +42,7 @@
                 <b-navbar-item @click="isModalActive = true">
                     <strong>Sign in</strong>
                 </b-navbar-item>
-            </b-navbar-item>
+            </b-navbar-item tag="div">
 
         </template>
     </b-navbar>
@@ -190,5 +192,11 @@ export default {
 </script>
 
 <style scoped>
+    .logo{
+        height: 200px;
+    }
+
+
+
 
 </style>

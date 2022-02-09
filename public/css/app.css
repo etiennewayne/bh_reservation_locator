@@ -30046,6 +30046,23 @@ fieldset[disabled] .file-name, fieldset[disabled] .select select, .select fields
   padding: 0;
 }
 
+.navbar-menu.is-active {
+  background-color: #1844b4;
+}
+
+a.navbar-item, .navbar-link {
+  color: white;
+}
+
+a.navbar-item:hover {
+  color: blue;
+}
+
+.has-bg-img {
+  background: url("/img/banner.jpg") center center;
+  background-size: cover;
+}
+
 /*! bulma.io v0.9.3 | MIT License | github.com/jgthms/bulma */
 /* Bulma Utilities */
 .pagination-previous,

@@ -153,6 +153,20 @@ $navbar-item-img-max-height: 4rem;
 
 // Import Bulma and Buefy styles
 
+.navbar-menu.is-active {
+     background-color: $primary;
+}
+a.navbar-item, .navbar-link {
+    color: white;
+}
+
+a.navbar-item:hover {
+    color: blue;
+}
+
+.has-bg-img { background: url('/img/banner.jpg')center center; background-size:cover; }
+
+
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 

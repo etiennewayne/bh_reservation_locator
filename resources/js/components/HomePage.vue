@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="hero is-primary is-fullheight-with-navbar">
+        <section class="hero is-primary is-fullheight-with-navbar has-bg-img">
             <!-- Hero content: will be in the middle -->
             <div class="hero-body">
                 <div class="">
@@ -81,9 +81,14 @@
 </template>
 
 <script>
-import SearchBoardingHouses from './SearchBoardingHouses.vue'
+
 export default {
-  components: { SearchBoardingHouses },
+
 
 }
 </script>
+
+
+<style scoped>
+
+</style>
