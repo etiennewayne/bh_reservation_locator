@@ -34,6 +34,8 @@ Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/register', App\Http\Controllers\RegisterPageController::class);
+Route::post('/register-landowner', [App\Http\Controllers\RegisterPageController::class, 'saveLandOwner']);
+Route::post('/register-boarder', [App\Http\Controllers\RegisterPageController::class, 'saveBoarder']);
 
 
 
@@ -92,6 +94,10 @@ Route::post('/removeboarder-boarder-list/{boarder_id}', [App\Http\Controllers\La
 
 Route::get('get-boarder-bill/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'showPaymentDetails']);
 
+//BOARDER PAYMENT LANDOWNER SIDE
+Route::resource('/boarder-payment', App\Http\Controllers\LandOwner\BoarderPaymentController::class);
+Route::get('/get-boarder-payment', [App\Http\Controllers\LandOwner\BoarderPaymentController::class, 'getBoarderPayment']);
+Route::post('/boarder-payment-mark-paid/{payment_detail_id}', [App\Http\Controllers\LandOwner\BoarderPaymentController::class, 'markPaid']);
 
 
 

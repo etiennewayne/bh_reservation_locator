@@ -19,6 +19,16 @@ class PaymentDetailController extends Controller
 
         $date =  $req->npayment_date;
         $ndate = date("Y-m-d", strtotime($date));
+        //$ndate = date("m", strtotime($date));
+
+        $dateexist = PaymentDetail::where('date_pay', $ndate)->exists();
+        if($dateexist){
+            return response()->json([
+                'errors' => [
+                    'payment_date' => ['Bill already sent.']
+                ]
+            ], 422);
+        }
 
         PaymentDetail::updateOrCreate([
             'date_pay' => $ndate,

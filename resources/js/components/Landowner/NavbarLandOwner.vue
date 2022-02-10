@@ -41,6 +41,10 @@
                             <b-menu-item label="Boarder List" icon="clipboard-list" tag="a" href="/boarder-list"></b-menu-item>
                         </b-menu-list>
 
+                        <b-menu-list>
+                            <b-menu-item label="Boarder payments" icon="clipboard-list" tag="a" href="/boarder-payment"></b-menu-item>
+                        </b-menu-list>
+
                         <b-menu-list label="Actions">
                             <b-menu-item @click="logout" label="Logout"></b-menu-item>
                         </b-menu-list>

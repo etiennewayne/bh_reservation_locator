@@ -15,7 +15,8 @@ class RegisterPageController extends Controller
 
 
 
-    function saveBoarder($req){
+    function saveBoarder(Request $req){
+
         $validate = $req->validate([
             'username' => ['required', 'string', 'max:30', 'unique:users'],
             'password' => ['required', 'string', 'max:30', 'confirmed'],
@@ -38,6 +39,7 @@ class RegisterPageController extends Controller
             'street' => ['required'],
         ]);
 
+
         User::create([
             'username' => $req->username,
             'lname' => strtoupper($req->lname),
@@ -59,9 +61,15 @@ class RegisterPageController extends Controller
 
             'password' => Hash::make($req->password),
         ]);
+
+        return response()->json([
+            'status' => 'saved'
+        ],200);
+
     }
 
-    function saveLandOwner($req){
+    function saveLandOwner(Request $req){
+
         $validate = $req->validate([
             'username' => ['required', 'string', 'max:30', 'unique:users'],
             'password' => ['required', 'string', 'max:30', 'confirmed'],
@@ -91,7 +99,6 @@ class RegisterPageController extends Controller
         }
 
 
-
         User::create([
             'username' => $req->username,
             'lname' => strtoupper($req->lname),
@@ -101,12 +108,19 @@ class RegisterPageController extends Controller
             'role' => strtoupper($req->role),
             'email' => $req->email,
             'contact_no' => $req->contact_no,
+            'business_permit_img' => $n[2],
             'province' => strtoupper($req->province),
             'city' => strtoupper($req->city),
             'barangay' => strtoupper($req->barangay),
             'street' => strtoupper($req->street),
             'password' => Hash::make($req->password),
         ]);
+
+        return response()->json([
+            'status' => 'saved'
+        ],200);
+
+
     }
     public function store(Request $req){
 

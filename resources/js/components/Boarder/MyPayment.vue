@@ -105,7 +105,7 @@
                                                 </template>
 
                                                 <b-dropdown-item aria-role="listitem" @click="openModalAttachment(props.row)">Attach Payment Receipt</b-dropdown-item>
-                                                <b-dropdown-item aria-role="listitem" @click="openQRModal(props.row)">Show QR</b-dropdown-item>
+<!--                                                <b-dropdown-item aria-role="listitem" @click="openQRModal(props.row)">Show QR</b-dropdown-item>-->
 
 
 

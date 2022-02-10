@@ -492,7 +492,10 @@ export default{
         //execute delete after confirming
         deleteSubmit(delete_id) {
             axios.delete('/users/' + delete_id).then(res => {
-                this.loadAsyncData();
+                if(res.data.status === 'deleted'){
+                    this.loadAsyncData();
+                }
+
             }).catch(err => {
                 if (err.response.status === 422) {
                     this.errors = err.response.data.errors;

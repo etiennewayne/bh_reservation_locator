@@ -218,7 +218,7 @@ export default {
             formData.append('role', this.fields.role);
 
 
-            axios.post('/register', formData).then(res=>{
+            axios.post('/register-landowner', formData).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
                         title: 'SAVED!',

@@ -5,17 +5,17 @@
                 <div class="column">
 
                     <div class="columns is-centered">
-                        <div class="column is-8">
+                        <div class="column is-10">
                             <div class="panel">
                                 <div class="panel-heading">
-                                    BOARDER RESERVATION
+                                    BOARDER PAYMENT LIST
                                 </div>
 
                                 <div class="panel-body">
 
                                     <div class="level">
                                         <div class="level-left">
-                                            <b-field label="Page">
+                                            <b-field label="Page" label-position="on-border">
                                                 <b-select v-model="perPage" @input="setPerPage">
                                                     <option value="5">5 per page</option>
                                                     <option value="10">10 per page</option>
@@ -32,9 +32,12 @@
 
                                         <div class="level-right">
                                             <div class="level-item">
-                                                <b-field label="Search">
+                                                <b-field label="Search" label-position="on-border">
                                                     <b-input type="text"
                                                              v-model="search.bedspace" placeholder="Search Bedspace"
+                                                             @keyup.native.enter="loadAsyncData"/>
+                                                    <b-input type="text"
+                                                             v-model="search.lname" placeholder="Search Last Name"
                                                              @keyup.native.enter="loadAsyncData"/>
                                                     <p class="control">
                                                         <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
@@ -43,10 +46,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!--                                    <div class="buttons mt-3 is-right">-->
-                                    <!--                                        <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>-->
-                                    <!--                                    </div>-->
 
                                     <b-table
                                         :data="data"
@@ -64,27 +63,33 @@
                                         :default-sort-direction="defaultSortDirection"
                                         @sort="onSort">
 
-                                        <b-table-column field="book_bedspace_id" label="ID" v-slot="props">
-                                            {{ props.row.book_bedspace_id }}
+                                        <b-table-column field="payment_detail_id" label="ID" v-slot="props">
+                                            {{ props.row.payment_detail_id }}
                                         </b-table-column>
 
-                                        <b-table-column field="bedspace_name" label="Bed Space Name" v-slot="props">
-                                            {{ props.row.bedspace_name }}
-                                        </b-table-column>
-
-                                        <b-table-column field="boarder_name" label="Boarder Name" v-slot="props">
+                                        <b-table-column field="name" label="Name" v-slot="props">
                                             {{ props.row.lname }}, {{ props.row.fname }} {{ props.row.mname }}
                                         </b-table-column>
 
-                                        <b-table-column field="price" label="Rental Price" v-slot="props">
-                                            {{ props.row.rental_price }}
+                                        <b-table-column field="bedspace_name" label="Bed Space House" v-slot="props">
+                                            {{ props.row.bedspace_name }}
                                         </b-table-column>
 
-                                        <b-table-column field="is_approved" label="Status" v-slot="props">
-                                            <span v-if="props.row.approval_status === 'PENDING'">PENDING</span>
-                                            <span v-else-if="props.row.approval_status === 'CANCELLED'">CANCELLED</span>
-                                            <span v-else-if="props.row.approval_status === 'APPROVED'">APPROVED</span>
-                                            <span v-else>PENDING</span>
+                                        <b-table-column field="date_pay" label="Date Pay" v-slot="props">
+                                            {{ props.row.date_pay }}
+                                        </b-table-column>
+
+                                        <b-table-column field="payment_status" label="Payment Status" v-slot="props">
+                                            {{ props.row.payment_status }}
+                                        </b-table-column>
+
+                                        <b-table-column field="receipt_img" label="Receipt" v-slot="props" centered>
+                                            <span v-if="props.row.receipt_img">
+                                                 <b-icon icon="check" type="is-success"></b-icon>
+                                            </span>
+                                            <span v-else>
+                                                <b-icon icon="minus-circle-outline" type="is-danger"></b-icon>
+                                            </span>
                                         </b-table-column>
 
                                         <b-table-column label="Action" v-slot="props">
@@ -97,8 +102,12 @@
                                                         :icon-right="active ? 'menu-up' : 'menu-down'" />
                                                 </template>
 
-                                                <b-dropdown-item aria-role="listitem" @click="openProofTransactionModal(props.row)">Proof of Transaction</b-dropdown-item>
-                                                <b-dropdown-item aria-role="listitem" @click="cancelReservation(props.row)">Cancel Reservation</b-dropdown-item>
+
+                                                <b-dropdown-item aria-role="listitem" @click="showModalTransaction(props.row)">Show Proof of Transaction</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="maskAsPaid(props.row)">Mark as Paid</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" tag="a" :href="`boarder-payment-receipt/${props.row.payment_detail_id}`">Show Receipt</b-dropdown-item>
+
+
                                             </b-dropdown>
                                             <!-- <div class="is-flex">
                                                 <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
@@ -118,7 +127,10 @@
 
 
 
-        <!--modal create-->
+
+
+
+        <!--modal show bill-->
         <b-modal v-model="modalProofTransaction" has-modal-card
                  trap-focus
                  :width="640"
@@ -126,7 +138,7 @@
                  aria-label="Modal"
                  aria-modal>
 
-            <form @submit.prevent="submitApproved">
+            <form @submit.prevent="submitSendBill">
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Proof of Transaction</p>
@@ -138,34 +150,23 @@
 
                     <section class="modal-card-body">
                         <div class="">
-                            <div class="columns is-centered">
-                                <div class="column is-8">
-                                    <b-field label="Set Start Date"
-                                             :type="this.errors.nstart_date ? 'is-danger':''"
-                                             :message="this.errors.nstart_date ? this.errors.nstart_date[0] : ''">
-                                        <b-datepicker v-model="fields.start_date" requried></b-datepicker>
-                                    </b-field>
-                                    <b-field label="Proof of Transaction">
-                                        <img :src="`/storage/prooftrans/${proofTransURL}`" />
-                                    </b-field>
-
-
-                                </div><!-- column -->
-                            </div>
+                            <h1 class="title is-6">RECEIPT</h1>
+                            <img :src="`/storage/payment_receipt/${rawData.receipt_img}`" />
                         </div>
                     </section>
                     <footer class="modal-card-foot">
                         <b-button
                             label="Close"
                             @click="modalProofTransaction=false"/>
-                        <button v-if="editRowData.approval_status !== 'APPROVED'"
-                            label="Save"
-                            class="button is-link">APPROVED</button>
+                        <b-button v-if="rawData.receipt_img"
+                            label="Mark As Paid"
+                            @click="submitMarkPaid(rawData.payment_detail_id)"/>
                     </footer>
                 </div>
             </form><!--close form-->
         </b-modal>
-        <!--close modal-->
+        <!--close show modal bill-->
+
 
     </div>
 </template>
@@ -174,12 +175,13 @@
 <script>
 
 export default{
+
     data(){
         return{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'book_bedspace_id',
+            sortField: 'boarder_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 5,
@@ -187,30 +189,27 @@ export default{
 
             search: {
                 bedspace: '',
+                lname: '',
             },
 
             fields: {
-                start_date: null,
-                nstart_date: null,
+                payment_date: new Date(),
+                npayment_date: null,
             },
-            errors: {},
 
             modalProofTransaction: false,
 
-            global_bookbedspace_id: 0,
+            rawData: {},
+
+            bhouses: [],
+            bhouse: '',
+
 
             btnClass: {
                 'is-success': true,
                 'button': true,
                 'is-loading':false,
             },
-
-            dropFiles: null,
-
-            proofTransURL: '',
-
-            editRowData: {},
-
         }
     },
     methods: {
@@ -221,11 +220,14 @@ export default{
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `perpage=${this.perPage}`,
+                `bedspace=${this.search.bedspace}`,
+                `lname=${this.search.lname}`,
+                `bhousename=${this.bhouse}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-boarder-reservation?${params}`)
+            axios.get(`/get-boarder-payment?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -234,7 +236,7 @@ export default{
                     }
 
                     this.total = currentTotal
-                    data.data.forEach((item) => {
+                    data.forEach((item) => {
                         //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
                         this.data.push(item)
                     })
@@ -265,74 +267,62 @@ export default{
             this.loadAsyncData()
         },
 
-        openProofTransactionModal(rowData){
-            this.editRowData = rowData;
-            this.global_bookbedspace_id = rowData.book_bedspace_id;
+
+        showModalTransaction(row){
             this.modalProofTransaction = true;
-            this.proofTransURL = rowData.proof_transaction;
+            this.rawData = row;
         },
 
+        submitSendBill: function(){
+            this.fields.boarder_id = this.rawData.boarder_id;
+            let d = new Date();
+            this.fields.npayment_date = new Date(d.getFullYear(), d.getMonth(), this.fields.payment_date.getDate()).toLocaleDateString();
 
-        submitUpload: function(){
-            var formData = new FormData();
-            formData.append('proof_transaction', this.dropFiles);
-
-            axios.post('/upload-proof-transaction/' + this.global_bookbedspace_id, formData).then(res=>{
-                if(res.data.status === 'uploaded'){
+            axios.post('/boarder-submit-bill', this.fields).then(res=>{
+                if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
-                        title: 'UPLOADED!',
-                        message: 'Uploaded successfully.',
+                        title: 'SAVED!',
+                        message: 'Save successfully.',
                         type: 'is-success',
                         onConfirm: ()=> {
                             this.loadAsyncData();
-                            this.modalProofTransaction = false;
-                            this.dropFiles = null;
+                            this.modalSendBill = false;
+                            this.rawData = {};
                         }
                     });
                 }
             })
         },
 
-        submitApproved: function(){
-            if(!this.fields.start_date){
-                alert('Please select start data.');
-                return false;
+
+
+        maskAsPaid(row){
+            if(!row.receipt_img){
+                this.$buefy.toast.open({
+                    message: 'No uploaded receipt.',
+                    type: 'is-danger'
+                });
+                return;
             }
-
-            this.fields.nstart_date = this.fields.start_date.toLocaleDateString();
-
-            axios.post('/boarder-reservation-approved/' + this.global_bookbedspace_id, this.fields).then(res=>{
-                if(res.data.status==='approved'){
-                    this.$buefy.dialog.alert({
-                        title: "APPROVED!",
-                        message: 'Boarder successfully approved.',
-                        type: 'is-success',
-                        onConfirm: ()=> {
-                            this.loadAsyncData();
-                            this.modalProofTransaction = false;
-                        }
-                    });
-                }
-            }).catch(err=>{
-                if(err.response.status === 422){
-                    this.errors = err.response.data.errors;
-                }
-            })
-        },
-
-        cancelReservation(row){
             this.$buefy.dialog.confirm({
-                title: 'CANCEL?',
-                type: 'is-danger',
-                message: 'Are you sure you want to cancel this reservation?',
+                title: 'MARK AS PAID?',
+                type: 'is-warning',
+                message: 'Are you sure you want to mark this as paid?',
                 cancelText: 'Cancel',
-                confirmText: 'Delete?',
-                onConfirm: () => this.submitCancellReservation(row.book_bedspace_id)
+                confirmText: 'MARK PAID?',
+                onConfirm: () => this.submitMarkPaid(row.payment_detail_id)
             });
         },
-        submitCancellReservation(dataId){
-            axios.post('/boarder-reservation-cancel/' + dataId).then(res => {
-                this.loadAsyncData();
+
+        submitMarkPaid: function(dataid){
+            axios.post('/boarder-payment-mark-paid/' + dataid).then(res => {
+                if(res.data.status === 'paid'){
+                    this.$buefy.toast.open({
+                        message: 'Successfully mark as paid.',
+                        type: 'is-success'
+                    });
+                    this.loadAsyncData();
+                }
             }).catch(err => {
                 if (err.response.status === 422) {
                     this.errors = err.response.data.errors;

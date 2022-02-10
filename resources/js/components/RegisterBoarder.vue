@@ -5,7 +5,7 @@
           BOARDER REGISTRATION
       </h1>
       <form @submit.prevent="submit">
-        
+
         <div class="columns">
             <div class="column">
                 <b-field label="Username"
@@ -32,7 +32,7 @@
         </div>
 
         <div class="columns">
-            
+
         </div>
 
         <div class="columns">
@@ -91,7 +91,7 @@
                     <b-input type="text" placeholder="Contact No" v-model="fields.contact_no"></b-input>
                 </b-field>
             </div>
-            
+
         </div>
 
 
@@ -111,7 +111,7 @@
                 </b-field>
             </div>
         </div>
-       
+
         <div class="columns">
             <div class="column">
                 <b-field label="Guardian Address" expanded
@@ -121,7 +121,7 @@
                 </b-field>
             </div>
         </div>
-  
+
 
 
         <hr>
@@ -171,7 +171,7 @@
         <div class="buttons is-right">
             <button :class="btnClass" >Register</button>
         </div>
-      
+
     </form> <!-- form -->
   </div>
 </template>
@@ -199,7 +199,7 @@ export default {
         submit: function(){
             this.btnClass['is-loading'] = true;
             this.fields.role = 'BOARDER';
-            axios.post('/register', this.fields).then(res=>{
+            axios.post('/register-boarder', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
                         title: 'SAVED!',

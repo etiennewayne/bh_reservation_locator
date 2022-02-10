@@ -40,6 +40,7 @@ class BoarderListController extends Controller
                 'b.bedspace_desc', 'b.price', 'b.is_booked', 'c.room_no', 'c.room_desc', 'e.lname', 'e.fname', 'e.mname', 'e.user_id', 'e.role')
             ->where('d.user_id', $userid)
             ->where('a.is_active', 1)
+            ->where('b.bedspace_name', 'like',$req->bedspace . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -48,10 +49,12 @@ class BoarderListController extends Controller
 
 
     public function showPaymentDetails($id){
-        return PaymentDetail::where('payment_detail_id', $id)
+        return PaymentDetail::where('boarder_id', $id)
             ->orderBy('payment_detail_id', 'desc')
             ->paginate(5);
     }
+
+
     public function removeBoarder($id){
 
         $data = Boarder::find($id);

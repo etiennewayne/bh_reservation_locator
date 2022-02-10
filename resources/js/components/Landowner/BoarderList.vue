@@ -162,8 +162,10 @@
                         <div class="">
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Payment Date">
-                                        <b-datepicker v-model="fields.payment_date"></b-datepicker>
+                                    <b-field label="Payment Date"
+                                             :type="this.errors.payment_date ? 'is-danger':''"
+                                             :message="this.errors.payment_date ? this.errors.payment_date[0] : ''">
+                                        <b-datepicker type="month" v-model="fields.payment_date"></b-datepicker>
                                     </b-field>
                                     <b-field label="Amount to pay">
                                         <b-numberinput v-model="fields.amount_to_pay"></b-numberinput>
@@ -272,8 +274,10 @@ export default{
             perPage: 5,
             defaultSortDirection: 'asc',
 
+
             dataBill: [],
             totalBill: 0,
+            perPageBill: 5,
             loadingBill: false,
             defaultSortDirectionBill: 'asc',
 
@@ -285,6 +289,7 @@ export default{
                 payment_date: new Date(),
                 npayment_date: null,
             },
+            errors: {},
 
             modalSendBill: false,
             modalShowBill: false,
@@ -310,6 +315,7 @@ export default{
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `perpage=${this.perPage}`,
+                `bedspace=${this.search.bedspace}`,
                 `bhousename=${this.bhouse}`,
                 `page=${this.page}`
             ].join('&')
@@ -403,6 +409,7 @@ export default{
         openSendBill(row){
             this.modalSendBill = true;
             this.rawData = row;
+            console.log(this.rawData)
             this.fields.payment_date = new Date(row.date_acceptance);
             this.fields.amount_to_pay = row.rental_price;
         },
@@ -410,8 +417,10 @@ export default{
         submitSendBill: function(){
             this.fields.boarder_id = this.rawData.boarder_id;
             let d = new Date();
-            this.fields.npayment_date = new Date(d.getFullYear(), d.getMonth(), this.fields.payment_date.getDate()).toLocaleDateString();
+            let acceptanceDate = new Date(this.rawData.date_acceptance);
 
+            this.fields.npayment_date = new Date(d.getFullYear(), this.fields.payment_date.getMonth(), acceptanceDate.getDate()).toLocaleDateString();
+            //this.fields.npayment_date = new Date(this.fields.payment_date).toLocaleDateString();
             axios.post('/boarder-submit-bill', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
@@ -425,7 +434,11 @@ export default{
                         }
                     });
                 }
-            })
+            }).catch(err=>{
+                if(err.response.status === 422){
+
+                }
+            });
         },
 
 
@@ -464,7 +477,7 @@ export default{
     },
 
     mounted() {
-        //this.loadBhouses();
+        this.loadBhouses();
         this.loadAsyncData();
     }
 

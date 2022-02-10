@@ -8592,12 +8592,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    propData: {
-      type: String,
-      "default": ''
-    }
-  },
+  props: {},
   data: function data() {
     return {
       data: [],
@@ -8722,13 +8717,11 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
-    },
-    initData: function initData() {
-      this.data = JSON.parse(this.propData);
     }
   },
   mounted: function mounted() {
-    this.initData();
+    //this.initData();
+    this.loadAsyncData();
   }
 });
 
@@ -9241,7 +9234,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this7 = this;
 
       axios["delete"]('/users/' + delete_id).then(function (res) {
-        _this7.loadAsyncData();
+        if (res.data.status === 'deleted') {
+          _this7.loadAsyncData();
+        }
       })["catch"](function (err) {
         if (err.response.status === 422) {
           _this7.errors = err.response.data.errors;
@@ -11349,6 +11344,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11362,6 +11359,7 @@ __webpack_require__.r(__webpack_exports__);
       defaultSortDirection: 'asc',
       dataBill: [],
       totalBill: 0,
+      perPageBill: 5,
       loadingBill: false,
       defaultSortDirectionBill: 'asc',
       search: {
@@ -11371,6 +11369,7 @@ __webpack_require__.r(__webpack_exports__);
         payment_date: new Date(),
         npayment_date: null
       },
+      errors: {},
       modalSendBill: false,
       modalShowBill: false,
       rawData: {},
@@ -11390,7 +11389,7 @@ __webpack_require__.r(__webpack_exports__);
     loadAsyncData: function loadAsyncData() {
       var _this = this;
 
-      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "perpage=".concat(this.perPage), "bhousename=".concat(this.bhouse), "page=".concat(this.page)].join('&');
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "perpage=".concat(this.perPage), "bedspace=".concat(this.search.bedspace), "bhousename=".concat(this.bhouse), "page=".concat(this.page)].join('&');
       this.loading = true;
       axios.get("/get-boarder-list?".concat(params)).then(function (_ref) {
         var data = _ref.data;
@@ -11475,6 +11474,7 @@ __webpack_require__.r(__webpack_exports__);
     openSendBill: function openSendBill(row) {
       this.modalSendBill = true;
       this.rawData = row;
+      console.log(this.rawData);
       this.fields.payment_date = new Date(row.date_acceptance);
       this.fields.amount_to_pay = row.rental_price;
     },
@@ -11483,7 +11483,9 @@ __webpack_require__.r(__webpack_exports__);
 
       this.fields.boarder_id = this.rawData.boarder_id;
       var d = new Date();
-      this.fields.npayment_date = new Date(d.getFullYear(), d.getMonth(), this.fields.payment_date.getDate()).toLocaleDateString();
+      var acceptanceDate = new Date(this.rawData.date_acceptance);
+      this.fields.npayment_date = new Date(d.getFullYear(), this.fields.payment_date.getMonth(), acceptanceDate.getDate()).toLocaleDateString(); //this.fields.npayment_date = new Date(this.fields.payment_date).toLocaleDateString();
+
       axios.post('/boarder-submit-bill', this.fields).then(function (res) {
         if (res.data.status === 'saved') {
           _this3.$buefy.dialog.alert({
@@ -11498,6 +11500,8 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
         }
+      })["catch"](function (err) {
+        if (err.response.status === 422) {}
       });
     },
     confirmRemoveBoarder: function confirmRemoveBoarder(dataId) {
@@ -11537,7 +11541,343 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    //this.loadBhouses();
+    this.loadBhouses();
+    this.loadAsyncData();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      data: [],
+      total: 0,
+      loading: false,
+      sortField: 'boarder_id',
+      sortOrder: 'desc',
+      page: 1,
+      perPage: 5,
+      defaultSortDirection: 'asc',
+      search: {
+        bedspace: '',
+        lname: ''
+      },
+      fields: {
+        payment_date: new Date(),
+        npayment_date: null
+      },
+      modalProofTransaction: false,
+      rawData: {},
+      bhouses: [],
+      bhouse: '',
+      btnClass: {
+        'is-success': true,
+        'button': true,
+        'is-loading': false
+      }
+    };
+  },
+  methods: {
+    /*
+    * Load async data
+    */
+    loadAsyncData: function loadAsyncData() {
+      var _this = this;
+
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "perpage=".concat(this.perPage), "bedspace=".concat(this.search.bedspace), "lname=".concat(this.search.lname), "bhousename=".concat(this.bhouse), "page=".concat(this.page)].join('&');
+      this.loading = true;
+      axios.get("/get-boarder-payment?".concat(params)).then(function (_ref) {
+        var data = _ref.data;
+        _this.data = [];
+        var currentTotal = data.total;
+
+        if (data.total / _this.perPage > 1000) {
+          currentTotal = _this.perPage * 1000;
+        }
+
+        _this.total = currentTotal;
+        data.forEach(function (item) {
+          //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+          _this.data.push(item);
+        });
+        _this.loading = false;
+      })["catch"](function (error) {
+        _this.data = [];
+        _this.total = 0;
+        _this.loading = false;
+        throw error;
+      });
+    },
+
+    /*
+    * Handle page-change event
+    */
+    onPageChange: function onPageChange(page) {
+      this.page = page;
+      this.loadAsyncData();
+    },
+    onSort: function onSort(field, order) {
+      this.sortField = field;
+      this.sortOrder = order;
+      this.loadAsyncData();
+    },
+    setPerPage: function setPerPage() {
+      this.loadAsyncData();
+    },
+    showModalTransaction: function showModalTransaction(row) {
+      this.modalProofTransaction = true;
+      this.rawData = row;
+    },
+    submitSendBill: function submitSendBill() {
+      var _this2 = this;
+
+      this.fields.boarder_id = this.rawData.boarder_id;
+      var d = new Date();
+      this.fields.npayment_date = new Date(d.getFullYear(), d.getMonth(), this.fields.payment_date.getDate()).toLocaleDateString();
+      axios.post('/boarder-submit-bill', this.fields).then(function (res) {
+        if (res.data.status === 'saved') {
+          _this2.$buefy.dialog.alert({
+            title: 'SAVED!',
+            message: 'Save successfully.',
+            type: 'is-success',
+            onConfirm: function onConfirm() {
+              _this2.loadAsyncData();
+
+              _this2.modalSendBill = false;
+              _this2.rawData = {};
+            }
+          });
+        }
+      });
+    },
+    maskAsPaid: function maskAsPaid(row) {
+      var _this3 = this;
+
+      if (!row.receipt_img) {
+        this.$buefy.toast.open({
+          message: 'No uploaded receipt.',
+          type: 'is-danger'
+        });
+        return;
+      }
+
+      this.$buefy.dialog.confirm({
+        title: 'MARK AS PAID?',
+        type: 'is-warning',
+        message: 'Are you sure you want to mark this as paid?',
+        cancelText: 'Cancel',
+        confirmText: 'MARK PAID?',
+        onConfirm: function onConfirm() {
+          return _this3.submitMarkPaid(row.payment_detail_id);
+        }
+      });
+    },
+    submitMarkPaid: function submitMarkPaid(dataid) {
+      var _this4 = this;
+
+      axios.post('/boarder-payment-mark-paid/' + dataid).then(function (res) {
+        if (res.data.status === 'paid') {
+          _this4.$buefy.toast.open({
+            message: 'Successfully mark as paid.',
+            type: 'is-success'
+          });
+
+          _this4.loadAsyncData();
+        }
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this4.errors = err.response.data.errors;
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
     this.loadAsyncData();
   }
 });
@@ -11555,6 +11895,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -12556,6 +12899,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
@@ -13414,7 +13761,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.btnClass['is-loading'] = true;
       this.fields.role = 'BOARDER';
-      axios.post('/register', this.fields).then(function (res) {
+      axios.post('/register-boarder', this.fields).then(function (res) {
         if (res.data.status === 'saved') {
           _this.$buefy.dialog.alert({
             title: 'SAVED!',
@@ -13696,7 +14043,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('barangay', this.fields.barangay);
       formData.append('street', this.fields.street);
       formData.append('role', this.fields.role);
-      axios.post('/register', formData).then(function (res) {
+      axios.post('/register-landowner', formData).then(function (res) {
         if (res.data.status === 'saved') {
           _this.$buefy.dialog.alert({
             title: 'SAVED!',
@@ -32312,6 +32659,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-car
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-377e4445] {\n    overflow: visible !important;\n}\n.modal-card-body[data-v-377e4445] {\n    overflow: visible !important;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderReservation.vue?vue&type=style&index=0&id=5025578b&scoped=true&lang=css& ***!
@@ -32976,6 +33347,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_style_index_0_id_7d426aef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_style_index_0_id_377e4445_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_style_index_0_id_377e4445_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_style_index_0_id_377e4445_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -34144,6 +34545,47 @@ component.options.__file = "resources/js/components/Landowner/BoarderList.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Landowner/BoarderPayment.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/Landowner/BoarderPayment.vue ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BoarderPayment_vue_vue_type_template_id_377e4445_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BoarderPayment.vue?vue&type=template&id=377e4445&scoped=true& */ "./resources/js/components/Landowner/BoarderPayment.vue?vue&type=template&id=377e4445&scoped=true&");
+/* harmony import */ var _BoarderPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BoarderPayment.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/BoarderPayment.vue?vue&type=script&lang=js&");
+/* harmony import */ var _BoarderPayment_vue_vue_type_style_index_0_id_377e4445_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css& */ "./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _BoarderPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BoarderPayment_vue_vue_type_template_id_377e4445_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BoarderPayment_vue_vue_type_template_id_377e4445_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "377e4445",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Landowner/BoarderPayment.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Landowner/BoarderReservation.vue":
 /*!******************************************************************!*\
   !*** ./resources/js/components/Landowner/BoarderReservation.vue ***!
@@ -34864,6 +35306,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Landowner/BoarderPayment.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/BoarderPayment.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderPayment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Landowner/BoarderReservation.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************!*\
   !*** ./resources/js/components/Landowner/BoarderReservation.vue?vue&type=script&lang=js& ***!
@@ -35156,6 +35614,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_style_index_0_id_7d426aef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=style&index=0&id=7d426aef&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_style_index_0_id_377e4445_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=style&index=0&id=377e4445&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -35506,6 +35977,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_template_id_7d426aef_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderList_vue_vue_type_template_id_7d426aef_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderList.vue?vue&type=template&id=7d426aef&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderList.vue?vue&type=template&id=7d426aef&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Landowner/BoarderPayment.vue?vue&type=template&id=377e4445&scoped=true&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/BoarderPayment.vue?vue&type=template&id=377e4445&scoped=true& ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_template_id_377e4445_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_template_id_377e4445_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoarderPayment_vue_vue_type_template_id_377e4445_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoarderPayment.vue?vue&type=template&id=377e4445&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=template&id=377e4445&scoped=true&");
 
 
 /***/ }),
@@ -38563,7 +39051,7 @@ var render = function () {
                 _c("div", { staticClass: "panel" }, [
                   _c("div", { staticClass: "panel-heading" }, [
                     _vm._v(
-                      "\n                                MY PAYMENT\n                            "
+                      "\n                                    MY PAYMENT\n                                "
                     ),
                   ]),
                   _vm._v(" "),
@@ -38737,9 +39225,9 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                        " +
+                                      "\n                                            " +
                                         _vm._s(props.row.payment_detail_id) +
-                                        "\n                                    "
+                                        "\n                                        "
                                     ),
                                   ]
                                 },
@@ -38755,13 +39243,13 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                        " +
+                                      "\n                                            " +
                                         _vm._s(
                                           new Date(
                                             props.row.date_pay
                                           ).toLocaleDateString()
                                         ) +
-                                        "\n                                    "
+                                        "\n                                        "
                                     ),
                                   ]
                                 },
@@ -38780,9 +39268,9 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                        " +
+                                      "\n                                            " +
                                         _vm._s(props.row.bedspace_name) +
-                                        "\n                                    "
+                                        "\n                                        "
                                     ),
                                   ]
                                 },
@@ -38801,9 +39289,9 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                        " +
+                                      "\n                                            " +
                                         _vm._s(props.row.rental_price) +
-                                        "\n                                    "
+                                        "\n                                        "
                                     ),
                                   ]
                                 },
@@ -38819,9 +39307,9 @@ var render = function () {
                                 fn: function (props) {
                                   return [
                                     _vm._v(
-                                      "\n                                        " +
+                                      "\n                                            " +
                                         _vm._s(props.row.payment_status) +
-                                        "\n                                    "
+                                        "\n                                        "
                                     ),
                                   ]
                                 },
@@ -38922,21 +39410,6 @@ var render = function () {
                                             },
                                           },
                                           [_vm._v("Attach Payment Receipt")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-dropdown-item",
-                                          {
-                                            attrs: { "aria-role": "listitem" },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.openQRModal(
-                                                  props.row
-                                                )
-                                              },
-                                            },
-                                          },
-                                          [_vm._v("Show QR")]
                                         ),
                                       ],
                                       1
@@ -39079,9 +39552,9 @@ var render = function () {
                             _vm.dropFiles
                               ? _c("span", { staticClass: "tag is-primary" }, [
                                   _vm._v(
-                                    "\n                                        " +
+                                    "\n                                            " +
                                       _vm._s(_vm.dropFiles.name) +
-                                      "\n                                        "
+                                      "\n                                            "
                                   ),
                                   _c("button", {
                                     staticClass: "delete is-small",
@@ -41617,9 +42090,20 @@ var render = function () {
                         [
                           _c(
                             "b-field",
-                            { attrs: { label: "Payment Date" } },
+                            {
+                              attrs: {
+                                label: "Payment Date",
+                                type: this.errors.payment_date
+                                  ? "is-danger"
+                                  : "",
+                                message: this.errors.payment_date
+                                  ? this.errors.payment_date[0]
+                                  : "",
+                              },
+                            },
                             [
                               _c("b-datepicker", {
+                                attrs: { type: "month" },
                                 model: {
                                   value: _vm.fields.payment_date,
                                   callback: function ($$v) {
@@ -41874,6 +42358,592 @@ var staticRenderFns = [
     ])
   },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=template&id=377e4445&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/BoarderPayment.vue?vue&type=template&id=377e4445&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "columns" }, [
+          _c("div", { staticClass: "column" }, [
+            _c("div", { staticClass: "columns is-centered" }, [
+              _c("div", { staticClass: "column is-10" }, [
+                _c("div", { staticClass: "panel" }, [
+                  _c("div", { staticClass: "panel-heading" }, [
+                    _vm._v(
+                      "\n                                BOARDER PAYMENT LIST\n                            "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "panel-body" },
+                    [
+                      _c("div", { staticClass: "level" }, [
+                        _c(
+                          "div",
+                          { staticClass: "level-left" },
+                          [
+                            _c(
+                              "b-field",
+                              {
+                                attrs: {
+                                  label: "Page",
+                                  "label-position": "on-border",
+                                },
+                              },
+                              [
+                                _c(
+                                  "b-select",
+                                  {
+                                    on: { input: _vm.setPerPage },
+                                    model: {
+                                      value: _vm.perPage,
+                                      callback: function ($$v) {
+                                        _vm.perPage = $$v
+                                      },
+                                      expression: "perPage",
+                                    },
+                                  },
+                                  [
+                                    _c("option", { attrs: { value: "5" } }, [
+                                      _vm._v("5 per page"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "10" } }, [
+                                      _vm._v("10 per page"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "15" } }, [
+                                      _vm._v("15 per page"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "20" } }, [
+                                      _vm._v("20 per page"),
+                                    ]),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-select",
+                                  {
+                                    on: { input: _vm.loadAsyncData },
+                                    model: {
+                                      value: _vm.sortOrder,
+                                      callback: function ($$v) {
+                                        _vm.sortOrder = $$v
+                                      },
+                                      expression: "sortOrder",
+                                    },
+                                  },
+                                  [
+                                    _c("option", { attrs: { value: "asc" } }, [
+                                      _vm._v("ASC"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "desc" } }, [
+                                      _vm._v("DESC"),
+                                    ]),
+                                  ]
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "level-right" }, [
+                          _c(
+                            "div",
+                            { staticClass: "level-item" },
+                            [
+                              _c(
+                                "b-field",
+                                {
+                                  attrs: {
+                                    label: "Search",
+                                    "label-position": "on-border",
+                                  },
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Search Bedspace",
+                                    },
+                                    nativeOn: {
+                                      keyup: function ($event) {
+                                        if (
+                                          !$event.type.indexOf("key") &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "enter",
+                                            13,
+                                            $event.key,
+                                            "Enter"
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        return _vm.loadAsyncData.apply(
+                                          null,
+                                          arguments
+                                        )
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.search.bedspace,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.search, "bedspace", $$v)
+                                      },
+                                      expression: "search.bedspace",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Search Last Name",
+                                    },
+                                    nativeOn: {
+                                      keyup: function ($event) {
+                                        if (
+                                          !$event.type.indexOf("key") &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "enter",
+                                            13,
+                                            $event.key,
+                                            "Enter"
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        return _vm.loadAsyncData.apply(
+                                          null,
+                                          arguments
+                                        )
+                                      },
+                                    },
+                                    model: {
+                                      value: _vm.search.lname,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.search, "lname", $$v)
+                                      },
+                                      expression: "search.lname",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "p",
+                                    { staticClass: "control" },
+                                    [
+                                      _c("b-button", {
+                                        attrs: {
+                                          type: "is-primary",
+                                          "icon-right": "account-filter",
+                                        },
+                                        on: { click: _vm.loadAsyncData },
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-table",
+                        {
+                          attrs: {
+                            data: _vm.data,
+                            loading: _vm.loading,
+                            paginated: "",
+                            "backend-pagination": "",
+                            total: _vm.total,
+                            "per-page": _vm.perPage,
+                            "aria-next-label": "Next page",
+                            "aria-previous-label": "Previous page",
+                            "aria-page-label": "Page",
+                            "aria-current-label": "Current page",
+                            "backend-sorting": "",
+                            "default-sort-direction": _vm.defaultSortDirection,
+                          },
+                          on: {
+                            "page-change": _vm.onPageChange,
+                            sort: _vm.onSort,
+                          },
+                        },
+                        [
+                          _c("b-table-column", {
+                            attrs: { field: "payment_detail_id", label: "ID" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.payment_detail_id) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "name", label: "Name" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.lname) +
+                                        ", " +
+                                        _vm._s(props.row.fname) +
+                                        " " +
+                                        _vm._s(props.row.mname) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "bedspace_name",
+                              label: "Bed Space House",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.bedspace_name) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "date_pay", label: "Date Pay" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.date_pay) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "payment_status",
+                              label: "Payment Status",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.payment_status) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "receipt_img",
+                              label: "Receipt",
+                              centered: "",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    props.row.receipt_img
+                                      ? _c(
+                                          "span",
+                                          [
+                                            _c("b-icon", {
+                                              attrs: {
+                                                icon: "check",
+                                                type: "is-success",
+                                              },
+                                            }),
+                                          ],
+                                          1
+                                        )
+                                      : _c(
+                                          "span",
+                                          [
+                                            _c("b-icon", {
+                                              attrs: {
+                                                icon: "minus-circle-outline",
+                                                type: "is-danger",
+                                              },
+                                            }),
+                                          ],
+                                          1
+                                        ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { label: "Action" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _c(
+                                      "b-dropdown",
+                                      {
+                                        attrs: { "aria-role": "list" },
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "trigger",
+                                              fn: function (ref) {
+                                                var active = ref.active
+                                                return [
+                                                  _c("b-button", {
+                                                    staticClass: "is-small",
+                                                    attrs: {
+                                                      label: "...",
+                                                      type: "is-primary",
+                                                      "icon-right": active
+                                                        ? "menu-up"
+                                                        : "menu-down",
+                                                    },
+                                                  }),
+                                                ]
+                                              },
+                                            },
+                                          ],
+                                          null,
+                                          true
+                                        ),
+                                      },
+                                      [
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-dropdown-item",
+                                          {
+                                            attrs: { "aria-role": "listitem" },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.showModalTransaction(
+                                                  props.row
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Show Proof of Transaction")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-dropdown-item",
+                                          {
+                                            attrs: { "aria-role": "listitem" },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.maskAsPaid(props.row)
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Mark as Paid")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-dropdown-item",
+                                          {
+                                            attrs: {
+                                              "aria-role": "listitem",
+                                              tag: "a",
+                                              href:
+                                                "boarder-payment-receipt/" +
+                                                props.row.payment_detail_id,
+                                            },
+                                          },
+                                          [_vm._v("Show Receipt")]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.modalProofTransaction,
+            callback: function ($$v) {
+              _vm.modalProofTransaction = $$v
+            },
+            expression: "modalProofTransaction",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submitSendBill.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Proof of Transaction"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.modalProofTransaction = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("h1", { staticClass: "title is-6" }, [
+                      _vm._v("RECEIPT"),
+                    ]),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: {
+                        src:
+                          "/storage/payment_receipt/" + _vm.rawData.receipt_img,
+                      },
+                    }),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  { staticClass: "modal-card-foot" },
+                  [
+                    _c("b-button", {
+                      attrs: { label: "Close" },
+                      on: {
+                        click: function ($event) {
+                          _vm.modalProofTransaction = false
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.rawData.receipt_img
+                      ? _c("b-button", {
+                          attrs: { label: "Mark As Paid" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.submitMarkPaid(
+                                _vm.rawData.payment_detail_id
+                              )
+                            },
+                          },
+                        })
+                      : _vm._e(),
+                  ],
+                  1
+                ),
+              ]),
+            ]
+          ),
+        ]
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -42347,11 +43417,18 @@ var render = function () {
                             1
                           ),
                           _vm._v(" "),
-                          _c("img", {
-                            attrs: {
-                              src: "/storage/prooftrans/" + _vm.proofTransURL,
-                            },
-                          }),
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Proof of Transaction" } },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src:
+                                    "/storage/prooftrans/" + _vm.proofTransURL,
+                                },
+                              }),
+                            ]
+                          ),
                         ],
                         1
                       ),
@@ -43344,6 +44421,21 @@ var render = function () {
                             icon: "clipboard-list",
                             tag: "a",
                             href: "/boarder-list",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-menu-list",
+                      [
+                        _c("b-menu-item", {
+                          attrs: {
+                            label: "Boarder payments",
+                            icon: "clipboard-list",
+                            tag: "a",
+                            href: "/boarder-payment",
                           },
                         }),
                       ],
@@ -69431,6 +70523,7 @@ var map = {
 	"./components/HomePage.vue": "./resources/js/components/HomePage.vue",
 	"./components/Landowner/Bedspace/BoardingHouseBedspace.vue": "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue",
 	"./components/Landowner/BoarderList.vue": "./resources/js/components/Landowner/BoarderList.vue",
+	"./components/Landowner/BoarderPayment.vue": "./resources/js/components/Landowner/BoarderPayment.vue",
 	"./components/Landowner/BoarderReservation.vue": "./resources/js/components/Landowner/BoarderReservation.vue",
 	"./components/Landowner/BoardingHouse.vue": "./resources/js/components/Landowner/BoardingHouse.vue",
 	"./components/Landowner/BoardingHouseCreate.vue": "./resources/js/components/Landowner/BoardingHouseCreate.vue",

@@ -155,10 +155,7 @@
 export default{
 
     props: {
-        propData:{
-            type: String,
-            default: ''
-        },
+
     },
     data() {
         return{
@@ -291,14 +288,11 @@ export default{
         },
 
 
-        initData: function(){
-            this.data = JSON.parse(this.propData);
-        },
-
     },
 
     mounted() {
-        this.initData();
+        //this.initData();
+        this.loadAsyncData();
 
     }
 }

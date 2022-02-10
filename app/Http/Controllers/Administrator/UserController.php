@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -227,6 +228,12 @@ class UserController extends Controller
 
 
     public function destroy($id){
+        $data = User::find($id);
+
+        if(Storage::exists('public/bpermits/'. $data->business_permit_img)){
+            Storage::delete('public/bpermits/'. $data->business_permit_img);
+        }
+
         User::destroy($id);
 
         return response()->json([
