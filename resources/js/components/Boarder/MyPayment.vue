@@ -105,6 +105,7 @@
                                                 </template>
 
                                                 <b-dropdown-item aria-role="listitem" @click="openModalAttachment(props.row)">Attach Payment Receipt</b-dropdown-item>
+                                                <b-dropdown-item v-if="props.row.receipt_img" aria-role="listitem" tag="a" :href="`/my-payment-receipt/${props.row.payment_detail_id}`">Show Receipt</b-dropdown-item>
 <!--                                                <b-dropdown-item aria-role="listitem" @click="openQRModal(props.row)">Show QR</b-dropdown-item>-->
 
 

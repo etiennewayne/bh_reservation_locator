@@ -98,7 +98,7 @@ Route::get('get-boarder-bill/{boarder_id}', [App\Http\Controllers\LandOwner\Boar
 Route::resource('/boarder-payment', App\Http\Controllers\LandOwner\BoarderPaymentController::class);
 Route::get('/get-boarder-payment', [App\Http\Controllers\LandOwner\BoarderPaymentController::class, 'getBoarderPayment']);
 Route::post('/boarder-payment-mark-paid/{payment_detail_id}', [App\Http\Controllers\LandOwner\BoarderPaymentController::class, 'markPaid']);
-
+Route::get('/boarder-payment-receipt/{payment_detail_id}', [App\Http\Controllers\LandOwner\BoarderPaymentController::class, 'getReceiptInfo']);
 
 
 //Payment details
@@ -154,6 +154,8 @@ Route::post('/my-reservation-cancel/{bedspace_id}', [App\Http\Controllers\Boarde
 
 
 Route::get('/my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'index']);
+Route::get('/my-payment-receipt/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getReceiptInfo']);
+
 Route::get('/get-my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPayment']);
 Route::post('/submit-receipt/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'submitReceipt']);
 

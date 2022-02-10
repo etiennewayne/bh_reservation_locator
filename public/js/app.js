@@ -9598,6 +9598,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propData: {
@@ -39411,6 +39412,22 @@ var render = function () {
                                           },
                                           [_vm._v("Attach Payment Receipt")]
                                         ),
+                                        _vm._v(" "),
+                                        props.row.receipt_img
+                                          ? _c(
+                                              "b-dropdown-item",
+                                              {
+                                                attrs: {
+                                                  "aria-role": "listitem",
+                                                  tag: "a",
+                                                  href:
+                                                    "/my-payment-receipt/" +
+                                                    props.row.payment_detail_id,
+                                                },
+                                              },
+                                              [_vm._v("Show Receipt")]
+                                            )
+                                          : _vm._e(),
                                       ],
                                       1
                                     ),
@@ -42809,19 +42826,21 @@ var render = function () {
                                           [_vm._v("Mark as Paid")]
                                         ),
                                         _vm._v(" "),
-                                        _c(
-                                          "b-dropdown-item",
-                                          {
-                                            attrs: {
-                                              "aria-role": "listitem",
-                                              tag: "a",
-                                              href:
-                                                "boarder-payment-receipt/" +
-                                                props.row.payment_detail_id,
-                                            },
-                                          },
-                                          [_vm._v("Show Receipt")]
-                                        ),
+                                        props.row.receipt_img
+                                          ? _c(
+                                              "b-dropdown-item",
+                                              {
+                                                attrs: {
+                                                  "aria-role": "listitem",
+                                                  tag: "a",
+                                                  href:
+                                                    "boarder-payment-receipt/" +
+                                                    props.row.payment_detail_id,
+                                                },
+                                              },
+                                              [_vm._v("Show Receipt")]
+                                            )
+                                          : _vm._e(),
                                       ],
                                       1
                                     ),
