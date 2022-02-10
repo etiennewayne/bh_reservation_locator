@@ -98,6 +98,7 @@
                                                 </template>
 
                                                 <b-dropdown-item aria-role="listitem" @click="openProofTransactionModal(props.row)">Proof of Transaction</b-dropdown-item>
+                                                <b-dropdown-item aria-role="listitem" @click="cancelReservation(props.row)">Cancel Reservation</b-dropdown-item>
                                             </b-dropdown>
                                             <!-- <div class="is-flex">
                                                 <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
@@ -314,6 +315,26 @@ export default{
                     this.errors = err.response.data.errors;
                 }
             })
+        },
+
+        cancelReservation(row){
+            this.$buefy.dialog.confirm({
+                title: 'CANCEL?',
+                type: 'is-danger',
+                message: 'Are you sure you want to cancel this reservation?',
+                cancelText: 'Cancel',
+                confirmText: 'Delete?',
+                onConfirm: () => this.submitCancellReservation(row.book_bedspace_id)
+            });
+        },
+        submitCancellReservation(dataId){
+            axios.post('/boarder-reservation-cancel/' + dataId).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
         },
 
 

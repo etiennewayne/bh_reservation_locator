@@ -21,6 +21,8 @@ class CreateBoardersTable extends Migration
             $table->unsignedBigInteger('boarder_user_id');
             $table->foreign('boarder_user_id')->references('user_id')->on('users');
             $table->unsignedBigInteger('bedspace_id');
+            $table->unsignedBigInteger('book_bedspace_id');
+            $table->foreign('book_bedspace_id')->references('book_bedspace_id')->on('book_bedspaces');
             $table->foreign('bedspace_id')->references('bedspace_id')->on('bedspaces');
             $table->date('date_acceptance');
             $table->double('rental_price');

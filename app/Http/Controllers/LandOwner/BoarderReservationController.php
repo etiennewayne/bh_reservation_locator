@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\LandOwner;
 
 use App\Http\Controllers\Controller;
+use App\Models\BedSpace;
 use App\Models\Boarder;
 use App\Models\BookBedSpace;
 use App\Models\Payment;
@@ -88,6 +89,7 @@ class BoarderReservationController extends Controller
                 'qr_ref' => $qr_code,
                 'boarder_user_id' => $data->book_user_id,
                 'bedspace_id' => $data->bedspace_id,
+                'book_bedspace_id' => $book_bedspace_id,
                 'rental_price' => $data->rental_price,
                 'date_acceptance' => $nstart_date,
             ]
@@ -95,6 +97,30 @@ class BoarderReservationController extends Controller
 
         return response()->json([
             'status' => 'approved'
+        ],200);
+    }
+
+
+    public function cancelReservation($id){
+
+        $bookBedspace = BookBedSpace::find($id);
+        $bookBedspace->approval_status = 'CANCELLED';
+        $bookBedspace->save();
+
+        $boarder = Boarder::where('book_bedspace_id', $id)
+            ->update([
+                'is_active' => 0
+            ]);
+
+
+        $data = BedSpace::where('bedspace_id', $bookBedspace->bedspace_id)
+            ->update([
+                'is_booked' => 0
+            ]);
+
+
+        return response()->json([
+            'status' => 'cancelled'
         ],200);
     }
 

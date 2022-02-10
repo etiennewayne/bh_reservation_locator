@@ -82,6 +82,7 @@ Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoard
 Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBhouses']);
 
 Route::post('/boarder-reservation-approved/{book_bedspace_id}', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'approvedReservation']);
+Route::post('/boarder-reservation-cancel/{book_bedspace_id}', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'cancelReservation']);
 
 //LADN OWNER ->>>BOADER LIST
 Route::resource('/boarder-list', App\Http\Controllers\LandOwner\BoarderListController::class);

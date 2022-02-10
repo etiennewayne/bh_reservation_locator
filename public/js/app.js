@@ -11724,6 +11724,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11854,6 +11855,31 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         if (err.response.status === 422) {
           _this3.errors = err.response.data.errors;
+        }
+      });
+    },
+    cancelReservation: function cancelReservation(row) {
+      var _this4 = this;
+
+      this.$buefy.dialog.confirm({
+        title: 'CANCEL?',
+        type: 'is-danger',
+        message: 'Are you sure you want to cancel this reservation?',
+        cancelText: 'Cancel',
+        confirmText: 'Delete?',
+        onConfirm: function onConfirm() {
+          return _this4.submitCancellReservation(row.book_bedspace_id);
+        }
+      });
+    },
+    submitCancellReservation: function submitCancellReservation(dataId) {
+      var _this5 = this;
+
+      axios.post('/boarder-reservation-cancel/' + dataId).then(function (res) {
+        _this5.loadAsyncData();
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this5.errors = err.response.data.errors;
         }
       });
     }
@@ -32303,7 +32329,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-5025578b] {\r\n    overflow: visible !important;\n}\n.modal-card-body[data-v-5025578b] {\r\n    overflow: visible !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-5025578b] {\n    overflow: visible !important;\n}\n.modal-card-body[data-v-5025578b] {\n    overflow: visible !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42201,6 +42227,21 @@ var render = function () {
                                             },
                                           },
                                           [_vm._v("Proof of Transaction")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-dropdown-item",
+                                          {
+                                            attrs: { "aria-role": "listitem" },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.cancelReservation(
+                                                  props.row
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Cancel Reservation")]
                                         ),
                                       ],
                                       1

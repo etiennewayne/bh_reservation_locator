@@ -14,7 +14,7 @@ class Boarder extends Model
     protected $primaryKey = 'boarder_id';
 
 
-    protected $fillable = ['qr_ref', 'boarder_user_id', 'bedspace_id', 'date_acceptance','rental_price', 'active'];
+    protected $fillable = ['qr_ref', 'boarder_user_id', 'bedspace_id', 'book_bedspace_id', 'date_acceptance','rental_price', 'active'];
 
     public function user(){
         return $this->hasOne(User::class, 'user_id', 'boarder_user_id');
