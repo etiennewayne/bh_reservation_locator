@@ -39615,7 +39615,6 @@ var render = function () {
                                   _c("button", {
                                     staticClass: "delete is-small",
                                     attrs: { type: "button" },
-                                    on: { click: function ($event) {} },
                                   }),
                                 ])
                               : _vm._e(),

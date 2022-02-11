@@ -174,7 +174,7 @@
                                     <div class="tags">
                                         <span v-if="dropFiles" class="tag is-primary" >
                                             {{dropFiles.name}}
-                                            <button class="delete is-small" type="button" @click=""></button>
+                                            <button class="delete is-small" type="button"></button>
                                         </span>
                                     </div>
                                 </div><!-- column -->
@@ -307,6 +307,7 @@ export default{
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
+
                     if (data.total / this.perPage > 1000) {
                         currentTotal = this.perPage * 1000
                     }
