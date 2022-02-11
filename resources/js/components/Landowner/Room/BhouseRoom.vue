@@ -74,7 +74,7 @@
                                     {{ props.row.room_no }}
                                 </b-table-column>
 
-                                <b-table-column field="room_desc" label="Bhouse Name" v-slot="props">
+                                <b-table-column field="room_desc" label="Bhouse Description" v-slot="props">
                                     {{ props.row.room_desc }}
                                 </b-table-column>
 
@@ -89,7 +89,7 @@
                                                 :icon-right="active ? 'menu-up' : 'menu-down'" />
                                         </template>
 
-                                        <b-dropdown-item aria-role="listitem" @click="openLink(props.row.bhouse_id)">Modify</b-dropdown-item>
+                                        <b-dropdown-item aria-role="listitem" @click="openModal(props.row.room_id)">Modify</b-dropdown-item>
                                         <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + global_bhouse_id + `/` + props.row.room_id">Bed Space</b-dropdown-item>
                                         <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.room_id)">Delete</b-dropdown-item>
 
@@ -285,16 +285,46 @@ export default {
         },
 
         openModal(id){
+        
+            if(id > 0){
+                this.getData(id);
+            }
+            this.global_room_id = id;
             this.fields = {};
             this.errors = {};
-            this.global_room_id = id;
-
             this.modalForm = true;
         },
 
+        getData(id){
+            axios.get('/get-boarding-house-room-edit/' + id).then(res=>{
+                this.fields = res.data;
+            })
+        },
+
         submit: function(){
+        
             if(this.global_room_id > 0){
                 //update
+                axios.post('/boarding-house-rooms-update/' + this.global_room_id, this.fields).then(res=>{
+                    if(res.data.status === 'updated'){
+                        this.modalForm =false;
+                        this.$buefy.dialog.alert({
+                            title: 'UPDATED!',
+                            message: 'Successfully updated.',
+                            type: 'is-success',
+                            onConfirm: ()=>{
+                                this.loadAsyncData();
+                                this.fields = {};
+                                this.errors = {}
+                            }
+                        });
+                    }
+                }).catch(err=>{
+                    if(err.response.status === 422){
+                        this.errors = err.response.data.errors;
+                    }
+                });
+
             }else{
                 //insert
                 var formData = new FormData();

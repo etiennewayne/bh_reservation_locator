@@ -44,6 +44,10 @@ class LandOwnerRoomController extends Controller
         return $data;
     }
 
+    public function getBhouseRoomEdit($id){
+        return Room::find($id);
+    }
+
     public function store(Request $req, $id){
 
         $req->validate([
@@ -73,6 +77,24 @@ class LandOwnerRoomController extends Controller
 
         return response()->json([
             'status' => 'saved'
+        ]);
+    }
+
+    public function update(Request $req, $id){
+
+        $req->validate([
+            'room_no' => ['required', 'max: 100'],
+            'room_desc' => ['required'],
+        ]);
+
+        $data = Room::find($id);
+        $data->room_no = strtoupper($req->room_no);
+        $data->room_desc = strtoupper($req->room_desc);
+        $data->save();
+       
+
+        return response()->json([
+            'status' => 'updated'
         ]);
     }
 

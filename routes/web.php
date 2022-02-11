@@ -108,9 +108,14 @@ Route::post('/boarder-submit-bill', [App\Http\Controllers\LandOwner\PaymentDetai
 //BOARDING HOUSE ROOMS LAND OWNER
 Route::get('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'index']);
 Route::post('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'store']);
+Route::post('/boarding-house-rooms-update/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'update']);
+
 
 Route::get('/get-boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getRooms']);
 Route::delete('/boarding-house-room-delete/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'destroy']);
+
+Route::get('/get-boarding-house-room-edit/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getBhouseRoomEdit']);
+
 
 Route::get('/boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'index']);
 Route::get('/get-boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'getBoarderReservation']);

@@ -12602,6 +12602,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -13217,15 +13223,48 @@ __webpack_require__.r(__webpack_exports__);
       this.loadAsyncData();
     },
     openModal: function openModal(id) {
+      if (id > 0) {
+        this.getData(id);
+      }
+
+      this.global_room_id = id;
       this.fields = {};
       this.errors = {};
-      this.global_room_id = id;
       this.modalForm = true;
     },
-    submit: function submit() {
+    getData: function getData(id) {
       var _this2 = this;
 
-      if (this.global_room_id > 0) {//update
+      axios.get('/get-boarding-house-room-edit/' + id).then(function (res) {
+        _this2.fields = res.data;
+      });
+    },
+    submit: function submit() {
+      var _this3 = this;
+
+      if (this.global_room_id > 0) {
+        //update
+        axios.post('/boarding-house-rooms-update/' + this.global_room_id, this.fields).then(function (res) {
+          if (res.data.status === 'updated') {
+            _this3.modalForm = false;
+
+            _this3.$buefy.dialog.alert({
+              title: 'UPDATED!',
+              message: 'Successfully updated.',
+              type: 'is-success',
+              onConfirm: function onConfirm() {
+                _this3.loadAsyncData();
+
+                _this3.fields = {};
+                _this3.errors = {};
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this3.errors = err.response.data.errors;
+          }
+        });
       } else {
         //insert
         var formData = new FormData();
@@ -13234,23 +13273,23 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('room_img_path', this.fields.room_img_path ? this.fields.room_img_path : '');
         axios.post('/boarding-house-rooms/' + this.global_bhouse_id, formData).then(function (res) {
           if (res.data.status === 'saved') {
-            _this2.modalForm = false;
+            _this3.modalForm = false;
 
-            _this2.$buefy.dialog.alert({
+            _this3.$buefy.dialog.alert({
               title: 'SAVED!',
               message: 'Successfully saved.',
               type: 'is-success',
               onConfirm: function onConfirm() {
-                _this2.loadAsyncData();
+                _this3.loadAsyncData();
 
-                _this2.fields = {};
-                _this2.errors = {};
+                _this3.fields = {};
+                _this3.errors = {};
               }
             });
           }
         })["catch"](function (err) {
           if (err.response.status === 422) {
-            _this2.errors = err.response.data.errors;
+            _this3.errors = err.response.data.errors;
           }
         });
       }
@@ -13260,7 +13299,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     //alert box ask for deletion
     confirmDelete: function confirmDelete(delete_id) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$buefy.dialog.confirm({
         title: 'DELETE!',
@@ -13269,19 +13308,19 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Delete?',
         onConfirm: function onConfirm() {
-          return _this3.deleteSubmit(delete_id);
+          return _this4.deleteSubmit(delete_id);
         }
       });
     },
     //execute delete after confirming
     deleteSubmit: function deleteSubmit(delete_id) {
-      var _this4 = this;
+      var _this5 = this;
 
       axios["delete"]('/boarding-house-room-delete/' + delete_id).then(function (res) {
-        _this4.loadAsyncData();
+        _this5.loadAsyncData();
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this4.errors = err.response.data.errors;
+          _this5.errors = err.response.data.errors;
         }
       });
     }
@@ -43961,6 +44000,35 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
+                    _c(
+                      "b-field",
+                      {
+                        attrs: {
+                          label: "BHOUSE DESC",
+                          type: this.errors.bhouse_desc ? "is-danger" : "",
+                          message: this.errors.bhouse_desc
+                            ? this.errors.bhouse_desc[0]
+                            : "",
+                        },
+                      },
+                      [
+                        _c("b-input", {
+                          attrs: {
+                            type: "textarea",
+                            placeholder: "Bhouse Description",
+                          },
+                          model: {
+                            value: _vm.fields.bhouse_desc,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.fields, "bhouse_desc", $$v)
+                            },
+                            expression: "fields.bhouse_desc",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
                     _vm._m(0),
                     _vm._v(" "),
                     _c(
@@ -44761,7 +44829,10 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("b-table-column", {
-                        attrs: { field: "room_desc", label: "Bhouse Name" },
+                        attrs: {
+                          field: "room_desc",
+                          label: "Bhouse Description",
+                        },
                         scopedSlots: _vm._u([
                           {
                             key: "default",
@@ -44822,8 +44893,8 @@ var render = function () {
                                         attrs: { "aria-role": "listitem" },
                                         on: {
                                           click: function ($event) {
-                                            return _vm.openLink(
-                                              props.row.bhouse_id
+                                            return _vm.openModal(
+                                              props.row.room_id
                                             )
                                           },
                                         },

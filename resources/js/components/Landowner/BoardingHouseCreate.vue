@@ -24,6 +24,12 @@
                                     <b-input type="textarea" v-model="fields.bhouse_rule" placeholder="Bhouse Rule" />
                                 </b-field>
 
+                                <b-field label="BHOUSE DESC"
+                                    :type="this.errors.bhouse_desc ? 'is-danger':''"
+                                    :message="this.errors.bhouse_desc ? this.errors.bhouse_desc[0] : ''">
+                                    <b-input type="textarea" v-model="fields.bhouse_desc" placeholder="Bhouse Description" />
+                                </b-field>
+
                                 <!-- <div v-if="global_bhouse_id < 1">
                                     <b-field label="ATTACH BUSINESS PERMIT"
                                             :type="this.errors.business_permit_imgpath ? 'is-danger':''"

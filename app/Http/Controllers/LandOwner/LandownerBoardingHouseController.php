@@ -66,6 +66,7 @@ class LandownerBoardingHouseController extends Controller
             'bhouse_name' => strtoupper($req->bhouse_name),
             'user_id' => $userid,
             'bhouse_rule' => $req->bhouse_rule,
+            'bhouse_desc' => $req->bhouse_desc,
             'long' => $req->long,
             'lat' => $req->lat,
             'province' => strtoupper($req->province),
@@ -99,6 +100,7 @@ class LandownerBoardingHouseController extends Controller
         $data = BoardingHouse::find($id);
         $data->bhouse_name = strtoupper($req->bhouse_name);
         $data->bhouse_rule = strtoupper($req->bhouse_rule);
+        $data->bhouse_desc = strtoupper($req->bhouse_desc);
         $data->long = strtoupper($req->long);
         $data->lat = strtoupper($req->lat);
 
