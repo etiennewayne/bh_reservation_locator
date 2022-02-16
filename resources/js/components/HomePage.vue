@@ -3,13 +3,16 @@
         <section class="hero is-primary is-fullheight-with-navbar has-bg-img">
             <!-- Hero content: will be in the middle -->
             <div class="hero-body">
-                <div class="">
-                    <p class="title animate__animated animate__backInLeft">
+                <div class="banner-wrapper animate__animated animate__backInLeft">
+                    <p class="title banner-text animate__animated animate__backInLeft">
                         BHLMS
                     </p>
-                    <p class="subtitle animate__animated animate__backInRight">
-                        Boarding House Locator and Manangement System
+                    <p class="subtitle banner-sub-text animate__animated animate__backInRight">
+                        A home away from home
                     </p>
+                    <blockquote>
+                        Choose the boarding house that appeals to you the most.
+                    </blockquote>
                 </div>
             </div>
 
@@ -90,5 +93,29 @@ export default {
 
 
 <style scoped>
+    .banner-wrapper{
+       
+        margin: auto;
+        padding: 40px;
+        background: rgb(46, 46, 46);
+        color:white;
+        border-radius: 10px;
+/*       
+        position: absolute;
+        top: 0; */
+       
+    }
+    .banner-text{
+        font-size: 5em;
+    }
 
+     .banner-sub-text{
+        font-size: 3em;
+    }
+
+    blockquote{
+        font-size: 1.5em; 
+        font-style: italic;   
+    }
+    
 </style>
