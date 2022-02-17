@@ -10340,7 +10340,8 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        _this2.bedspaces = res.data; //console.log(this.bedspaces)
+        _this2.bedspaces = res.data;
+        window.location.hash = "bedspaces"; //console.log(this.bedspaces)
       });
     },
     showImageModal: function showImageModal(bedspaceDataImg, bedspaceData) {
@@ -33022,7 +33023,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n       \n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n/*       \n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 5em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 3em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: 1.5em; \n        font-style: italic;\n}\n    \n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n\n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n/*\n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 5em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 3em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: 1.5em;\n        font-style: italic;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41115,7 +41116,7 @@ var render = function () {
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
+      _c("div", { staticClass: "section", attrs: { id: "bedspaces" } }, [
         _c("div", { staticClass: "columns" }, [
           _c(
             "div",
@@ -41589,22 +41590,6 @@ var staticRenderFns = [
                 _c("div", [
                   _vm._v(
                     "\n                              Home\n                            "
-                  ),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "p-5" }, [
-                _c("div", { staticClass: "footer-component-title" }, [
-                  _vm._v(
-                    "\n                                 Address\n                            "
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v(
-                    "\n                                Juan Luna St.\n                                Maloro, Tangub City\n                                Misamis Occidental\n                                Philippines\n                            "
                   ),
                 ]),
               ]),

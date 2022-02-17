@@ -31,7 +31,7 @@
 
         <hr>
 
-        <div class="section">
+        <div class="section" id="bedspaces">
             <div class="columns">
                 <div class="column">
                     <h1 class="title is-4 has-text-centered">BEDSPACE(S)</h1>
@@ -166,6 +166,7 @@ export default {
                 }
 
                 this.bedspaces = res.data;
+                window.location.hash = "bedspaces";
                 //console.log(this.bedspaces)
             });
         },
