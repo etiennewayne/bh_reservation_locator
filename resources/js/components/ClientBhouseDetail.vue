@@ -9,7 +9,7 @@
                         <div class="columns">
                             <div class="column">
                                 <div class="bhouse-image">
-                                    <img :src="`/storage/bhouse/${data.bhouse_img_path}`" />
+                                    <img :src="`/storage/bhouses/${data.bhouse_img_path}`" />
                                 </div>
                             </div>
                             <div class="column">

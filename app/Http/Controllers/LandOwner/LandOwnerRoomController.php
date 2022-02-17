@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use Auth;
 use App\Models\Room;
+use Illuminate\Support\Facades\Storage;
 
 class LandOwnerRoomController extends Controller
 {
@@ -73,8 +74,6 @@ class LandOwnerRoomController extends Controller
             'room_img_path' => $room_img_path[2] != null ? $room_img_path[2]: '',
         ]);
 
-
-
         return response()->json([
             'status' => 'saved'
         ]);
@@ -88,10 +87,28 @@ class LandOwnerRoomController extends Controller
         ]);
 
         $data = Room::find($id);
+
+        $room_img_path = null;
+        //upload image b house
+
+        $roomImgPath = $req->file('room_img_path');
+
+        if($roomImgPath){
+            //check the file and delete to update
+            if(Storage::exists('public/rooms/' .$data->room_img_path)) {
+                Storage::delete('public/rooms/' . $data->room_img_path);
+            }
+            $pathFile = $roomImgPath->store('public/rooms'); //get path of the file
+            $room_img_path = explode('/', $pathFile); //split into array using /
+        }
+
         $data->room_no = strtoupper($req->room_no);
         $data->room_desc = strtoupper($req->room_desc);
+        if($roomImgPath){
+            $data->room_img_path = $room_img_path[2];
+        }
         $data->save();
-       
+
 
         return response()->json([
             'status' => 'updated'
@@ -102,7 +119,7 @@ class LandOwnerRoomController extends Controller
     public function destroy($id){
         Room::destroy($id);
 
-        
+
         return response()->json([
             'status' => 'deleted'
         ]);

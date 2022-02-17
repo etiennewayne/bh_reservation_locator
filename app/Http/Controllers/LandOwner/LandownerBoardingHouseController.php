@@ -27,14 +27,14 @@ class LandownerBoardingHouseController extends Controller
     }
 
     public function show($id){
-        
+
         return BoardingHouse::find($id);
     }
 
 
     public function getBhouses(Request $req){
         $id = Auth::user()->user_id;
-        
+
         return BoardingHouse::where('user_id', $id)
             ->where('bhouse_name', 'like', $req->bhousename . '%')
             ->orderBy('bhouse_id', 'desc')
@@ -46,27 +46,40 @@ class LandownerBoardingHouseController extends Controller
     }
 
     public function store(Request $req){
-       
+
 
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
             'bhouse_rule' => ['required'],
+            'bhouse_img_path' => ['required', 'mimes:jpg,png,bmp'],
             'long' => ['required'],
             'lat' => ['required'],
             'province' => ['required'],
             'city' => ['required'],
             'barangay' => ['required'],
             'street' => ['required'],
+        ], $message = [
+            'bhouse_img_path.mimes' => 'Type of the file must be jpg, png or bmp.',
+            'bhouse_img_path.required' => 'Image is required.'
         ]);
 
 
         $userid = Auth::user()->user_id;
-        
+
+        $bhouseImg = null;
+        //upload image b house
+        $bhouseImg = $req->file('bhouse_img_path');
+        if($bhouseImg){
+            $pathFile = $bhouseImg->store('public/bhouses'); //get path of the file
+            $bhousePath = explode('/', $pathFile); //split into array using /
+        }
+
         BoardingHouse::create([
             'bhouse_name' => strtoupper($req->bhouse_name),
             'user_id' => $userid,
             'bhouse_rule' => $req->bhouse_rule,
             'bhouse_desc' => $req->bhouse_desc,
+            'bhouse_img_path' => $bhousePath[2] != null ? $bhousePath[2]: '',
             'long' => $req->long,
             'lat' => $req->lat,
             'province' => strtoupper($req->province),
@@ -89,6 +102,7 @@ class LandownerBoardingHouseController extends Controller
     }
 
     public function update(Request $req, $id){
+        //return $req;
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
             'bhouse_rule' => ['required', 'string'],
@@ -98,9 +112,29 @@ class LandownerBoardingHouseController extends Controller
 
 
         $data = BoardingHouse::find($id);
+
+        $bhouseImg = null;
+        //upload image b house
+
+        $bhouseImg = $req->file('bhouse_img_path');
+
+        if($bhouseImg){
+            //check the file and delete to update
+            if(Storage::exists('public/bhouses/' .$data->bhouse_img_path)) {
+                Storage::delete('public/bhouses/' . $data->bhouse_img_path);
+            }
+            $pathFile = $bhouseImg->store('public/bhouses'); //get path of the file
+            $bhousePath = explode('/', $pathFile); //split into array using /
+        }
+
         $data->bhouse_name = strtoupper($req->bhouse_name);
         $data->bhouse_rule = strtoupper($req->bhouse_rule);
         $data->bhouse_desc = strtoupper($req->bhouse_desc);
+
+        if($bhouseImg){
+            $data->bhouse_img_path = $bhousePath[2];
+        }
+
         $data->long = strtoupper($req->long);
         $data->lat = strtoupper($req->lat);
 
@@ -118,31 +152,11 @@ class LandownerBoardingHouseController extends Controller
 
 
     public function destroy($id){
-        
-        // $data = BoardingHouse::find($id);
-        // if($data != '' || $data != null){
-        //     if(Storage::exists('public/bpermit/'. $data->business_permit_imgpath)){
-        //         Storage::delete('public/bpermit/'. $data->business_permit_imgpath);
-        //     }
-
-        //     if(Storage::exists('public/bhouse/'. $data->bhouse_img_path)){
-        //         Storage::delete('public/bhouse/'. $data->bhouse_img_path);
-        //     }
-        // }
-
-        $data = BoardingHouse::destroy($id);
-
-
-    //    $bedspaces = BedSpace::where('bhouse_id', $id)->get();
-
-    //    foreach ($bedspaces as $path){
-    //        if($path->img_path != '' || $path->img_path != null){
-    //             if(Storage::exists('public/q/' .$path->img_path)){
-    //                 Storage::delete('public/q/' .$path->img_path);
-    //             }
-    //        }
-    //    }
-
+        $data = BoardingHouse::find($id);
+        if(Storage::exists('public/bhouses/' .$data->bhouse_img_path)) {
+            Storage::delete('public/bhouses/' . $data->bhouse_img_path);
+        }
+        BoardingHouse::destroy($id);
 
         return response()->json([
             'status' => 'deleted'

@@ -81,6 +81,8 @@ Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\Landowner
 
 //BOARDING HOUSE
 Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class);
+Route::post('/boarding-house-update/{id}', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'update']);
+
 Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBhouses']);
 
 Route::post('/boarder-reservation-approved/{book_bedspace_id}', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'approvedReservation']);
@@ -116,7 +118,6 @@ Route::delete('/boarding-house-room-delete/{id}', [App\Http\Controllers\LandOwne
 
 Route::get('/get-boarding-house-room-edit/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getBhouseRoomEdit']);
 
-
 Route::get('/boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'index']);
 Route::get('/get-boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'getBoarderReservation']);
 
@@ -137,6 +138,12 @@ Route::put('/boarding-house-bedspace-update/{id}', [App\Http\Controllers\LandOwn
 Route::get('/get-bhouse-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBhBedspaces']);
 Route::delete('/boarding-house-bedspace-delete/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'destroy']);
 
+//bedspace images
+Route::get('/boarding-house-bedspace/{bhid}/{roomid}/{bedspaceid}', [App\Http\Controllers\LandOwner\BedspaceImageController::class, 'index']);
+Route::post('/boarding-house-bedspace-store/{bedspaceid}', [App\Http\Controllers\LandOwner\BedspaceImageController::class, 'store']);
+
+Route::get('/get-bedspace-imgs/{bedspaceid}', [App\Http\Controllers\LandOwner\BedspaceImageController::class, 'getImages']);
+Route::delete('/bedspace-imgs-delete/{bedspaceid}', [App\Http\Controllers\LandOwner\BedspaceImageController::class, 'destroy']);
 
 
 

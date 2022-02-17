@@ -2,7 +2,7 @@
     <div>
         <div class="section">
             <div class="columns">
-                <div class="column is-8 is-offset-2">
+                <div class="column is-10 is-offset-1">
                     <div class="panel">
                         <div class="panel-heading">
                             BED SPACE
@@ -68,7 +68,7 @@
                                         </template>
 
                                         <b-dropdown-item aria-role="listitem" @click="openModal(props.row.bedspace_id)">Modify</b-dropdown-item>
-                                         <b-dropdown-item aria-role="listitem">List of Boarder</b-dropdown-item>
+                                        <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/${global_bh_id}/${global_room_id}/${props.row.bedspace_id}`">Show Images</b-dropdown-item>
                                         <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.bedspace_id)">Delete</b-dropdown-item>
 
                                     </b-dropdown>

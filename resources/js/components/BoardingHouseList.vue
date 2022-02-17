@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-image">
                         <figure class="image 5">
-                            <a @click="info(list.index)"><img :src="`/storage/bhouse/${list.bhouse_img_path}`"></a>
+                            <a @click="info(list.index)"><img class="bh-image" :src="`/storage/bhouses/${list.bhouse_img_path}`"></a>
                         </figure>
                         <!--                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>-->
                     </div>
@@ -31,19 +31,10 @@
                             <p class="subtitle is-7 mt-4">
                                 Located at: {{ list.street }}
                             </p>
+                        </div>
 
-                            <div class="buttons">
-                                <b-button type="is-link" icon-right="chevron-right" tag="a" :href="`/client-bhouse-detail/${list.bhouse_id}`">SEE MORE...</b-button>
-                            </div>
-
-                            <!-- <b-field grouped >
-                                <p class="control" v-if="list.rating">
-                                    <b-rate :value="list.rating" show-score disabled/>
-                                </p>
-                                <p class="control" style="margin-left: auto">
-                                    <b-button size="is-small" type="is-danger" icon-left="heart" outlined />
-                                </p>
-                            </b-field> -->
+                        <div class="buttons" style="position: absolute; bottom: 0;">
+                            <b-button type="is-link" icon-right="chevron-right" tag="a" :href="`/client-bhouse-detail/${list.bhouse_id}`">SEE MORE...</b-button>
                         </div>
                     </div>
                 </div>
@@ -130,5 +121,25 @@ export default {
     }
     .carousel-list{
         box-shadow: none;
+    }
+
+    .card{
+        height: 500px;
+    }
+    .card .card-image{
+        height: 200px;
+    }
+
+    .card-content{
+        position: relative;
+    }
+    .content{
+        height: 100%;
+
+    }
+
+    .bh-image{
+        height: 200px;
+        object-fit: cover;
     }
 </style>

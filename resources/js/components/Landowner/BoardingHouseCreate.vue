@@ -5,7 +5,7 @@
                 <div class="column is-8 is-offset-2">
 
                     <form @submit.prevent="submit">
-                        
+
                         <div class="panel is-primary">
                             <div class="panel-heading">
                                 NEW BOARDING HOUSE
@@ -45,21 +45,30 @@
                                         </b-upload>
                                     </b-field>
 
-                                    <b-field label="BHOUSE IMAGE"
-                                            :type="this.errors.bhouse_img_path ? 'is-danger':''"
-                                            :message="this.errors.bhouse_img_path ? this.errors.bhouse_img_path[0] : ''">
-                                        <b-upload v-model="fields.bhouse_img_path" class="file-label">
+
+                                </div> -->
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <div v-if="global_bhouse_id > 0">
+                                            <img :src="`/storage/bhouses/${fields.bhouse_img_path}`">
+                                        </div>
+                                        <b-field label="BHOUSE IMAGE"
+                                                 :type="this.errors.bhouse_img_path ? 'is-danger':''"
+                                                 :message="this.errors.bhouse_img_path ? this.errors.bhouse_img_path[0] : ''">
+                                            <b-upload v-model="fields.bhouse_img" class="file-label">
                                             <span class="file-cta">
                                                 <b-icon class="file-icon" icon="upload"></b-icon>
                                                 <span class="file-label">Click to upload</span>
                                             </span>
-                                            <span class="file-name" v-if="fields.bhouse_img_path">
-                                                {{ fields.bhouse_img_path.name }}
+                                                <span class="file-name" v-if="fields.bhouse_img">
+                                                {{ fields.bhouse_img.name }}
                                             </span>
-                                        </b-upload>
-                                    </b-field>
-                                </div> -->
-                                
+                                            </b-upload>
+                                        </b-field>
+                                    </div>
+                                </div>
+
 
                                 <div class="columns">
                                     <div class="column">
@@ -126,7 +135,7 @@
                                     </div>
                                 </div>
 
-                                
+
 
                             </div><!--panelbody-->
 
@@ -157,7 +166,7 @@ export default {
             type: String,
             default: '',
         }
-       
+
     },
 
     data(){
@@ -186,7 +195,7 @@ export default {
 
         loadMap(){
             //init map
-            
+
             var init_lat = 0, init_long = 0;
 
             //init coordinates
@@ -201,9 +210,9 @@ export default {
             }
 
             var mymap = L.map('mapid').setView([init_lat, init_long], 17);
-            
+
             //to call data inside nested function
-           
+
 
             L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -218,12 +227,12 @@ export default {
 
             //edit mode, if it has an ID
             if(this.global_bhouse_id > 0){
-                theMarker = L.marker([this.fields.lat,this.fields.long]).addTo(mymap);  
+                theMarker = L.marker([this.fields.lat,this.fields.long]).addTo(mymap);
             }
             var vm = this.fields;
 
             mymap.on('click', function(e) {
-              
+
                 //this.fields.lat = e.latlng.lat;
                 //this.fields.long = e.latlng.lng;
                 let lat = e.latlng.lat;
@@ -233,21 +242,32 @@ export default {
                     mymap.removeLayer(theMarker);
                 }
 
-                theMarker = L.marker([lat,long]).addTo(mymap);  
+                theMarker = L.marker([lat,long]).addTo(mymap);
                 //assign data to vm
                 vm.lat = lat;
                 vm.long = long;
             });
 
-                        
+
         },
 
         submit: function(){
             //console.log(this.global_bhouse_id);
+            var formData = new FormData();
+            formData.append('bhouse_name', this.fields.bhouse_name);
+            formData.append('bhouse_rule', this.fields.bhouse_rule);
+            formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
+            formData.append('lat', this.fields.lat);
+            formData.append('long', this.fields.long);
+
+            formData.append('province', this.fields.province);
+            formData.append('city', this.fields.city);
+            formData.append('barangay', this.fields.barangay);
+            formData.append('street', this.fields.street);
 
             if(this.global_bhouse_id > 0){
                 //udpate
-                axios.put('/boarding-house/' + this.global_bhouse_id, this.fields).then(res=>{
+                axios.post('/boarding-house-update/' + this.global_bhouse_id, formData).then(res=>{
                      if(res.data.status === 'updated'){
                         alert('Boarding house successfully updated.');
                         window.location = '/boarding-house';
@@ -258,24 +278,8 @@ export default {
                     }
                 });
             }else{
-
                 //insert
-                // var formData = new FormData();
-            
-                // formData.append('bhouse_name', this.fields.bhouse_name);
-                // formData.append('bhouse_rule', this.fields.bhouse_rule);
-                // formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
-                // formData.append('bhouse_img_path', this.fields.bhouse_img_path);
-                // formData.append('lat', this.fields.lat);
-                // formData.append('long', this.fields.long);
-
-                // formData.append('province', this.fields.province);
-                // formData.append('city', this.fields.city);
-                // formData.append('barangay', this.fields.barangay);
-                // formData.append('street', this.fields.street);
-            
-                axios.post('/boarding-house', this.fields).then(res=>{
-                   
+                axios.post('/boarding-house', formData).then(res=>{
                     if(res.data.status === 'saved'){
                         alert('Boarding house successfully saved.');
                         window.location = '/boarding-house';
@@ -286,10 +290,10 @@ export default {
                     }
                 });
             }
-            
+
         },
 
-       
+
 
         ///ADDRESS MODULE
         loadProvince: function(){
@@ -320,7 +324,7 @@ export default {
             }
         },
         getData: function(data_id){
-            
+
             this.isModalCreate = true;
 
             //nested axios for getting the address 1 by 1 or request by request
@@ -333,7 +337,7 @@ export default {
                     this.cities = res.data;
                     axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
                         this.barangays = res.data;
-                        
+
                         console.log(tempData.barangay);
                         this.fields.barangay = tempData.barangay;
                     });
@@ -348,12 +352,12 @@ export default {
         this.loadProvince();
         this.initData();
         this.loadMap();
-       
+
     }
 
 
 }
-        
+
 
 </script>
 

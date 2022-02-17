@@ -10122,15 +10122,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10663,6 +10654,278 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    propBhId: {
+      type: String,
+      "default": ''
+    },
+    propBhRoomId: {
+      type: String,
+      "default": ''
+    },
+    propBedspaceId: {
+      type: String,
+      "default": ''
+    }
+  },
+  data: function data() {
+    return {
+      data: [],
+      isModalCreate: false,
+      fields: {
+        bedspace_name: '',
+        bedspace_desc: '',
+        bedspaces: null
+      },
+      errors: {},
+      search: {
+        bhousename: ''
+      },
+      bedspaces: [],
+      btnClass: {
+        'is-success': true,
+        'button': true,
+        'is-loading': false
+      },
+      global_bh_id: 0,
+      global_room_id: 0,
+      global_bedspace_id: 0
+    };
+  },
+  methods: {
+    initData: function initData() {
+      this.global_room_id = parseInt(this.propBhRoomId);
+      this.global_bh_id = parseInt(this.propBhId);
+      this.global_bedspace_id = parseInt(this.propBedspaceId);
+    },
+
+    /*
+    * Load async data
+    */
+    loadAsyncData: function loadAsyncData() {
+      var _this = this;
+
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      this.loading = true;
+      axios.get("/get-bedspace-imgs/".concat(this.global_bedspace_id, "?").concat(params)).then(function (data) {
+        _this.data = data.data;
+      });
+    },
+    openModal: function openModal(id) {
+      this.isModalCreate = true;
+    },
+    deleteDropFile: function deleteDropFile(index) {
+      this.fields.bedspaces.splice(index, 1);
+    },
+    submit: function submit() {
+      var _this2 = this;
+
+      //insert
+      var formData = new FormData();
+
+      if (this.fields.bedspaces) {
+        this.fields.bedspaces.forEach(function (item) {
+          formData.append('bedspace_img_path[]', item);
+        });
+      }
+
+      axios.post('/boarding-house-bedspace-store/' + this.global_bedspace_id, formData).then(function (res) {
+        if (res.data.status === 'saved') {
+          _this2.isModalCreate = false;
+
+          _this2.$buefy.dialog.alert({
+            title: 'Success!',
+            message: 'Bedspace(s) successfully saved.',
+            type: 'is-success',
+            onConfirm: function onConfirm() {
+              _this2.loadAsyncData();
+            }
+          });
+        }
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this2.errors = err.response.data.errors;
+        }
+      });
+    },
+    //alert box ask for deletion
+    confirmDelete: function confirmDelete(delete_id) {
+      var _this3 = this;
+
+      this.$buefy.dialog.confirm({
+        title: 'DELETE!',
+        type: 'is-danger',
+        message: 'Are you sure you want to delete this image?',
+        cancelText: 'Cancel',
+        confirmText: 'Delete?',
+        onConfirm: function onConfirm() {
+          return _this3.deleteSubmit(delete_id);
+        }
+      });
+    },
+    //execute delete after confirming
+    deleteSubmit: function deleteSubmit(delete_id) {
+      var _this4 = this;
+
+      axios["delete"]('/bedspace-imgs-delete/' + delete_id).then(function (res) {
+        if (res.data.status === 'deleted') {
+          _this4.$buefy.toast.open({
+            message: 'Image deleted.',
+            type: 'is-success'
+          });
+
+          _this4.loadAsyncData();
+        }
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this4.errors = err.response.data.errors;
+        }
+      });
+    }
+  },
+  //end methods
+  mounted: function mounted() {
+    this.initData(); //this.loadBedspaceImgs();
+
+    this.loadAsyncData();
+  }
+});
 
 /***/ }),
 
@@ -12619,6 +12882,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -12702,9 +12974,20 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       //console.log(this.global_bhouse_id);
+      var formData = new FormData();
+      formData.append('bhouse_name', this.fields.bhouse_name);
+      formData.append('bhouse_rule', this.fields.bhouse_rule);
+      formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
+      formData.append('lat', this.fields.lat);
+      formData.append('long', this.fields["long"]);
+      formData.append('province', this.fields.province);
+      formData.append('city', this.fields.city);
+      formData.append('barangay', this.fields.barangay);
+      formData.append('street', this.fields.street);
+
       if (this.global_bhouse_id > 0) {
         //udpate
-        axios.put('/boarding-house/' + this.global_bhouse_id, this.fields).then(function (res) {
+        axios.post('/boarding-house-update/' + this.global_bhouse_id, formData).then(function (res) {
           if (res.data.status === 'updated') {
             alert('Boarding house successfully updated.');
             window.location = '/boarding-house';
@@ -12716,18 +12999,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         //insert
-        // var formData = new FormData();
-        // formData.append('bhouse_name', this.fields.bhouse_name);
-        // formData.append('bhouse_rule', this.fields.bhouse_rule);
-        // formData.append('business_permit_imgpath', this.fields.business_permit_imgpath);
-        // formData.append('bhouse_img_path', this.fields.bhouse_img_path);
-        // formData.append('lat', this.fields.lat);
-        // formData.append('long', this.fields.long);
-        // formData.append('province', this.fields.province);
-        // formData.append('city', this.fields.city);
-        // formData.append('barangay', this.fields.barangay);
-        // formData.append('street', this.fields.street);
-        axios.post('/boarding-house', this.fields).then(function (res) {
+        axios.post('/boarding-house', formData).then(function (res) {
           if (res.data.status === 'saved') {
             alert('Boarding house successfully saved.');
             window.location = '/boarding-house';
@@ -13150,6 +13422,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -13174,11 +13509,13 @@ __webpack_require__.r(__webpack_exports__);
       global_bhouse_id: 0,
       global_room_id: 0,
       modalForm: false,
+      modalShowRoom: false,
       fields: {},
       errors: {},
       search: {
         room_no: ''
       },
+      room: {},
       btnClass: {
         'is-success': true,
         'button': true,
@@ -13253,9 +13590,14 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this3 = this;
 
+      var formData = new FormData();
+      formData.append('room_no', this.fields.room_no ? this.fields.room_no : '');
+      formData.append('room_desc', this.fields.room_desc ? this.fields.room_desc : '');
+      formData.append('room_img_path', this.fields.room_img ? this.fields.room_img : '');
+
       if (this.global_room_id > 0) {
         //update
-        axios.post('/boarding-house-rooms-update/' + this.global_room_id, this.fields).then(function (res) {
+        axios.post('/boarding-house-rooms-update/' + this.global_room_id, formData).then(function (res) {
           if (res.data.status === 'updated') {
             _this3.modalForm = false;
 
@@ -13278,10 +13620,6 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         //insert
-        var formData = new FormData();
-        formData.append('room_no', this.fields.room_no ? this.fields.room_no : '');
-        formData.append('room_desc', this.fields.room_desc ? this.fields.room_desc : '');
-        formData.append('room_img_path', this.fields.room_img_path ? this.fields.room_img_path : '');
         axios.post('/boarding-house-rooms/' + this.global_bhouse_id, formData).then(function (res) {
           if (res.data.status === 'saved') {
             _this3.modalForm = false;
@@ -13334,6 +13672,11 @@ __webpack_require__.r(__webpack_exports__);
           _this5.errors = err.response.data.errors;
         }
       });
+    },
+    showRoom: function showRoom(row) {
+      this.modalShowRoom = true;
+      this.room = row;
+      console.log(this.room);
     }
   },
   mounted: function mounted() {
@@ -32607,7 +32950,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -32680,6 +33023,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n       \n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n/*       \n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 5em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 3em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: 1.5em; \n        font-style: italic;\n}\n    \n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.t-row[data-v-cafdb036] {\n    display: flex;\n}\n.t-control[data-v-cafdb036]{\n    margin-left: auto;\n    font-weight: bold;\n    cursor: pointer;\n    color: red;\n}\n.t-control[data-v-cafdb036]:hover{\n    text-decoration: underline;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -33392,6 +33759,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HomePage_vue_vue_type_style_index_0_id_fa44bb0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_style_index_0_id_cafdb036_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_style_index_0_id_cafdb036_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_style_index_0_id_cafdb036_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -34570,6 +34967,47 @@ component.options.__file = "resources/js/components/HomePage.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Landowner/Bedspace/BedspaceImages.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/Landowner/Bedspace/BedspaceImages.vue ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BedspaceImages_vue_vue_type_template_id_cafdb036_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BedspaceImages.vue?vue&type=template&id=cafdb036&scoped=true& */ "./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=template&id=cafdb036&scoped=true&");
+/* harmony import */ var _BedspaceImages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BedspaceImages.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=script&lang=js&");
+/* harmony import */ var _BedspaceImages_vue_vue_type_style_index_0_id_cafdb036_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css& */ "./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _BedspaceImages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BedspaceImages_vue_vue_type_template_id_cafdb036_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BedspaceImages_vue_vue_type_template_id_cafdb036_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "cafdb036",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Landowner/Bedspace/BedspaceImages.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue":
 /*!******************************************************************************!*\
   !*** ./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue ***!
@@ -35381,6 +35819,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BedspaceImages.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************!*\
   !*** ./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=script&lang=js& ***!
@@ -35708,6 +36162,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HomePage_vue_vue_type_style_index_0_id_fa44bb0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HomePage.vue?vue&type=style&index=0&id=fa44bb0e&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/HomePage.vue?vue&type=style&index=0&id=fa44bb0e&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css&":
+/*!********************************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_style_index_0_id_cafdb036_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=style&index=0&id=cafdb036&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -36063,6 +36530,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomePage_vue_vue_type_template_id_fa44bb0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomePage_vue_vue_type_template_id_fa44bb0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HomePage.vue?vue&type=template&id=fa44bb0e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/HomePage.vue?vue&type=template&id=fa44bb0e&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=template&id=cafdb036&scoped=true&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=template&id=cafdb036&scoped=true& ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_template_id_cafdb036_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_template_id_cafdb036_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BedspaceImages_vue_vue_type_template_id_cafdb036_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BedspaceImages.vue?vue&type=template&id=cafdb036&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=template&id=cafdb036&scoped=true&");
 
 
 /***/ }),
@@ -40463,8 +40947,9 @@ var render = function () {
                         },
                         [
                           _c("img", {
+                            staticClass: "bh-image",
                             attrs: {
-                              src: "/storage/bhouse/" + list.bhouse_img_path,
+                              src: "/storage/bhouses/" + list.bhouse_img_path,
                             },
                           }),
                         ]
@@ -40493,27 +40978,30 @@ var render = function () {
                             "\n                        "
                         ),
                       ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "buttons" },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                type: "is-link",
-                                "icon-right": "chevron-right",
-                                tag: "a",
-                                href: "/client-bhouse-detail/" + list.bhouse_id,
-                              },
-                            },
-                            [_vm._v("SEE MORE...")]
-                          ),
-                        ],
-                        1
-                      ),
                     ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "buttons",
+                        staticStyle: { position: "absolute", bottom: "0" },
+                      },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            attrs: {
+                              type: "is-link",
+                              "icon-right": "chevron-right",
+                              tag: "a",
+                              href: "/client-bhouse-detail/" + list.bhouse_id,
+                            },
+                          },
+                          [_vm._v("SEE MORE...")]
+                        ),
+                      ],
+                      1
+                    ),
                   ]),
                 ]),
               ]
@@ -40856,7 +41344,7 @@ var render = function () {
                 _c("div", { staticClass: "bhouse-image" }, [
                   _c("img", {
                     attrs: {
-                      src: "/storage/bhouse/" + _vm.data.bhouse_img_path,
+                      src: "/storage/bhouses/" + _vm.data.bhouse_img_path,
                     },
                   }),
                 ]),
@@ -41149,6 +41637,318 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=template&id=cafdb036&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BedspaceImages.vue?vue&type=template&id=cafdb036&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "columns" }, [
+          _c("div", { staticClass: "column is-10 is-offset-1" }, [
+            _c("div", { staticClass: "panel" }, [
+              _c("div", { staticClass: "panel-heading" }, [
+                _vm._v(
+                  "\n                        BED SPACE IMAGE(S)\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "buttons" },
+                  [
+                    _c(
+                      "b-button",
+                      {
+                        attrs: {
+                          "icon-left": "chevron-left",
+                          tag: "a",
+                          href:
+                            "/boarding-house-bedspace/" +
+                            this.global_bh_id +
+                            "/" +
+                            this.global_room_id,
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                                BACK\n                            "
+                        ),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", {}, [
+                  _c(
+                    "div",
+                    { staticClass: "buttons mb-3 is-right" },
+                    [
+                      _c(
+                        "b-button",
+                        {
+                          staticClass: "button is-primary",
+                          attrs: { "icon-left": "bunk-bed-outline" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.openModal(0)
+                            },
+                          },
+                        },
+                        [_vm._v("NEW BED SPACE IMAGE")]
+                      ),
+                    ],
+                    1
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "columns" }, [
+                  _c(
+                    "div",
+                    { staticClass: "column" },
+                    _vm._l(_vm.data, function (item, index) {
+                      return _c(
+                        "div",
+                        { key: index, staticClass: "box t-row" },
+                        [
+                          _c("div", [
+                            _c("img", {
+                              staticStyle: { height: "100px" },
+                              attrs: {
+                                src:
+                                  "/storage/bedspaces/" +
+                                  item.bedspace_img_path,
+                              },
+                            }),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "t-control",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.confirmDelete(
+                                    "" + item.bedspace_img_id
+                                  )
+                                },
+                              },
+                            },
+                            [_vm._v("DELETE")]
+                          ),
+                        ]
+                      )
+                    }),
+                    0
+                  ),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.isModalCreate,
+            callback: function ($$v) {
+              _vm.isModalCreate = $$v
+            },
+            expression: "isModalCreate",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submit.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Bed Spaces"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.isModalCreate = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: { "mb-auto": "", label: "Bedspace Image" },
+                            },
+                            [
+                              _c(
+                                "b-upload",
+                                {
+                                  attrs: { multiple: "", "drag-drop": "" },
+                                  model: {
+                                    value: _vm.fields.bedspaces,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.fields, "bedspaces", $$v)
+                                    },
+                                    expression: "fields.bedspaces",
+                                  },
+                                },
+                                [
+                                  _c("section", { staticClass: "section" }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "content has-text-centered",
+                                      },
+                                      [
+                                        _c(
+                                          "p",
+                                          [
+                                            _c("b-icon", {
+                                              attrs: {
+                                                icon: "upload",
+                                                size: "is-large",
+                                              },
+                                            }),
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c("p", [
+                                          _vm._v(
+                                            "Drop your files here or click to upload"
+                                          ),
+                                        ]),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "tags" },
+                            _vm._l(
+                              _vm.fields.bedspaces,
+                              function (file, index) {
+                                return _c(
+                                  "span",
+                                  { key: index, staticClass: "tag is-primary" },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(file.name) +
+                                        "\n                                        "
+                                    ),
+                                    _c("button", {
+                                      staticClass: "delete is-small",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.deleteDropFile(index)
+                                        },
+                                      },
+                                    }),
+                                  ]
+                                )
+                              }
+                            ),
+                            0
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  { staticClass: "modal-card-foot" },
+                  [
+                    _c("b-button", {
+                      attrs: { label: "Close" },
+                      on: {
+                        click: function ($event) {
+                          _vm.isModalCreate = false
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        class: _vm.btnClass,
+                        attrs: { label: "Save", type: "is-success" },
+                      },
+                      [_vm._v("SAVE")]
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+            ]
+          ),
+        ]
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true&":
 /*!****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue?vue&type=template&id=3c3c025e&scoped=true& ***!
@@ -41170,7 +41970,7 @@ var render = function () {
     [
       _c("div", { staticClass: "section" }, [
         _c("div", { staticClass: "columns" }, [
-          _c("div", { staticClass: "column is-8 is-offset-2" }, [
+          _c("div", { staticClass: "column is-10 is-offset-1" }, [
             _c("div", { staticClass: "panel" }, [
               _c("div", { staticClass: "panel-heading" }, [
                 _vm._v(
@@ -41394,8 +42194,20 @@ var render = function () {
                                     _vm._v(" "),
                                     _c(
                                       "b-dropdown-item",
-                                      { attrs: { "aria-role": "listitem" } },
-                                      [_vm._v("List of Boarder")]
+                                      {
+                                        attrs: {
+                                          "aria-role": "listitem",
+                                          tag: "a",
+                                          href:
+                                            "/boarding-house-bedspace/" +
+                                            _vm.global_bh_id +
+                                            "/" +
+                                            _vm.global_room_id +
+                                            "/" +
+                                            props.row.bedspace_id,
+                                        },
+                                      },
+                                      [_vm._v("Show Images")]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -44128,6 +44940,87 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _vm.global_bhouse_id > 0
+                            ? _c("div", [
+                                _c("img", {
+                                  attrs: {
+                                    src:
+                                      "/storage/bhouses/" +
+                                      _vm.fields.bhouse_img_path,
+                                  },
+                                }),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "BHOUSE IMAGE",
+                                type: this.errors.bhouse_img_path
+                                  ? "is-danger"
+                                  : "",
+                                message: this.errors.bhouse_img_path
+                                  ? this.errors.bhouse_img_path[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-upload",
+                                {
+                                  staticClass: "file-label",
+                                  model: {
+                                    value: _vm.fields.bhouse_img,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.fields, "bhouse_img", $$v)
+                                    },
+                                    expression: "fields.bhouse_img",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "file-cta" },
+                                    [
+                                      _c("b-icon", {
+                                        staticClass: "file-icon",
+                                        attrs: { icon: "upload" },
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        { staticClass: "file-label" },
+                                        [_vm._v("Click to upload")]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.fields.bhouse_img
+                                    ? _c("span", { staticClass: "file-name" }, [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.fields.bhouse_img.name) +
+                                            "\n                                        "
+                                        ),
+                                      ])
+                                    : _vm._e(),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
                     _vm._m(0),
                     _vm._v(" "),
                     _c(
@@ -45177,15 +46070,15 @@ var render = function () {
                                         {
                                           staticClass: "file-label",
                                           model: {
-                                            value: _vm.fields.room_img_path,
+                                            value: _vm.fields.room_img,
                                             callback: function ($$v) {
                                               _vm.$set(
                                                 _vm.fields,
-                                                "room_img_path",
+                                                "room_img",
                                                 $$v
                                               )
                                             },
-                                            expression: "fields.room_img_path",
+                                            expression: "fields.room_img",
                                           },
                                         },
                                         [
@@ -45207,7 +46100,7 @@ var render = function () {
                                             1
                                           ),
                                           _vm._v(" "),
-                                          _vm.fields.room_img_path
+                                          _vm.fields.room_img
                                             ? _c(
                                                 "span",
                                                 { staticClass: "file-name" },
@@ -45215,8 +46108,99 @@ var render = function () {
                                                   _vm._v(
                                                     "\n                                                " +
                                                       _vm._s(
-                                                        _vm.fields.room_img_path
-                                                          .name
+                                                        _vm.fields.room_img.name
+                                                      ) +
+                                                      "\n                                            "
+                                                  ),
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                        ]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.global_room_id > 0
+                            ? _c(
+                                "div",
+                                [
+                                  _vm.fields.room_img_path
+                                    ? _c("img", {
+                                        attrs: {
+                                          src:
+                                            "/storage/rooms/" +
+                                            _vm.fields.room_img_path,
+                                        },
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-field",
+                                    {
+                                      attrs: {
+                                        label: "ROOM IMAGE",
+                                        type: this.errors.room_img_path
+                                          ? "is-danger"
+                                          : "",
+                                        message: this.errors.room_img_path
+                                          ? this.errors.room_img_path[0]
+                                          : "",
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "b-upload",
+                                        {
+                                          staticClass: "file-label",
+                                          model: {
+                                            value: _vm.fields.room_img,
+                                            callback: function ($$v) {
+                                              _vm.$set(
+                                                _vm.fields,
+                                                "room_img",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "fields.room_img",
+                                          },
+                                        },
+                                        [
+                                          _c(
+                                            "span",
+                                            { staticClass: "file-cta" },
+                                            [
+                                              _c("b-icon", {
+                                                staticClass: "file-icon",
+                                                attrs: { icon: "upload" },
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "file-label" },
+                                                [
+                                                  _vm._v(
+                                                    "Click to update image"
+                                                  ),
+                                                ]
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _vm.fields.room_img
+                                            ? _c(
+                                                "span",
+                                                { staticClass: "file-name" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                                " +
+                                                      _vm._s(
+                                                        _vm.fields.room_img.name
                                                       ) +
                                                       "\n                                            "
                                                   ),
@@ -45260,6 +46244,82 @@ var render = function () {
                       },
                       [_vm._v("SAVE")]
                     ),
+                  ],
+                  1
+                ),
+              ]),
+            ]
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.modalShowRoom,
+            callback: function ($$v) {
+              _vm.modalShowRoom = $$v
+            },
+            expression: "modalShowRoom",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Room Information"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.modalShowRoom = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("div", { staticClass: "columns" }, [
+                      _c("div", { staticClass: "column" }),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  { staticClass: "modal-card-foot" },
+                  [
+                    _c("b-button", {
+                      attrs: { label: "Close" },
+                      on: {
+                        click: function ($event) {
+                          _vm.modalShowRoom = false
+                        },
+                      },
+                    }),
                   ],
                   1
                 ),
@@ -70707,6 +71767,7 @@ var map = {
 	"./components/ContactPage.vue": "./resources/js/components/ContactPage.vue",
 	"./components/ExampleComponent.vue": "./resources/js/components/ExampleComponent.vue",
 	"./components/HomePage.vue": "./resources/js/components/HomePage.vue",
+	"./components/Landowner/Bedspace/BedspaceImages.vue": "./resources/js/components/Landowner/Bedspace/BedspaceImages.vue",
 	"./components/Landowner/Bedspace/BoardingHouseBedspace.vue": "./resources/js/components/Landowner/Bedspace/BoardingHouseBedspace.vue",
 	"./components/Landowner/BoarderList.vue": "./resources/js/components/Landowner/BoarderList.vue",
 	"./components/Landowner/BoarderPayment.vue": "./resources/js/components/Landowner/BoarderPayment.vue",

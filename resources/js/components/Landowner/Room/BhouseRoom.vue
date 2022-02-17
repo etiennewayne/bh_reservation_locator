@@ -93,6 +93,7 @@
                                         <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + global_bhouse_id + `/` + props.row.room_id">Bed Space</b-dropdown-item>
                                         <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.room_id)">Delete</b-dropdown-item>
 
+
                                     </b-dropdown>
                                     <!-- <div class="is-flex">
                                         <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.bhouse_id)"></b-button>
@@ -149,18 +150,36 @@
                                         <b-field label="ROOM IMAGE"
                                                  :type="this.errors.room_img_path ? 'is-danger':''"
                                                  :message="this.errors.room_img_path ? this.errors.room_img_path[0] : ''">
-                                            <b-upload v-model="fields.room_img_path" class="file-label">
+                                            <b-upload v-model="fields.room_img" class="file-label">
                                                 <span class="file-cta">
                                                     <b-icon class="file-icon" icon="upload"></b-icon>
                                                     <span class="file-label">Click to upload</span>
                                                 </span>
-                                                    <span class="file-name" v-if="fields.room_img_path">
-                                                    {{ fields.room_img_path.name }}
+                                                    <span class="file-name" v-if="fields.room_img">
+                                                    {{ fields.room_img.name }}
                                                 </span>
                                             </b-upload>
                                         </b-field>
                                     </div>
 
+                                    <div v-if="global_room_id > 0">
+
+                                        <img v-if="fields.room_img_path" :src="`/storage/rooms/${fields.room_img_path}`" />
+
+                                        <b-field label="ROOM IMAGE"
+                                                 :type="this.errors.room_img_path ? 'is-danger':''"
+                                                 :message="this.errors.room_img_path ? this.errors.room_img_path[0] : ''">
+                                            <b-upload v-model="fields.room_img" class="file-label">
+                                                <span class="file-cta">
+                                                    <b-icon class="file-icon" icon="upload"></b-icon>
+                                                    <span class="file-label">Click to update image</span>
+                                                </span>
+                                                <span class="file-name" v-if="fields.room_img">
+                                                    {{ fields.room_img.name }}
+                                                </span>
+                                            </b-upload>
+                                        </b-field>
+                                    </div>
 
                                 </div>
                             </div>
@@ -175,6 +194,50 @@
                             :class="btnClass"
                             label="Save"
                             type="is-success">SAVE</button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
+
+
+
+
+
+        <!--modal show room-->
+        <b-modal v-model="modalShowRoom" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Room Information</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalShowRoom = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <div class="columns">
+                                <div class="column">
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <b-button
+                            label="Close"
+                            @click="modalShowRoom=false"/>
                     </footer>
                 </div>
             </form><!--close form-->
@@ -215,12 +278,15 @@ export default {
             global_room_id: 0,
 
             modalForm: false,
+            modalShowRoom: false,
 
             fields: {},
             errors: {},
             search: {
                 room_no: '',
             },
+
+            room: {},
 
             btnClass: {
                 'is-success': true,
@@ -285,7 +351,7 @@ export default {
         },
 
         openModal(id){
-        
+
             if(id > 0){
                 this.getData(id);
             }
@@ -302,10 +368,14 @@ export default {
         },
 
         submit: function(){
-        
+            var formData = new FormData();
+            formData.append('room_no', this.fields.room_no ? this.fields.room_no : '');
+            formData.append('room_desc', this.fields.room_desc ? this.fields.room_desc : '');
+            formData.append('room_img_path', this.fields.room_img ? this.fields.room_img : '');
+
             if(this.global_room_id > 0){
                 //update
-                axios.post('/boarding-house-rooms-update/' + this.global_room_id, this.fields).then(res=>{
+                axios.post('/boarding-house-rooms-update/' + this.global_room_id, formData).then(res=>{
                     if(res.data.status === 'updated'){
                         this.modalForm =false;
                         this.$buefy.dialog.alert({
@@ -327,10 +397,6 @@ export default {
 
             }else{
                 //insert
-                var formData = new FormData();
-                formData.append('room_no', this.fields.room_no ? this.fields.room_no : '');
-                formData.append('room_desc', this.fields.room_desc ? this.fields.room_desc : '');
-                formData.append('room_img_path', this.fields.room_img_path ? this.fields.room_img_path : '');
 
                 axios.post('/boarding-house-rooms/' + this.global_bhouse_id, formData).then(res=>{
                     if(res.data.status === 'saved'){
@@ -380,6 +446,13 @@ export default {
                     this.errors = err.response.data.errors;
                 }
             });
+        },
+
+
+        showRoom(row){
+            this.modalShowRoom = true;
+            this.room = row;
+            console.log(this.room)
         },
 
 
