@@ -48,11 +48,6 @@
                                 <b-menu-item label="Request Account" tag="a" href="/request-accounts"></b-menu-item>
                             </b-menu-item>
 
-                            <b-menu-item icon="account" label="Manage Owner">
-                                <b-menu-item label="Owner Account" tag="a" href="/users"></b-menu-item>
-<!--                                <b-menu-item label="BH Request" tag="a" href="/bh-request"></b-menu-item>-->
-                            </b-menu-item>
-
                         </b-menu-list>
 
 

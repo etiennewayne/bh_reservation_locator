@@ -8402,11 +8402,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10425,6 +10420,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -32647,7 +32647,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-wrapper[data-v-147bde05]{\n}\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -37380,21 +37380,6 @@ var render = function () {
                           ],
                           1
                         ),
-                        _vm._v(" "),
-                        _c(
-                          "b-menu-item",
-                          { attrs: { icon: "account", label: "Manage Owner" } },
-                          [
-                            _c("b-menu-item", {
-                              attrs: {
-                                label: "Owner Account",
-                                tag: "a",
-                                href: "/users",
-                              },
-                            }),
-                          ],
-                          1
-                        ),
                       ],
                       1
                     ),
@@ -40881,25 +40866,39 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "bhouse-desc" }, [
                     _vm._v(
-                      "\n                                    " +
+                      "\n                                    DESCRIPTION: " +
                         _vm._s(_vm.data.bhouse_desc) +
                         "\n                                "
                     ),
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "bhouse-loc" },
-                    [
-                      _c("b-icon", { attrs: { icon: "map-marker-right" } }),
-                      _vm._v(
+                  _c("div", [
+                    _vm._v(
+                      "\n                                    Landowner " +
+                        _vm._s(_vm.data.lname) +
+                        ", " +
+                        _vm._s(_vm.data.fname) +
                         " " +
-                          _vm._s(_vm.data.street) +
-                          "\n                                "
-                      ),
-                    ],
-                    1
-                  ),
+                        _vm._s(_vm.data.mname) +
+                        "\n                                "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _vm._v(
+                      "\n                                    Contact No. " +
+                        _vm._s(_vm.data.contact_no) +
+                        "\n                                "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _vm._v(
+                      "\n                                    STREET/PUROK: " +
+                        _vm._s(_vm.data.street) +
+                        "\n                                "
+                    ),
+                  ]),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -44903,7 +44902,7 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("b-table-column", {
-                        attrs: { field: "room_no", label: "Bhouse Name" },
+                        attrs: { field: "room_no", label: "Room No" },
                         scopedSlots: _vm._u([
                           {
                             key: "default",
@@ -44921,10 +44920,7 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("b-table-column", {
-                        attrs: {
-                          field: "room_desc",
-                          label: "Bhouse Description",
-                        },
+                        attrs: { field: "room_desc", label: "Description" },
                         scopedSlots: _vm._u([
                           {
                             key: "default",

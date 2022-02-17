@@ -70,11 +70,11 @@
                                     {{ props.row.room_id }}
                                 </b-table-column>
 
-                                <b-table-column field="room_no" label="Bhouse Name" v-slot="props">
+                                <b-table-column field="room_no" label="Room No" v-slot="props">
                                     {{ props.row.room_no }}
                                 </b-table-column>
 
-                                <b-table-column field="room_desc" label="Bhouse Description" v-slot="props">
+                                <b-table-column field="room_desc" label="Description" v-slot="props">
                                     {{ props.row.room_desc }}
                                 </b-table-column>
 

@@ -29,10 +29,14 @@ class ClientBhouseController extends Controller
 
 
     public function showBhouseDetail($id){
-        $data = BoardingHouse::find($id);
+        //$data = BoardingHouse::find($id);
+        $data = DB::table('boarding_houses as a')
+            ->join('users as b', 'a.user_id', 'b.user_id')
+            ->select('a.*', 'b.lname', 'b.fname', 'b.mname', 'b.contact_no')
+            ->get();
 
         return view('client-bhouse-detail')
-            ->with('data', $data)
+            ->with('data', $data[0])
             ->with('id', $id);
     }
 }

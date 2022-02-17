@@ -18,11 +18,16 @@
                                         {{data.bhouse_name}}
                                     </div>
                                     <div class="bhouse-desc">
-                                        {{ data.bhouse_desc }}
+                                        DESCRIPTION: {{ data.bhouse_desc }}
                                     </div>
-
-                                    <div class="bhouse-loc">
-                                        <b-icon icon="map-marker-right"></b-icon> {{ data.street }}
+                                    <div>
+                                        Landowner {{ data.lname }}, {{ data.fname }} {{ data.mname }}
+                                    </div>
+                                    <div>
+                                        Contact No. {{ data.contact_no }}
+                                    </div>
+                                    <div>
+                                        STREET/PUROK: {{ data.street }}
                                     </div>
 
                                     <div class="buttons mt-5">
@@ -157,11 +162,6 @@ export default {
 </script>
 
 <style scoped>
-
-    .bhouse-wrapper{
-
-    }
-
 
 
     .bhouse-title{
