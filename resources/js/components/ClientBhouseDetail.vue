@@ -115,10 +115,7 @@ export default {
         loadMap(){
             //init map
 
-
-
             var mymap = L.map('mapid').setView([this.data.lat, this.data.long], 17);
-
 
             //to call data inside nested function
 
@@ -142,10 +139,17 @@ export default {
             }).addTo(mymap);
         },
 
+        loadData(){
+            axios.get('/get-bhouse-detail/' + this.bhouse_id).then(res=>{
+                this.data = res.data;
+            });
+        },
+
 
         initData: function(){
-            this.data = JSON.parse(this.propData);
+            //this.data = JSON.parse(this.propData);
             this.bhouse_id = parseInt(this.propBhouseId);
+            this.loadData()
         }
 
 

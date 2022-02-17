@@ -176,6 +176,9 @@ Route::post('/submit-receipt/{payment_detail_id}', [App\Http\Controllers\Boarder
 //CLIENT BOARDING HOUSES //
 Route::get('/get-client-bhouses', [App\Http\Controllers\ClientBhouseController::class, 'getBhouses']);
 Route::get('/client-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'showBhouseDetail']);
+Route::get('/get-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'getBhouseDetail']);
+
+
 
 //client bhroom
 Route::get('/client-bh-rooms/{id}', [App\Http\Controllers\ClientBhouseRoomController::class, 'index']);
