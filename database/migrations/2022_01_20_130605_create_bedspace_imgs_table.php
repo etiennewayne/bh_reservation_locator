@@ -16,7 +16,7 @@ class CreateBedspaceImgsTable extends Migration
         Schema::create('bedspace_imgs', function (Blueprint $table) {
             $table->id('bedspace_img_id');
             $table->unsignedBigInteger('bedspace_id');
-            $table->foreign('bedspace_id')->references('bedspace_id')->on('bedspaces');
+            $table->foreign('bedspace_id')->references('bedspace_id')->on('bedspaces')->onDelete('cascade');
             $table->string('bedspace_img_path')->nullable();
             $table->timestamps();
         });
