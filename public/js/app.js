@@ -10458,8 +10458,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/client-bhroom-bedspace-reserve/' + dataId).then(function (res) {
         if (res.data.status === 'reserved') {
           _this3.$buefy.dialog.alert({
-            title: 'RESERVED!',
-            message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Thank you.',
+            title: 'RESERVED',
+            message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Please send a proof of transaction using your account and you may contact the landowner for more information.',
             type: 'is-success',
             onConfirm: function onConfirm() {
               _this3.openBedSpaces(dataId, 1); //set 1 to avoid checking for length of array fetching bedspaces
@@ -13098,6 +13098,7 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('bhouse_name', this.fields.bhouse_name);
       formData.append('bhouse_rule', this.fields.bhouse_rule);
+      formData.append('bhouse_desc', this.fields.bhouse_desc);
       formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
       formData.append('lat', this.fields.lat);
       formData.append('long', this.fields["long"]);
@@ -13161,6 +13162,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.global_bhouse_id > 0) {
         this.fields = JSON.parse(this.propData);
         this.getData(this.global_bhouse_id);
+        console.log(this.fields);
       }
     },
     getData: function getData(data_id) {

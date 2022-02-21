@@ -102,6 +102,7 @@ class LandownerBoardingHouseController extends Controller
     }
 
     public function update(Request $req, $id){
+
         //return $req;
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
@@ -110,9 +111,7 @@ class LandownerBoardingHouseController extends Controller
             'lat' => ['required'],
         ]);
 
-
         $data = BoardingHouse::find($id);
-
         $bhouseImg = null;
         //upload image b house
 

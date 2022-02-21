@@ -188,8 +188,8 @@ export default {
             axios.post('/client-bhroom-bedspace-reserve/' + dataId).then(res=>{
                 if(res.data.status === 'reserved'){
                     this.$buefy.dialog.alert({
-                        title: 'RESERVED!',
-                        message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Thank you.',
+                        title: 'RESERVED',
+                        message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Please send a proof of transaction using your account and you may contact the landowner for more information.',
                         type: 'is-success',
                         onConfirm: ()=>{
                             this.openBedSpaces(dataId, 1);

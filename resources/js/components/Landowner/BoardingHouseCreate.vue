@@ -276,6 +276,7 @@ export default {
             var formData = new FormData();
             formData.append('bhouse_name', this.fields.bhouse_name);
             formData.append('bhouse_rule', this.fields.bhouse_rule);
+            formData.append('bhouse_desc', this.fields.bhouse_desc);
             formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
             formData.append('lat', this.fields.lat);
             formData.append('long', this.fields.long);
@@ -341,6 +342,7 @@ export default {
             if(this.global_bhouse_id > 0){
                 this.fields = JSON.parse(this.propData);
                 this.getData(this.global_bhouse_id);
+                console.log(this.fields)
             }
         },
         getData: function(data_id){
