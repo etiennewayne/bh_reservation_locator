@@ -240,4 +240,22 @@ class UserController extends Controller
             'status' => 'deleted'
         ]);
     }
+
+    public function resetPassword(Request $req, $id){
+
+        $req->validate([
+            'password' => ['required',  'confirmed', 'min:4']
+        ]);
+
+        $data = User::find($id);
+        $data->password = Hash::make($req->password);
+        $data->save();
+
+        return response()->json([
+            'status' => 'reseted'
+        ]);
+    }
+
+
+
 }

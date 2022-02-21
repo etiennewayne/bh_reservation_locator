@@ -82,7 +82,6 @@
         </div><!--section div-->
 
 
-
         <!--modal create-->
         <b-modal v-model="isModalCreate" has-modal-card
                  trap-focus

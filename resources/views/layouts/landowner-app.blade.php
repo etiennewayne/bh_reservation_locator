@@ -38,5 +38,8 @@
 
 
     </div>
+
+    @yield('extrabottomjs')
+
 </body>
 </html>

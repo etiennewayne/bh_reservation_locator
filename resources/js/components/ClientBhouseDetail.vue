@@ -40,7 +40,7 @@
                         <div class="columns">
                             <div class="column">
                                 <h1 class="title is-4">RULES</h1>
-                                <p>{{ data.bhouse_rule }} </p>
+                                <div class="rules-content" v-html="data.bhouse_rule"></div>
                             </div>
                         </div>
 
@@ -143,7 +143,7 @@ export default {
                 .setLatLng(this.nlat, this.nlong)
                 .setContent('<p>Hello world!<br />This is a nice popup.</p>')
                 .openOn(map);
-                
+
 
         }, //load map
 

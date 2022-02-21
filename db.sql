@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.14 (64 bit)
-MySQL - 10.4.13-MariaDB : Database - bhouse_locator
+MySQL - 10.4.21-MariaDB : Database - bh_locator
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.4.13-MariaDB : Database - bhouse_locator
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`bhouse_locator` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`bh_locator` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `bhouse_locator`;
+USE `bh_locator`;
 
 /*Table structure for table `barangays` */
 
@@ -42080,9 +42080,17 @@ CREATE TABLE `bedspace_imgs` (
   PRIMARY KEY (`bedspace_img_id`),
   KEY `bedspace_imgs_bedspace_id_foreign` (`bedspace_id`),
   CONSTRAINT `bedspace_imgs_bedspace_id_foreign` FOREIGN KEY (`bedspace_id`) REFERENCES `bedspaces` (`bedspace_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `bedspace_imgs` */
+
+insert  into `bedspace_imgs`(`bedspace_img_id`,`bedspace_id`,`bedspace_img_path`,`created_at`,`updated_at`) values 
+(5,2,'WIgTAJ2ssBbdbOCdbHQSxKnan6mjhJVQ9YnDvxMa.jpg','2022-02-17 00:09:49','2022-02-17 00:09:49'),
+(9,1,'54ZnTbiK96dQUlAgwLkYtT7oZ9euQFcr2hfx46DQ.jpg','2022-02-17 14:35:42','2022-02-17 14:35:42'),
+(10,1,'J90DmVVyva65iIpsRJMSQUAMImvqx6vQVgCS6Nz0.jpg','2022-02-17 14:35:42','2022-02-17 14:35:42'),
+(11,3,'5xNdPdWZK2lyuu5dJlnpoase8EinygtNten15bNn.jpg','2022-02-17 14:39:10','2022-02-17 14:39:10'),
+(12,3,'KGO7IPAe1FKJ76wPRawGfFnhVdfXSydBb83ect1v.jpg','2022-02-17 14:39:10','2022-02-17 14:39:10'),
+(13,3,'GJi9IxPa3OnOkQUdC0UlQ2g3J3UzheSTUvlKdM3L.jpg','2022-02-17 14:39:10','2022-02-17 14:39:10');
 
 /*Table structure for table `bedspaces` */
 
@@ -42105,9 +42113,14 @@ CREATE TABLE `bedspaces` (
   KEY `bedspaces_bhouse_id_foreign` (`bhouse_id`),
   CONSTRAINT `bedspaces_bhouse_id_foreign` FOREIGN KEY (`bhouse_id`) REFERENCES `boarding_houses` (`bhouse_id`),
   CONSTRAINT `bedspaces_room_id_foreign` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `bedspaces` */
+
+insert  into `bedspaces`(`bedspace_id`,`room_id`,`bhouse_id`,`bedspace_name`,`bedspace_desc`,`bedspace_img_path`,`price`,`is_booked`,`is_active`,`created_at`,`updated_at`) values 
+(1,1,1,'BED SPACE B1','to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.','',1000,1,1,NULL,'2022-02-10 03:50:47'),
+(2,2,5,'MKLJH','BKHLBLKJLHKJH',NULL,878,0,1,'2022-02-17 00:09:49','2022-02-17 00:09:49'),
+(3,3,1,'SAMPLE BEDSPACE','SAMPLE BEDSPACE',NULL,1500,0,1,'2022-02-17 14:39:10','2022-02-17 14:39:10');
 
 /*Table structure for table `boarders` */
 
@@ -42118,6 +42131,7 @@ CREATE TABLE `boarders` (
   `qr_ref` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `boarder_user_id` bigint(20) unsigned NOT NULL,
   `bedspace_id` bigint(20) unsigned NOT NULL,
+  `book_bedspace_id` bigint(20) unsigned NOT NULL,
   `date_acceptance` date NOT NULL,
   `rental_price` double NOT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT 1,
@@ -42126,12 +42140,18 @@ CREATE TABLE `boarders` (
   PRIMARY KEY (`boarder_id`),
   UNIQUE KEY `boarders_qr_ref_unique` (`qr_ref`),
   KEY `boarders_boarder_user_id_foreign` (`boarder_user_id`),
+  KEY `boarders_book_bedspace_id_foreign` (`book_bedspace_id`),
   KEY `boarders_bedspace_id_foreign` (`bedspace_id`),
   CONSTRAINT `boarders_bedspace_id_foreign` FOREIGN KEY (`bedspace_id`) REFERENCES `bedspaces` (`bedspace_id`),
-  CONSTRAINT `boarders_boarder_user_id_foreign` FOREIGN KEY (`boarder_user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `boarders_boarder_user_id_foreign` FOREIGN KEY (`boarder_user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `boarders_book_bedspace_id_foreign` FOREIGN KEY (`book_bedspace_id`) REFERENCES `book_bedspaces` (`book_bedspace_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `boarders` */
+
+insert  into `boarders`(`boarder_id`,`qr_ref`,`boarder_user_id`,`bedspace_id`,`book_bedspace_id`,`date_acceptance`,`rental_price`,`is_active`,`created_at`,`updated_at`) values 
+(1,'457d8ffd',1,1,1,'2022-02-10',1000,0,'2022-02-10 03:47:36','2022-02-10 03:48:03'),
+(2,'87efc13d',1,1,3,'2022-02-14',1000,1,'2022-02-10 03:51:23','2022-02-10 03:51:23');
 
 /*Table structure for table `boarding_houses` */
 
@@ -42157,15 +42177,18 @@ CREATE TABLE `boarding_houses` (
   PRIMARY KEY (`bhouse_id`),
   KEY `boarding_houses_user_id_foreign` (`user_id`),
   CONSTRAINT `boarding_houses_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `boarding_houses` */
 
 insert  into `boarding_houses`(`bhouse_id`,`bhouse_name`,`bhouse_desc`,`user_id`,`province`,`city`,`barangay`,`street`,`business_permit_imgpath`,`bhouse_img_path`,`bhouse_rule`,`long`,`lat`,`is_approve`,`created_at`,`updated_at`) values 
-(1,'DACLES BOARDING HOUSE','Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',2,'1042','104215','104215025','JUAN LUNA ST p-BOUGAINVILLA',NULL,'WB8kbLXZlxqqTGaEeGfCINjGxannHDBpH2n0dNyu.jpg','SAMPLE BHOUSE RULE','123.75697910785675','8.061954385341004',0,NULL,NULL),
-(2,'FUENTES BOARDING HOUSE','Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',3,'1042','104215','104215025','JUAN LUNA ST p-BOUGAINVILLA',NULL,'I4TxTCBMdAnfwRS3guJivlB5NdOLijAyXLqnV45M.jpg','SAMPLE BHOUSE RULE','123.75273048877715','8.063680587142077',0,NULL,NULL),
-(3,'SIETE BOARDING HOUSE','Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',4,'1042','104215','104215025','JUAN LUNA ST p-BOUGAINVILLA',NULL,'cecil-boarding-house-knoxville-tn-768x428.jpg','SAMPLE BHOUSE RULE','123.75372290611267','8.061486981739758',0,NULL,NULL),
-(4,'TAGOBAR BOARDING HOUSE','Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',5,'1042','104215','104215025','JUAN LUNA ST p-BOUGAINVILLA',NULL,'hqdefault.jpg','SAMPLE BHOUSE RULE','123.75342249870299','8.063834617098614',0,NULL,NULL);
+(1,'DACLES BOARDING HOUSE','ALGADIPE',2,'1042','104215','104215025','JUAN LUNA ST P-BOUGAINVILLA',NULL,'bhouse01.jpg','SAMPLE BHOUSE RULE','123.75697910785675','8.061954385341004',0,NULL,'2022-02-11 02:25:07'),
+(2,'FUENTES BOARDING HOUSE','Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',3,'1042','104215','104215025','JUAN LUNA ST p-BOUGAINVILLA',NULL,'bhouse02.jpg','SAMPLE BHOUSE RULE','123.75273048877715','8.063680587142077',0,NULL,NULL),
+(3,'SIETE BOARDING HOUSE','Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',4,'1042','104215','104215025','JUAN LUNA ST p-BOUGAINVILLA',NULL,'bhouse03.jpg','SAMPLE BHOUSE RULE','123.75372290611267','8.061486981739758',0,NULL,NULL),
+(4,'TAGOBAR BOARDING HOUSE','Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',5,'1042','104215','104215025','JUAN LUNA ST p-BOUGAINVILLA',NULL,'bhouse04.jpg','SAMPLE BHOUSE RULE','123.75342249870299','8.063834617098614',0,NULL,NULL),
+(5,'SECOND BH','oiuyuoiyh',2,'1042','104215','104215025','PUROK VANDA',NULL,NULL,'hklgkj','123.75419463167','8.0612883018494',0,'2022-02-17 00:08:26','2022-02-17 00:08:26'),
+(7,'SAMPLE BH','',2,'1013','101314','101314016','SAMPLE BHOUSE',NULL,'ZkKfKAJz9JyKfhcRP8GfdYXOrI7ETyrg5UQLLF8o.jpg','SAMPLE BH','123.75321334998578','8.062531169935436',0,'2022-02-17 14:54:38','2022-02-17 22:47:27'),
+(10,'BHOUSE NAME',NULL,2,'0712','071214','071214014','SADWDW',NULL,'lPejaE3Ws9jacAjs0WXgcX1e03IwNTImxPueLh8t.jpg','<ol><li>DO NOT KILL</li><li>BSTA RULE 2</li><li>BSTA RULE 3</li><li>UG RULE 4</li></ol>','123.75376093272791','8.062886037285853',0,'2022-02-22 04:56:46','2022-02-22 05:26:30');
 
 /*Table structure for table `book_bedspaces` */
 
@@ -42188,9 +42211,14 @@ CREATE TABLE `book_bedspaces` (
   KEY `book_bedspaces_book_user_id_foreign` (`book_user_id`),
   CONSTRAINT `book_bedspaces_bedspace_id_foreign` FOREIGN KEY (`bedspace_id`) REFERENCES `bedspaces` (`bedspace_id`),
   CONSTRAINT `book_bedspaces_book_user_id_foreign` FOREIGN KEY (`book_user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `book_bedspaces` */
+
+insert  into `book_bedspaces`(`book_bedspace_id`,`bedspace_id`,`book_user_id`,`book_date`,`occupy_date`,`rental_price`,`is_active`,`approval_status`,`proof_transaction`,`created_at`,`updated_at`) values 
+(1,1,1,'2022-02-10',NULL,1000,1,'CANCELLED','zDBGwn7NuWr7v8uA2DxHdWp8NyNjvNV6eD5zuziC.png','2022-02-10 03:45:19','2022-02-10 03:48:03'),
+(2,1,1,'2022-02-10',NULL,1000,1,'CANCELLED','m2eVN5KzPCAbrQtu5BqU0gbILZWLgSIbDxUyfg0f.png','2022-02-10 03:48:10','2022-02-10 03:48:56'),
+(3,1,1,'2022-02-10',NULL,1000,1,'APPROVED','9FfBbWWk25vkA8WORrpWQswBzbgpqt7v9iSr7DEI.png','2022-02-10 03:50:47','2022-02-10 03:51:23');
 
 /*Table structure for table `cities` */
 
@@ -43887,24 +43915,24 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=372 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
 insert  into `migrations`(`id`,`migration`,`batch`) values 
-(32,'2022_01_18_022942_create_reservations_table',1),
-(34,'2022_01_18_022929_create_payments_table',2),
-(35,'2014_10_12_000000_create_users_table',3),
-(36,'2014_10_12_100000_create_password_resets_table',3),
-(37,'2019_08_19_000000_create_failed_jobs_table',3),
-(38,'2019_12_14_000001_create_personal_access_tokens_table',3),
-(39,'2022_01_18_022825_create_boarding_houses_table',3),
-(40,'2022_01_18_022826_create_rooms_table',3),
-(41,'2022_01_18_022912_create_bedspaces_table',3),
-(42,'2022_01_18_022913_create_book_bedspaces',3),
-(43,'2022_01_18_022928_create_boarders_table',3),
-(44,'2022_01_20_130605_create_bedspace_imgs_table',3),
-(45,'2022_02_06_072759_create_payment_details_table',3);
+(355,'2022_01_18_022929_create_payments_table',1),
+(356,'2022_01_18_022942_create_reservations_table',1),
+(361,'2014_10_12_000000_create_users_table',2),
+(362,'2014_10_12_100000_create_password_resets_table',2),
+(363,'2019_08_19_000000_create_failed_jobs_table',2),
+(364,'2019_12_14_000001_create_personal_access_tokens_table',2),
+(365,'2022_01_18_022825_create_boarding_houses_table',2),
+(366,'2022_01_18_022826_create_rooms_table',2),
+(367,'2022_01_18_022912_create_bedspaces_table',2),
+(368,'2022_01_18_022913_create_book_bedspaces',2),
+(369,'2022_01_18_022928_create_boarders_table',2),
+(370,'2022_01_20_130605_create_bedspace_imgs_table',2),
+(371,'2022_02_06_072759_create_payment_details_table',2);
 
 /*Table structure for table `password_resets` */
 
@@ -43935,9 +43963,13 @@ CREATE TABLE `payment_details` (
   PRIMARY KEY (`payment_detail_id`),
   KEY `payment_details_boarder_id_foreign` (`boarder_id`),
   CONSTRAINT `payment_details_boarder_id_foreign` FOREIGN KEY (`boarder_id`) REFERENCES `boarders` (`boarder_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `payment_details` */
+
+insert  into `payment_details`(`payment_detail_id`,`boarder_id`,`payment_to_pay`,`date_pay`,`payment_status`,`receipt_img`,`created_at`,`updated_at`) values 
+(1,2,1000,'2022-02-14','PAID','sGfK7eCipY7pfu1uJ1TcKuVhXMCA9p6mTSPZgMvI.png','2022-02-10 03:52:57','2022-02-10 11:27:14'),
+(5,2,1000,'2022-03-14','UNPAID',NULL,'2022-02-10 08:20:00','2022-02-10 11:36:38');
 
 /*Table structure for table `personal_access_tokens` */
 
@@ -44081,9 +44113,15 @@ CREATE TABLE `rooms` (
   PRIMARY KEY (`room_id`),
   KEY `rooms_bhouse_id_foreign` (`bhouse_id`),
   CONSTRAINT `rooms_bhouse_id_foreign` FOREIGN KEY (`bhouse_id`) REFERENCES `boarding_houses` (`bhouse_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `rooms` */
+
+insert  into `rooms`(`room_id`,`bhouse_id`,`room_no`,`room_desc`,`room_img_path`,`created_at`,`updated_at`) values 
+(1,1,'ROOM 101','ROOM HAS 4 BEDSPACES W/ AIRCON AND 2 CR. FREE WIFI INSTALLED.','hf9I1YiuudaPClSy4XWyHvOANmSmeiG4xOmiqIgw.jpg',NULL,'2022-02-17 14:36:33'),
+(2,5,'687','HHKLJNL/KN','NvHnmESl7jgN6NVWoqvEj4QEo0OlMqu97GrQUdSR.jpg','2022-02-17 00:09:11','2022-02-17 00:09:11'),
+(3,1,'ROOM 102','ROOM 102','CYElbNsmoz2pSUuqZdu8jI6UaIYxWjtpo3rgJqN4.jpg','2022-02-17 13:30:46','2022-02-17 13:30:46'),
+(4,5,'SAMPLE ROOM 1102','SAMPLE ROOM 1102','ENZI8FGxfKYxiuuXSwrEQW2a6rrslCxnK3YmGQzs.jpg','2022-02-17 13:31:17','2022-02-17 13:31:17');
 
 /*Table structure for table `users` */
 
@@ -44092,7 +44130,6 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qr_ref` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -44117,21 +44154,20 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_username_unique` (`username`),
-  UNIQUE KEY `users_qr_ref_unique` (`qr_ref`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`user_id`,`username`,`qr_ref`,`lname`,`fname`,`mname`,`suffix`,`sex`,`province`,`city`,`barangay`,`street`,`email`,`contact_no`,`guardian_name`,`guardian_contact_no`,`guardian_address`,`business_permit_img`,`is_approve`,`role`,`email_verified_at`,`password`,`remember_token`,`created_at`,`updated_at`) values 
-(1,'angel','XYZA24','LOPEZ','ANGEL','P',NULL,'FEMALE','MISMAIS OCCIDENTAL','TANGUB CITY','CANIANGAN','P-6','angel@dev.com','09167789581','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'BOARDER',NULL,'$2y$10$0xVazg.nrkcUGw6UdBw./.usdYBorwqeOz2KqEwDNo/qAu7tEDQKa',NULL,NULL,NULL),
-(2,'dacles','GGH334','DACLES','RICHE','',NULL,'MALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','dacles@dev.com','09167789582','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','X58cNXkY5OWADcJVy3wO1jCAKKGAqC9NkoQ5yr5x.png',0,'LANDOWNER',NULL,'$2y$10$03wytDzqdnUbB6AnGvdZMuHL8KD8ukgaiHWJH/L0kN7zplkyLUMxu',NULL,NULL,NULL),
-(3,'fuentes','GJAS45','FUENTES','JOHN','',NULL,'MALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','fuentes@dev.com','09051234598','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'LANDOWNER',NULL,'$2y$10$g5brPFgcgQvlKoMAKXygVeI4cURBo7.N.dMZTdqd0WkqlrI8q5QSC',NULL,NULL,NULL),
-(4,'siete','PPO9312','SIETE','PARLING','',NULL,'FEMALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','siete@dev.com','09051234598','JUAN DELA CRUZ','09165873641','POB. BONIFACIO','',0,'LANDOWNER',NULL,'$2y$10$RfHPbs/pHZRFxyj3re6F0OvkyeJlPM8Q4vs8LYgPGUkzVcc60Ed0a',NULL,NULL,NULL),
-(5,'tagobar','123JHDT','TAGOBAR','MICHAEL','',NULL,'MALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','tagobar@dev.com','09051234598','JUAN DELA CRUZ','09165873641','POB. BONIFACIO','',0,'LANDOWNER',NULL,'$2y$10$6MhKIW8nrACRpf4sp65CXuJofKGOfviVarPLD2bx3zAQfsqyBhxCa',NULL,NULL,NULL),
-(6,'jerecho','HUYD684','MELLEJOR','JERECHO','',NULL,'MALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','jerecho@dev.com','09167789583','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'BOARDER',NULL,'$2y$10$SyJH8ctPzdidoxqe7yx1Z.GssIInbdxgGylD6Ik3xk3t4jY4YwkA2',NULL,NULL,NULL),
-(7,'admin','ADMIN112','ALGADIPE','HESSEL','',NULL,'FEMALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','admin@dev.com','09167789584','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'ADMINISTRATOR',NULL,'$2y$10$e.iE3oh3XCmTVY5py9T2DOAmOSfRlCtcg50JGVu8iq88.5ml57x/a',NULL,NULL,NULL),
-(8,'kimchie','JUG66878','HIBAYA','NIMCHIE','',NULL,'FEMALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','kimchie@dev.com','09267789584','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'BOARDER',NULL,'$2y$10$M8Da1QEaR8Wq6r0DbspRouvHQzaYb9Z4IuxZCD04U0FbH/PH1J9uC',NULL,NULL,NULL);
+insert  into `users`(`user_id`,`username`,`lname`,`fname`,`mname`,`suffix`,`sex`,`province`,`city`,`barangay`,`street`,`email`,`contact_no`,`guardian_name`,`guardian_contact_no`,`guardian_address`,`business_permit_img`,`is_approve`,`role`,`email_verified_at`,`password`,`remember_token`,`created_at`,`updated_at`) values 
+(1,'angel','LOPEZ','ANGEL','P',NULL,'FEMALE','MISMAIS OCCIDENTAL','TANGUB CITY','CANIANGAN','P-6','angel@dev.com','09167789581','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'BOARDER',NULL,'$2y$10$7a0e0v7F3gyEkHLOnYLNcOh7lNUgx4B4lqaKs/h/rl00/8PSLWXM6',NULL,NULL,NULL),
+(2,'dacles','DACLES','RICHE','',NULL,'MALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','dacles@dev.com','09167789582','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','X58cNXkY5OWADcJVy3wO1jCAKKGAqC9NkoQ5yr5x.png',1,'LANDOWNER',NULL,'$2y$10$8KXZIBnqJbYysvyU20NBKu3aOXoIsKAcupxUYqLELihLRd.vqe7OK',NULL,NULL,NULL),
+(3,'fuentes','FUENTES','JOHN','',NULL,'MALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','fuentes@dev.com','09051234598','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'LANDOWNER',NULL,'$2y$10$gIgI2DDTRaZdpmV4cHbQNe7s3XzU5BN7IulB56/TxuVirQAe2LpYK',NULL,NULL,NULL),
+(4,'siete','SIETE','PARLING','',NULL,'FEMALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','siete@dev.com','09051234598','JUAN DELA CRUZ','09165873641','POB. BONIFACIO','',0,'LANDOWNER',NULL,'$2y$10$U/aqsK9BI9Vd6uKM4/H8ZuaUhFYnQTJSw7e75j6Vu5/82094owTGm',NULL,NULL,NULL),
+(5,'tagobar','TAGOBAR','MICHAEL','',NULL,'MALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','tagobar@dev.com','09051234598','JUAN DELA CRUZ','09165873641','POB. BONIFACIO','',0,'LANDOWNER',NULL,'$2y$10$r5tTR2w21vRytQQ.HjYoze8kEgubmjVM5l6rkM5FPSdxh69GSOja.',NULL,NULL,NULL),
+(6,'jerecho','MELLEJOR','JERECHO','',NULL,'MALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','jerecho@dev.com','09167789583','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'BOARDER',NULL,'$2y$10$AXK8cEXCkw/0irmA9WaHle1a1xiBuMNt01AT.QHXNyfll8Wr9N3p.',NULL,NULL,NULL),
+(7,'admin','ALGADIPE','HESSEL','',NULL,'FEMALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','admin@dev.com','09167789584','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'ADMINISTRATOR',NULL,'$2y$10$w2z7qu6nj6mssCKzBxDSpOOpRJ0MnJNZM1vkjOc/mF/bHXm1oB2R2',NULL,NULL,NULL),
+(8,'kimchie','HIBAYA','NIMCHIE','',NULL,'FEMALE','MISMAIS OCCIDENTAL','OZAMIS CITY','SINUSZA','P-SAMPLE','kimchie@dev.com','09267789584','JUAN DELA CRUZ','09167789581','POB. BONIFACIO','',0,'BOARDER',NULL,'$2y$10$mjqwzWTIdw3t35SaOQenkuSo6N7H5voYjrr4dOjFqxNuC9ZVC5BXa',NULL,NULL,'2022-02-22 05:37:50');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

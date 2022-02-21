@@ -27,6 +27,7 @@
     "dependencies": {
         "@chenfengyuan/vue-qrcode": "^1.0.2",
         "@mdi/font": "^6.5.95",
+        "@vueup/vue-quill": "^1.0.0-beta.8",
         "animate.css": "^4.1.1",
         "buefy": "^0.9.13",
         "bulma": "^0.9.3",
@@ -35,6 +36,7 @@
         "leaflet-routing-machine": "^3.2.12",
         "qrcode": "^1.4.4",
         "vue-json-excel": "^0.3.0",
-        "vue-qrcode-reader": "^3.1.0"
+        "vue-qrcode-reader": "^3.1.0",
+        "vue-quill-editor": "^3.0.6"
     }
 }

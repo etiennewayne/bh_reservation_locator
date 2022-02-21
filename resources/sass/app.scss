@@ -21,6 +21,8 @@
 //for map integration
 //@import '~leaflet';
 //@import "~leaflet-routing-machine";
+//@import '@vueup/vue-quill/dist/vue-quill.snow.css';
+@import '~@vueup/vue-quill/dist/vue-quill.snow.css';
 
 
 html{
@@ -169,6 +171,18 @@ a.navbar-item:hover {
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
+
+
+.rules-content ul{
+    margin: 0 0 0 20px;
+    list-style-type: circle;
+}
+
+.rules-content ol{
+    margin: 0 0 0 20px;
+}
+
+
 
 
 // Import only what you need from Bulma

@@ -52,6 +52,7 @@ Route::resource('/dashboard', App\Http\Controllers\Administrator\AdminDashboardC
 
 Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
+Route::post('/user-reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
 
 Route::resource('/request-accounts', App\Http\Controllers\Administrator\RequestAccountController::class);
@@ -166,7 +167,7 @@ Route::post('/upload-proof-transaction/{book_bedspace_id}', [App\Http\Controller
 Route::post('/my-reservation-cancel/{bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'cancelReservation']);
 
 
-Route::get('/my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'index']);
+Route::get('/my-billing', [App\Http\Controllers\Boarder\MyPaymentController::class, 'index']);
 Route::get('/my-payment-receipt/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getReceiptInfo']);
 
 Route::get('/get-my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPayment']);

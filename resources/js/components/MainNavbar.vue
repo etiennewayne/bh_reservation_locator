@@ -70,7 +70,7 @@
                     </b-menu-list>
 
                     <b-menu-list>
-                        <b-menu-item label="My Payment" icon="currency-php" tag="a" href="/my-payment"></b-menu-item>
+                        <b-menu-item label="Billing" icon="currency-php" tag="a" href="/my-billing"></b-menu-item>
                     </b-menu-list>
 
 

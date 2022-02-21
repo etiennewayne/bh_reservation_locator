@@ -8,7 +8,7 @@
                         <div class="column is-10">
                             <div class="panel">
                                 <div class="panel-heading">
-                                    MY PAYMENT
+                                    BILLING
                                 </div>
 
                                 <div class="panel-body">
@@ -68,7 +68,7 @@
                                             {{ props.row.payment_detail_id }}
                                         </b-table-column>
 
-                                        <b-table-column field="date_pay" label="Payment Date" v-slot="props">
+                                        <b-table-column field="date_pay" label="Billing Date" v-slot="props">
                                             {{ new Date(props.row.date_pay).toLocaleDateString() }}
                                         </b-table-column>
 

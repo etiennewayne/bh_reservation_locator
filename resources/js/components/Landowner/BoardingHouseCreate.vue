@@ -18,11 +18,27 @@
                                     <b-input type="text" v-model="fields.bhouse_name" placeholder="Bhouse Name" />
                                 </b-field>
 
-                                <b-field label="BHOUSE RULE"
-                                    :type="this.errors.bhouse_rule ? 'is-danger':''"
+
+<!--                                    :type="this.errors.bhouse_rule ? 'is-danger':''"
                                     :message="this.errors.bhouse_rule ? this.errors.bhouse_rule[0] : ''">
-                                    <b-input type="textarea" v-model="fields.bhouse_rule" placeholder="Bhouse Rule" />
+                                    <b-input type="textarea" v-model="fields.bhouse_rule" placeholder="Bhouse Rule" />-->
+
+
+                                <b-field label="BHOUSE RULE"
+                                         type="this.errors.bhouse_rule ? 'is-danger':''"
+                                         :message="this.errors.bhouse_rule ? this.errors.bhouse_rule[0] : ''">
+                                    <quill-editor
+                                        ref="myQuillEditor"
+                                        v-model="fields.bhouse_rule"
+                                        :options="editorOption"
+                                    />
                                 </b-field>
+
+<!--                                    @blur="onEditorBlur($event)"
+                                    @focus="onEditorFocus($event)"
+                                    @ready="onEditorReady($event)"-->
+
+
 
                                 <b-field label="BHOUSE DESC"
                                     :type="this.errors.bhouse_desc ? 'is-danger':''"
@@ -188,6 +204,10 @@ export default {
             cities: [],
             barangays: [],
 
+            content: '<h2>I am Example</h2>',
+            editorOption: {
+                // Some Quill options...
+            }
         }
     },
 
@@ -343,15 +363,41 @@ export default {
                     });
                 });
             });
+        },
+
+
+
+        /* QUILL METHODS*/
+        onEditorBlur(quill) {
+            console.log('editor blur!', quill)
+        },
+        onEditorFocus(quill) {
+            console.log('editor focus!', quill)
+        },
+        onEditorReady(quill) {
+            console.log('editor ready!', quill)
+        },
+        onEditorChange({ quill, html, text }) {
+            console.log('editor change!', quill, html, text)
+            this.content = html
         }
+        /* QUILL METHODS*/
 
     },
+    computed: {
+        editor() {
+            return this.$refs.myQuillEditor.quill
+        }
+    },
+
 
     mounted(){
 
         this.loadProvince();
         this.initData();
         this.loadMap();
+
+
 
     }
 
