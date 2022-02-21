@@ -124,7 +124,8 @@ Route::get('/get-boarder-reservation', [App\Http\Controllers\LandOwner\BoarderRe
 
 
 //-------------LANDOWNER------------///
-//-------------------------///
+//----------------------------------///
+
 
 
 //BOARDING HOUSE - BEDSPACE

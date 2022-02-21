@@ -189,7 +189,7 @@ export default {
                 if(res.data.status === 'reserved'){
                     this.$buefy.dialog.alert({
                         title: 'RESERVED!',
-                        message: 'Bed space successfully reserved. You have 24 hours to pay the transaction.',
+                        message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Thank you.',
                         type: 'is-success',
                         onConfirm: ()=>{
                             this.openBedSpaces(dataId, 1);
