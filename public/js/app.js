@@ -10536,7 +10536,9 @@ __webpack_require__.r(__webpack_exports__);
         L.latLng(this.data.lat, this.data["long"]) //current location coordinates
         ]
       }).addTo(mymap);
+      var popup = L.popup().setLatLng(this.nlat, this.nlong).setContent('<p>Hello world!<br />This is a nice popup.</p>').openOn(map);
     },
+    //load map
     loadData: function loadData() {
       var _this2 = this;
 

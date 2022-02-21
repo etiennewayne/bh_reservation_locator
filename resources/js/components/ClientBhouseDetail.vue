@@ -102,6 +102,7 @@ export default {
                 alert('Geolocation is not supported by this browser but still you can continue using the scanner.');
             }
         },
+
         getPosition(position) {
             //console.log(position.coords.latitude, position.coords.longitude);
             //this.position.lat = position.coords.latitude;
@@ -115,10 +116,9 @@ export default {
         loadMap(){
             //init map
 
+
             var mymap = L.map('mapid').setView([this.data.lat, this.data.long], 17);
-
             //to call data inside nested function
-
 
             L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -137,7 +137,15 @@ export default {
                     L.latLng(this.data.lat, this.data.long)//current location coordinates
                 ]
             }).addTo(mymap);
-        },
+
+
+            var popup = L.popup()
+                .setLatLng(this.nlat, this.nlong)
+                .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+                .openOn(map);
+                
+
+        }, //load map
 
         loadData(){
             axios.get('/get-bhouse-detail/' + this.bhouse_id).then(res=>{
@@ -149,7 +157,7 @@ export default {
         initData: function(){
             //this.data = JSON.parse(this.propData);
             this.bhouse_id = parseInt(this.propBhouseId);
-            this.loadData()
+            this.loadData();
         }
 
 
