@@ -10482,7 +10482,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (err.response.status === 401) {
           _this3.$buefy.toast.open({
-            message: 'Please login first.',
+            message: 'Sorry you can\'t proceed without an account. Please register and login first.',
             type: 'is-danger' //title: 'UNAUTHORIZED!'
 
           });
@@ -35206,7 +35206,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.room-container[data-v-15d9f42c], .bedspace-images-container[data-v-15d9f42c]{\n    display: flex;\n    flex-wrap: wrap;\n    flex-direction: row;\n    justify-content: center;\n}\n.bedspace-container[data-v-15d9f42c]{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    padding: 15px;\n    border: 1px solid #c2c2c2;\n    margin: 15px;\n}\n.room[data-v-15d9f42c]{\n    margin: 10px;\n    padding: 15px;\n    border: 1px solid gray;\n    height: 400px;\n    position: relative;\n}\n.room-image > img[data-v-15d9f42c]{\n    height: 200px;\n    transition: ease-in .2s;\n    cursor: pointer;\n}\n.room-image > img[data-v-15d9f42c]:hover{\n    height: 210px;\n}\n.room-title[data-v-15d9f42c], .bedspace-title[data-v-15d9f42c]{\n    font-weight: bold;\n}\n.room-button[data-v-15d9f42c]{\n    position: absolute;\n    bottom: 15px;\n}\n.bedspace-title[data-v-15d9f42c]{\n    margin-bottom: 15px;\n}\n.bedspace-imgs > img[data-v-15d9f42c]{\n    margin: 15px;\n}\n.bedspace-detail[data-v-15d9f42c]{\n    margin: 15px 0\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.room-container[data-v-15d9f42c], .bedspace-images-container[data-v-15d9f42c]{\n    display: flex;\n    flex-wrap: wrap;\n    flex-direction: row;\n    justify-content: center;\n    background-color:rgb(235, 236, 241);\n}\n.bedspace-container[data-v-15d9f42c]{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    padding: 15px;\n    border: 1px solid #c2c2c2;\n    margin: 15px;\n    background-color:rgb(237, 238, 245);\n}\n.room[data-v-15d9f42c]{\n    margin: 10px;\n    padding: 15px;\n    border: 1px solid gray;\n    height: 400px;\n    position: relative;\n}\n.room-image > img[data-v-15d9f42c]{\n    height: 200px;\n    transition: ease-in .2s;\n    cursor: pointer;\n}\n.room-image > img[data-v-15d9f42c]:hover{\n    height: 210px;\n}\n.room-title[data-v-15d9f42c], .bedspace-title[data-v-15d9f42c]{\n    font-weight: bold;\n}\n.room-button[data-v-15d9f42c]{\n    position: absolute;\n    bottom: 15px;\n}\n.bedspace-title[data-v-15d9f42c]{\n    margin-bottom: 15px;\n}\n.bedspace-imgs > img[data-v-15d9f42c]{\n    margin: 15px;\n}\n.bedspace-detail[data-v-15d9f42c]{\n    margin: 15px 0\n}\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -60680,14 +60680,6 @@ var render = function () {
               return [
                 _c("b-navbar-item", { attrs: { href: "/" } }, [
                   _vm._v("\n                Home\n            "),
-                ]),
-                _vm._v(" "),
-                _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\n                About\n            "),
-                ]),
-                _vm._v(" "),
-                _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\n                Contact\n            "),
                 ]),
                 _vm._v(" "),
                 _vm.user.username

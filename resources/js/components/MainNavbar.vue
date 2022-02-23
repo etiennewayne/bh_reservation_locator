@@ -17,12 +17,12 @@
             <b-navbar-item href="/">
                 Home
             </b-navbar-item>
-            <b-navbar-item href="#">
-                About
-            </b-navbar-item>
-            <b-navbar-item href="#">
-                Contact
-            </b-navbar-item>
+<!--            <b-navbar-item href="#">-->
+<!--                About-->
+<!--            </b-navbar-item>-->
+<!--            <b-navbar-item href="#">-->
+<!--                Contact-->
+<!--            </b-navbar-item>-->
 
             <b-navbar-item tag="div" v-if="user.username">
                 <b-navbar-item @click="open =  true">

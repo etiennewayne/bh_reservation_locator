@@ -210,7 +210,7 @@ export default {
                 }
                 if(err.response.status === 401){
                     this.$buefy.toast.open({
-                        message: 'Please login first.',
+                        message: 'Sorry you can\'t proceed without an account. Please register and login first.',
                         type: 'is-danger',
                         //title: 'UNAUTHORIZED!'
                     })
@@ -238,6 +238,7 @@ export default {
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: center;
+        background-color:rgb(235, 236, 241);
     }
 
     .bedspace-container{
@@ -247,6 +248,7 @@ export default {
         padding: 15px;
         border: 1px solid #c2c2c2;
         margin: 15px;
+        background-color:rgb(237, 238, 245);
     }
 
     .room{
