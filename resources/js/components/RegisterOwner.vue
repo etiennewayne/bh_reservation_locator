@@ -2,7 +2,7 @@
   <div>
       <form @submit.prevent="submit">
         <h1 class="title is-5">
-            LANDOWNER
+            LANDOWNER REGISTRATION
         </h1>
         <div class="columns">
             <div class="column">
