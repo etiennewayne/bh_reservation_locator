@@ -40,7 +40,7 @@
                     <strong>Register</strong>
                 </b-navbar-item>
                 <b-navbar-item @click="isModalActive = true">
-                    <strong>Sign in</strong>
+                    <strong>Login</strong>
                 </b-navbar-item>
             </b-navbar-item tag="div">
 
