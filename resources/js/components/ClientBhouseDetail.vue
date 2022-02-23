@@ -18,16 +18,16 @@
                                         {{data.bhouse_name}}
                                     </div>
                                     <div class="bhouse-desc">
-                                        DESCRIPTION: {{ data.bhouse_desc }}
+                                        Description: {{ data.bhouse_desc }}
                                     </div>
                                     <div>
-                                        Landowner {{ data.lname }}, {{ data.fname }} {{ data.mname }}
+                                        Landowner: {{ data.lname }}, {{ data.fname }} {{ data.mname }}
                                     </div>
                                     <div>
-                                        Contact No. {{ data.contact_no }}
+                                        Contact No.: {{ data.contact_no }}
                                     </div>
                                     <div>
-                                        STREET/PUROK: {{ data.street }}
+                                        Street/Purok: {{ data.street }}
                                     </div>
 
                                     <div class="buttons mt-5">
@@ -179,6 +179,7 @@ export default {
     .bhouse-title{
         font-size: 1.5em;
         font-weight: bold;
+        color: blue;
     }
     .bhouse-desc{
         font-size: 1em;

@@ -10755,6 +10755,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -35225,7 +35230,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n    color: blue;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35249,7 +35254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n\n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n/*\n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 5em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 3em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: 1.5em;\n        font-style: italic;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n\n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n        text-align: center;\n        \n/*\n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 2em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 1em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: .8em;\n        font-style: italic;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35441,7 +35446,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-0493a076]{\n    padding: 0 30px 0 30px;\n    height: 90px;\n}\n.burger-div[data-v-0493a076]{\n    width: 20px;\n    height: 3px;\n    background-color: #696969;\n    margin: 0 auto 3px 0;\n\n    border-radius: 10px;\n}\n.burger-button[data-v-0493a076]{\n    display: flex;\n    flex-direction: column;\n}\n.mynav[data-v-0493a076]{\n    padding: 25px;\n    /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/\n    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);\n    display: flex;\n}\n.user[data-v-0493a076]{\n\n    font-weight: bold;\n    font-size: 1.2em;\n    margin: 0 auto;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-0493a076]{\n    padding: 0 30px 0 30px;\n    height: 90px;\n}\n.burger-div[data-v-0493a076]{\n    width: 20px;\n    height: 3px;\n    background-color: black;\n    margin: 0 auto 3px 0;\n\n    border-radius: 10px;\n}\n.burger-button[data-v-0493a076]{\n    display: flex;\n    flex-direction: column;\n}\n.mynav[data-v-0493a076]{\n    padding: 25px;\n    background:dodgerblue;\n    color:white;\n    /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/\n    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);\n    display: flex;\n}\n.user[data-v-0493a076]{\n\n    font-weight: bold;\n    font-size: 1.2em;\n    margin: 0 auto;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55542,7 +55547,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "bhouse-desc" }, [
                     _vm._v(
-                      "\n                                    DESCRIPTION: " +
+                      "\n                                    Description: " +
                         _vm._s(_vm.data.bhouse_desc) +
                         "\n                                "
                     ),
@@ -55550,7 +55555,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", [
                     _vm._v(
-                      "\n                                    Landowner " +
+                      "\n                                    Landowner: " +
                         _vm._s(_vm.data.lname) +
                         ", " +
                         _vm._s(_vm.data.fname) +
@@ -55562,7 +55567,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", [
                     _vm._v(
-                      "\n                                    Contact No. " +
+                      "\n                                    Contact No.: " +
                         _vm._s(_vm.data.contact_no) +
                         "\n                                "
                     ),
@@ -55570,7 +55575,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", [
                     _vm._v(
-                      "\n                                    STREET/PUROK: " +
+                      "\n                                    Street/Purok: " +
                         _vm._s(_vm.data.street) +
                         "\n                                "
                     ),
@@ -55717,7 +55722,7 @@ var staticRenderFns = [
                 },
                 [
                   _vm._v(
-                    "\n                        A home away from home\n                    "
+                    "\n                        A Home Away From Home\n                    "
                   ),
                 ]
               ),
@@ -55746,7 +55751,7 @@ var staticRenderFns = [
           staticClass: "footer",
           staticStyle: {
             "margin-top": "30px",
-            "background-color": "#5a9669",
+            "background-color": "#002b80",
             color: "white",
           },
         },
@@ -55788,6 +55793,16 @@ var staticRenderFns = [
                 _c("div", [
                   _vm._v(
                     "\n                                Juan Luna St.\n                                Maloro, Tangub City\n                                Misamis Occidental\n                                Philippines\n                            "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _vm._v("\n                                 Contact us "),
+                  _c("br"),
+                  _vm._v(" Phone: (088)-545-2793 "),
+                  _c("br"),
+                  _vm._v(
+                    "\n                                 Email: gadtc@gadtc.edu.ph.\n                            "
                   ),
                 ]),
               ]),
@@ -60852,7 +60867,7 @@ var render = function () {
         [
           _c("div", { staticClass: "modal-card" }, [
             _c("header", { staticClass: "modal-card-head" }, [
-              _c("p", { staticClass: "modal-card-title" }, [_vm._v("Login")]),
+              _c("p", { staticClass: "modal-card-title" }, [_vm._v("Login ")]),
               _vm._v(" "),
               _c("button", {
                 staticClass: "delete",

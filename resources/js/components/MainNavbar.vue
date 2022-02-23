@@ -90,7 +90,7 @@
              trap-focus width="640" aria-role="dialog" aria-modal>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Login</p>
+                <p class="modal-card-title">Login </p>
                 <button type="button" class="delete"
                         @click="isModalActive = false"/>
             </header>
