@@ -4,7 +4,7 @@
             <div class="panel">
                 <div class="columns">
                     <div class="column is-10 is-offset-1">
-                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF USER</div>
+                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF USERS</div>
 
                         <div class="level">
                             <div class="level-left">
