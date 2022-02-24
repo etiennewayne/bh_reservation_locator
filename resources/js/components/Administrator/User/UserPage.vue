@@ -170,7 +170,7 @@
                                     <b-field label="Contact No"
                                              :type="this.errors.contact_no ? 'is-danger':''"
                                              :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
-                                        <b-input type="text" placeholder="Contact No" v-model="fields.contact_no"></b-input>
+                                        <b-input type="text" placeholder="Contact No" v-model="fields.contact_no" @input="checkMobileNo"></b-input>
                                     </b-field>
                                 </div>
                             </div>
@@ -499,11 +499,12 @@ export default{
 
 
         submit: function(){
+
             if(this.global_id > 0){
                 //update
                 axios.put('/users/'+this.global_id, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
-                        this.$buefy.dialog.confirm({
+                        this.$buefy.dialog.alert({
                             title: 'UPDATED!',
                             message: 'Successfully updated.',
                             type: 'is-success',
@@ -524,7 +525,7 @@ export default{
                 //INSERT HERE
                 axios.post('/users', this.fields).then(res=>{
                     if(res.data.status === 'saved'){
-                        this.$buefy.dialog.confirm({
+                        this.$buefy.dialog.alert({
                             title: 'SAVED!',
                             message: 'Successfully saved.',
                             type: 'is-success',
@@ -633,6 +634,18 @@ export default{
                 }
             })
         },
+
+
+        checkMobileNo(evt){
+            var phoneno = /^(09|\+639)\d{9}$/;
+            if(evt.match(phoneno)){
+                this.errors.contact_no = false;
+            }else{
+                this.errors.contact_no = true;
+                this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
+
+            }
+        }
 
 
 

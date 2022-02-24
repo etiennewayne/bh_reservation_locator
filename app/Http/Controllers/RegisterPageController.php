@@ -25,7 +25,7 @@ class RegisterPageController extends Controller
 
             'email' => ['required', 'string', 'max:100', 'unique:users'],
             'sex' => ['required', 'string', 'max:20'],
-            'contact_no' => ['required', 'max:30'],
+            'contact_no' => ['required', 'max:30', 'regex: /^(09|\+639)\d{9}$/'],
 
             'role' => ['required', 'max:30'],
 
@@ -78,7 +78,7 @@ class RegisterPageController extends Controller
 
             'email' => ['required', 'string', 'max:100', 'unique:users'],
             'sex' => ['required', 'string', 'max:20'],
-            'contact_no' => ['required', 'max:30'],
+            'contact_no' => ['required', 'max:30', 'regex: /^(09|\+639)\d{9}$/'],
 
             'role' => ['required', 'max:30'],
             'business_permit_img' => ['required', 'mimes:jpg,png,bmp', 'max:800'],

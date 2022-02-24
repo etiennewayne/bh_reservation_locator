@@ -9232,7 +9232,7 @@ __webpack_require__.r(__webpack_exports__);
         //update
         axios.put('/users/' + this.global_id, this.fields).then(function (res) {
           if (res.data.status === 'updated') {
-            _this5.$buefy.dialog.confirm({
+            _this5.$buefy.dialog.alert({
               title: 'UPDATED!',
               message: 'Successfully updated.',
               type: 'is-success',
@@ -9255,7 +9255,7 @@ __webpack_require__.r(__webpack_exports__);
         //INSERT HERE
         axios.post('/users', this.fields).then(function (res) {
           if (res.data.status === 'saved') {
-            _this5.$buefy.dialog.confirm({
+            _this5.$buefy.dialog.alert({
               title: 'SAVED!',
               message: 'Successfully saved.',
               type: 'is-success',
@@ -9376,6 +9376,16 @@ __webpack_require__.r(__webpack_exports__);
           _this9.errors = err.response.data.errors;
         }
       });
+    },
+    checkMobileNo: function checkMobileNo(evt) {
+      var phoneno = /^(09|\+639)\d{9}$/;
+
+      if (evt.match(phoneno)) {
+        this.errors.contact_no = false;
+      } else {
+        this.errors.contact_no = true;
+        this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
+      }
     }
   },
   mounted: function mounted() {
@@ -14292,6 +14302,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -14354,6 +14365,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/load-barangays?prov=' + this.fields.province + '&city_code=' + this.fields.city).then(function (res) {
         _this4.barangays = res.data;
       });
+    },
+    checkMobileNo: function checkMobileNo(evt) {
+      //var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+      var phoneno = /^(09|\+639)\d{9}$/;
+
+      if (evt.match(phoneno)) {
+        this.errors.contact_no = false;
+      } else {
+        this.errors.contact_no = true;
+        this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
+      }
     }
   },
   mounted: function mounted() {
@@ -14374,6 +14396,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -14636,6 +14659,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/load-barangays?prov=' + this.fields.province + '&city_code=' + this.fields.city).then(function (res) {
         _this4.barangays = res.data;
       });
+    },
+    checkMobileNo: function checkMobileNo(evt) {
+      //var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+      var phoneno = /^(09|\+639)\d{9}$/;
+
+      if (evt.match(phoneno)) {
+        this.errors.contact_no = false;
+      } else {
+        this.errors.contact_no = true;
+        this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
+      }
     }
   },
   mounted: function mounted() {
@@ -14656,7 +14690,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -35474,11 +35507,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-<<<<<<< HEAD
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-0493a076]{\r\n    padding: 0 30px 0 30px;\r\n    height: 90px;\n}\n.burger-div[data-v-0493a076]{\r\n    width: 20px;\r\n    height: 3px;\r\n    background-color: #696969;\r\n    margin: 0 auto 3px 0;\r\n\r\n    border-radius: 10px;\n}\n.burger-button[data-v-0493a076]{\r\n    display: flex;\r\n    flex-direction: column;\n}\n.mynav[data-v-0493a076]{\r\n    padding: 25px;\r\n    /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/\r\n    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);\r\n    display: flex;\n}\n.user[data-v-0493a076]{\r\n\r\n    font-weight: bold;\r\n    font-size: 1.2em;\r\n    margin: 0 auto;\n}\r\n\r\n", ""]);
-=======
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-0493a076]{\r\n    padding: 0 30px 0 30px;\r\n    height: 90px;\n}\n.burger-div[data-v-0493a076]{\r\n    width: 20px;\r\n    height: 3px;\r\n    background-color: black;\r\n    margin: 0 auto 3px 0;\r\n\r\n    border-radius: 10px;\n}\n.burger-button[data-v-0493a076]{\r\n    display: flex;\r\n    flex-direction: column;\n}\n.mynav[data-v-0493a076]{\r\n    padding: 25px;\r\n    background:dodgerblue;\r\n    color:white;\r\n    /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/\r\n    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);\r\n    display: flex;\n}\n.user[data-v-0493a076]{\r\n\r\n    font-weight: bold;\r\n    font-size: 1.2em;\r\n    margin: 0 auto;\n}\r\n\r\n", ""]);
->>>>>>> af1bb7e7b4a0f5939249c4b260f67564de8166d1
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -53144,6 +53173,7 @@ var render = function () {
                                   type: "text",
                                   placeholder: "Contact No",
                                 },
+                                on: { input: _vm.checkMobileNo },
                                 model: {
                                   value: _vm.fields.contact_no,
                                   callback: function ($$v) {
@@ -60849,17 +60879,6 @@ var render = function () {
               return [
                 _c("b-navbar-item", { attrs: { href: "/" } }, [
                   _vm._v("\r\n                Home\r\n            "),
-<<<<<<< HEAD
-                ]),
-                _vm._v(" "),
-                _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\r\n                About\r\n            "),
-                ]),
-                _vm._v(" "),
-                _c("b-navbar-item", { attrs: { href: "#" } }, [
-                  _vm._v("\r\n                Contact\r\n            "),
-=======
->>>>>>> af1bb7e7b4a0f5939249c4b260f67564de8166d1
                 ]),
                 _vm._v(" "),
                 _vm.user.username
@@ -61323,6 +61342,7 @@ var render = function () {
                 [
                   _c("b-input", {
                     attrs: { placeholder: "Last Name", type: "text" },
+                    on: { input: _vm.capitalFirstLetter },
                     model: {
                       value: _vm.fields.lname,
                       callback: function ($$v) {
@@ -61501,7 +61521,9 @@ var render = function () {
             ],
             1
           ),
-          _vm._v(" "),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "columns" }, [
           _c(
             "div",
             { staticClass: "column" },
@@ -61519,7 +61541,11 @@ var render = function () {
                 },
                 [
                   _c("b-input", {
-                    attrs: { type: "text", placeholder: "Contact No" },
+                    attrs: {
+                      type: "text",
+                      placeholder: "Contact No (+639481234123)",
+                    },
+                    on: { input: _vm.checkMobileNo },
                     model: {
                       value: _vm.fields.contact_no,
                       callback: function ($$v) {
@@ -61851,7 +61877,7 @@ var render = function () {
       },
       [
         _c("h1", { staticClass: "title is-5" }, [
-          _vm._v("\n          LANDOWNER REGISTRATION\n      "),
+          _vm._v("\n            LANDOWNER REGISTRATION\n        "),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "columns" }, [
@@ -62150,7 +62176,9 @@ var render = function () {
             ],
             1
           ),
-          _vm._v(" "),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "columns" }, [
           _c(
             "div",
             { staticClass: "column" },
@@ -62168,7 +62196,11 @@ var render = function () {
                 },
                 [
                   _c("b-input", {
-                    attrs: { type: "text", placeholder: "Contact No" },
+                    attrs: {
+                      type: "text",
+                      placeholder: "Contact No (+639481234123)",
+                    },
+                    on: { input: _vm.checkMobileNo },
                     model: {
                       value: _vm.fields.contact_no,
                       callback: function ($$v) {
@@ -62230,7 +62262,6 @@ var render = function () {
                                 staticClass: "file-icon",
                                 attrs: { icon: "upload" },
                               }),
-                              _vm._v(" "),
                               _c("span", { staticClass: "file-label" }, [
                                 _vm._v("Click to upload"),
                               ]),
@@ -62245,7 +62276,7 @@ var render = function () {
                                     _vm._s(
                                       _vm.fields.business_permit_img.name
                                     ) +
-                                    "\n                          "
+                                    "\n                            "
                                 ),
                               ])
                             : _vm._e(),
