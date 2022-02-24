@@ -9411,7 +9411,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -35522,7 +35521,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-b9efe158]{\n    height: 200px;\n}\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-b9efe158]{\n    height: 200px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -53931,7 +53930,14 @@ var render = function () {
       _c("div", { staticClass: "columns is-centered" }, [
         _c("div", { staticClass: "column is-4" }, [
           _c("h1", { staticClass: "title is-4" }, [
-            _vm._v("WELCOME: " + _vm._s(_vm.user.fname)),
+            _c("b", [
+              _vm._v(
+                "WELCOME: " +
+                  _vm._s(_vm.user.fname) +
+                  " " +
+                  _vm._s(_vm.user.lname)
+              ),
+            ]),
           ]),
         ]),
       ]),

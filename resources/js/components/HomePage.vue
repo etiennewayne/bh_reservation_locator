@@ -98,6 +98,7 @@ export default {
 
 
 <style scoped>
+  
     .banner-wrapper{
 
         margin: auto;
