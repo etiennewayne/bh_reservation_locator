@@ -10,7 +10,7 @@
         </template>
 
         <template #start>
-
+        
         </template>
 
         <template #end>
@@ -195,8 +195,5 @@ export default {
     .logo{
         height: 200px;
     }
-
-
-
 
 </style>
