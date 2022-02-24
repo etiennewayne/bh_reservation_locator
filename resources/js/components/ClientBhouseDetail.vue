@@ -17,21 +17,25 @@
                                     <div class="bhouse-title">
                                         {{data.bhouse_name}}
                                     </div>
+                                    <div class="desc"> Description: </div>
                                     <div class="bhouse-desc">
-                                        DESCRIPTION: {{ data.bhouse_desc }}
+                                       {{ data.bhouse_desc }}
                                     </div>
-                                    <div>
-                                        Landowner {{ data.lname }}, {{ data.fname }} {{ data.mname }}
+                                    <div class="landname"> Landowner: </div>
+                                    <div class="landnames">
+                                        {{ data.fname }} {{ data.mname }} {{ data.lname }} 
                                     </div>
-                                    <div>
-                                        Contact No. {{ data.contact_no }}
+                                    <div class="conno"> Contact No.: </div>
+                                    <div class="connos">
+                                       {{ data.contact_no }}
                                     </div>
-                                    <div>
-                                        STREET/PUROK: {{ data.street }}
+                                     <div class="loc"> Street/Purok: </div>
+                                    <div class="locs">
+                                         {{ data.street }}
                                     </div>
 
                                     <div class="buttons mt-5">
-                                        <b-button type="is-link" tag="a" :href="`/client-bh-rooms/${bhouse_id}`">SEE MORE...</b-button>
+                                        <b-button type="is-link" tag="a" :href="`/client-bh-rooms/${bhouse_id}`">VIEW ROOMS</b-button>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +43,7 @@
 
                         <div class="columns">
                             <div class="column">
-                                <h1 class="title is-4">RULES</h1>
+                                <h1 class="title is-4"> Rules and Regulations in the Boarding House</h1>
                                 <div class="rules-content" v-html="data.bhouse_rule"></div>
                             </div>
                         </div>
@@ -179,15 +183,73 @@ export default {
     .bhouse-title{
         font-size: 1.5em;
         font-weight: bold;
+        color: blue;
     }
-    .bhouse-desc{
+    .desc{
         font-size: 1em;
         margin-top: 5px;
+        font-weight: bold;
+    }
+    .landname{
+        font-size: 1em;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+    .landnames{
+        margin-left: 6em;
+    }
+    .conno{
+        font-size: 1em;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+    .connos{
+        margin-left: 6em;
+    }
+    
+    .bhouse-desc{
+        font-size: 1em;
+        margin-left: 6em;
+       
+    }
+    .loc{
+        font-size: 1em;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+    .locs{
+        margin-left: 6em;
     }
     .bhouse-loc{
         margin-top: 15px;
+        margin-left: 3em;
+       
+    }
+    .column{
+        padding: 2em;
+        background: white;
+
+       
+    }
+ 
+    .title{
+    color:blue;  
+    font-weight: bold;
+    padding-left: 4.5em;
+  
     }
 
+    .rules-content{
+    background:dodgerblue;
+    color:white;
+    padding: 1em;
+    border-radius: 5px;
+   
+}
+.buttons mt-5{
+    margin-left: 2em;
+}
+ 
     #mapid { height: 500px; z-index: 0;}
 
 </style>

@@ -26,11 +26,11 @@
 
 
 html{
-    background-color: rgb(248, 248, 248) !important;
+    background-color: rgb(224, 219,219) !important;
 }
 
 .panel{
-    background-color: white !important;
+    background-color:white !important;
 }
 
 .debug{
@@ -40,6 +40,7 @@ html{
 .panel-footer{
     padding: 15px;
     border-top: 1px solid rgb(226, 226, 226);
+    
 }
 
 
@@ -50,7 +51,7 @@ html{
 @import "~bulma/sass/utilities/_all";
 //
 ////Set your colors
-$primary: hsl(223, 76%, 40%);
+$primary:#1E90FF;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
@@ -176,6 +177,7 @@ a.navbar-item:hover {
 .rules-content ul{
     margin: 0 0 0 20px;
     list-style-type: circle;
+    
 }
 
 .rules-content ol{

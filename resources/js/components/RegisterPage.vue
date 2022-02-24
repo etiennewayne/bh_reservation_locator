@@ -5,7 +5,7 @@
             <div class="column is-8 is-offset-2">
                 
                 <div style="margin: 15px 0;">
-                    <a href="/" class="mb-5">HOME</a>
+                    <a href="/" class="mb-5"><b>BACK TO HOME</b></a>
                 </div>
                 
 
@@ -21,7 +21,7 @@
                     <b-tab-item>
                         <template #header>
                             <b-icon icon="source-pull"></b-icon>
-                            <span> REGISTER AS OWNER </span>
+                            <span> REGISTER AS LANDOWNER </span>
                         </template>
                         <register-owner></register-owner>
                     </b-tab-item>
@@ -42,3 +42,12 @@ export default {
 }
 </script>
 
+<style scoped>
+
+
+.column{
+    background:white;
+    border-radius: .6em;
+    padding:4em;
+}
+</style>

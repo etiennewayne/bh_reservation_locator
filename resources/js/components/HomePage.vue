@@ -8,7 +8,7 @@
                         BHLMS
                     </p>
                     <p class="subtitle banner-sub-text animate__animated animate__backInRight">
-                        A home away from home
+                        A Home Away From Home
                     </p>
                     <blockquote>
                         Choose the boarding house that appeals to you the most.
@@ -29,7 +29,7 @@
 
 
         <section>
-            <div class="footer" style="margin-top: 30px; background-color: #5a9669; color:white;">
+            <div class="footer" style="margin-top: 30px; background-color: #002b80; color:white;">
                 <div class = "columns">
                     <div class="column">
                         <div class="footertwo-logo-wrapper">
@@ -58,6 +58,11 @@
                                 Misamis Occidental
                                 Philippines
                             </div>
+                              <div>
+                                 Contact us <br> Phone: (088)-545-2793 <br>
+                                 Email: gadtc@gadtc.edu.ph.
+                            </div>
+                             
                         </div>
                     </div>
 <!--                     <div class="column">-->
@@ -100,21 +105,23 @@ export default {
         background: rgb(46, 46, 46);
         color:white;
         border-radius: 10px;
+        text-align: center;
+        
 /*
         position: absolute;
         top: 0; */
 
     }
     .banner-text{
-        font-size: 5em;
+        font-size: 2em;
     }
 
      .banner-sub-text{
-        font-size: 3em;
+        font-size: 1em;
     }
 
     blockquote{
-        font-size: 1.5em;
+        font-size: .8em;
         font-style: italic;
     }
 

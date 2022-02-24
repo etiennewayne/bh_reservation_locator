@@ -17,12 +17,12 @@
             <b-navbar-item href="/">
                 Home
             </b-navbar-item>
-            <b-navbar-item href="#">
-                About
-            </b-navbar-item>
-            <b-navbar-item href="#">
-                Contact
-            </b-navbar-item>
+<!--            <b-navbar-item href="#">-->
+<!--                About-->
+<!--            </b-navbar-item>-->
+<!--            <b-navbar-item href="#">-->
+<!--                Contact-->
+<!--            </b-navbar-item>-->
 
             <b-navbar-item tag="div" v-if="user.username">
                 <b-navbar-item @click="open =  true">
@@ -40,7 +40,7 @@
                     <strong>Register</strong>
                 </b-navbar-item>
                 <b-navbar-item @click="isModalActive = true">
-                    <strong>Sign in</strong>
+                    <strong>Login</strong>
                 </b-navbar-item>
             </b-navbar-item tag="div">
 
@@ -90,7 +90,7 @@
              trap-focus width="640" aria-role="dialog" aria-modal>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Login</p>
+                <p class="modal-card-title">Login </p>
                 <button type="button" class="delete"
                         @click="isModalActive = false"/>
             </header>

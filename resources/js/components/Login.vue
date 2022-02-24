@@ -56,6 +56,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        
     }
 
     .login{
@@ -64,6 +65,7 @@ export default {
 
     .panel > .panel-body{
         padding: 20px;
+     
 
     }
 

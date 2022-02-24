@@ -4,7 +4,7 @@
         <div class="section">
             <div class="columns">
                 <div class="column">
-                    <h1 class="title is-4 has-text-centered">ROOM(S)</h1>
+                    <h1 class="title is-4 has-text-centered">ROOMS</h1>
                     <div class="room-container">
                         <div class="room" v-for="(item, index) in rooms" :key="index">
                             <div class="room-image">
@@ -19,7 +19,7 @@
                             </div>
 
                             <div class="buttons room-button">
-                                <button class="button is-link" @click="openBedSpaces(item.room_id, 0)">SEE BEDSPACES</button>
+                                <button class="button is-link" @click="openBedSpaces(item.room_id, 0)">VIEW BED SPACES</button>
                             </div>
 
                         </div><!--room loop -->
@@ -34,7 +34,7 @@
         <div class="section" id="bedspaces">
             <div class="columns">
                 <div class="column">
-                    <h1 class="title is-4 has-text-centered">BEDSPACE(S)</h1>
+                    <h1 class="title is-4 has-text-centered">BED SPACES</h1>
 
                     <div class="bedspace-container" v-for="(item, index) in bedspaces" :key="index">
 
@@ -189,7 +189,7 @@ export default {
                 if(res.data.status === 'reserved'){
                     this.$buefy.dialog.alert({
                         title: 'RESERVED',
-                        message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Please send a proof of transaction using your account and you may contact the landowner for more information.',
+                        message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Please send a proof of transaction using your account and you may contact us for more information.',
                         type: 'is-success',
                         onConfirm: ()=>{
                             this.openBedSpaces(dataId, 1);
@@ -210,7 +210,7 @@ export default {
                 }
                 if(err.response.status === 401){
                     this.$buefy.toast.open({
-                        message: 'Please login first.',
+                        message: 'Sorry you can\'t proceed without an account. Please register and login first.',
                         type: 'is-danger',
                         //title: 'UNAUTHORIZED!'
                     })
@@ -238,27 +238,33 @@ export default {
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: center;
+        background-color: whitesmoke;
     }
 
     .bedspace-container{
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 15px;
-        border: 1px solid #c2c2c2;
-        margin: 15px;
+        border: 2px solid #c2c2c2;
+        margin: 25px;
+        background-color:rgb(7, 79, 151);
+
     }
 
     .room{
-        margin: 10px;
-        padding: 15px;
-        border: 1px solid gray;
+        margin: 80px;
+        padding: 35px;
+        border: 2px solid grey;
         height: 400px;
         position: relative;
+        background:rgb(7, 79, 151);
     }
 
     .room-image > img{
-        height: 200px;
+        display: flex;
+        justify-content: center;
+        height: 260px;
+        width:500px;
         transition: ease-in .2s;
         cursor: pointer;
     }
@@ -269,12 +275,13 @@ export default {
 
     .room-title, .bedspace-title{
         font-weight: bold;
+        color:white;
 
     }
 
     .room-button{
         position: absolute;
-        bottom: 15px;
+        bottom: 10px;
     }
 
     .bedspace-title{
@@ -285,8 +292,14 @@ export default {
     }
 
     .bedspace-detail{
-        margin: 15px 0
+        margin: 15px 0;
+        color:  solid black;
+        
     }
+    .columns{
+        color:white;
+    }
+  
 
 
 </style>
