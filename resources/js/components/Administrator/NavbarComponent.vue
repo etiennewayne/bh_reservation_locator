@@ -44,7 +44,7 @@
 <!--                                <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>-->
 <!--                            </b-menu-item>-->
                             <b-menu-item icqon="account" label="User Account">
-                                <b-menu-item label="Users Account" tag="a" href="/users"></b-menu-item>
+                                <b-menu-item label="All Accounts" tag="a" href="/users"></b-menu-item>
                                 <b-menu-item label="Request Account" tag="a" href="/request-accounts"></b-menu-item>
                             </b-menu-item>
 
@@ -92,19 +92,20 @@ export default {
     .burger-div{
         width: 20px;
         height: 3px;
-        background-color: #696969;
+        background-color:black;
         margin: 0 auto 3px 0;
 
         border-radius: 10px;
     }
 
     .burger-button{
-        display: flex;
+        display: flex; 
         flex-direction: column;
     }
 
     .mynav{
-        padding: 25px;
+        padding: 15px;
+        background: dodgerblue;
         /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/
         box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     }
