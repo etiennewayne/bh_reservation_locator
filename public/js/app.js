@@ -9232,7 +9232,7 @@ __webpack_require__.r(__webpack_exports__);
         //update
         axios.put('/users/' + this.global_id, this.fields).then(function (res) {
           if (res.data.status === 'updated') {
-            _this5.$buefy.dialog.confirm({
+            _this5.$buefy.dialog.alert({
               title: 'UPDATED!',
               message: 'Successfully updated.',
               type: 'is-success',
@@ -9255,7 +9255,7 @@ __webpack_require__.r(__webpack_exports__);
         //INSERT HERE
         axios.post('/users', this.fields).then(function (res) {
           if (res.data.status === 'saved') {
-            _this5.$buefy.dialog.confirm({
+            _this5.$buefy.dialog.alert({
               title: 'SAVED!',
               message: 'Successfully saved.',
               type: 'is-success',
@@ -9376,6 +9376,16 @@ __webpack_require__.r(__webpack_exports__);
           _this9.errors = err.response.data.errors;
         }
       });
+    },
+    checkMobileNo: function checkMobileNo(evt) {
+      var phoneno = /^(09|\+639)\d{9}$/;
+
+      if (evt.match(phoneno)) {
+        this.errors.contact_no = false;
+      } else {
+        this.errors.contact_no = true;
+        this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
+      }
     }
   },
   mounted: function mounted() {
@@ -14291,6 +14301,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -14353,6 +14364,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/load-barangays?prov=' + this.fields.province + '&city_code=' + this.fields.city).then(function (res) {
         _this4.barangays = res.data;
       });
+    },
+    checkMobileNo: function checkMobileNo(evt) {
+      //var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+      var phoneno = /^(09|\+639)\d{9}$/;
+
+      if (evt.match(phoneno)) {
+        this.errors.contact_no = false;
+      } else {
+        this.errors.contact_no = true;
+        this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
+      }
     }
   },
   mounted: function mounted() {
@@ -14373,6 +14395,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -14635,6 +14658,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/load-barangays?prov=' + this.fields.province + '&city_code=' + this.fields.city).then(function (res) {
         _this4.barangays = res.data;
       });
+    },
+    checkMobileNo: function checkMobileNo(evt) {
+      //var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+      var phoneno = /^(09|\+639)\d{9}$/;
+
+      if (evt.match(phoneno)) {
+        this.errors.contact_no = false;
+      } else {
+        this.errors.contact_no = true;
+        this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
+      }
     }
   },
   mounted: function mounted() {
@@ -14655,7 +14689,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -35425,7 +35458,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.panel[data-v-9af7903c]{\n    padding: 25px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.panel[data-v-9af7903c]{\r\n    padding: 25px;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -53139,6 +53172,7 @@ var render = function () {
                                   type: "text",
                                   placeholder: "Contact No",
                                 },
+                                on: { input: _vm.checkMobileNo },
                                 model: {
                                   value: _vm.fields.contact_no,
                                   callback: function ($$v) {
@@ -61314,6 +61348,7 @@ var render = function () {
                 [
                   _c("b-input", {
                     attrs: { placeholder: "Last Name", type: "text" },
+                    on: { input: _vm.capitalFirstLetter },
                     model: {
                       value: _vm.fields.lname,
                       callback: function ($$v) {
@@ -61492,7 +61527,9 @@ var render = function () {
             ],
             1
           ),
-          _vm._v(" "),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "columns" }, [
           _c(
             "div",
             { staticClass: "column" },
@@ -61510,7 +61547,11 @@ var render = function () {
                 },
                 [
                   _c("b-input", {
-                    attrs: { type: "text", placeholder: "Contact No" },
+                    attrs: {
+                      type: "text",
+                      placeholder: "Contact No (+639481234123)",
+                    },
+                    on: { input: _vm.checkMobileNo },
                     model: {
                       value: _vm.fields.contact_no,
                       callback: function ($$v) {
@@ -61842,7 +61883,7 @@ var render = function () {
       },
       [
         _c("h1", { staticClass: "title is-5" }, [
-          _vm._v("\n          LANDOWNER REGISTRATION\n      "),
+          _vm._v("\n            LANDOWNER REGISTRATION\n        "),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "columns" }, [
@@ -62141,7 +62182,9 @@ var render = function () {
             ],
             1
           ),
-          _vm._v(" "),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "columns" }, [
           _c(
             "div",
             { staticClass: "column" },
@@ -62159,7 +62202,11 @@ var render = function () {
                 },
                 [
                   _c("b-input", {
-                    attrs: { type: "text", placeholder: "Contact No" },
+                    attrs: {
+                      type: "text",
+                      placeholder: "Contact No (+639481234123)",
+                    },
+                    on: { input: _vm.checkMobileNo },
                     model: {
                       value: _vm.fields.contact_no,
                       callback: function ($$v) {
@@ -62221,7 +62268,6 @@ var render = function () {
                                 staticClass: "file-icon",
                                 attrs: { icon: "upload" },
                               }),
-                              _vm._v(" "),
                               _c("span", { staticClass: "file-label" }, [
                                 _vm._v("Click to upload"),
                               ]),
@@ -62236,7 +62282,7 @@ var render = function () {
                                     _vm._s(
                                       _vm.fields.business_permit_img.name
                                     ) +
-                                    "\n                          "
+                                    "\n                            "
                                 ),
                               ])
                             : _vm._e(),
@@ -86175,7 +86221,7 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/","#USER"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\Users\\\\eshen\\\\Desktop\\\\Github\\\\schoolpass","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\wayne\\\\Desktop\\\\GitHub\\\\bh_reservation_locator"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\wayne\\\\Desktop\\\\GitHub\\\\bh_reservation_locator","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

@@ -46,7 +46,7 @@ class UserController extends Controller
 
             'email' => ['required', 'string', 'max:100', 'unique:users'],
             'sex' => ['required', 'string', 'max:20'],
-            'contact_no' => ['required', 'max:30'],
+            'contact_no' => ['required', 'max:30', 'regex: /^(09|\+639)\d{9}$/'],
 
             'role' => ['required', 'max:30'],
 
@@ -92,7 +92,7 @@ class UserController extends Controller
 
             'email' => ['required', 'string', 'max:100', 'unique:users'],
             'sex' => ['required', 'string', 'max:20'],
-            'contact_no' => ['required', 'max:30'],
+            'contact_no' => ['required', 'max:30', 'regex: /^(09|\+639)\d{9}$/'],
 
             'role' => ['required', 'max:30'],
 

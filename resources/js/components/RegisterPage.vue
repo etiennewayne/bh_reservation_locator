@@ -3,11 +3,10 @@
         <div class="columns">
 
             <div class="column is-8 is-offset-2">
-                
+
                 <div style="margin: 15px 0;">
                     <a href="/" class="mb-5"><b>BACK TO HOME</b></a>
                 </div>
-                
 
                 <b-tabs type="is-boxed">
                     <b-tab-item>

@@ -1,117 +1,118 @@
 <template>
   <div>
       <form @submit.prevent="submit">
-        <h1 class="title is-5">
-            LANDOWNER REGISTRATION
-        </h1>
-        <div class="columns">
-            <div class="column">
-                <b-field label="Username"
-                            :type="this.errors.username ? 'is-danger':''"
-                            :message="this.errors.username ? this.errors.username[0] : ''">
-                    <b-input v-model="fields.username" type="text" icon="account"></b-input>
-                </b-field>
-            </div>
-        </div>
+          <h1 class="title is-5">
+              LANDOWNER REGISTRATION
+          </h1>
+          <div class="columns">
+              <div class="column">
+                  <b-field label="Username"
+                           :type="this.errors.username ? 'is-danger':''"
+                           :message="this.errors.username ? this.errors.username[0] : ''">
+                      <b-input v-model="fields.username" type="text" icon="account"></b-input>
+                  </b-field>
+              </div>
+          </div>
 
-        <div class="columns">
-            <div class="column">
-                <b-field label="Password"
-                            :type="this.errors.password ? 'is-danger':''"
-                            :message="this.errors.password ? this.errors.password[0] : ''">
-                    <b-input type="password" v-model="fields.password" icon="lock" password-reveal></b-input>
-                </b-field>
-            </div>
-            <div class="column">
-                <b-field label="Re-type Password">
-                    <b-input type="password" v-model="fields.password_confirmation" password-reveal></b-input>
-                </b-field>
-            </div>
-        </div>
+          <div class="columns">
+              <div class="column">
+                  <b-field label="Password"
+                           :type="this.errors.password ? 'is-danger':''"
+                           :message="this.errors.password ? this.errors.password[0] : ''">
+                      <b-input type="password" v-model="fields.password" icon="lock" password-reveal></b-input>
+                  </b-field>
+              </div>
+              <div class="column">
+                  <b-field label="Re-type Password">
+                      <b-input type="password" v-model="fields.password_confirmation" password-reveal></b-input>
+                  </b-field>
+              </div>
+          </div>
 
-        <div class="columns">
+          <div class="columns">
 
-        </div>
+          </div>
 
-        <div class="columns">
-            <div class="column">
-                <b-field label="Last Name"
-                            :type="this.errors.lname ? 'is-danger':''"
-                            :message="this.errors.lname ? this.errors.lname[0] : ''">
-                    <b-input v-model="fields.lname" placeholder="Last Name" type="text"></b-input>
-                </b-field>
-            </div>
-            <div class="column">
-                <b-field label="First Name"
-                            :type="this.errors.fname ? 'is-danger':''"
-                            :message="this.errors.fname ? this.errors.fname[0] : ''">
-                    <b-input v-model="fields.fname" placeholder="First Name" type="text"></b-input>
-                </b-field>
-            </div>
-        </div>
+          <div class="columns">
+              <div class="column">
+                  <b-field label="Last Name"
+                           :type="this.errors.lname ? 'is-danger':''"
+                           :message="this.errors.lname ? this.errors.lname[0] : ''">
+                      <b-input v-model="fields.lname" placeholder="Last Name" type="text"></b-input>
+                  </b-field>
+              </div>
+              <div class="column">
+                  <b-field label="First Name"
+                           :type="this.errors.fname ? 'is-danger':''"
+                           :message="this.errors.fname ? this.errors.fname[0] : ''">
+                      <b-input v-model="fields.fname" placeholder="First Name" type="text"></b-input>
+                  </b-field>
+              </div>
+          </div>
 
+          <div class="columns">
+              <div class="column">
+                  <b-field label="Middle Name">
+                      <b-input placeholder="Middle Name" v-model="fields.mname" type="text"></b-input>
+                  </b-field>
+              </div>
+              <div class="column">
+                  <b-field label="Suffix">
+                      <b-input placeholder="Middle Name" v-model="fields.suffix" type="text"></b-input>
+                  </b-field>
+              </div>
+          </div>
 
-        <div class="columns">
-            <div class="column">
-                <b-field label="Middle Name">
-                    <b-input placeholder="Middle Name" v-model="fields.mname" type="text"></b-input>
-                </b-field>
-            </div>
-            <div class="column">
-                <b-field label="Suffix">
-                    <b-input placeholder="Middle Name" v-model="fields.suffix" type="text"></b-input>
-                </b-field>
-            </div>
-        </div>
-
-        <div class="columns">
-            <div class="column">
-                <b-field label="Sex" expanded
-                            :type="this.errors.sex ? 'is-danger':''"
-                            :message="this.errors.sex ? this.errors.sex[0] : ''">
-                    <b-select placeholder="Sex" v-model="fields.sex" icon="account" expanded>
-                        <option value="MALE">MALE</option>
-                        <option value="FEMALE">FEMALE</option>
-                    </b-select>
-                </b-field>
-            </div>
-            <div class="column">
-                <b-field label="Email"
-                            :type="this.errors.email ? 'is-danger':''"
-                            :message="this.errors.email ? this.errors.email[0] : ''">
-                    <b-input v-model="fields.email" placeholder="E-mail" type="email"></b-input>
-                </b-field>
-            </div>
-            <div class="column">
-                <b-field label="Contact No"
-                            :type="this.errors.contact_no ? 'is-danger':''"
-                            :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
-                    <b-input type="text" placeholder="Contact No" v-model="fields.contact_no"></b-input>
-                </b-field>
-            </div>
-
-        </div>
+          <div class="columns">
+              <div class="column">
+                  <b-field label="Sex" expanded
+                           :type="this.errors.sex ? 'is-danger':''"
+                           :message="this.errors.sex ? this.errors.sex[0] : ''">
+                      <b-select placeholder="Sex" v-model="fields.sex" icon="account" expanded>
+                          <option value="MALE">MALE</option>
+                          <option value="FEMALE">FEMALE</option>
+                      </b-select>
+                  </b-field>
+              </div>
+              <div class="column">
+                  <b-field label="Email"
+                           :type="this.errors.email ? 'is-danger':''"
+                           :message="this.errors.email ? this.errors.email[0] : ''">
+                      <b-input v-model="fields.email" placeholder="E-mail" type="email"></b-input>
+                  </b-field>
+              </div>
+          </div>
 
 
-        <div class="columns">
-            <div class="column">
-                <b-field label="Upload Business permit"
-                        :type="this.errors.business_permit_img ? 'is-danger':''"
-                        :message="this.errors.business_permit_img ? this.errors.business_permit_img[0] : ''">
-                    <b-field class="file is-primary" :class="{'has-name': !!fields.business_permit_img}">
-                        <b-upload v-model="fields.business_permit_img" class="file-label">
-                            <span class="file-cta">
-                                <b-icon class="file-icon" icon="upload"></b-icon>
-                                <span class="file-label">Click to upload</span>
-                            </span>
-                            <span class="file-name" v-if="fields.business_permit_img">
+          <div class="columns">
+              <div class="column">
+                  <b-field label="Contact No"
+                           :type="this.errors.contact_no ? 'is-danger':''"
+                           :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
+                      <b-input type="text" placeholder="Contact No (+639481234123)" @input="checkMobileNo" v-model="fields.contact_no"></b-input>
+                  </b-field>
+              </div>
+          </div>
+          <div class="columns">
+              <div class="column">
+                  <b-field label="Upload Business permit"
+                           :type="this.errors.business_permit_img ? 'is-danger':''"
+                           :message="this.errors.business_permit_img ? this.errors.business_permit_img[0] : ''">
+                      <b-field class="file is-primary" :class="{'has-name': !!fields.business_permit_img}">
+                          <b-upload v-model="fields.business_permit_img" class="file-label">
+                              <span class="file-cta">
+                                <b-icon class="file-icon" icon="upload"></b-icon><span class="file-label">Click to upload</span>
+                              </span>
+                              <span class="file-name" v-if="fields.business_permit_img">
                                 {{ fields.business_permit_img.name }}
-                            </span>
-                        </b-upload>
-                    </b-field>
-                </b-field>
-            </div>
-        </div>
+                              </span>
+
+                          </b-upload>
+                      </b-field>
+                  </b-field>
+              </div>
+          </div>
+
 
         <hr>
         <div class="columns">
@@ -255,6 +256,19 @@ export default {
                 this.barangays = res.data;
             })
         },
+
+        checkMobileNo(evt){
+            //var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+            var phoneno = /^(09|\+639)\d{9}$/;
+            if(evt.match(phoneno)){
+                this.errors.contact_no = false;
+            }else{
+                this.errors.contact_no = true;
+                this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
+
+            }
+        }
+
     },
 
     mounted(){
