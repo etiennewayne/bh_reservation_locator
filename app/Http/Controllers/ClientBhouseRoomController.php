@@ -42,16 +42,25 @@ class ClientBhouseRoomController extends Controller
         //return $dateNow;
         $rsrv = BookBedSpace::where('created_at', '<=', $date24)
             ->where('is_active', 1)
+            ->where('approval_status', 'PENDING')
             ->get();
 
-            
+        //kigwa// tiwason ang mark failed
+        //d makita kai walay bedspace Id ma forward tungod sa status na pending
+
+        //scenario,, dapat ma mark as failed if dili kabayad 24hrs.
+        //mabalik ug available ang bedspace then ang reservation ref ma mark as failed
+
+
         if(count($rsrv) > 0){
             //if naa
             BookBedSpace::where('created_at', '<=', $date24)
-            ->where('is_active', 1)
-            ->update([
-                'is_active' => 0
-            ]);
+                ->where('is_active', 1)
+                ->where('approval_status', 'PENDING')
+                ->update([
+                    'is_active' => 0,
+                    'approval_status' => 'FAILED'
+                ]);
 
             foreach($rsrv as $item){
                 BedSpace::where('bedspace_id', '<=', $item->bedspace_id)

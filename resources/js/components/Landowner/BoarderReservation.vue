@@ -88,7 +88,8 @@
                                         </b-table-column>
 
                                         <b-table-column label="Action" v-slot="props">
-                                            <b-dropdown aria-role="list">
+
+                                            <b-dropdown aria-role="list" v-if="props.row.approval_status !== 'FAILED'">
                                                 <template #trigger="{ active }">
                                                     <b-button
                                                         label="..."

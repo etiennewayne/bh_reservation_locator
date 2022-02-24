@@ -10109,7 +10109,7 @@ __webpack_require__.r(__webpack_exports__);
         if (res.data.status === 'uploaded') {
           _this2.$buefy.dialog.alert({
             title: 'UPLOADED!',
-            message: 'Uploaded successfully.',
+            message: 'Uploaded successfully. Please wait for the landowner\'s confirmation. Thank you.',
             type: 'is-success',
             onConfirm: function onConfirm() {
               _this2.loadAsyncData();
@@ -12272,6 +12272,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -58388,69 +58389,75 @@ var render = function () {
                                 key: "default",
                                 fn: function (props) {
                                   return [
-                                    _c(
-                                      "b-dropdown",
-                                      {
-                                        attrs: { "aria-role": "list" },
-                                        scopedSlots: _vm._u(
+                                    props.row.approval_status !== "FAILED"
+                                      ? _c(
+                                          "b-dropdown",
+                                          {
+                                            attrs: { "aria-role": "list" },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "trigger",
+                                                  fn: function (ref) {
+                                                    var active = ref.active
+                                                    return [
+                                                      _c("b-button", {
+                                                        staticClass: "is-small",
+                                                        attrs: {
+                                                          label: "...",
+                                                          type: "is-primary",
+                                                          "icon-right": active
+                                                            ? "menu-up"
+                                                            : "menu-down",
+                                                        },
+                                                      }),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              true
+                                            ),
+                                          },
                                           [
-                                            {
-                                              key: "trigger",
-                                              fn: function (ref) {
-                                                var active = ref.active
-                                                return [
-                                                  _c("b-button", {
-                                                    staticClass: "is-small",
-                                                    attrs: {
-                                                      label: "...",
-                                                      type: "is-primary",
-                                                      "icon-right": active
-                                                        ? "menu-up"
-                                                        : "menu-down",
-                                                    },
-                                                  }),
-                                                ]
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-dropdown-item",
+                                              {
+                                                attrs: {
+                                                  "aria-role": "listitem",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.openProofTransactionModal(
+                                                      props.row
+                                                    )
+                                                  },
+                                                },
                                               },
-                                            },
+                                              [_vm._v("Proof of Transaction")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-dropdown-item",
+                                              {
+                                                attrs: {
+                                                  "aria-role": "listitem",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.cancelReservation(
+                                                      props.row
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [_vm._v("Cancel Reservation")]
+                                            ),
                                           ],
-                                          null,
-                                          true
-                                        ),
-                                      },
-                                      [
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-dropdown-item",
-                                          {
-                                            attrs: { "aria-role": "listitem" },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.openProofTransactionModal(
-                                                  props.row
-                                                )
-                                              },
-                                            },
-                                          },
-                                          [_vm._v("Proof of Transaction")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-dropdown-item",
-                                          {
-                                            attrs: { "aria-role": "listitem" },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.cancelReservation(
-                                                  props.row
-                                                )
-                                              },
-                                            },
-                                          },
-                                          [_vm._v("Cancel Reservation")]
-                                        ),
-                                      ],
-                                      1
-                                    ),
+                                          1
+                                        )
+                                      : _vm._e(),
                                   ]
                                 },
                               },

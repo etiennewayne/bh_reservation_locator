@@ -294,7 +294,7 @@ export default{
                 if(res.data.status === 'uploaded'){
                     this.$buefy.dialog.alert({
                         title: 'UPLOADED!',
-                        message: 'Uploaded successfully.',
+                        message: 'Uploaded successfully. Please wait for the landowner\'s confirmation. Thank you.',
                         type: 'is-success',
                         onConfirm: ()=> {
                             this.loadAsyncData();
