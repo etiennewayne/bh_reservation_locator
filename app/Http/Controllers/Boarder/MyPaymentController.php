@@ -68,7 +68,10 @@ class MyPaymentController extends Controller
 //            Storage::delete('public/payment_receipt/' . $data->receipt_img);
 //        }
 
+        //get total balance
         $bal = ((double)$payment->balance - (double)$req->payment);
+        //return $bal;
+
 
         if($bal == 0){
             $paymentStatus = 'PAID';
@@ -106,7 +109,8 @@ class MyPaymentController extends Controller
 
     public function getReceiptInfo($id){
 
-        $data = DB::table('payment_details as a')
+        $data = DB::table('payments as a')
+            ->join('payment_details',  'a.payment_id', 'payment_details.payment_id')
             ->join('boarders as b',  'a.boarder_id', 'b.boarder_id')
             ->join('users as c', 'b.boarder_user_id', 'c.user_id')
             ->join('bedspaces as d', 'b.bedspace_id','d.bedspace_id')
@@ -114,8 +118,10 @@ class MyPaymentController extends Controller
             ->leftJoin('provinces as f', 'c.province','f.provCode')
             ->leftJoin('cities as g', 'c.city','g.citymunCode')
             ->leftJoin('barangays as h', 'c.barangay','h.brgyCode')
-            ->where('a.payment_detail_id', $id)
+            ->where('payment_detail_id', $id)
             ->get();
+
+
 
         //return $data;
         $dateNow = date('Y-m-d');

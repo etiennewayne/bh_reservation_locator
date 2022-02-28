@@ -362,6 +362,7 @@ export default{
 
 
             global_payment_detail_id: 0,
+            global_payment_id: 0,
 
         }
     },
@@ -425,6 +426,10 @@ export default{
 
 
         loadPaymentDetail(row) {
+            if(row != null){
+                this.global_payment_id = row.payment_id;
+            }
+
             console.log(row)
             const params = [
                 `sort_by=${this.sortFieldDetail}.${this.sortOrderDetail}`,
@@ -433,7 +438,7 @@ export default{
             ].join('&')
 
             this.loadingDetail = true
-            axios.get(`/get-my-payment-details/${row.payment_id}?${params}`)
+            axios.get(`/get-my-payment-details/${this.global_payment_id}?${params}`)
                 .then(({ data }) => {
                     this.dataDetail = [];
                     let currentTotal = data.total
@@ -491,7 +496,7 @@ export default{
             formData.append('payment', this.fields.payment);
             formData.append('receipt_img', this.dropFiles);
 
-            axios.post('/submit-pay-bill/' + this.global_payment_detail_id, formData).then(res=>{
+            axios.post(`/submit-pay-bill/${this.global_payment_detail_id}`, formData).then(res=>{
                 if(res.data.status === 'uploaded'){
                     this.$buefy.dialog.alert({
                         title: 'PAYMENT UPLOADED!',
@@ -501,7 +506,8 @@ export default{
                             this.loadAsyncData();
                             this.modalPayBill = false;
                             this.dropFiles = null;
-                            this.loadingDetail();
+                            this.loadPaymentDetail(null);
+                            this.fields = {};
                         }
                     })
                 }
@@ -515,7 +521,7 @@ export default{
         clearSelected(){
             this.selected = null;
             this.global_payment_detail_id = 0;
-            this.loadPaymentDetail(0);
+            this.loadPaymentDetail(null);
         }
 
 

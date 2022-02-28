@@ -23,10 +23,7 @@ class PaymentController extends Controller
         $ndate = date("Y-m-d", strtotime($date));
         //$ndate = date("m", strtotime($date));
 
-        $payment = Payment::where('payment_id', $req->payment_id)->first();
-
-
-
+        //filter date first
         $dateexist = PaymentDetail::where('date_pay', $ndate)->exists();
         if($dateexist){
             return response()->json([
@@ -38,7 +35,22 @@ class PaymentController extends Controller
 
 
 
-        $bal = (double)$payment->balance - (double)$req->amount_to_pay;
+        $payment = Payment::where('payment_id', $req->payment_id)->first();
+        $bal = $payment->balance;
+
+     
+       
+        if($bal == 0){
+            $bal = (double)$payment->rental_price;
+            $payment->balance = $bal;
+            $payment->save();
+        }else{
+            $bal = (double)$payment->balance + (double)$req->amount_to_pay;
+            $payment->balance = $bal;
+            $payment->save();
+        }
+
+
 
         PaymentDetail::create([
             'payment_id' => $req->payment_id,

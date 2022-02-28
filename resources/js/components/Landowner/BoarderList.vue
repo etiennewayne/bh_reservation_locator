@@ -228,17 +228,21 @@
                                 backend-sorting
                                 :default-sort-direction="defaultSortDirection">
 
-                                <b-table-column field="boarder_id" label="ID" v-slot="props">
+                                <b-table-column field="payment_detail_id" label="ID" v-slot="props">
                                     {{ props.row.payment_detail_id }}
                                 </b-table-column>
-                                <b-table-column field="date_pay" label="Date Pay" v-slot="props">
-                                    {{ props.row.date_pay }}
+                                <b-table-column field="date_paid" label="Date Paid" v-slot="props">
+                                    {{ props.row.date_paid }}
                                 </b-table-column>
                                 <b-table-column field="payment_status" label="Status" v-slot="props">
                                     {{ props.row.payment_status }}
                                 </b-table-column>
-                                <b-table-column field="payment_to_pay" label="Payment" v-slot="props">
-                                    {{ props.row.payment_to_pay }}
+                                <b-table-column field="amount_paid" label="Amount Paid" v-slot="props">
+                                    {{ props.row.amount_paid }}
+                                </b-table-column>
+
+                                <b-table-column field="balance" label="Balance" v-slot="props">
+                                    {{ props.row.balance }}
                                 </b-table-column>
 
                             </b-table>
@@ -366,10 +370,9 @@ export default{
         //main table
         showBills: function(row){
             this.modalShowBill = true;
-            this.loadAsyncDataBill(row.boarder_id);
+            this.loadAsyncDataBill(row.payment_id);
         },
         loadAsyncDataBill(dataId) {
-
             this.loadingBill = true
             axios.get(`/get-boarder-bill/${dataId}`)
                 .then(({ data }) => {

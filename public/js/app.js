@@ -9804,7 +9804,8 @@ __webpack_require__.r(__webpack_exports__);
       dropFiles: null,
       errors: {},
       rowData: {},
-      global_payment_detail_id: 0
+      global_payment_detail_id: 0,
+      global_payment_id: 0
     };
   },
   methods: {
@@ -9857,10 +9858,14 @@ __webpack_require__.r(__webpack_exports__);
     loadPaymentDetail: function loadPaymentDetail(row) {
       var _this2 = this;
 
+      if (row != null) {
+        this.global_payment_id = row.payment_id;
+      }
+
       console.log(row);
       var params = ["sort_by=".concat(this.sortFieldDetail, ".").concat(this.sortOrderDetail), "perpage=".concat(this.perPageDetail), "page=".concat(this.pageDetail)].join('&');
       this.loadingDetail = true;
-      axios.get("/get-my-payment-details/".concat(row.payment_id, "?").concat(params)).then(function (_ref2) {
+      axios.get("/get-my-payment-details/".concat(this.global_payment_id, "?").concat(params)).then(function (_ref2) {
         var data = _ref2.data;
         _this2.dataDetail = [];
         var currentTotal = data.total;
@@ -9912,7 +9917,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('payment_id', this.fields.payment_id);
       formData.append('payment', this.fields.payment);
       formData.append('receipt_img', this.dropFiles);
-      axios.post('/submit-pay-bill/' + this.global_payment_detail_id, formData).then(function (res) {
+      axios.post("/submit-pay-bill/".concat(this.global_payment_detail_id), formData).then(function (res) {
         if (res.data.status === 'uploaded') {
           _this3.$buefy.dialog.alert({
             title: 'PAYMENT UPLOADED!',
@@ -9924,7 +9929,9 @@ __webpack_require__.r(__webpack_exports__);
               _this3.modalPayBill = false;
               _this3.dropFiles = null;
 
-              _this3.loadingDetail();
+              _this3.loadPaymentDetail(null);
+
+              _this3.fields = {};
             }
           });
         }
@@ -9937,7 +9944,7 @@ __webpack_require__.r(__webpack_exports__);
     clearSelected: function clearSelected() {
       this.selected = null;
       this.global_payment_detail_id = 0;
-      this.loadPaymentDetail(0);
+      this.loadPaymentDetail(null);
     }
   },
   mounted: function mounted() {
@@ -11867,6 +11874,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11953,7 +11964,7 @@ __webpack_require__.r(__webpack_exports__);
     //main table
     showBills: function showBills(row) {
       this.modalShowBill = true;
-      this.loadAsyncDataBill(row.boarder_id);
+      this.loadAsyncDataBill(row.payment_id);
     },
     loadAsyncDataBill: function loadAsyncDataBill(dataId) {
       var _this2 = this;
@@ -57948,7 +57959,7 @@ var render = function () {
                         },
                         [
                           _c("b-table-column", {
-                            attrs: { field: "boarder_id", label: "ID" },
+                            attrs: { field: "payment_detail_id", label: "ID" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -57966,7 +57977,7 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("b-table-column", {
-                            attrs: { field: "date_pay", label: "Date Pay" },
+                            attrs: { field: "date_paid", label: "Date Paid" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -57974,7 +57985,7 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                " +
-                                        _vm._s(props.row.date_pay) +
+                                        _vm._s(props.row.date_paid) +
                                         "\n                            "
                                     ),
                                   ]
@@ -58003,8 +58014,8 @@ var render = function () {
                           _vm._v(" "),
                           _c("b-table-column", {
                             attrs: {
-                              field: "payment_to_pay",
-                              label: "Payment",
+                              field: "amount_paid",
+                              label: "Amount Paid",
                             },
                             scopedSlots: _vm._u([
                               {
@@ -58013,7 +58024,25 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                " +
-                                        _vm._s(props.row.payment_to_pay) +
+                                        _vm._s(props.row.amount_paid) +
+                                        "\n                            "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "balance", label: "Balance" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(props.row.balance) +
                                         "\n                            "
                                     ),
                                   ]

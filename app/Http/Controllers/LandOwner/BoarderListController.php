@@ -53,8 +53,10 @@ class BoarderListController extends Controller
 
 
     public function showPaymentDetails($id){
+      
+
         return PaymentDetail::where('payment_id', $id)
-            ->orderBy('payment_id', 'desc')
+            ->orderBy('payment_detail_id', 'desc')
             ->paginate(5);
     }
 
