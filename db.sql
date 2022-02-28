@@ -43962,13 +43962,16 @@ CREATE TABLE `payment_details` (
   PRIMARY KEY (`payment_detail_id`),
   KEY `payment_id` (`payment_id`),
   CONSTRAINT `payment_details_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`payment_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `payment_details` */
 
 insert  into `payment_details`(`payment_detail_id`,`payment_id`,`rental_price`,`amount_paid`,`balance`,`date_pay`,`payment_status`,`receipt_img`,`date_paid`,`created_at`,`updated_at`) values 
-(19,7,1000,500,500,'2022-02-28','PARTIAL','3wk7INGXmwDpvn7nQYxUgROBAv8UNxS5nnYnoYPp.png','2022-02-28','2022-02-28 23:33:45','2022-02-28 23:34:01'),
-(20,7,1000,0,-500,'2022-04-28','UNPAID',NULL,NULL,'2022-02-28 23:35:42','2022-02-28 23:35:42');
+(41,7,1000,500,500,'2022-02-28','PARTIAL','bDpC6gMDlv7bhx4uxO9doJqzhslhcHV8vAWOPpwE.png','2022-03-01','2022-03-01 05:16:15','2022-03-01 05:16:32'),
+(43,7,1000,600,900,'2022-03-28','PARTIAL','erxlBojaqm7aZGbK9zfnS1mUhn0gFZAP76h9Na9Q.png','2022-03-01','2022-03-01 05:20:04','2022-03-01 05:20:23'),
+(44,7,1000,1500,400,'2022-04-28','PARTIAL','2zI2up2VF8bCDYMgmBcY3i8NNqMyiKBIUHHZJMcO.png','2022-03-01','2022-03-01 05:20:36','2022-03-01 05:20:51'),
+(45,7,1000,1400,0,'2022-05-28','PAID','SiTHAjziIYKNPWCw9wjggJRWS5BrqsbnW3DuZjwB.png','2022-03-01','2022-03-01 05:21:10','2022-03-01 05:21:25'),
+(46,7,1000,1000,0,'2022-06-28','PAID','9SXPIVvUMaIgyry9p6xO7FktIFronjxi7ji2box5.png','2022-03-01','2022-03-01 05:21:47','2022-03-01 05:22:14');
 
 /*Table structure for table `payments` */
 
@@ -43992,7 +43995,7 @@ CREATE TABLE `payments` (
 /*Data for the table `payments` */
 
 insert  into `payments`(`payment_id`,`boarder_id`,`book_bedspace_id`,`rental_price`,`date_pay`,`balance`,`payment_status`,`created_at`,`updated_at`) values 
-(7,6,12,1000,'2022-02-28',500,NULL,'2022-02-28 21:12:38','2022-02-28 23:34:01');
+(7,6,12,1000,'2022-02-28',0,NULL,'2022-02-28 21:12:38','2022-03-01 05:22:14');
 
 /*Table structure for table `personal_access_tokens` */
 
