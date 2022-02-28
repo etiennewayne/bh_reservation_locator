@@ -5,6 +5,7 @@ namespace App\Http\Controllers\LandOwner;
 use App\Http\Controllers\Controller;
 use App\Models\Boarder;
 use App\Models\BookBedSpace;
+use App\Models\Payment;
 use App\Models\PaymentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,17 +31,20 @@ class BoarderListController extends Controller
         $sort = explode('.', $req->sort_by);
         $userid = Auth::user()->user_id;
 
-        $data = DB::table('boarders as a')
-            ->join('bedspaces as b', 'a.bedspace_id', 'b.bedspace_id')
-            ->join('rooms as c', 'b.room_id', 'c.room_id')
-            ->join('boarding_houses as d', 'c.bhouse_id', 'd.bhouse_id')
-            ->join('users as e', 'a.boarder_user_id', 'e.user_id')
-            ->select('a.boarder_id', 'a.bedspace_id', 'a.boarder_user_id', 'a.date_acceptance', 'a.rental_price', 'a.is_active',
-                'b.room_id', 'c.bhouse_id', 'b.bedspace_name', 'd.bhouse_name',
-                'b.bedspace_desc', 'b.price', 'b.is_booked', 'c.room_no', 'c.room_desc', 'e.lname', 'e.fname', 'e.mname', 'e.user_id', 'e.role')
-            ->where('d.user_id', $userid)
-            ->where('a.is_active', 1)
-            ->where('b.bedspace_name', 'like',$req->bedspace . '%')
+        $data = DB::table('payments as a')
+            ->join('boarders as b', 'a.boarder_id', 'b.boarder_id')
+            ->join('bedspaces as c', 'b.bedspace_id', 'c.bedspace_id')
+            ->join('rooms as d', 'c.room_id', 'd.room_id')
+            ->join('boarding_houses as e', 'd.bhouse_id', 'e.bhouse_id')
+            ->join('users as f', 'e.user_id', 'f.user_id')
+            ->select('a.payment_id', 'a.boarder_id', 'b.boarder_user_id', 'a.book_bedspace_id', 'a.rental_price', 'a.date_pay', 'a.payment_status',
+                'b.bedspace_id', 'b.date_acceptance', 'b.is_active',
+                'c.room_id', 'c.bedspace_name', 'c.bedspace_desc', 'c.price', 'c.is_booked', 'c.is_active as bedspace_active',
+                'd.room_no', 'd.room_desc', 'e.bhouse_id', 'e.bhouse_name', 'e.bhouse_desc',
+                'f.lname', 'f.fname', 'f.mname', 'e.user_id', 'f.role')
+            ->where('e.user_id', $userid)
+            ->where('b.is_active', 1)
+            ->where('c.bedspace_name', 'like',$req->bedspace . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -49,8 +53,8 @@ class BoarderListController extends Controller
 
 
     public function showPaymentDetails($id){
-        return PaymentDetail::where('boarder_id', $id)
-            ->orderBy('payment_detail_id', 'desc')
+        return PaymentDetail::where('payment_id', $id)
+            ->orderBy('payment_id', 'desc')
             ->paginate(5);
     }
 

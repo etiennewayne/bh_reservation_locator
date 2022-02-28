@@ -18,6 +18,8 @@ class CreatePaymentDetailsTable extends Migration
             $table->unsignedBigInteger('boarder_id');
             $table->foreign('boarder_id')->references('boarder_id')->on('boarders');
             $table->double('payment_to_pay')->default(0);
+            $table->double('payment')->default(0);
+            $table->double('balance')->default(0);
             $table->date('date_pay')->nullable();
             $table->string('payment_status', 50)->nullable();
             $table->string('receipt_img')->nullable();

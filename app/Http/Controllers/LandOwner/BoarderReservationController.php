@@ -73,18 +73,11 @@ class BoarderReservationController extends Controller
         $data->approval_status = 'APPROVED';
         $data->save();
 
-        //$ndate = date('Y-m-d');
+        $ndate = date('Y-m-d');
 
         $qr_code = substr(md5(time() . $data->book_user_id), -8);
 
-//        Payment::create([
-//            'book_bedspace_id' => $data->book_bedspace_id,
-//            'payment_qr_ref' => $qr_code,
-//            'payment_price' => $data->rental_price,
-//            'payment_date' => $ndate,
-//        ]); //replace with boarder list
-
-        Boarder::updateOrCreate(['boarder_user_id' => $data->book_user_id, 'bedspace_id' => $data->bedspace_id, 'is_active' => 1],
+        $boarder = Boarder::updateOrCreate(['boarder_user_id' => $data->book_user_id, 'bedspace_id' => $data->bedspace_id, 'is_active' => 1],
             [
                 'qr_ref' => $qr_code,
                 'boarder_user_id' => $data->book_user_id,
@@ -94,6 +87,14 @@ class BoarderReservationController extends Controller
                 'date_acceptance' => $nstart_date,
             ]
         );
+
+        Payment::create([
+            'boarder_id' => $boarder->boarder_id,
+            'book_bedspace_id' => $data->book_bedspace_id,
+            'rental_price' => $data->rental_price,
+            'date_pay' => $ndate,
+            'balance' => $data->rental_price,
+        ]); //replace with boarder list
 
         return response()->json([
             'status' => 'approved'

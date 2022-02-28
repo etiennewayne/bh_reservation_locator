@@ -363,7 +363,6 @@ export default{
 
 
 
-
         //main table
         showBills: function(row){
             this.modalShowBill = true;
@@ -407,11 +406,16 @@ export default{
 
 
         openSendBill(row){
+            this.errors = {};
+
             this.modalSendBill = true;
             this.rawData = row;
             console.log(this.rawData)
             this.fields.payment_date = new Date(row.date_acceptance);
             this.fields.amount_to_pay = row.rental_price;
+            this.fields.payment_id = row.payment_id;
+            this.fields.bedspace_id = row.bedspace_id;
+            this.fields.book_bedspace_id = row.book_bedspace_id;
         },
 
         submitSendBill: function(){
@@ -436,7 +440,7 @@ export default{
                 }
             }).catch(err=>{
                 if(err.response.status === 422){
-
+                   this.errors = err.response.data.errors;
                 }
             });
         },

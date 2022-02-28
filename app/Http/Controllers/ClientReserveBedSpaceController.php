@@ -17,12 +17,16 @@ class ClientReserveBedSpaceController extends Controller
 
 
     public function reserveBedspace($bedspace_id){
+
+
         $userid = Auth::user()->user_id;
         $ndate = date('Y-m-d');
 
+        //you logic here...????
+        //select if naa booking nag exist, if user naay prev booking
         $isExist = BookBedSpace::where('book_user_id',$userid)
-            ->where('is_active', 1)
             ->where('approval_status', '!=',  'CANCELLED')
+            ->orWhere('approval_status', '!=',  'FAILED')
             ->exists();
 
         if($isExist){

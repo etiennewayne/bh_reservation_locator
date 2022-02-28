@@ -84,7 +84,7 @@
                                             <span v-if="props.row.approval_status === 'PENDING'">PENDING</span>
                                             <span v-else-if="props.row.approval_status === 'CANCELLED'">CANCELLED</span>
                                             <span v-else-if="props.row.approval_status === 'APPROVED'">APPROVED</span>
-                                            <span v-else>PENDING</span>
+                                            <span v-else>FAILED</span>
                                         </b-table-column>
 
                                         <b-table-column label="Action" v-slot="props">

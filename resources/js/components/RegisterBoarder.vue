@@ -61,7 +61,7 @@
               </div>
               <div class="column">
                   <b-field label="Suffix">
-                      <b-input placeholder="Middle Name" v-model="fields.suffix" type="text"></b-input>
+                      <b-input placeholder="Suffix" v-model="fields.suffix" type="text"></b-input>
                   </b-field>
               </div>
           </div>
