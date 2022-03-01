@@ -49,6 +49,7 @@ class MyPaymentController extends Controller
 
     public function submitPaymentBill(Request $req, $payment_detail_id){
 
+
         $req->validate([
             'payment' => ['required'],
             'receipt_img' =>  ['required', 'mimes:jpg,png,bmp', 'file', 'max:800'],

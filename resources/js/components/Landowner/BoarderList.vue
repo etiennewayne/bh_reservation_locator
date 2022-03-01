@@ -97,7 +97,7 @@
                                         </b-table-column>
 
                                         <b-table-column field="boarder_name" label="Boarder Name" v-slot="props">
-                                            {{ props.row.lname }}, {{ props.row.fname }} {{ props.row.mname }}
+                                            {{ props.row.b_lname }}, {{ props.row.b_fname }} {{ props.row.b_mname }}
                                         </b-table-column>
 
                                         <b-table-column field="date_acceptance" label="Start Date" v-slot="props">

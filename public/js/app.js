@@ -9793,7 +9793,11 @@ __webpack_require__.r(__webpack_exports__);
       search: {
         bedspace: ''
       },
-      fields: {},
+      fields: {
+        payment: null,
+        payment_id: 0,
+        receipt_img: null
+      },
       btnClass: {
         'is-success': true,
         'button': true,
@@ -9915,8 +9919,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var formData = new FormData();
       formData.append('payment_id', this.fields.payment_id);
-      formData.append('payment', this.fields.payment);
-      formData.append('receipt_img', this.dropFiles);
+      formData.append('payment', this.fields.payment != null ? this.fields.payment : '');
+      formData.append('receipt_img', this.dropFiles != null ? this.dropFiles : '');
       axios.post("/submit-pay-bill/".concat(this.global_payment_detail_id), formData).then(function (res) {
         if (res.data.status === 'uploaded') {
           _this3.$buefy.dialog.alert({
@@ -10781,7 +10785,7 @@ __webpack_require__.r(__webpack_exports__);
         L.latLng(this.data.lat, this.data["long"]) //current location coordinates
         ]
       }).addTo(mymap);
-      var popup = L.popup().setLatLng(this.nlat, this.nlong).setContent('<p>Hello world!<br />This is a nice popup.</p>').openOn(map);
+      var popup = L.popup().setLatLng(this.nlat, this.nlong).setContent('<p>Hello world!</br>This is a nice popup.</p>').openOn(map);
     },
     //load map
     loadData: function loadData() {
@@ -13405,8 +13409,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
 //
 //
 //
@@ -35613,7 +35615,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.panel[data-v-9af7903c]{\n    padding: 25px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.panel[data-v-9af7903c]{\r\n    padding: 25px;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -57596,11 +57598,11 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                        " +
-                                        _vm._s(props.row.lname) +
+                                        _vm._s(props.row.b_lname) +
                                         ", " +
-                                        _vm._s(props.row.fname) +
+                                        _vm._s(props.row.b_fname) +
                                         " " +
-                                        _vm._s(props.row.mname) +
+                                        _vm._s(props.row.b_mname) +
                                         "\n                                    "
                                     ),
                                   ]
@@ -59501,7 +59503,10 @@ var render = function () {
                   }),
                   _vm._v(" "),
                   _c("b-table-column", {
-                    attrs: { field: "bhouse_name", label: "Bhouse Name" },
+                    attrs: {
+                      field: "bhouse_name",
+                      label: "Boarding House Name",
+                    },
                     scopedSlots: _vm._u([
                       {
                         key: "default",
@@ -59521,7 +59526,7 @@ var render = function () {
                   _c("b-table-column", {
                     attrs: {
                       field: "bhouse_desc",
-                      label: "Bhouse Description",
+                      label: "Boarding House Description",
                     },
                     scopedSlots: _vm._u([
                       {

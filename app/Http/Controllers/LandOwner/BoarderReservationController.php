@@ -93,7 +93,7 @@ class BoarderReservationController extends Controller
             'book_bedspace_id' => $data->book_bedspace_id,
             'rental_price' => $data->rental_price,
             'date_pay' => $ndate,
-            'balance' => $data->rental_price,
+            'balance' => 0,
         ]); //replace with boarder list
 
         return response()->json([

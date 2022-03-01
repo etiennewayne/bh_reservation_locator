@@ -42119,7 +42119,7 @@ CREATE TABLE `bedspaces` (
 /*Data for the table `bedspaces` */
 
 insert  into `bedspaces`(`bedspace_id`,`room_id`,`bhouse_id`,`bedspace_name`,`bedspace_desc`,`bedspace_img_path`,`price`,`is_booked`,`is_active`,`created_at`,`updated_at`) values 
-(1,1,1,'BED SPACE B1','THIS IS A SINGLE BED SPACE.','',1000,1,1,NULL,'2022-02-28 08:34:05'),
+(1,1,1,'BED SPACE B1','THIS IS A SINGLE BED SPACE.','',1000,1,1,NULL,'2022-03-01 19:58:43'),
 (2,1,1,'BED 1','THIS IS A SINGLE BED SPACE',NULL,700,0,1,'2022-02-10 23:01:53','2022-02-23 14:41:15'),
 (3,4,1,'BED 1','IT IS A SINGLE BED AND WILL BE AVAILABLE FOR SINGLES ONLY.',NULL,700,0,1,'2022-02-14 08:18:03','2022-02-23 14:41:15'),
 (4,4,1,'BED 1','IT IS A SINGLE BED AND WILL BE AVAILABLE FOR SINGLES ONLY.',NULL,700,0,1,'2022-02-14 08:18:05','2022-02-16 13:46:26');
@@ -42147,12 +42147,12 @@ CREATE TABLE `boarders` (
   CONSTRAINT `boarders_bedspace_id_foreign` FOREIGN KEY (`bedspace_id`) REFERENCES `bedspaces` (`bedspace_id`),
   CONSTRAINT `boarders_boarder_user_id_foreign` FOREIGN KEY (`boarder_user_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `boarders_book_bedspace_id_foreign` FOREIGN KEY (`book_bedspace_id`) REFERENCES `book_bedspaces` (`book_bedspace_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `boarders` */
 
 insert  into `boarders`(`boarder_id`,`qr_ref`,`boarder_user_id`,`bedspace_id`,`book_bedspace_id`,`date_acceptance`,`rental_price`,`is_active`,`created_at`,`updated_at`) values 
-(6,'40483274',1,1,12,'2022-02-28',1000,1,'2022-02-28 21:12:38','2022-02-28 21:12:38');
+(8,'bdf6b8c0',1,1,13,'2022-03-10',1000,1,'2022-03-01 20:14:44','2022-03-01 20:24:03');
 
 /*Table structure for table `boarding_houses` */
 
@@ -42209,12 +42209,12 @@ CREATE TABLE `book_bedspaces` (
   KEY `book_bedspaces_book_user_id_foreign` (`book_user_id`),
   CONSTRAINT `book_bedspaces_bedspace_id_foreign` FOREIGN KEY (`bedspace_id`) REFERENCES `bedspaces` (`bedspace_id`),
   CONSTRAINT `book_bedspaces_book_user_id_foreign` FOREIGN KEY (`book_user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `book_bedspaces` */
 
 insert  into `book_bedspaces`(`book_bedspace_id`,`bedspace_id`,`book_user_id`,`book_date`,`occupy_date`,`rental_price`,`is_active`,`approval_status`,`proof_transaction`,`created_at`,`updated_at`) values 
-(12,1,1,'2022-02-28',NULL,1000,1,'APPROVED',NULL,'2022-02-28 08:34:05','2022-02-28 21:12:38');
+(13,1,1,'2022-03-01',NULL,1000,1,'APPROVED','2uF1NtKEmqsHG9UWw4nAu4ySqWxf9S35XfhZv7i7.png','2022-03-01 19:58:43','2022-03-01 20:24:03');
 
 /*Table structure for table `cities` */
 
@@ -43962,16 +43962,9 @@ CREATE TABLE `payment_details` (
   PRIMARY KEY (`payment_detail_id`),
   KEY `payment_id` (`payment_id`),
   CONSTRAINT `payment_details_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`payment_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `payment_details` */
-
-insert  into `payment_details`(`payment_detail_id`,`payment_id`,`rental_price`,`amount_paid`,`balance`,`date_pay`,`payment_status`,`receipt_img`,`date_paid`,`created_at`,`updated_at`) values 
-(41,7,1000,500,500,'2022-02-28','PARTIAL','bDpC6gMDlv7bhx4uxO9doJqzhslhcHV8vAWOPpwE.png','2022-03-01','2022-03-01 05:16:15','2022-03-01 05:16:32'),
-(43,7,1000,600,900,'2022-03-28','PARTIAL','erxlBojaqm7aZGbK9zfnS1mUhn0gFZAP76h9Na9Q.png','2022-03-01','2022-03-01 05:20:04','2022-03-01 05:20:23'),
-(44,7,1000,1500,400,'2022-04-28','PARTIAL','2zI2up2VF8bCDYMgmBcY3i8NNqMyiKBIUHHZJMcO.png','2022-03-01','2022-03-01 05:20:36','2022-03-01 05:20:51'),
-(45,7,1000,1400,0,'2022-05-28','PAID','SiTHAjziIYKNPWCw9wjggJRWS5BrqsbnW3DuZjwB.png','2022-03-01','2022-03-01 05:21:10','2022-03-01 05:21:25'),
-(46,7,1000,1000,0,'2022-06-28','PAID','9SXPIVvUMaIgyry9p6xO7FktIFronjxi7ji2box5.png','2022-03-01','2022-03-01 05:21:47','2022-03-01 05:22:14');
 
 /*Table structure for table `payments` */
 
@@ -43990,12 +43983,12 @@ CREATE TABLE `payments` (
   PRIMARY KEY (`payment_id`),
   KEY `payments_book_bedspace_id_foreign` (`book_bedspace_id`),
   CONSTRAINT `payments_book_bedspace_id_foreign` FOREIGN KEY (`book_bedspace_id`) REFERENCES `book_bedspaces` (`book_bedspace_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `payments` */
 
 insert  into `payments`(`payment_id`,`boarder_id`,`book_bedspace_id`,`rental_price`,`date_pay`,`balance`,`payment_status`,`created_at`,`updated_at`) values 
-(7,6,12,1000,'2022-02-28',0,NULL,'2022-02-28 21:12:38','2022-03-01 05:22:14');
+(10,8,13,1000,'2022-03-01',0,NULL,'2022-03-01 20:24:03','2022-03-01 20:24:03');
 
 /*Table structure for table `personal_access_tokens` */
 

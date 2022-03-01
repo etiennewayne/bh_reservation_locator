@@ -344,7 +344,11 @@ export default{
                 bedspace: '',
             },
 
-            fields: {},
+            fields: {
+                payment: null,
+                payment_id: 0,
+                receipt_img: null,
+            },
 
             btnClass: {
                 'is-success': true,
@@ -493,8 +497,8 @@ export default{
         submitPayBill: function(){
             let formData = new FormData();
             formData.append('payment_id', this.fields.payment_id);
-            formData.append('payment', this.fields.payment);
-            formData.append('receipt_img', this.dropFiles);
+            formData.append('payment', this.fields.payment != null ? this.fields.payment : '');
+            formData.append('receipt_img', this.dropFiles != null ? this.dropFiles : '');
 
             axios.post(`/submit-pay-bill/${this.global_payment_detail_id}`, formData).then(res=>{
                 if(res.data.status === 'uploaded'){
