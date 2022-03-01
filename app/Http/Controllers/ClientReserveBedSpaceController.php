@@ -22,13 +22,17 @@ class ClientReserveBedSpaceController extends Controller
         $userid = Auth::user()->user_id;
         $ndate = date('Y-m-d');
 
+        
+
         //you logic here...????
         //select if naa booking nag exist, if user naay prev booking
-        $isExist = BookBedSpace::where('book_user_id',$userid)
+        $isExist = BookBedSpace::where('book_user_id', $userid)
             ->where('approval_status', '!=',  'CANCELLED')
-            ->orWhere('approval_status', '!=',  'FAILED')
+            ->where('approval_status', '!=',  'FAILED')
             ->exists();
 
+        //return $isExist;
+            
         if($isExist){
             return response()->json([
                 'errors'=> 'active'

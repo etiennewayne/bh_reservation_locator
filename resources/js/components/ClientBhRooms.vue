@@ -56,6 +56,7 @@
 
 
         <!--modal create-->
+ 
         <b-modal v-model="modalZoomImage" has-modal-card
                  trap-focus
                  :width="640"
@@ -174,6 +175,7 @@ export default {
         },
 
         showImageModal: function(bedspaceDataImg, bedspaceData){
+           
 
             this.bedspaceInfo.img = bedspaceDataImg.bedspace_img_path;
             this.bedspaceInfo.name = bedspaceData.bedspace_name;
@@ -303,10 +305,10 @@ export default {
         color:  solid black;
 
     }
-    .columns{
-        color:white;
+  
+    .room-desc{
+        color: white;
     }
-
 
 
 </style>
