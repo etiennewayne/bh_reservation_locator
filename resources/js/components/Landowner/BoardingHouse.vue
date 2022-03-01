@@ -61,11 +61,11 @@
                                 {{ props.row.bhouse_id }}
                             </b-table-column>
 
-                            <b-table-column field="bhouse_name" label="Bhouse Name" v-slot="props">
+                            <b-table-column field="bhouse_name" label="Boarding House Name" v-slot="props">
                                 {{ props.row.bhouse_name }}
                             </b-table-column>
 
-                            <b-table-column field="bhouse_desc" label="Bhouse Description" v-slot="props">
+                            <b-table-column field="bhouse_desc" label="Boarding House Description" v-slot="props">
                                 {{ props.row.bhouse_desc }}
                             </b-table-column>
 

@@ -145,7 +145,7 @@ export default {
 
             var popup = L.popup()
                 .setLatLng(this.nlat, this.nlong)
-                .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+                .setContent('<p>Hello world!</br>This is a nice popup.</p>')
                 .openOn(map);
 
 

@@ -12,11 +12,9 @@
                     </b-notification>
                 </div>
             </div>
-
             <h1 class="title is-flex is-justify-content-center">LANDOWNER DASHBOARD</h1>
-
         </div>
-
+           
     </div>
 </template>
 
