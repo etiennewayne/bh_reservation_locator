@@ -9702,6 +9702,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propData: {
@@ -9714,25 +9776,36 @@ __webpack_require__.r(__webpack_exports__);
       data: [],
       total: 0,
       loading: false,
-      sortField: 'payment_detail_id',
+      sortField: 'payment_id',
       sortOrder: 'desc',
       page: 1,
       perPage: 5,
       defaultSortDirection: 'asc',
+      selected: null,
+      dataDetail: [],
+      totalDetail: 0,
+      loadingDetail: false,
+      sortFieldDetail: 'payment_id',
+      sortOrderDetail: 'desc',
+      pageDetail: 1,
+      perPageDetail: 5,
+      defaultSortDirectionDetail: 'asc',
       search: {
         bedspace: ''
       },
+      fields: {},
       btnClass: {
         'is-success': true,
         'button': true,
         'is-loading': false
       },
-      modalAttachment: false,
+      modalPayBill: false,
       modalQr: false,
       dropFiles: null,
       errors: {},
       rowData: {},
-      global_payment_detail_id: 0
+      global_payment_detail_id: 0,
+      global_payment_id: 0
     };
   },
   methods: {
@@ -9782,40 +9855,96 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
-    openModalAttachment: function openModalAttachment(row) {
+    loadPaymentDetail: function loadPaymentDetail(row) {
+      var _this2 = this;
+
+      if (row != null) {
+        this.global_payment_id = row.payment_id;
+      }
+
       console.log(row);
-      this.modalAttachment = true;
+      var params = ["sort_by=".concat(this.sortFieldDetail, ".").concat(this.sortOrderDetail), "perpage=".concat(this.perPageDetail), "page=".concat(this.pageDetail)].join('&');
+      this.loadingDetail = true;
+      axios.get("/get-my-payment-details/".concat(this.global_payment_id, "?").concat(params)).then(function (_ref2) {
+        var data = _ref2.data;
+        _this2.dataDetail = [];
+        var currentTotal = data.total;
+
+        if (data.total / _this2.perPageDetail > 1000) {
+          currentTotal = _this2.perPageDetail * 1000;
+        }
+
+        _this2.totalDetail = currentTotal;
+        data.forEach(function (item) {
+          //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+          _this2.dataDetail.push(item);
+        });
+        _this2.loadingDetail = false;
+      })["catch"](function (error) {
+        _this2.dataDetail = [];
+        _this2.totalDetail = 0;
+        _this2.loadingDetail = false;
+        throw error;
+      });
+    },
+    onPageChangeDetail: function onPageChangeDetail(page) {
+      this.page = page;
+      this.loadAsyncData();
+    },
+    onSortDetail: function onSortDetail(field, order) {
+      this.sortField = field;
+      this.sortOrder = order;
+      this.loadAsyncData();
+    },
+    setPerPageDetail: function setPerPageDetail() {
+      this.loadAsyncData();
+    },
+    openPayBill: function openPayBill(row) {
+      console.log(row);
+      this.modalPayBill = true;
       this.global_payment_detail_id = row.payment_detail_id;
+      this.fields.payment_id = row.payment_id;
     },
     openQRModal: function openQRModal(row) {
       this.modalQr = true;
       this.rowData = row;
       console.log(row);
     },
-    submitPaymentReceipt: function submitPaymentReceipt() {
-      var _this2 = this;
+    submitPayBill: function submitPayBill() {
+      var _this3 = this;
 
       var formData = new FormData();
+      formData.append('payment_id', this.fields.payment_id);
+      formData.append('payment', this.fields.payment);
       formData.append('receipt_img', this.dropFiles);
-      axios.post('/submit-receipt/' + this.global_payment_detail_id, formData).then(function (res) {
+      axios.post("/submit-pay-bill/".concat(this.global_payment_detail_id), formData).then(function (res) {
         if (res.data.status === 'uploaded') {
-          _this2.$buefy.dialog.alert({
-            title: 'UPLOADED!',
-            message: 'Receipt uploaded.',
+          _this3.$buefy.dialog.alert({
+            title: 'PAYMENT UPLOADED!',
+            message: 'Payment and receipt uploaded successfully.',
             type: 'is-success',
             onConfirm: function onConfirm() {
-              _this2.loadAsyncData();
+              _this3.loadAsyncData();
 
-              _this2.modalAttachment = false;
-              _this2.dropFiles = null;
+              _this3.modalPayBill = false;
+              _this3.dropFiles = null;
+
+              _this3.loadPaymentDetail(null);
+
+              _this3.fields = {};
             }
           });
         }
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this2.errors = err.response.data.errors;
+          _this3.errors = err.response.data.errors;
         }
       });
+    },
+    clearSelected: function clearSelected() {
+      this.selected = null;
+      this.global_payment_detail_id = 0;
+      this.loadPaymentDetail(null);
     }
   },
   mounted: function mounted() {
@@ -10449,7 +10578,11 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         _this2.bedspaces = res.data;
-        window.location.hash = "bedspaces"; //console.log(this.bedspaces)
+        var element = document.getElementById("bedspaces");
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
       });
     },
     showImageModal: function showImageModal(bedspaceDataImg, bedspaceData) {
@@ -10468,7 +10601,7 @@ __webpack_require__.r(__webpack_exports__);
         if (res.data.status === 'reserved') {
           _this3.$buefy.dialog.alert({
             title: 'RESERVED',
-            message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Please send a proof of transaction using your account and you may contact us for more information.',
+            message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected before 24 hours. Please send a proof of transaction using your account. You may contact us for more information.',
             type: 'is-success',
             onConfirm: function onConfirm() {
               _this3.openBedSpaces(dataId, 1); //set 1 to avoid checking for length of array fetching bedspaces
@@ -11741,6 +11874,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11827,7 +11964,7 @@ __webpack_require__.r(__webpack_exports__);
     //main table
     showBills: function showBills(row) {
       this.modalShowBill = true;
-      this.loadAsyncDataBill(row.boarder_id);
+      this.loadAsyncDataBill(row.payment_id);
     },
     loadAsyncDataBill: function loadAsyncDataBill(dataId) {
       var _this2 = this;
@@ -11867,11 +12004,15 @@ __webpack_require__.r(__webpack_exports__);
       this.loadAsyncData();
     },
     openSendBill: function openSendBill(row) {
+      this.errors = {};
       this.modalSendBill = true;
       this.rawData = row;
       console.log(this.rawData);
       this.fields.payment_date = new Date(row.date_acceptance);
       this.fields.amount_to_pay = row.rental_price;
+      this.fields.payment_id = row.payment_id;
+      this.fields.bedspace_id = row.bedspace_id;
+      this.fields.book_bedspace_id = row.book_bedspace_id;
     },
     submitSendBill: function submitSendBill() {
       var _this3 = this;
@@ -11896,7 +12037,9 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       })["catch"](function (err) {
-        if (err.response.status === 422) {}
+        if (err.response.status === 422) {
+          _this3.errors = err.response.data.errors;
+        }
       });
     },
     confirmRemoveBoarder: function confirmRemoveBoarder(dataId) {
@@ -11954,6 +12097,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -35266,7 +35421,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.room-container[data-v-15d9f42c], .bedspace-images-container[data-v-15d9f42c]{\n    display: flex;\n    flex-wrap: wrap;\n    flex-direction: row;\n    justify-content: center;\n    background-color: whitesmoke;\n}\n.bedspace-container[data-v-15d9f42c]{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    border: 2px solid #c2c2c2;\n    margin: 25px;\n    background-color:rgb(7, 79, 151);\n}\n.room[data-v-15d9f42c]{\n    margin: 80px;\n    padding: 35px;\n    border: 2px solid grey;\n    height: 400px;\n    position: relative;\n    background:rgb(7, 79, 151);\n}\n.room-image > img[data-v-15d9f42c]{\n    display: flex;\n    justify-content: center;\n    height: 260px;\n    width:500px;\n    transition: ease-in .2s;\n    cursor: pointer;\n}\n.room-image > img[data-v-15d9f42c]:hover{\n    height: 210px;\n}\n.room-title[data-v-15d9f42c], .bedspace-title[data-v-15d9f42c]{\n    font-weight: bold;\n    color:white;\n}\n.room-button[data-v-15d9f42c]{\n    position: absolute;\n    bottom: 10px;\n}\n.bedspace-title[data-v-15d9f42c]{\n    margin-bottom: 15px;\n}\n.bedspace-imgs > img[data-v-15d9f42c]{\n    margin: 15px;\n}\n.bedspace-detail[data-v-15d9f42c]{\n    margin: 15px 0;\n    color:  solid black;\n}\n.columns[data-v-15d9f42c]{\n    color:white;\n}\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.room-container[data-v-15d9f42c], .bedspace-images-container[data-v-15d9f42c]{\n    display: flex;\n    flex-wrap: wrap;\n    flex-direction: row;\n    justify-content: center;\n    margin:100px;\n    border-radius: .5em;\n}\n.bedspace-container[data-v-15d9f42c]{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    border: 2px solid #c2c2c2;\n    margin: 25px;\n    background-color:rgb(7, 79, 151);\n}\n.room[data-v-15d9f42c]{\n    margin: 80px;\n    padding: 40px;\n    border-radius: 5px;\n    height: 400px;\n    position: relative;\n    background:rgb(7, 79, 151);\n    transition: ease-in-out .5s;\n}\n.room[data-v-15d9f42c]:hover{\n    box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);\n    -webkit-box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);\n    -moz-box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);\n}\n.room-image > img[data-v-15d9f42c]{\n    display: flex;\n    justify-content: center;\n    height: 260px;\n    width:500px;\n    transition: ease-in .2s;\n    cursor: pointer;\n}\n.room-title[data-v-15d9f42c], .bedspace-title[data-v-15d9f42c]{\n    font-weight: bold;\n    color:white;\n}\n.room-button[data-v-15d9f42c]{\n    position: absolute;\n    bottom: 10px;\n}\n.bedspace-title[data-v-15d9f42c]{\n    margin-bottom: 15px;\n}\n.bedspace-imgs > img[data-v-15d9f42c]{\n    margin: 15px;\n}\n.bedspace-detail[data-v-15d9f42c]{\n    margin: 15px 0;\n    color:  solid black;\n}\n.columns[data-v-15d9f42c]{\n    color:white;\n}\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35290,7 +35445,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n        font-size: 1.5em;\n        font-weight: bold;\n        color: blue;\n}\n.desc[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.landname[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.landnames[data-v-147bde05]{\n        margin-left: 6em;\n}\n.conno[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.connos[data-v-147bde05]{\n        margin-left: 6em;\n}\n.bhouse-desc[data-v-147bde05]{\n        font-size: 1em;\n        margin-left: 6em;\n}\n.loc[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.locs[data-v-147bde05]{\n        margin-left: 6em;\n}\n.bhouse-loc[data-v-147bde05]{\n        margin-top: 15px;\n        margin-left: 3em;\n}\n.column[data-v-147bde05]{\n        padding: 2em;\n        background: white;\n}\n.title[data-v-147bde05]{\n    color:blue;  \n    font-weight: bold;\n    padding-left: 4.5em;\n}\n.rules-content[data-v-147bde05]{\n    background:dodgerblue;\n    color:white;\n    padding: 1em;\n    border-radius: 5px;\n}\n.buttons mt-5[data-v-147bde05]{\n    margin-left: 2em;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n        font-size: 1.5em;\n        font-weight: bold;\n        color: blue;\n}\n.desc[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.landname[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.landnames[data-v-147bde05]{\n        margin-left: 6em;\n}\n.conno[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.connos[data-v-147bde05]{\n        margin-left: 6em;\n}\n.bhouse-desc[data-v-147bde05]{\n        font-size: 1em;\n        margin-left: 6em;\n}\n.loc[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.locs[data-v-147bde05]{\n        margin-left: 6em;\n}\n.bhouse-loc[data-v-147bde05]{\n        margin-top: 15px;\n        margin-left: 3em;\n}\n.column[data-v-147bde05]{\n        padding: 2em;\n        background: white;\n}\n.title[data-v-147bde05]{\n    color:blue;\n    font-weight: bold;\n    padding-left: 4.5em;\n}\n.rules-content[data-v-147bde05]{\n    background:dodgerblue;\n    color:white;\n    padding: 1em;\n    border-radius: 5px;\n}\n.buttons mt-5[data-v-147bde05]{\n    margin-left: 2em;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35338,7 +35493,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.t-row[data-v-cafdb036] {\r\n    display: flex;\n}\n.t-control[data-v-cafdb036]{\r\n    margin-left: auto;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n    color: red;\n}\n.t-control[data-v-cafdb036]:hover{\r\n    text-decoration: underline;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.t-row[data-v-cafdb036] {\n    display: flex;\n}\n.t-control[data-v-cafdb036]{\n    margin-left: auto;\n    font-weight: bold;\n    cursor: pointer;\n    color: red;\n}\n.t-control[data-v-cafdb036]:hover{\n    text-decoration: underline;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35362,7 +35517,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-3c3c025e]{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.img-container[data-v-3c3c025e]{\r\n    padding: 15px;\r\n    border: 1px solid black;\r\n    margin: 15px;\r\n    width: 200px;\n}\n.img-container > img[data-v-3c3c025e]{\r\n    width: 150px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card-container[data-v-3c3c025e]{\n    display: flex;\n    flex-direction: row;\n}\n.img-container[data-v-3c3c025e]{\n    padding: 15px;\n    border: 1px solid black;\n    margin: 15px;\n    width: 200px;\n}\n.img-container > img[data-v-3c3c025e]{\n    width: 150px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35410,7 +35565,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-377e4445] {\r\n    overflow: visible !important;\n}\n.modal-card-body[data-v-377e4445] {\r\n    overflow: visible !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-377e4445] {\n    overflow: visible !important;\n}\n.modal-card-body[data-v-377e4445] {\n    overflow: visible !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35434,7 +35589,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-5025578b] {\r\n    overflow: visible !important;\n}\n.modal-card-body[data-v-5025578b] {\r\n    overflow: visible !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal .animation-content .modal-card[data-v-5025578b] {\n    overflow: visible !important;\n}\n.modal-card-body[data-v-5025578b] {\n    overflow: visible !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35506,7 +35661,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-0493a076]{\r\n    padding: 0 30px 0 30px;\r\n    height: 90px;\n}\n.burger-div[data-v-0493a076]{\r\n    width: 20px;\r\n    height: 3px;\r\n    background-color: black;\r\n    margin: 0 auto 3px 0;\r\n\r\n    border-radius: 10px;\n}\n.burger-button[data-v-0493a076]{\r\n    display: flex;\r\n    flex-direction: column;\n}\n.mynav[data-v-0493a076]{\r\n    padding: 25px;\r\n    background:dodgerblue;\r\n    color:white;\r\n    /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/\r\n    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);\r\n    display: flex;\n}\n.user[data-v-0493a076]{\r\n\r\n    font-weight: bold;\r\n    font-size: 1.2em;\r\n    margin: 0 auto;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-0493a076]{\n    padding: 0 30px 0 30px;\n    height: 90px;\n}\n.burger-div[data-v-0493a076]{\n    width: 20px;\n    height: 3px;\n    background-color: black;\n    margin: 0 auto 3px 0;\n\n    border-radius: 10px;\n}\n.burger-button[data-v-0493a076]{\n    display: flex;\n    flex-direction: column;\n}\n.mynav[data-v-0493a076]{\n    padding: 25px;\n    background:dodgerblue;\n    color:white;\n    /*border-bottom: 2px solid rgba(22, 48, 69, 0.53);*/\n    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);\n    display: flex;\n}\n.user[data-v-0493a076]{\n\n    font-weight: bold;\n    font-size: 1.2em;\n    margin: 0 auto;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -54156,6 +54311,22 @@ var render = function () {
                       ]),
                       _vm._v(" "),
                       _c(
+                        "b-field",
+                        [
+                          _c("b-button", {
+                            attrs: {
+                              label: "Clear selected",
+                              type: "is-danger",
+                              "icon-left": "close",
+                              disabled: !_vm.selected,
+                            },
+                            on: { click: _vm.clearSelected },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
                         "b-table",
                         {
                           attrs: {
@@ -54163,6 +54334,7 @@ var render = function () {
                             loading: _vm.loading,
                             paginated: "",
                             "backend-pagination": "",
+                            selected: _vm.selected,
                             total: _vm.total,
                             "per-page": _vm.perPage,
                             "aria-next-label": "Next page",
@@ -54173,13 +54345,17 @@ var render = function () {
                             "default-sort-direction": _vm.defaultSortDirection,
                           },
                           on: {
+                            "update:selected": function ($event) {
+                              _vm.selected = $event
+                            },
                             "page-change": _vm.onPageChange,
+                            select: _vm.loadPaymentDetail,
                             sort: _vm.onSort,
                           },
                         },
                         [
                           _c("b-table-column", {
-                            attrs: { field: "payment_detail_id", label: "ID" },
+                            attrs: { field: "payment_id", label: "ID" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -54187,7 +54363,28 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                            " +
-                                        _vm._s(props.row.payment_detail_id) +
+                                        _vm._s(props.row.payment_id) +
+                                        "\n                                        "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "bhouse_name",
+                              label: "Bhouse Name",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(props.row.bhouse_name) +
                                         "\n                                        "
                                     ),
                                   ]
@@ -54261,7 +54458,7 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("b-table-column", {
-                            attrs: { field: "payment_status", label: "Status" },
+                            attrs: { field: "balance", label: "Balance" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -54269,127 +54466,8 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                            " +
-                                        _vm._s(props.row.payment_status) +
+                                        _vm._s(props.row.balance) +
                                         "\n                                        "
-                                    ),
-                                  ]
-                                },
-                              },
-                            ]),
-                          }),
-                          _vm._v(" "),
-                          _c("b-table-column", {
-                            attrs: {
-                              field: "receipt_img",
-                              label: "Receipt",
-                              centered: "",
-                            },
-                            scopedSlots: _vm._u([
-                              {
-                                key: "default",
-                                fn: function (props) {
-                                  return [
-                                    props.row.receipt_img
-                                      ? _c(
-                                          "span",
-                                          [
-                                            _c("b-icon", {
-                                              attrs: {
-                                                icon: "check",
-                                                type: "is-success",
-                                              },
-                                            }),
-                                          ],
-                                          1
-                                        )
-                                      : _c(
-                                          "span",
-                                          [
-                                            _c("b-icon", {
-                                              attrs: {
-                                                icon: "minus-circle-outline",
-                                                type: "is-danger",
-                                              },
-                                            }),
-                                          ],
-                                          1
-                                        ),
-                                  ]
-                                },
-                              },
-                            ]),
-                          }),
-                          _vm._v(" "),
-                          _c("b-table-column", {
-                            attrs: { label: "Action" },
-                            scopedSlots: _vm._u([
-                              {
-                                key: "default",
-                                fn: function (props) {
-                                  return [
-                                    _c(
-                                      "b-dropdown",
-                                      {
-                                        attrs: { "aria-role": "list" },
-                                        scopedSlots: _vm._u(
-                                          [
-                                            {
-                                              key: "trigger",
-                                              fn: function (ref) {
-                                                var active = ref.active
-                                                return [
-                                                  _c("b-button", {
-                                                    staticClass: "is-small",
-                                                    attrs: {
-                                                      label: "...",
-                                                      type: "is-primary",
-                                                      "icon-right": active
-                                                        ? "menu-up"
-                                                        : "menu-down",
-                                                    },
-                                                  }),
-                                                ]
-                                              },
-                                            },
-                                          ],
-                                          null,
-                                          true
-                                        ),
-                                      },
-                                      [
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-dropdown-item",
-                                          {
-                                            attrs: { "aria-role": "listitem" },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.openModalAttachment(
-                                                  props.row
-                                                )
-                                              },
-                                            },
-                                          },
-                                          [_vm._v("Attach Payment Receipt")]
-                                        ),
-                                        _vm._v(" "),
-                                        props.row.receipt_img
-                                          ? _c(
-                                              "b-dropdown-item",
-                                              {
-                                                attrs: {
-                                                  "aria-role": "listitem",
-                                                  tag: "a",
-                                                  href:
-                                                    "/my-payment-receipt/" +
-                                                    props.row.payment_detail_id,
-                                                },
-                                              },
-                                              [_vm._v("Show Receipt")]
-                                            )
-                                          : _vm._e(),
-                                      ],
-                                      1
                                     ),
                                   ]
                                 },
@@ -54399,6 +54477,252 @@ var render = function () {
                         ],
                         1
                       ),
+                      _vm._v(" "),
+                      _c("h2", { staticClass: "title is-5 mt-5" }, [
+                        _vm._v("PAYMENT DETAILS"),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "columns" }, [
+                        _c(
+                          "div",
+                          { staticClass: "column" },
+                          [
+                            _c(
+                              "b-table",
+                              {
+                                attrs: {
+                                  data: _vm.dataDetail,
+                                  loading: _vm.loadingDetail,
+                                  paginated: "",
+                                  "backend-pagination": "",
+                                  total: _vm.totalDetail,
+                                  "per-page": _vm.perPageDetail,
+                                  "aria-next-label": "Next page",
+                                  "aria-previous-label": "Previous page",
+                                  "aria-page-label": "Page",
+                                  "aria-current-label": "Current page",
+                                  "backend-sorting": "",
+                                  "default-sort-direction":
+                                    _vm.defaultSortDirectionDetail,
+                                },
+                                on: {
+                                  "page-change": _vm.onPageChangeDetail,
+                                  sort: _vm.onSortDetail,
+                                },
+                              },
+                              [
+                                _c("b-table-column", {
+                                  attrs: {
+                                    field: "payment_detail_id",
+                                    label: "Detail ID",
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function (props) {
+                                        return [
+                                          _vm._v(
+                                            "\n                                                    " +
+                                              _vm._s(
+                                                props.row.payment_detail_id
+                                              ) +
+                                              "\n                                                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ]),
+                                }),
+                                _vm._v(" "),
+                                _c("b-table-column", {
+                                  attrs: {
+                                    field: "rental_price",
+                                    label: "Rental Price",
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function (props) {
+                                        return [
+                                          _vm._v(
+                                            "\n                                                    " +
+                                              _vm._s(props.row.rental_price) +
+                                              "\n                                                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ]),
+                                }),
+                                _vm._v(" "),
+                                _c("b-table-column", {
+                                  attrs: {
+                                    field: "amount_paid",
+                                    label: "Amount Paid",
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function (props) {
+                                        return [
+                                          _vm._v(
+                                            "\n                                                    " +
+                                              _vm._s(props.row.amount_paid) +
+                                              "\n                                                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ]),
+                                }),
+                                _vm._v(" "),
+                                _c("b-table-column", {
+                                  attrs: { field: "balance", label: "Balance" },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function (props) {
+                                        return [
+                                          _vm._v(
+                                            "\n                                                    " +
+                                              _vm._s(props.row.balance) +
+                                              "\n                                                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ]),
+                                }),
+                                _vm._v(" "),
+                                _c("b-table-column", {
+                                  attrs: {
+                                    field: "payment_status",
+                                    label: "Status",
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function (props) {
+                                        return [
+                                          _vm._v(
+                                            "\n                                                    " +
+                                              _vm._s(props.row.payment_status) +
+                                              "\n                                                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ]),
+                                }),
+                                _vm._v(" "),
+                                _c("b-table-column", {
+                                  attrs: {
+                                    field: "date_paid",
+                                    label: "Date Paid",
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function (props) {
+                                        return [
+                                          _vm._v(
+                                            "\n                                                    " +
+                                              _vm._s(props.row.date_paid) +
+                                              "\n                                                "
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ]),
+                                }),
+                                _vm._v(" "),
+                                _c("b-table-column", {
+                                  attrs: { label: "Action" },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "default",
+                                      fn: function (props) {
+                                        return [
+                                          _c(
+                                            "b-dropdown",
+                                            {
+                                              attrs: { "aria-role": "list" },
+                                              scopedSlots: _vm._u(
+                                                [
+                                                  {
+                                                    key: "trigger",
+                                                    fn: function (ref) {
+                                                      var active = ref.active
+                                                      return [
+                                                        _c("b-button", {
+                                                          staticClass:
+                                                            "is-small",
+                                                          attrs: {
+                                                            label: "...",
+                                                            type: "is-primary",
+                                                            "icon-right": active
+                                                              ? "menu-up"
+                                                              : "menu-down",
+                                                          },
+                                                        }),
+                                                      ]
+                                                    },
+                                                  },
+                                                ],
+                                                null,
+                                                true
+                                              ),
+                                            },
+                                            [
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-dropdown-item",
+                                                {
+                                                  attrs: {
+                                                    "aria-role": "listitem",
+                                                  },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.openPayBill(
+                                                        props.row
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [_vm._v("Pay Bill")]
+                                              ),
+                                              _vm._v(" "),
+                                              props.row.receipt_img
+                                                ? _c(
+                                                    "b-dropdown-item",
+                                                    {
+                                                      attrs: {
+                                                        "aria-role": "listitem",
+                                                        tag: "a",
+                                                        href:
+                                                          "/my-payment-receipt/" +
+                                                          props.row
+                                                            .payment_detail_id,
+                                                      },
+                                                    },
+                                                    [_vm._v("Show Receipt")]
+                                                  )
+                                                : _vm._e(),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ]),
+                                }),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ]),
                     ],
                     1
                   ),
@@ -54421,11 +54745,11 @@ var render = function () {
             "aria-modal": "",
           },
           model: {
-            value: _vm.modalAttachment,
+            value: _vm.modalPayBill,
             callback: function ($$v) {
-              _vm.modalAttachment = $$v
+              _vm.modalPayBill = $$v
             },
-            expression: "modalAttachment",
+            expression: "modalPayBill",
           },
         },
         [
@@ -54435,7 +54759,7 @@ var render = function () {
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
-                  return _vm.submitPaymentReceipt.apply(null, arguments)
+                  return _vm.submitPayBill.apply(null, arguments)
                 },
               },
             },
@@ -54443,7 +54767,7 @@ var render = function () {
               _c("div", { staticClass: "modal-card" }, [
                 _c("header", { staticClass: "modal-card-head" }, [
                   _c("p", { staticClass: "modal-card-title" }, [
-                    _vm._v("Upload Transaction"),
+                    _vm._v("Pay Bill Transaction"),
                   ]),
                   _vm._v(" "),
                   _c("button", {
@@ -54451,7 +54775,7 @@ var render = function () {
                     attrs: { type: "button" },
                     on: {
                       click: function ($event) {
-                        _vm.modalAttachment = false
+                        _vm.modalPayBill = false
                       },
                     },
                   }),
@@ -54544,6 +54868,44 @@ var render = function () {
                         1
                       ),
                     ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Payment",
+                                type: this.errors.payment ? "is-danger" : "",
+                                message: this.errors.payment
+                                  ? this.errors.payment[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c("b-numberinput", {
+                                attrs: {
+                                  controls: false,
+                                  placeholder: "Payment",
+                                },
+                                model: {
+                                  value: _vm.fields.payment,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "payment", $$v)
+                                  },
+                                  expression: "fields.payment",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
                   ]),
                 ]),
                 _vm._v(" "),
@@ -54555,7 +54917,7 @@ var render = function () {
                       attrs: { label: "Close" },
                       on: {
                         click: function ($event) {
-                          _vm.modalAttachment = false
+                          _vm.modalPayBill = false
                         },
                       },
                     }),
@@ -55756,7 +56118,7 @@ var render = function () {
                         _vm._s(_vm.data.mname) +
                         " " +
                         _vm._s(_vm.data.lname) +
-                        " \n                                "
+                        "\n                                "
                     ),
                   ]),
                   _vm._v(" "),
@@ -57597,7 +57959,7 @@ var render = function () {
                         },
                         [
                           _c("b-table-column", {
-                            attrs: { field: "boarder_id", label: "ID" },
+                            attrs: { field: "payment_detail_id", label: "ID" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -57615,7 +57977,7 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("b-table-column", {
-                            attrs: { field: "date_pay", label: "Date Pay" },
+                            attrs: { field: "date_paid", label: "Date Paid" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -57623,7 +57985,7 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                " +
-                                        _vm._s(props.row.date_pay) +
+                                        _vm._s(props.row.date_paid) +
                                         "\n                            "
                                     ),
                                   ]
@@ -57652,8 +58014,8 @@ var render = function () {
                           _vm._v(" "),
                           _c("b-table-column", {
                             attrs: {
-                              field: "payment_to_pay",
-                              label: "Payment",
+                              field: "amount_paid",
+                              label: "Amount Paid",
                             },
                             scopedSlots: _vm._u([
                               {
@@ -57662,7 +58024,25 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                " +
-                                        _vm._s(props.row.payment_to_pay) +
+                                        _vm._s(props.row.amount_paid) +
+                                        "\n                            "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "balance", label: "Balance" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(props.row.balance) +
                                         "\n                            "
                                     ),
                                   ]
@@ -58008,6 +58388,63 @@ var render = function () {
                                     _vm._v(
                                       "\n                                        " +
                                         _vm._s(props.row.bedspace_name) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: {
+                              field: "rental_price",
+                              label: "Rental Price",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.rental_price) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "payment", label: "Boarder Paid" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.payment) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                          _vm._v(" "),
+                          _c("b-table-column", {
+                            attrs: { field: "balance", label: "Balance" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (props) {
+                                  return [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(props.row.balance) +
                                         "\n                                    "
                                     ),
                                   ]
@@ -58595,7 +59032,7 @@ var render = function () {
                                       ? _c("span", [_vm._v("CANCELLED")])
                                       : props.row.approval_status === "APPROVED"
                                       ? _c("span", [_vm._v("APPROVED")])
-                                      : _c("span", [_vm._v("PENDING")]),
+                                      : _c("span", [_vm._v("FAILED")]),
                                   ]
                                 },
                               },
@@ -61431,7 +61868,7 @@ var render = function () {
                 { attrs: { label: "Suffix" } },
                 [
                   _c("b-input", {
-                    attrs: { placeholder: "Middle Name", type: "text" },
+                    attrs: { placeholder: "Suffix", type: "text" },
                     model: {
                       value: _vm.fields.suffix,
                       callback: function ($$v) {

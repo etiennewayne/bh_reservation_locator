@@ -31,7 +31,7 @@
 
         <hr>
 
-        <div class="section" id="bedspaces">
+        <div class="section" id="bedspaces" >
             <div class="columns">
                 <div class="column">
                     <h1 class="title is-4 has-text-centered">BED SPACES</h1>
@@ -166,8 +166,10 @@ export default {
                 }
 
                 this.bedspaces = res.data;
-                window.location.hash = "bedspaces";
-                //console.log(this.bedspaces)
+
+                var element = document.getElementById("bedspaces");
+                element.scrollIntoView({behavior: "smooth", block: "center"});
+
             });
         },
 
@@ -189,7 +191,7 @@ export default {
                 if(res.data.status === 'reserved'){
                     this.$buefy.dialog.alert({
                         title: 'RESERVED',
-                        message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected after 24 hours. Please send a proof of transaction using your account and you may contact us for more information.',
+                        message: 'Thank you for choosing us. The bed space was successfully reserved and the payment will be expected before 24 hours. Please send a proof of transaction using your account. You may contact us for more information.',
                         type: 'is-success',
                         onConfirm: ()=>{
                             this.openBedSpaces(dataId, 1);
@@ -214,7 +216,6 @@ export default {
                         type: 'is-danger',
                         //title: 'UNAUTHORIZED!'
                     })
-
                 }
             });
         },
@@ -222,9 +223,7 @@ export default {
         initData: function(){
             this.rooms = JSON.parse(this.propData);
         }
-
     },
-
 
     mounted(){
         this.initData();
@@ -238,8 +237,11 @@ export default {
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: center;
-        background-color: whitesmoke;
+        margin:100px;
+        border-radius: .5em;
     }
+
+
 
     .bedspace-container{
         display: flex;
@@ -253,11 +255,18 @@ export default {
 
     .room{
         margin: 80px;
-        padding: 35px;
-        border: 2px solid grey;
+        padding: 40px;
+        border-radius: 5px;
         height: 400px;
         position: relative;
         background:rgb(7, 79, 151);
+        transition: ease-in-out .5s;
+    }
+
+    .room:hover{
+        box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);
+        -webkit-box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);
+        -moz-box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);
     }
 
     .room-image > img{
@@ -269,9 +278,7 @@ export default {
         cursor: pointer;
     }
 
-    .room-image > img:hover{
-        height: 210px;
-    }
+
 
     .room-title, .bedspace-title{
         font-weight: bold;
@@ -294,12 +301,12 @@ export default {
     .bedspace-detail{
         margin: 15px 0;
         color:  solid black;
-        
+
     }
     .columns{
         color:white;
     }
-  
+
 
 
 </style>

@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="landname"> Landowner: </div>
                                     <div class="landnames">
-                                        {{ data.fname }} {{ data.mname }} {{ data.lname }} 
+                                        {{ data.fname }} {{ data.mname }} {{ data.lname }}
                                     </div>
                                     <div class="conno"> Contact No.: </div>
                                     <div class="connos">
@@ -206,11 +206,11 @@ export default {
     .connos{
         margin-left: 6em;
     }
-    
+
     .bhouse-desc{
         font-size: 1em;
         margin-left: 6em;
-       
+
     }
     .loc{
         font-size: 1em;
@@ -223,20 +223,20 @@ export default {
     .bhouse-loc{
         margin-top: 15px;
         margin-left: 3em;
-       
+
     }
     .column{
         padding: 2em;
         background: white;
 
-       
+
     }
- 
+
     .title{
-    color:blue;  
+    color:blue;
     font-weight: bold;
     padding-left: 4.5em;
-  
+
     }
 
     .rules-content{
@@ -244,12 +244,12 @@ export default {
     color:white;
     padding: 1em;
     border-radius: 5px;
-   
+
 }
 .buttons mt-5{
     margin-left: 2em;
 }
- 
+
     #mapid { height: 500px; z-index: 0;}
 
 </style>

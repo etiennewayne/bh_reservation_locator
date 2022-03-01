@@ -75,6 +75,18 @@
                                             {{ props.row.bedspace_name }}
                                         </b-table-column>
 
+                                        <b-table-column field="rental_price" label="Rental Price" v-slot="props">
+                                            {{ props.row.rental_price }}
+                                        </b-table-column>
+
+                                        <b-table-column field="payment" label="Boarder Paid" v-slot="props">
+                                            {{ props.row.payment }}
+                                        </b-table-column>
+
+                                        <b-table-column field=balance label="Balance" v-slot="props">
+                                            {{ props.row.balance }}
+                                        </b-table-column>
+
                                         <b-table-column field="date_pay" label="Date Pay" v-slot="props">
                                             {{ props.row.date_pay }}
                                         </b-table-column>

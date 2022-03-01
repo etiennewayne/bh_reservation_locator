@@ -95,7 +95,7 @@ Route::get('/get-boarder-list', [App\Http\Controllers\LandOwner\BoarderListContr
 Route::post('/removeboarder-boarder-list/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'removeBoarder']);
 
 
-Route::get('get-boarder-bill/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'showPaymentDetails']);
+Route::get('/get-boarder-bill/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'showPaymentDetails']);
 
 //BOARDER PAYMENT LANDOWNER SIDE
 Route::resource('/boarder-payment', App\Http\Controllers\LandOwner\BoarderPaymentController::class);
@@ -105,7 +105,7 @@ Route::get('/boarder-payment-receipt/{payment_detail_id}', [App\Http\Controllers
 
 
 //Payment details
-Route::post('/boarder-submit-bill', [App\Http\Controllers\LandOwner\PaymentDetailController::class, 'store']);
+Route::post('/boarder-submit-bill', [App\Http\Controllers\LandOwner\PaymentController::class, 'store']);
 
 
 //BOARDING HOUSE ROOMS LAND OWNER
@@ -171,7 +171,9 @@ Route::get('/my-billing', [App\Http\Controllers\Boarder\MyPaymentController::cla
 Route::get('/my-payment-receipt/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getReceiptInfo']);
 
 Route::get('/get-my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPayment']);
-Route::post('/submit-receipt/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'submitReceipt']);
+Route::get('/get-my-payment-details/{payment_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPaymentDetail']);
+
+Route::post('/submit-pay-bill/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'submitPaymentBill']);
 
 
 
