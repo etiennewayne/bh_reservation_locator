@@ -191,7 +191,7 @@ Route::get('/get-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseControll
 
 
 
-//client bhroom
+//CLIENT BHROOM
 Route::get('/client-bh-rooms/{id}', [App\Http\Controllers\ClientBhouseRoomController::class, 'index']);
 Route::get('/get-client-bh-rooms/{id}', [App\Http\Controllers\ClientBhouseRoomController::class, 'getBhRoomsClient']);
 Route::get('/get-client-bhroom-bedspaces/{id}', [App\Http\Controllers\ClientBhouseRoomController::class, 'getBedSpaces']);

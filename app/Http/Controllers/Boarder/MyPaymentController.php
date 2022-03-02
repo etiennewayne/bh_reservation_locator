@@ -52,7 +52,7 @@ class MyPaymentController extends Controller
 
         $req->validate([
             'payment' => ['required'],
-            'receipt_img' =>  ['required', 'mimes:jpg,png,bmp', 'file', 'max:800'],
+            //'receipt_img' =>  ['required', 'mimes:jpg,png,bmp', 'file', 'max:800'],
         ], $message = [
             'receipt_img.mimes' => 'Your uploaded image must be a file of jpg, png or bmp.',
         ]);
@@ -86,11 +86,11 @@ class MyPaymentController extends Controller
                 'amount_paid' => $req->payment,
                 'balance' => $bal,
                 'date_paid' => date('Y-m-d'),
-                'receipt_img' => $n[2],
+                'receipt_img' => $img != null ? $n[2] : '',
                 'payment_status'=> $paymentStatus
             ]);
 
-        $payment->balance = $bal;
+        $payment->balance = $bal; 
         $payment->save();
 
 //        $balance = $data->payment_to_pay - ((double)$data->payment + (double)$req->payment);
