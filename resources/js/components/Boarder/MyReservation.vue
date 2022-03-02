@@ -69,6 +69,11 @@
                                             {{ props.row.book_bedspace_id }}
                                         </b-table-column>
 
+                                        <b-table-column field="room_no" label="Room Number" v-slot="props">
+                                            {{ props.row.room_no}}
+                                        </b-table-column>
+
+
                                         <b-table-column field="bedspace_name" label="Bed Space Name" v-slot="props">
                                             {{ props.row.bedspace.bedspace_name }}
                                         </b-table-column>

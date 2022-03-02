@@ -36,9 +36,6 @@ class ClientBhouseRoomController extends Controller
         $date24 = date('Y-m-d H:i:s', strtotime('-24 hours', strtotime(date('Y-m-d H:i:s'))));
         //subract 1 day from today;
 
-
-
-
         //return $dateNow;
         $rsrv = BookBedSpace::where('created_at', '<=', $date24)
             ->where('is_active', 1)
@@ -63,7 +60,7 @@ class ClientBhouseRoomController extends Controller
                 ]);
 
             foreach($rsrv as $item){
-                BedSpace::where('bedspace_id', '<=', $item->bedspace_id)
+                BedSpace::where('bedspace_id', '=', $item->bedspace_id)
                     ->update([
                         'is_booked' => 0
                     ]);

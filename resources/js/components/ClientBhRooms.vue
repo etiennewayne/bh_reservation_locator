@@ -266,9 +266,9 @@ export default {
     }
 
     .room:hover{
-        box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);
-        -webkit-box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);
-        -moz-box-shadow: 1px 6px 22px -1px rgba(28,112,37,1);
+        box-shadow: 10px 6px 22px -1px black;
+        -webkit-box-shadow: 01px 6px 22px -1px black;
+        -moz-box-shadow: 10px 6px 22px -1px black;
     }
 
     .room-image > img{

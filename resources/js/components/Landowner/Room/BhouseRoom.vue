@@ -134,13 +134,13 @@
                         <div class="">
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Room No"
+                                    <b-field label="Room Number"
                                              :type="this.errors.room_no ? 'is-danger':''"
                                              :message="this.errors.room_no ? this.errors.room_no[0] : ''">
                                         <b-input v-model="fields.room_no" type="text" icon="home-outline"></b-input>
                                     </b-field>
 
-                                    <b-field label="Room Desc"
+                                    <b-field label="Room Description"
                                              :type="this.errors.room_desc ? 'is-danger':''"
                                              :message="this.errors.room_desc ? this.errors.room_desc[0] : ''">
                                         <b-input v-model="fields.room_desc" type="textarea"></b-input>
