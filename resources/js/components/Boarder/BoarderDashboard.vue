@@ -3,8 +3,30 @@
           
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-4">
-                    <h1 class="title is-4"><b>WELCOME: {{ user.fname }} {{user.lname}}</b></h1> 
+                <div class="column is-6">
+                    <div class="box">
+                        <b-field label="Name">
+                            {{ user.fname }} {{ user.mname }} {{ user.lname }}
+                        </b-field>
+
+                        <b-field label="Email">
+                            {{ user.email }}
+                        </b-field>
+
+                        <b-field label="Contact No">
+                            {{ user.contact_no }}
+                        </b-field>
+
+                        <b-field label="Sex">
+                            {{ user.sex }}
+                        </b-field>
+
+                        <b-field label="Address">
+                            {{ user.brgyDesc }}, {{ user.citymunDesc }} {{ user.provDesc }}
+                        </b-field>
+
+
+                    </div>
                 </div>
             </div>
         </div>

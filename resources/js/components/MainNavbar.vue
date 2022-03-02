@@ -15,6 +15,7 @@
 
         <template #end>
             <b-navbar-item href="/">
+                <b-icon icon="home"></b-icon>
                 Home
             </b-navbar-item>
 <!--            <b-navbar-item href="#">-->
@@ -25,13 +26,16 @@
 <!--            </b-navbar-item>-->
 
             <b-navbar-item tag="div" v-if="user.username">
-                <b-navbar-item @click="open =  true">
-                    <strong>MENU</strong>
-                </b-navbar-item>
                 <b-navbar-item href="/gate">
+                    <b-icon icon="view-dashboard"></b-icon>
                     <strong>Dashboard</strong>
                 </b-navbar-item>
+                <b-navbar-item @click="open =  true">
+                    <b-icon icon="menu"></b-icon>
+                    <strong>MENU</strong>
+                </b-navbar-item>
                 <b-navbar-item @click="logout">
+                    <b-icon icon="logout"></b-icon>
                     <strong>Logout</strong>
                 </b-navbar-item>
             </b-navbar-item>
@@ -42,7 +46,7 @@
                 <b-navbar-item @click="isModalActive = true">
                     <strong>Login</strong>
                 </b-navbar-item>
-            </b-navbar-item tag="div">
+            </b-navbar-item>
 
         </template>
     </b-navbar>

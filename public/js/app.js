@@ -9421,6 +9421,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -13435,20 +13457,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propIsApprove'],
   data: function data() {
     return {
+      bhouses: [],
       is_approve: 0
     };
   },
   methods: {
+    loadBhouses: function loadBhouses() {
+      var _this = this;
+
+      axios.get('/get-landowner-bhouses').then(function (res) {
+        _this.bhouses = res.data;
+      });
+    },
     initData: function initData() {
       this.is_approve = parseInt(this.propIsApprove);
     }
   },
   mounted: function mounted() {
     this.initData();
+    this.loadBhouses();
   }
 });
 
@@ -14087,6 +14155,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -35652,6 +35724,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n#mapid[data-v-1c60377e] { height: 50
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-5aacca1e]{\r\n    width: 500px;\r\n    margin: auto;\n}\r\n\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/NavbarLandOwner.vue?vue&type=style&index=0&id=0493a076&scoped=true&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/NavbarLandOwner.vue?vue&type=style&index=0&id=0493a076&scoped=true&lang=css& ***!
@@ -48233,6 +48329,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_style_index_0_id_5aacca1e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_style_index_0_id_5aacca1e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_style_index_0_id_5aacca1e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/NavbarLandOwner.vue?vue&type=style&index=0&id=0493a076&scoped=true&lang=css&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/NavbarLandOwner.vue?vue&type=style&index=0&id=0493a076&scoped=true&lang=css& ***!
@@ -49558,23 +49684,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LandownerDashboard.vue?vue&type=template&id=5aacca1e& */ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&");
+/* harmony import */ var _LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true& */ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true&");
 /* harmony import */ var _LandownerDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LandownerDashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _LandownerDashboard_vue_vue_type_style_index_0_id_5aacca1e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css& */ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _LandownerDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__.render,
-  _LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "5aacca1e",
   null
   
 )
@@ -50565,6 +50693,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_style_index_0_id_5aacca1e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=style&index=0&id=5aacca1e&scoped=true&lang=css&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Landowner/NavbarLandOwner.vue?vue&type=style&index=0&id=0493a076&scoped=true&lang=css&":
 /*!************************************************************************************************************************!*\
   !*** ./resources/js/components/Landowner/NavbarLandOwner.vue?vue&type=style&index=0&id=0493a076&scoped=true&lang=css& ***!
@@ -50974,19 +51115,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e& ***!
-  \*************************************************************************************************/
+/***/ "./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true& ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LandownerDashboard.vue?vue&type=template&id=5aacca1e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LandownerDashboard_vue_vue_type_template_id_5aacca1e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true&");
 
 
 /***/ }),
@@ -54125,17 +54266,61 @@ var render = function () {
   return _c("div", [
     _c("div", { staticClass: "section" }, [
       _c("div", { staticClass: "columns is-centered" }, [
-        _c("div", { staticClass: "column is-4" }, [
-          _c("h1", { staticClass: "title is-4" }, [
-            _c("b", [
-              _vm._v(
-                "WELCOME: " +
-                  _vm._s(_vm.user.fname) +
-                  " " +
-                  _vm._s(_vm.user.lname)
-              ),
-            ]),
-          ]),
+        _c("div", { staticClass: "column is-6" }, [
+          _c(
+            "div",
+            { staticClass: "box" },
+            [
+              _c("b-field", { attrs: { label: "Name" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.user.fname) +
+                    " " +
+                    _vm._s(_vm.user.mname) +
+                    " " +
+                    _vm._s(_vm.user.lname) +
+                    "\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("b-field", { attrs: { label: "Email" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.user.email) +
+                    "\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("b-field", { attrs: { label: "Contact No" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.user.contact_no) +
+                    "\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("b-field", { attrs: { label: "Sex" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.user.sex) +
+                    "\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("b-field", { attrs: { label: "Address" } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.user.brgyDesc) +
+                    ", " +
+                    _vm._s(_vm.user.citymunDesc) +
+                    " " +
+                    _vm._s(_vm.user.provDesc) +
+                    "\n                    "
+                ),
+              ]),
+            ],
+            1
+          ),
         ]),
       ]),
     ]),
@@ -60167,10 +60352,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&":
-/*!****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e& ***!
-  \****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/LandownerDashboard.vue?vue&type=template&id=5aacca1e&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60216,9 +60401,80 @@ var render = function () {
         _vm._v("LANDOWNER DASHBOARD"),
       ]),
     ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "section" }, [
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column" }, [
+          _c(
+            "div",
+            { staticClass: "bhouses" },
+            _vm._l(_vm.bhouses, function (item, index) {
+              return _c("div", { key: index, staticClass: "card" }, [
+                _c("div", { staticClass: "card-image" }, [
+                  _c("figure", { staticClass: "image is-4by3" }, [
+                    _c("img", {
+                      attrs: {
+                        src: "/storage/bhouses/" + item.bhouse_img_path,
+                      },
+                    }),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-content" }, [
+                  _c("div", { staticClass: "media" }, [
+                    _vm._m(0, true),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-content" }, [
+                      _c("p", { staticClass: "title is-4" }, [
+                        _vm._v(_vm._s(item.bhouse_name)),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "subtitle is-6" }, [
+                        _vm._v(
+                          _vm._s(item.lname) +
+                            ", " +
+                            _vm._s(item.fname) +
+                            " " +
+                            _vm._s(item.mname)
+                        ),
+                      ]),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "content" }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(item.bhouse_desc) +
+                        "\n                            "
+                    ),
+                  ]),
+                ]),
+              ])
+            }),
+            0
+          ),
+        ]),
+      ]),
+    ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "media-left" }, [
+      _c("figure", { staticClass: "image is-48x48" }, [
+        _c("img", {
+          attrs: {
+            src: "https://bulma.io/images/placeholders/96x96.png",
+            alt: "Placeholder image",
+          },
+        }),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -61349,15 +61605,32 @@ var render = function () {
             key: "end",
             fn: function () {
               return [
-                _c("b-navbar-item", { attrs: { href: "/" } }, [
-                  _vm._v("\r\n                Home\r\n            "),
-                ]),
+                _c(
+                  "b-navbar-item",
+                  { attrs: { href: "/" } },
+                  [
+                    _c("b-icon", { attrs: { icon: "home" } }),
+                    _vm._v("\r\n                Home\r\n            "),
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _vm.user.username
                   ? _c(
                       "b-navbar-item",
                       { attrs: { tag: "div" } },
                       [
+                        _c(
+                          "b-navbar-item",
+                          { attrs: { href: "/gate" } },
+                          [
+                            _c("b-icon", { attrs: { icon: "view-dashboard" } }),
+                            _vm._v(" "),
+                            _c("strong", [_vm._v("Dashboard")]),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
                         _c(
                           "b-navbar-item",
                           {
@@ -61367,16 +61640,24 @@ var render = function () {
                               },
                             },
                           },
-                          [_c("strong", [_vm._v("MENU")])]
+                          [
+                            _c("b-icon", { attrs: { icon: "menu" } }),
+                            _vm._v(" "),
+                            _c("strong", [_vm._v("MENU")]),
+                          ],
+                          1
                         ),
                         _vm._v(" "),
-                        _c("b-navbar-item", { attrs: { href: "/gate" } }, [
-                          _c("strong", [_vm._v("Dashboard")]),
-                        ]),
-                        _vm._v(" "),
-                        _c("b-navbar-item", { on: { click: _vm.logout } }, [
-                          _c("strong", [_vm._v("Logout")]),
-                        ]),
+                        _c(
+                          "b-navbar-item",
+                          { on: { click: _vm.logout } },
+                          [
+                            _c("b-icon", { attrs: { icon: "logout" } }),
+                            _vm._v(" "),
+                            _c("strong", [_vm._v("Logout")]),
+                          ],
+                          1
+                        ),
                       ],
                       1
                     )

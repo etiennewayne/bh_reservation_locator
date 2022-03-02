@@ -78,6 +78,7 @@ Route::post('bh-request-deactivate/{id}', [App\Http\Controllers\Administrator\BH
 //LANDOWNER
 //-------------------------///
 Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\LandownerDashboardController::class);
+Route::get('/get-landowner-bhouses', [App\Http\Controllers\LandOwner\LandownerDashboardController::class, 'getLandOwnerBhouses']);
 
 
 //BOARDING HOUSE

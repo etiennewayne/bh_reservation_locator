@@ -22,7 +22,16 @@ class BoarderDashboardController extends Controller
 
     public function getUser(){
         if(Auth::user()->role == 'BOARDER'){
-            return Auth::user();
+            $user = Auth::user();
+
+            $user = \DB::table('users as a')
+                ->leftJoin('provinces as b', 'a.province', 'b.provCode')
+                ->leftJoin('cities as c', 'a.city', 'c.citymunCode')
+                ->leftJoin('barangays as d', 'a.barangay', 'd.brgyCode')
+                ->where('a.user_id', $user->user_id)
+                ->first();
+
+            return $user;
         }
 
         return [];
