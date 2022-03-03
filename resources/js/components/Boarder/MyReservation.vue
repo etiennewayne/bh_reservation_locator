@@ -69,20 +69,19 @@
                                             {{ props.row.book_bedspace_id }}
                                         </b-table-column>
 
-                                        <b-table-column field="room_no" label="Room Number" v-slot="props">
+                                        <b-table-column field="room_no" label="Room No" v-slot="props">
                                             {{ props.row.room_no}}
                                         </b-table-column>
 
-
                                         <b-table-column field="bedspace_name" label="Bed Space Name" v-slot="props">
-                                            {{ props.row.bedspace.bedspace_name }}
+                                            {{ props.row.bedspace_name }}
                                         </b-table-column>
 
                                         <b-table-column field="rental_price" label="Rental Price" v-slot="props">
                                             {{ props.row.rental_price }}
                                         </b-table-column>
 
-                                        <b-table-column field="is_active" label="ACTIVE" v-slot="props">
+                                        <b-table-column field="is_active" label="Active" v-slot="props">
                                             <span v-if="props.row.is_active === 1">ACTIVE</span>
                                             <span v-else>INACTIVE</span>
                                         </b-table-column>

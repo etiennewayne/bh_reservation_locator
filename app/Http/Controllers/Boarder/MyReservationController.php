@@ -29,8 +29,11 @@ class MyReservationController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $userid = Auth::user()->user_id;
-        $data = BookBedSpace::where('book_user_id', $userid)
-            ->with(['user', 'bedspace'])
+        $data = \DB::table('book_bedspaces as a')
+            ->join('bedspaces as b', 'a.bedspace_id', 'b.bedspace_id')
+            ->join('rooms as c', 'b.room_id', 'c.room_id')
+            ->where('book_user_id', $userid)
+            
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
