@@ -4,6 +4,7 @@
         <div class="section">
             <div class="columns is-centered">
                 <div class="column is-6">
+                    
                     <div class="box">
                         <b-field label="Name">
                             {{ user.fname }} {{ user.mname }} {{ user.lname }}
@@ -25,8 +26,8 @@
                             {{ user.brgyDesc }}, {{ user.citymunDesc }} {{ user.provDesc }}
                         </b-field>
 
-
                     </div>
+                    
                 </div>
             </div>
         </div>
