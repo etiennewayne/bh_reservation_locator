@@ -63,8 +63,8 @@
                                         :default-sort-direction="defaultSortDirection"
                                         @sort="onSort">
 
-                                        <b-table-column field="payment_detail_id" label="ID" v-slot="props">
-                                            {{ props.row.payment_detail_id }}
+                                        <b-table-column field="payment_id" label="ID" v-slot="props">
+                                            {{ props.row.payment_id }}
                                         </b-table-column>
 
                                         <b-table-column field="name" label="Name" v-slot="props">
@@ -116,8 +116,8 @@
 
 
                                                 <b-dropdown-item aria-role="listitem" @click="showModalTransaction(props.row)">Show Proof of Transaction</b-dropdown-item>
-                                                <b-dropdown-item aria-role="listitem" @click="maskAsPaid(props.row)">Mark as Paid</b-dropdown-item>
-                                                <b-dropdown-item v-if="props.row.receipt_img" aria-role="listitem" tag="a" :href="`boarder-payment-receipt/${props.row.payment_detail_id}`">Show Receipt</b-dropdown-item>
+                                                <!-- <b-dropdown-item aria-role="listitem" @click="maskAsPaid(props.row)">Mark as Paid</b-dropdown-item> -->
+                                                <b-dropdown-item v-if="props.row.receipt_img" aria-role="listitem" tag="a" :href="`boarder-payment-receipt/${props.row.payment_id}`">Show Receipt</b-dropdown-item>
 
 
                                             </b-dropdown>

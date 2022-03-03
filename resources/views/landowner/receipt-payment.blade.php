@@ -21,7 +21,7 @@
 
                     </div>
                     <div style="display: flex; text-align: left; margin-top: 25px;">
-                        <div>Received from: {{ $data->fname }}, {{ $data->mname }} {{ $data->lname }} the amount of {{ $data->payment_to_pay }}
+                        <div>Received from: {{ $data->fname }}, {{ $data->mname }} {{ $data->lname }} the amount of {{ $data->amount_paid }}
                             for payment of boarding house rental.</div>
                     </div>
 
@@ -30,16 +30,22 @@
                         <table>
                             <tr>
                                 <td>Amount to be received</td>
-                                <td> {{ $data->price }}</td>
+                                <td> {{ $data->rental_price }}</td>
                             </tr>
                             <tr>
                                 <td>Amount received</td>
-                                <td>{{ $data->payment_to_pay }}</td>
+                                <td>{{ $data->amount_paid }}</td>
                             </tr>
+                            {{-- <tr>
+                                <td>Previous Balance</td>
+                                <td>{{ $data-> }} - {{ $data->balance }}</td>
+                            </tr> --}}
                             <tr>
-                                <td>Balance</td>
-                                <td><?php echo $data->price - $data->payment_to_pay; ?></td>
+                                <td>Total Balance</td>
+                                <td><?php echo $data->balance; ?></td>
                             </tr>
+
+                          
                         </table>
                     </div>
 

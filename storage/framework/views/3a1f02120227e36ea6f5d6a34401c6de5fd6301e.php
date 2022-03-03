@@ -20,7 +20,7 @@
 
                     </div>
                     <div style="display: flex; text-align: left; margin-top: 25px;">
-                        <div>Received from: <?php echo e($data->fname); ?>, <?php echo e($data->mname); ?> <?php echo e($data->lname); ?> the amount of <?php echo e($data->payment_to_pay); ?>
+                        <div>Received from: <?php echo e($data->fname); ?>, <?php echo e($data->mname); ?> <?php echo e($data->lname); ?> the amount of <?php echo e($data->amount_paid); ?>
 
                             for payment of boarding house rental.</div>
                     </div>
@@ -30,16 +30,19 @@
                         <table>
                             <tr>
                                 <td>Amount to be received</td>
-                                <td> <?php echo e($data->price); ?></td>
+                                <td> <?php echo e($data->rental_price); ?></td>
                             </tr>
                             <tr>
                                 <td>Amount received</td>
-                                <td><?php echo e($data->payment_to_pay); ?></td>
+                                <td><?php echo e($data->amount_paid); ?></td>
                             </tr>
+                            
                             <tr>
-                                <td>Balance</td>
-                                <td><?php echo $data->price - $data->payment_to_pay; ?></td>
+                                <td>Total Balance</td>
+                                <td><?php echo $data->balance; ?></td>
                             </tr>
+
+                          
                         </table>
                     </div>
 

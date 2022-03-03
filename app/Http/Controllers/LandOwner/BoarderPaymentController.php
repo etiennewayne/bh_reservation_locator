@@ -48,20 +48,21 @@ class BoarderPaymentController extends Controller
 
     public function getReceiptInfo($id){
 
-        $data = DB::table('payment_details as a')
-            ->join('boarders as b',  'a.boarder_id', 'b.boarder_id')
-            ->join('users as c', 'b.boarder_user_id', 'c.user_id')
-            ->join('bedspaces as d', 'b.bedspace_id','d.bedspace_id')
-            ->join('boarding_houses as e', 'd.bhouse_id','e.bhouse_id')
-            ->leftJoin('provinces as f', 'c.province','f.provCode')
-            ->leftJoin('cities as g', 'c.city','g.citymunCode')
-            ->leftJoin('barangays as h', 'c.barangay','h.brgyCode')
-            ->where('a.payment_detail_id', $id)
+        $data = DB::table('payments as a')
+            ->join('payment_details as b', 'a.payment_id', 'b.payment_id')
+            ->join('boarders as c',  'a.boarder_id', 'c.boarder_id')
+            ->join('users as d', 'c.boarder_user_id', 'd.user_id')
+            ->join('bedspaces as e', 'c.bedspace_id','e.bedspace_id')
+            ->join('boarding_houses as f', 'e.bhouse_id','f.bhouse_id')
+            ->leftJoin('provinces as g', 'd.province','g.provCode')
+            ->leftJoin('cities as h', 'd.city','h.citymunCode')
+            ->leftJoin('barangays as i', 'd.barangay','i.brgyCode')
+            ->where('a.payment_id', $id)
             ->get();
 
         //return $data;
         $dateNow = date('Y-m-d');
-
+        
         return view('landowner.receipt-payment')->with('data', $data[0])
             ->with('dateNow', $dateNow);
     }

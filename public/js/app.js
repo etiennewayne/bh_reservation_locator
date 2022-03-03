@@ -58548,7 +58548,7 @@ var render = function () {
                         },
                         [
                           _c("b-table-column", {
-                            attrs: { field: "payment_detail_id", label: "ID" },
+                            attrs: { field: "payment_id", label: "ID" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",
@@ -58556,7 +58556,7 @@ var render = function () {
                                   return [
                                     _vm._v(
                                       "\n                                        " +
-                                        _vm._s(props.row.payment_detail_id) +
+                                        _vm._s(props.row.payment_id) +
                                         "\n                                    "
                                     ),
                                   ]
@@ -58799,19 +58799,6 @@ var render = function () {
                                           [_vm._v("Show Proof of Transaction")]
                                         ),
                                         _vm._v(" "),
-                                        _c(
-                                          "b-dropdown-item",
-                                          {
-                                            attrs: { "aria-role": "listitem" },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.maskAsPaid(props.row)
-                                              },
-                                            },
-                                          },
-                                          [_vm._v("Mark as Paid")]
-                                        ),
-                                        _vm._v(" "),
                                         props.row.receipt_img
                                           ? _c(
                                               "b-dropdown-item",
@@ -58821,7 +58808,7 @@ var render = function () {
                                                   tag: "a",
                                                   href:
                                                     "boarder-payment-receipt/" +
-                                                    props.row.payment_detail_id,
+                                                    props.row.payment_id,
                                                 },
                                               },
                                               [_vm._v("Show Receipt")]
